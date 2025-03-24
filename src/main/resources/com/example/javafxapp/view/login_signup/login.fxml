@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="793.0" prefWidth="1310.0" styleClass="login" stylesheets="@../styles/login.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="793.0" prefWidth="1310.0" styleClass="login" stylesheets="@../styles/login_signup.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <right>
       <VBox prefHeight="793.0" prefWidth="469.0" BorderPane.alignment="CENTER">
          <children>
@@ -31,7 +31,7 @@
       </VBox>
    </right>
    <center>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" stylesheets="@../../styles/login.css" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" stylesheets="@../../styles/login_signup.css" BorderPane.alignment="CENTER">
          <children>
             <Text layoutX="237.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" Welcome back!" wrappingWidth="269.13671875">
                <font>
@@ -57,7 +57,7 @@
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
-                  <JFXButton prefHeight="54.0" prefWidth="447.0" styleClass="btn-login" stylesheets="@../styles/login.css" text="LOG IN">
+                  <JFXButton prefHeight="54.0" prefWidth="447.0" styleClass="btn-login" stylesheets="@../styles/login_signup.css" text="LOG IN">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
@@ -74,7 +74,7 @@
                      </font>
                   </Label>
                   <Label />
-                  <JFXButton layoutX="15.0" layoutY="246.0" prefHeight="54.0" prefWidth="447.0" styleClass="btn-signup" stylesheets="@../styles/login.css" text="GO TO SIGN UP">
+                  <JFXButton layoutX="15.0" layoutY="246.0" prefHeight="54.0" prefWidth="447.0" styleClass="btn-signup" stylesheets="@../styles/login_signup.css" text="GO TO SIGN UP">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
