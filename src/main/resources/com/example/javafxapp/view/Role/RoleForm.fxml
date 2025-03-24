@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="10" alignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.javafxapp.controller.RoleFormController">
+    <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+
+    <Label text="Thêm Quyền Mới" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+    <HBox spacing="10">
+        <Label text="Tên quyền:"/>
+        <TextField fx:id="txtRoleName" promptText="Nhập tên quyền"/>
+    </HBox>
+
+    <HBox spacing="10">
+        <Label text="Mô tả:"/>
+        <TextField fx:id="txtDescription" promptText="Nhập mô tả quyền"/>
+    </HBox>
+
+    <Button text="Thêm Quyền" onAction="#handleAddRole"/>
+
+    <Label fx:id="lblStatus" textFill="red"/>
+</VBox>
