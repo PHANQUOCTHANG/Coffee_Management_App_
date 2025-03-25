@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="10" alignment="CENTER" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.javafxapp.controller.AccountController">
+    <Label text="Account Management" />
+
+    <HBox spacing="10">
+        <Label text="Username:"/>
+        <TextField fx:id="accountNameField"/>
+    </HBox>
+
+    <HBox spacing="10">
+        <Label text="Password:"/>
+        <PasswordField fx:id="passwordField"/>
+    </HBox>
+
+    <HBox spacing="10">
+        <Label text="Role ID:"/>
+        <TextField fx:id="roleIdField"/>
+    </HBox>
+
+    <Button text="Add Account" onAction="#addAccount"/>
+
+    <TableView fx:id="accountTable">
+        <columns>
+            <TableColumn text="ID" fx:id="idColumn"/>
+            <TableColumn text="Username" fx:id="nameColumn"/>
+            <TableColumn text="Role ID" fx:id="roleColumn"/>
+        </columns>
+    </TableView>
+</VBox>

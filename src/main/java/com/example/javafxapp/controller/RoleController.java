@@ -6,7 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class RoleFormController {
+public class RoleController {
 
     @FXML
     private TextField txtRoleName;
@@ -18,7 +18,7 @@ public class RoleFormController {
     private final RoleDAO roleDAO = new RoleDAO();
 
     @FXML
-    private void handleAddRole() {
+    private void addRole() {
         String roleName = txtRoleName.getText().trim();
         String description = txtDescription.getText().trim();
 
