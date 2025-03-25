@@ -19,27 +19,32 @@ public class DashboardController {
 
     // Phương thức gọi khi trang Dashboard được tải
     public void initialize() {
-        lblWelcome.setText("Chào mừng, Người dùng!");
+        if (lblWelcome != null)
+            lblWelcome.setText("Chào mừng, Người dùng!");
     }
 
     @FXML
     private void handleManageUsers() {
-        lblWelcome.setText("Đây là trang Quản lý người dùng");
+        if (lblWelcome != null)
+            lblWelcome.setText("Đây là trang Quản lý người dùng");
     }
 
     @FXML
     private void handleManageRoles() {
-        lblWelcome.setText("Đây là trang Quản lý vai trò");
+        if (lblWelcome != null)
+            lblWelcome.setText("Đây là trang Quản lý vai trò");
     }
 
     @FXML
     private void handleReports() {
-        lblWelcome.setText("Đây là trang Báo cáo");
+        if (lblWelcome != null)
+            lblWelcome.setText("Đây là trang Báo cáo");
     }
 
     @FXML
     private void handleSettings() {
-        lblWelcome.setText("Đây là trang Cài đặt");
+        if (lblWelcome != null)
+            lblWelcome.setText("Đây là trang Cài đặt");
     }
 
     @FXML

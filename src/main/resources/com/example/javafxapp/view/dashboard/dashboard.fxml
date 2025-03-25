@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -13,16 +14,16 @@
         <VBox spacing="10" style="-fx-background-color: #2C3E50; -fx-padding: 20;">
             <Label text="DASHBOARD" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;"/>
 
-            <Button text="Quản lý người dùng" fx:id="btnManageUsers" onAction="#handleManageUsers"
-                    style="-fx-background-color: #34495E; -fx-text-fill: white;"/>
-            <Button text="Quản lý vai trò" fx:id="btnManageRoles" onAction="#handleManageRoles"
-                    style="-fx-background-color: #34495E; -fx-text-fill: white;"/>
-            <Button text="Báo cáo" fx:id="btnReports" onAction="#handleReports"
-                    style="-fx-background-color: #34495E; -fx-text-fill: white;"/>
-            <Button text="Cài đặt" fx:id="btnSettings" onAction="#handleSettings"
-                    style="-fx-background-color: #34495E; -fx-text-fill: white;"/>
-            <Button text="Đăng xuất" fx:id="btnLogout" onAction="#handleLogout"
-                    style="-fx-background-color: #E74C3C; -fx-text-fill: white;"/>
+            <JFXButton text="Quản lý người dùng" fx:id="btnManageUsers" onAction="#handleManageUsers"
+                       style="-fx-background-color: #34495E; -fx-text-fill: white;"/>
+            <JFXButton text="Quản lý vai trò" fx:id="btnManageRoles" onAction="#handleManageRoles"
+                       style="-fx-background-color: #34495E; -fx-text-fill: white;"/>
+            <JFXButton text="Báo cáo" fx:id="btnReports" onAction="#handleReports"
+                       style="-fx-background-color: #34495E; -fx-text-fill: white;"/>
+            <JFXButton text="Cài đặt" fx:id="btnSettings" onAction="#handleSettings"
+                       style="-fx-background-color: #34495E; -fx-text-fill: white;"/>
+            <JFXButton text="Đăng xuất" fx:id="btnLogout" onAction="#handleLogout"
+                       style="-fx-background-color: #E74C3C; -fx-text-fill: white;"/>
         </VBox>
     </left>
 
