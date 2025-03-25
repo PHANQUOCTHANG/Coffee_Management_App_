@@ -1,24 +1,18 @@
 package com.example.javafxapp.controller;
 
-import java.io.IOException;
 import java.net.URL;
 
 import com.example.javafxapp.alert.AlertInfo;
-import com.example.javafxapp.config.DatabaseConnection;
 import com.example.javafxapp.dao.AuthDAO;
+import com.example.javafxapp.model.Account;
 import com.example.javafxapp.pages.Pages;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
@@ -29,9 +23,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 
-public class Login_SignupController implements Initializable {
+public class AuthController implements Initializable {
     @FXML
     private AnchorPane aplogin;
     @FXML
@@ -44,6 +37,18 @@ public class Login_SignupController implements Initializable {
 
     @FXML
     private PasswordField passWordField ;
+
+    @FXML
+    private TextField signUpLoginNameField ;
+
+    @FXML
+    private PasswordField signUpPassWordField ;
+
+    @FXML
+    private PasswordField confirmPassWordField ;
+
+    @FXML
+    private Label lblStatus;
 
     private AuthDAO authDAO = new AuthDAO() ;
 
@@ -131,13 +136,41 @@ public class Login_SignupController implements Initializable {
         if (result) {
             Stage loginStage = (Stage) loginNameField.getScene().getWindow();
             Pages.openDashboard(loginStage);
-            System.out.println("Success");
         } else {
             AlertInfo.showAlert(Alert.AlertType.ERROR, "Lỗi", "Tên đăng nhập hoặc mật khẩu không đúng.");
-            System.out.println("No Success");
         }
     }
 
+    // sign up .
+    public void signUp() {
+        String loginName = signUpLoginNameField.getText().trim();
+        String password = signUpPassWordField.getText().trim();
+        String confirmPassword = confirmPassWordField.getText().trim();
+
+        if (loginName.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+            AlertInfo.showAlert(Alert.AlertType.WARNING, "Lỗi", "Vui lòng nhập đầy đủ thông tin.");
+            return;
+        }
+
+        if (!password.equals(confirmPassword)) {
+            AlertInfo.showAlert(Alert.AlertType.WARNING, "Lỗi", "Mật khẩu xác nhận chưa đúng.");
+        }
+
+        Account newAccount = new Account(loginName, password,2);
+        int generatedId = authDAO.signUp(newAccount);
+
+        if (generatedId != -1) {
+            lblStatus.setText("Thêm tài khoản thành công với ID: " + generatedId);
+            signUpLoginNameField.clear();
+            signUpPassWordField.clear();
+            confirmPassWordField.clear();
+        } else {
+            lblStatus.setText("Lỗi khi thêm tài khoản!");
+        }
+
+
+
+    }
 
 }
 
