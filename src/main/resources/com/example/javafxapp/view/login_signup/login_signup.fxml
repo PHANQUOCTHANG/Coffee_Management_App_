@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="796.0" prefWidth="1326.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxapp.controller.Login_SignupController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="796.0" prefWidth="1326.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxapp.controller.AuthController">
    <children>
       <AnchorPane fx:id="aplogin" layoutX="10.0" layoutY="10.0" prefHeight="785.0" prefWidth="744.0" stylesheets="@../../styles/login_signup.css">
          <children>
@@ -57,7 +57,6 @@
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
-                  <Label />
                   <JFXButton layoutX="15.0" layoutY="246.0" onAction="#showSignup" prefHeight="54.0" prefWidth="447.0" styleClass="btn-signup" stylesheets="@../styles/login_signup.css" text="GO TO SIGN UP">
                      <font>
                         <Font name="System Bold" size="16.0" />
@@ -70,52 +69,34 @@
             </VBox>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="apsignup" layoutX="584.0" layoutY="2.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="793.0" prefWidth="736.0" stylesheets="@../../styles/login_signup.css">
+      <AnchorPane fx:id="apsignup" layoutX="584.0" layoutY="2.0" prefHeight="793.0" prefWidth="736.0" stylesheets="@../../styles/login_signup.css">
          <children>
-            <Text layoutX="247.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign up" textAlignment="CENTER" wrappingWidth="269.13671875">
+            <Text layoutX="247.0" layoutY="76.0" text="Sign up" textAlignment="CENTER" wrappingWidth="269.13671875">
                <font>
                   <Font name="System Bold" size="36.0" />
                </font>
             </Text>
             <VBox alignment="TOP_CENTER" layoutX="153.0" layoutY="117.0" prefHeight="593.0" prefWidth="457.0">
                <children>
-                  <Label text="EMAIL">
+                  <Label text="LOGIN NAME">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
-                  <TextField prefHeight="35.0" prefWidth="457.0" />
-                  <Label alignment="BOTTOM_CENTER" prefHeight="36.0" prefWidth="101.0" text="USERNAME">
+                  <TextField fx:id="signUpLoginNameField" prefHeight="35.0" prefWidth="457.0" promptText="Login name" />
+                  <Label text="PASSWORD">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
-                  <TextField prefHeight="33.0" prefWidth="457.0" />
-                  <Label />
-                  <Label alignment="BOTTOM_CENTER" layoutX="188.0" layoutY="65.0" prefHeight="27.0" prefWidth="101.0" text="FULL NAME">
+                  <PasswordField fx:id="signUpPassWordField" prefHeight="33.0" prefWidth="457.0" promptText="Password" />
+                  <Label text="CONFIRM PASSWORD">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
-                  </Label>
-                  <TextField prefHeight="31.0" prefWidth="457.0" />
-                  <Label alignment="BOTTOM_CENTER" layoutX="188.0" layoutY="375.0" prefHeight="39.0" prefWidth="101.0" text="PASSWORD">
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font>
-                  </Label>
-                  <PasswordField prefHeight="33.0" prefWidth="457.0" />
-                  <Label alignment="BOTTOM_CENTER" layoutX="188.0" layoutY="444.0" prefHeight="39.0" prefWidth="153.0" text="PHONE NUMBER(*)">
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font>
-                  </Label>
-                  <TextField prefHeight="33.0" prefWidth="457.0" />
-                  <Label text="(*): doesn't need">
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
-                  </Label>
-                  <JFXButton prefHeight="54.0" prefWidth="447.0" styleClass="btn-login" stylesheets="@../styles/login_signup.css" text="SIGN UP">
+                   </Label>
+                  <PasswordField fx:id="confirmPassWordField" prefHeight="33.0" prefWidth="457.0" promptText="Confirm Password" />
+                  <JFXButton prefHeight="54.0" prefWidth="447.0" styleClass="btn-login" stylesheets="@../styles/login_signup.css" text="SIGN UP" onAction="#signUp">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
@@ -125,22 +106,6 @@
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
-                  </JFXButton>
-                  <Label alignment="BOTTOM_CENTER" layoutX="172.0" layoutY="173.0" prefHeight="43.0" prefWidth="147.0" text="You have account?" textFill="#755e5e">
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font>
-                  </Label>
-                  <JFXButton layoutX="15.0" layoutY="246.0" onAction="#showLogin" prefHeight="54.0" prefWidth="447.0" styleClass="btn-signup" stylesheets="@../styles/login_signup.css" text="GO TO LOG IN">
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <VBox.margin>
-                        <Insets top="15.0" />
-                     </VBox.margin>
                   </JFXButton>
                </children>
             </VBox>

@@ -70,12 +70,12 @@ public class AccountController {
         int generatedId = accountDAO.addAccount(newAccount);
 
         if (generatedId != -1) {
-//            lblStatus.setText("Thêm tài khoản thành công với ID: " + generatedId);
+            lblStatus.setText("Thêm tài khoản thành công với ID: " + generatedId);
             accountNameField.clear();
             passwordField.clear();
             roleIdField.clear();
         } else {
-//            lblStatus.setText("Lỗi khi thêm tài khoản!");
+            lblStatus.setText("Lỗi khi thêm tài khoản!");
         }
     }
 

@@ -10,6 +10,8 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 
 public class RoleDAO {
+
+    // Tạo 1 role .
     public int addRole(Role role) {
         String sql = "INSERT INTO Role (role_name, description) VALUES (?, ?)";
         int generatedId = -1;
