@@ -9,7 +9,7 @@ import java.util.List;
 
 public class AccountDAO {
 
-    public int insertAccount(Account account) {
+    public int addAccount(Account account) {
         String sql = "INSERT INTO Account (account_name, password, role_id) VALUES (?, ?, ?)";
         int generatedId = -1;
 

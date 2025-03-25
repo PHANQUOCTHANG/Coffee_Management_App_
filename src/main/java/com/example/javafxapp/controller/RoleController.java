@@ -28,7 +28,7 @@ public class RoleController {
         }
 
         Role newRole = new Role(roleName, description);
-        int generatedId = roleDAO.insertRole(newRole);
+        int generatedId = roleDAO.addRole(newRole);
 
         if (generatedId != -1) {
             lblStatus.setText("Thêm quyền thành công với ID: " + generatedId);

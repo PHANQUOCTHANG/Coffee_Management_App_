@@ -67,7 +67,7 @@ public class AccountController {
         }
 
         Account newAccount = new Account(accountName, password, roleId);
-        int generatedId = accountDAO.insertAccount(newAccount);
+        int generatedId = accountDAO.addAccount(newAccount);
 
         if (generatedId != -1) {
 //            lblStatus.setText("Thêm tài khoản thành công với ID: " + generatedId);
