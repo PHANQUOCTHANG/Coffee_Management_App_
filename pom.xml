@@ -12,18 +12,24 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>5.9.1</junit.version>
+        <javafx.version>17.0.2</javafx.version>
     </properties>
 
     <dependencies>
         <dependency>
+            <groupId>com.jfoenix</groupId>
+            <artifactId>jfoenix</artifactId>
+            <version>9.0.10</version>
+        </dependency>
+        <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>19</version>
+            <version>${javafx.version}</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>19</version>
+            <version>${javafx.version}</version>
         </dependency>
         <dependency>
             <groupId>com.dlsc.formsfx</groupId>
@@ -83,9 +89,26 @@
                             <noManPages>true</noManPages>
                             <stripDebug>true</stripDebug>
                             <noHeaderFiles>true</noHeaderFiles>
+
+                            <jvmArgs>
+                                --add-exports=javafx.graphics/com.sun.javafx.scene=com.jfoenix
+                                --add-exports=javafx.controls/com.sun.javafx.scene.control.behavior=com.jfoenix
+                                --add-exports=javafx.controls/com.sun.javafx.scene.control=com.jfoenix
+                                --add-exports=javafx.base/com.sun.javafx.binding=com.jfoenix
+                                --add-exports=javafx.base/com.sun.javafx.event=com.jfoenix
+                                --add-exports=javafx.graphics/com.sun.javafx.stage=com.jfoenix
+                                --add-opens=java.base/java.lang.reflect=com.jfoenix
+                            </jvmArgs>
                         </configuration>
+                        
                     </execution>
                 </executions>
+
+                <configuration>
+                    <jvmArgs>
+                        --add-opens=java.base/java.lang.reflect=com.jfoenix
+                    </jvmArgs>
+                </configuration>
             </plugin>
         </plugins>
     </build>

@@ -1,0 +1,27 @@
+.login{
+    -fx-background-color: rgba(0, 0, 0, 0.3);
+}
+.image{
+    -fx-max-width:80%;
+    -fx-height:100%;
+}
+.btn-login{
+    -fx-background-color: #a78355;
+    -fx-border-width: 2px 2px 2px 2px;
+    -fx-border-radius: 50px;
+    -fx-background-radius: 50px;
+    -fx-border-style: solid;
+    -fx-border-color: #353A56;
+
+}
+
+
+.btn-signup{
+    -fx-background-color: #BF987D;
+    -fx-border-width: 2px 2px 2px 2px;
+    -fx-border-radius: 50px;
+    -fx-background-radius: 50px;
+    -fx-border-style: solid;
+    -fx-border-color: #353A56;
+
+}
