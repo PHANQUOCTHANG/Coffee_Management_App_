@@ -71,9 +71,7 @@ public class AccountController {
 
         if (generatedId != -1) {
             lblStatus.setText("Thêm tài khoản thành công với ID: " + generatedId);
-            accountNameField.clear();
-            passwordField.clear();
-            roleIdField.clear();
+            clearFields();
         } else {
             lblStatus.setText("Lỗi khi thêm tài khoản!");
         }

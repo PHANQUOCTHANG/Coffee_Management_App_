@@ -1,11 +1,13 @@
 package com.example.javafxapp.controller;
 
+import java.io.IOException;
 import java.net.URL;
 
 import com.example.javafxapp.alert.AlertInfo;
 import com.example.javafxapp.dao.AuthDAO;
 import com.example.javafxapp.model.Account;
 import com.example.javafxapp.pages.Pages;
+import com.jfoenix.controls.JFXButton;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -49,6 +51,9 @@ public class AuthController implements Initializable {
 
     @FXML
     private Label lblStatus;
+
+    @FXML
+    private JFXButton btnLogin , btnSignup ;
 
     private AuthDAO authDAO = new AuthDAO() ;
 
@@ -122,7 +127,7 @@ public class AuthController implements Initializable {
 
     // login .
     @FXML
-    private void Login() throws SQLException {
+    private void Login(){
         String loginName = loginNameField.getText().trim();
         String password = passWordField.getText().trim();
 
@@ -134,8 +139,8 @@ public class AuthController implements Initializable {
 
         // check account .
         if (result) {
-            Stage loginStage = (Stage) loginNameField.getScene().getWindow();
-            Pages.openDashboard(loginStage);
+            Stage loginStage = (Stage) btnLogin.getScene().getWindow();
+            Pages.pageDashboard(loginStage);
         } else {
             AlertInfo.showAlert(Alert.AlertType.ERROR, "Lỗi", "Tên đăng nhập hoặc mật khẩu không đúng.");
         }
@@ -160,12 +165,14 @@ public class AuthController implements Initializable {
         int generatedId = authDAO.signUp(newAccount);
 
         if (generatedId != -1) {
-            lblStatus.setText("Thêm tài khoản thành công với ID: " + generatedId);
+//            lblStatus.setText("Thêm tài khoản thành công với ID: " + generatedId);
             signUpLoginNameField.clear();
             signUpPassWordField.clear();
             confirmPassWordField.clear();
+            Stage stage = (Stage) btnSignup.getScene().getWindow();
+            Pages.pageLogin(stage);
         } else {
-            lblStatus.setText("Lỗi khi thêm tài khoản!");
+//            lblStatus.setText("Lỗi khi thêm tài khoản!");
         }
 
 

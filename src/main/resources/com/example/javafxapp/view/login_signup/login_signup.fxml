@@ -41,7 +41,7 @@
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
-                  <JFXButton prefHeight="54.0" prefWidth="447.0" styleClass="btn-login" stylesheets="@../styles/login_signup.css" text="LOG IN" onAction="#Login">
+                  <JFXButton fx:id="btnLogin" prefHeight="54.0" prefWidth="447.0" styleClass="btn-login" stylesheets="@../styles/login_signup.css" text="LOG IN" onAction="#Login">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
@@ -96,13 +96,26 @@
                      </font>
                    </Label>
                   <PasswordField fx:id="confirmPassWordField" prefHeight="33.0" prefWidth="457.0" promptText="Confirm Password" />
-                  <JFXButton prefHeight="54.0" prefWidth="447.0" styleClass="btn-login" stylesheets="@../styles/login_signup.css" text="SIGN UP" onAction="#signUp">
+                  <JFXButton fx:id="btnSignup" prefHeight="54.0" prefWidth="447.0" styleClass="btn-signup" stylesheets="@../styles/login_signup.css" text="SIGN UP" onAction="#signUp">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
                      <VBox.margin>
                         <Insets top="30.0" />
                      </VBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <Label alignment="BOTTOM_CENTER" layoutX="172.0" layoutY="173.0" prefHeight="43.0" prefWidth="155.0" text="You have account?" textFill="#755e5e">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <JFXButton layoutX="15.0" layoutY="300.0" onAction="#showLogin" prefHeight="54.0" prefWidth="447.0" styleClass="btn-signup" stylesheets="@../styles/login_signup.css" text="GO TO LOGIN">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

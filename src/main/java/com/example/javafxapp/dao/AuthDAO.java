@@ -8,15 +8,21 @@ import java.sql.*;
 public class AuthDAO {
 
     // check account
-    public boolean isValidAccount(String accountName, String password) throws SQLException {
-        String query = "SELECT * FROM account WHERE account_name= ? AND password = ?";
-        Connection connection = DatabaseConnection.getConnection() ;
-        PreparedStatement preparedStatement = connection.prepareStatement(query) ;
-        preparedStatement.setString(1,accountName);
-        preparedStatement.setString(2,password);
-        ResultSet rs = preparedStatement.executeQuery() ;
-        return rs.next() ;
+    public boolean isValidAccount(String account_name, String password) {
+        String sql = "SELECT * FROM Account WHERE account_name = ? AND password = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, account_name);
+            stmt.setString(2, password);
+            ResultSet rs = stmt.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
+
 
     // sign up
     public int signUp (Account account) {
