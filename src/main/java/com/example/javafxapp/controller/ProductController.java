@@ -17,8 +17,15 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.PixelReader;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -32,16 +39,6 @@ public class ProductController implements Initializable {
 
     @FXML
     private Button btnManageUsers, btnManageRoles, btnReports, btnSettings, btnLogout;
-
-    // main 
-    @FXML
-    private JFXButton btnManageUsers1;
-
-    @FXML
-    private ScrollPane scroll;
-
-    @FXML
-    private GridPane gridItem;
 
     @FXML
     private void handleManageUsers() {
@@ -76,6 +73,34 @@ public class ProductController implements Initializable {
         System.out.println("Đã đăng xuất!");
     }
 
+    // phan xu li product 
+    @FXML
+    private JFXButton btnManageUsers1;
+
+    @FXML
+    private ScrollPane scroll;
+
+    @FXML
+    private GridPane gridItem;
+
+    @FXML
+    private TextField nameText;
+
+    @FXML
+    private TextField priceText;
+
+    @FXML
+    private TextField desText;
+
+    @FXML
+    private TextField typeText;
+
+     @FXML
+    private HBox ImgBox;
+
+    @FXML
+    private ImageView imgSelected;
+
     private List<Product> products = new ArrayList<>();
 
 
@@ -99,13 +124,59 @@ public class ProductController implements Initializable {
         return products;
     }
 
+    // ham select item o ben duoi ham nay
+    public void setChosenProduct(Product product){
+        nameText.setText(product.getName());
+        nameText.setEditable(false);
+        priceText.setText(String.valueOf(product.getPrice()));
+        priceText.setEditable(false);
+        desText.setText(product.getDescription());
+        desText.setEditable(false);
+        typeText.setText(product.getCategory());
+        typeText.setEditable(false);
+        Image imageSelected = new Image(getClass().getResourceAsStream(product.getImgSrc()));
+        imgSelected.setImage(imageSelected);
+        
+        // tinh trung binh mau de lam nen cho hinh duoc chon
+        PixelReader pixelReader = imageSelected.getPixelReader();
+        int width = (int) imageSelected.getWidth();
+        int height = (int) imageSelected.getHeight();
+
+        int sumRed = 0;
+        int sumGreen = 0;
+        int sumBlue = 0;
+        int pixelCount = 0;
+
+        for (int y = 0; y < height; y += 3){
+            for (int x = 0; x < width; x += 3){
+                int argb = pixelReader.getArgb(x, y);
+                sumRed += (argb >> 16) & 0xFF;
+                sumGreen += (argb >> 8) & 0xFF;
+                sumBlue += argb & 0xFF;
+                pixelCount++;
+            }
+        }
+
+        // // Tinh trung binh mau
+        int avgRed = sumRed / pixelCount;
+        int avgGreen = sumGreen / pixelCount;
+        int avgBlue = sumBlue / pixelCount;
+
+        String avgColor = String.format("-fx-background-color: rgb(%d, %d, %d);", avgRed, avgGreen, avgBlue);
+        ImgBox.setStyle(avgColor + ";\n"+
+                        "-fx-background-radius: 30;");
+        
+        
+    }
+
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         products.addAll(getData());
 
         // so hang va cot hien thi san pham
         int column = 0;
-        int row = 0;
+        int row = 1;
 
         try{
             for (int i = 0; i < products.size(); i++){
@@ -114,15 +185,26 @@ public class ProductController implements Initializable {
                 AnchorPane anchorPane = fxmlLoader.load();
     
                 ItemsProductController itemsProductController = fxmlLoader.getController();
-                itemsProductController.setData(products.get(i));
+                itemsProductController.setData(products.get(i), this::setChosenProduct);
 
-                if (column == 6){
+                if (column == 4){
                     column = 0;
                     row++;
                 }
 
                 gridItem.add(anchorPane, column++, row);
-                GridPane.setMargin(anchorPane, new Insets(10, 20, 10, 20));
+                // set item grid width
+                gridItem.setMinWidth(Region.USE_COMPUTED_SIZE);
+                gridItem.setPrefWidth(Region.USE_COMPUTED_SIZE);
+                gridItem.setMaxWidth(Region.USE_PREF_SIZE);
+
+
+                // set item grid height
+                gridItem.setMinHeight(Region.USE_COMPUTED_SIZE);
+                gridItem.setPrefHeight(Region.USE_COMPUTED_SIZE);
+                gridItem.setMaxHeight(Region.USE_PREF_SIZE);
+
+                GridPane.setMargin(anchorPane, new Insets(10));
     
             }
         } catch (IOException e) {

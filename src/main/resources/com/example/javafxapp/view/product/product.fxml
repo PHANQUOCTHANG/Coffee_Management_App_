@@ -51,7 +51,7 @@
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox prefHeight="244.0" prefWidth="983.0">
+            <HBox alignment="CENTER" prefHeight="244.0" prefWidth="983.0">
                <children>
                   <VBox prefHeight="189.0" prefWidth="357.0">
                      <children>
@@ -62,7 +62,7 @@
                                     <Font name="System Bold" size="15.0" />
                                  </font>
                               </Label>
-                              <TextField prefHeight="39.0" prefWidth="233.0" />
+                              <TextField fx:id="nameText" prefHeight="39.0" prefWidth="233.0" />
                            </children>
                         </HBox>
                         <HBox prefHeight="40.0" prefWidth="302.0">
@@ -72,7 +72,7 @@
                                     <Font name="System Bold" size="15.0" />
                                  </font>
                               </Label>
-                              <TextField prefHeight="39.0" prefWidth="233.0" />
+                              <TextField fx:id="priceText" prefHeight="39.0" prefWidth="233.0" />
                            </children>
                            <VBox.margin>
                               <Insets top="10.0" />
@@ -85,7 +85,7 @@
                                     <Font name="System Bold" size="15.0" />
                                  </font>
                               </Label>
-                              <TextField prefHeight="39.0" prefWidth="233.0" />
+                              <TextField fx:id="desText" prefHeight="39.0" prefWidth="233.0" />
                            </children>
                            <VBox.margin>
                               <Insets top="10.0" />
@@ -98,7 +98,7 @@
                                     <Font name="System Bold" size="15.0" />
                                  </font>
                               </Label>
-                              <TextField prefHeight="40.0" prefWidth="234.0" />
+                              <TextField fx:id="typeText" prefHeight="40.0" prefWidth="234.0" />
                            </children>
                            <padding>
                               <Insets top="10.0" />
@@ -112,12 +112,12 @@
                         <Insets left="60.0" top="30.0" />
                      </HBox.margin>
                   </VBox>
-                  <HBox alignment="CENTER" prefHeight="244.0" prefWidth="298.0" styleClass="hbox-image" stylesheets="@../styles/productManagement.css">
+                  <HBox fx:id="ImgBox" alignment="CENTER" prefHeight="244.0" prefWidth="298.0" styleClass="hbox-image" stylesheets="@../styles/productManagement.css">
                      <HBox.margin>
                         <Insets bottom="25.0" left="30.0" top="30.0" />
                      </HBox.margin>
                      <children>
-                        <ImageView fitHeight="189.0" fitWidth="284.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="imgSelected" fitHeight="189.0" fitWidth="284.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/CoffeeShopLogo.png" />
                            </image>
@@ -154,18 +154,25 @@
                   </VBox>
                </children>
             </HBox>
-            <ScrollPane fx:id="scroll" prefHeight="495.0" prefWidth="1095.0">
+            <HBox alignment="CENTER" prefHeight="523.0" prefWidth="1245.0">
+               <children>
+                  <ScrollPane fx:id="scroll" prefHeight="513.0" prefWidth="1017.0" styleClass="transparent" stylesheets="@../styles/itemsProduct.css">
+                     <content>
+                        <GridPane fx:id="gridItem" prefHeight="0.0" prefWidth="0.0">
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                           </rowConstraints>
+                        </GridPane>
+                     </content>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </ScrollPane>
+               </children>
                <VBox.margin>
-                  <Insets bottom="30.0" left="30.0" right="30.0" />
+                  <Insets />
                </VBox.margin>
-               <content>
-                  <GridPane fx:id="gridItem" prefHeight="5.0" prefWidth="37.0">
-                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" />
-                     </rowConstraints>
-                  </GridPane>
-               </content>
-            </ScrollPane>
+            </HBox>
          </children>
       </VBox>
    </center>
