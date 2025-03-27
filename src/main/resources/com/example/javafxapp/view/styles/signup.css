@@ -1,0 +1,8 @@
+.left-signup{
+    -fx-background-color: #187F48;
+}
+.left-btn{
+    -fx-border-color: #ffffff;
+    -fx-border-width: 2px;
+    -fx-border-radius: 30px;
+}
