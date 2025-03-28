@@ -16,7 +16,7 @@ public class Pages {
     }
 
     // Chuyển qua page dashboard .
-    public static void pageDashboard(Stage loginStage) {
+    public static void pageDashboard() {
         try {
             FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/dashboard/dashboard.fxml"));
             Pane root = loader.load();
@@ -25,19 +25,16 @@ public class Pages {
             stage.setTitle("Dashboard");
             stage.show();
 
-            // Đóng cửa sổ login sau khi mở dashboard
-            loginStage.close();
-
         } catch (IOException e) {
             e.printStackTrace();
             AlertInfo.showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể mở trang Dashboard.");
         }
     }
 
-    // login .
-    public static void pageLogin(Stage signupStage){
+    // chuyển qua trang login .
+    public static void pageLogin(){
         try {
-            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/auth/login_signup.fxml"));
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/login_signup/signin.fxml"));
             Scene scene = new Scene(loader.load());
             Stage stage = new Stage() ;
             stage.getIcons().add(new Image(Pages.class.getResourceAsStream("/com/example/javafxapp/view/images/icons.jpg")));
@@ -46,12 +43,29 @@ public class Pages {
             stage.setResizable(false);
             stage.show();
 
-            // đóng trang sign-up , mở login .
-            signupStage.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            AlertInfo.showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể mở trang Login.");
+        }
+    }
+
+    // chuyển qua trang sign-up .
+    public static void pageSignUp(){
+        try {
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/login_signup/signup.fxml"));
+            Scene scene = new Scene(loader.load());
+            Stage stage = new Stage() ;
+            stage.getIcons().add(new Image(Pages.class.getResourceAsStream("/com/example/javafxapp/view/images/icons.jpg")));
+            stage.setScene(scene);
+            stage.setTitle("Coffee Shop Management");
+            stage.setResizable(false);
+            stage.show();
 
         } catch (IOException e) {
             e.printStackTrace();
-            AlertInfo.showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể mở trang Dashboard.");
+            AlertInfo.showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể mở trang Sign up.");
         }
     }
+
+
 }
