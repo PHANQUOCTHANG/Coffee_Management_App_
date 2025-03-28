@@ -1,20 +1,36 @@
 package com.example.javafxapp.model;
 
 public class Role {
-    private int id;
-    private String name;
+    private int role_id;
+    private String role_name;
     private String description;
 
-    public Role(String name, String description) {
-        this.name = name;
+    public Role(String role_name, String description) {
+        this.role_name = role_name;
         this.description = description;
     }
 
-    public int getId() { return id; }
-    public String getName() { return name; }
-    public String getDescription() { return description; }
+    public int getRole_id() {
+        return role_id;
+    }
 
-    public void setId(int id) { this.id = id; }
-    public void setName(String name) { this.name = name; }
-    public void setDescription(String description) { this.description = description; }
+    public void setRole_id(int role_id) {
+        this.role_id = role_id;
+    }
+
+    public String getRole_name() {
+        return role_name;
+    }
+
+    public void setRole_name(String role_name) {
+        this.role_name = role_name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

@@ -14,13 +14,13 @@ import java.sql.Connection;
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
-        // quan li san pham
-       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/javafxapp/view/product/product.fxml"));
-       Scene scene = new Scene(fxmlLoader.load());
-       primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/com/example/javafxapp/view/images/icons.jpg")));
-       primaryStage.setScene(scene);
-       primaryStage.setTitle("Coffee Shop Management");
-       primaryStage.show();
+        //  login2
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/javafxapp/view/auth/signin.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/com/example/javafxapp/view/images/icons.jpg")));
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("Coffee Shop Management");
+        primaryStage.show();
 
         //  login
         //  FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/javafxapp/view/login_signup/login_signup.fxml"));
@@ -30,6 +30,14 @@ public class Main extends Application {
         //  primaryStage.setTitle("Coffee Shop Management");
         //  primaryStage.setResizable(false);
         //  primaryStage.show();
+
+        // quan li san pham
+        //    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/javafxapp/view/product/product.fxml"));
+        //    Scene scene = new Scene(fxmlLoader.load());
+        //    primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/com/example/javafxapp/view/images/icons.jpg")));
+        //    primaryStage.setScene(scene);
+        //    primaryStage.setTitle("Coffee Shop Management");
+        //    primaryStage.show();
 
         // add quyen
         // FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/javafxapp/view/Role/RoleForm.fxml"));

@@ -8,10 +8,7 @@ import com.example.javafxapp.dao.AuthDAO;
 import com.example.javafxapp.model.Account;
 import com.example.javafxapp.pages.Pages;
 import com.jfoenix.controls.JFXButton;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -53,25 +50,25 @@ public class AuthController implements Initializable {
     private Label lblStatus;
 
     @FXML
-    private JFXButton btnLogin , btnSignup ;
+    private Button btnLogin , btnSignup ;
 
     private AuthDAO authDAO = new AuthDAO() ;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-        if (aplogin == null) {
-            System.err.println("aplogin is null");
-        } else {
-            System.out.println("aplogin is initialized");
-        }
-        if (apsignup == null) {
-            System.err.println("apsignup is null");
-        } else {
-            System.out.println("apsignup is initialized");
-        }
-        aplogin.setVisible(true);
-        apsignup.setVisible(false);
+
+//        if (aplogin == null) {
+//            System.err.println("aplogin is null");
+//        } else {
+//            System.out.println("aplogin is initialized");
+//        }
+//        if (apsignup == null) {
+//            System.err.println("apsignup is null");
+//        } else {
+//            System.out.println("apsignup is initialized");
+//        }
+//        aplogin.setVisible(true);
+//        apsignup.setVisible(false);
     }
 
     // show sign-up

@@ -9,6 +9,7 @@ import java.util.List;
 
 public class AccountDAO {
 
+    // add account .
     public int addAccount(Account account) {
         String sql = "INSERT INTO Account (account_name, password, role_id) VALUES (?, ?, ?)";
         int generatedId = -1;
@@ -34,26 +35,7 @@ public class AccountDAO {
         return generatedId;
     }
 
-    public List<Account> getAllAccounts() {
-        List<Account> accounts = new ArrayList<>();
-        String sql = "SELECT id, account_name, password, role_id FROM Account";
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
-            while (rs.next()) {
-                accounts.add(new Account(
-                        rs.getInt("id"),
-                        rs.getString("account_name"),
-                        rs.getString("password"),
-                        rs.getInt("role_id")
-                ));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return accounts;
-    }
-
+    // update account .
     public void updateAccount(Account account) {
         String sql = "UPDATE Account SET account_name = ?, password = ?, role_id = ? WHERE id = ?";
         try (Connection conn = DatabaseConnection.getConnection();
@@ -68,14 +50,39 @@ public class AccountDAO {
         }
     }
 
-    public void deleteAccount(int id) {
-        String sql = "DELETE FROM Account WHERE id = ?";
+
+    // delete account .
+    public void deleteAccount(int accountId) {
+        String sql = "UPDATE Account set deleted = ? WHERE id = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, id);
+            stmt.setBoolean(1,true);
+            stmt.setInt(2, accountId);
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    // get all account .
+    public List<Account> getAllAccounts() {
+        List<Account> accounts = new ArrayList<>();
+        String sql = "SELECT id, account_name, password, role_id FROM Account where deleted = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setBoolean(1,false);
+            ResultSet rs = stmt.executeQuery() ;
+            while (rs.next()) {
+                accounts.add(new Account(
+                        rs.getInt("id"),
+                        rs.getString("account_name"),
+                        rs.getString("password"),
+                        rs.getInt("role_id")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return accounts;
     }
 }

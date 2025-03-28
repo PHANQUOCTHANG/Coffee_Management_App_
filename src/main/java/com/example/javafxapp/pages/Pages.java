@@ -1,8 +1,6 @@
 package com.example.javafxapp.pages;
 
 import com.example.javafxapp.alert.AlertInfo;
-import com.jfoenix.controls.JFXButton;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -39,7 +37,7 @@ public class Pages {
     // login .
     public static void pageLogin(Stage signupStage){
         try {
-            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/login_signup/login_signup.fxml"));
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/auth/login_signup.fxml"));
             Scene scene = new Scene(loader.load());
             Stage stage = new Stage() ;
             stage.getIcons().add(new Image(Pages.class.getResourceAsStream("/com/example/javafxapp/view/images/icons.jpg")));
