@@ -22,7 +22,7 @@ public class Main extends Application {
 //        primaryStage.setTitle("Coffee Shop Management");
 //        primaryStage.show();
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/javafxapp/view/login_signup/signup.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/javafxapp/view/customerProduct/customerProduct.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/com/example/javafxapp/view/images/icons.jpg")));
         primaryStage.setScene(scene);

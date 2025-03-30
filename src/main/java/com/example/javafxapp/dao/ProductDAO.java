@@ -94,4 +94,34 @@ public class ProductDAO {
         return products ;
     }
 
+    // test
+    public List<Product> getProductsByCategory(int categoryId) {
+        List<Product> products = new ArrayList<>();
+        String query = "SELECT * FROM products WHERE category_id = ? AND deleted = FALSE";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+            pstmt.setInt(1, categoryId);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                Product product = new Product();
+                product.setProduct_id(rs.getInt("product_id"));
+                product.setProduct_name(rs.getString("product_name"));
+                product.setDescription(rs.getString("description"));
+                product.setPrice(rs.getDouble("price"));
+                product.setCategory_id(rs.getInt("category_id"));
+                product.setImgSrc(rs.getString("imgSrc"));
+                product.setDeleted(rs.getBoolean("deleted"));
+
+                products.add(product);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return products;
+    }
+
 }
