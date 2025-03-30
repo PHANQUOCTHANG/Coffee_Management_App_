@@ -149,7 +149,7 @@ public class ProductsController implements Initializable {
             btnFilter.setOnAction(e -> initFilter());
         }
 
-        loadProducts();
+        // loadProducts();
     }
 
     private void loadProducts(){
