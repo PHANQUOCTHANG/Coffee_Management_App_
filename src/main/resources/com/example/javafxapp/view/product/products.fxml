@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="1600.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="809.0" prefWidth="1582.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxapp.controller.ProductsController">
+   <center>
+      <VBox alignment="TOP_CENTER" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="709.0" prefWidth="1335.0" style="-fx-background-color: #F3F4F6;" BorderPane.alignment="CENTER">
+         <children>
+            <HBox maxHeight="55.0" maxWidth="1245.0" prefHeight="70.0" prefWidth="1095.0">
+               <children>
+                  <Label prefHeight="40.0" prefWidth="189.0" text="Danh sách sản phẩm">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="TOP_RIGHT" prefHeight="55.0" prefWidth="1060.0">
+                     <children>
+                        <JFXButton layoutX="452.0" layoutY="10.0" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #0051CE;" text="Tạo combo" textFill="WHITE">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/circleplus.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton layoutX="602.0" layoutY="10.0" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #0051CE;" text="Tạo sản phẩm" textFill="WHITE">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/circleplus.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+            <VBox maxHeight="1000.0" maxWidth="1245.0" prefHeight="554.0" prefWidth="1245.0" style="-fx-background-color: #FFFFFF;">
+               <children>
+                  <HBox maxHeight="51.0" maxWidth="1245.0" prefHeight="100.0" prefWidth="1245.0" style="-fx-border-color: grey; -fx-border-width: 0 0 2px 0;">
+                     <padding>
+                        <Insets left="20.0" right="20.0" />
+                     </padding>
+                     <children>
+                        <Label prefHeight="51.0" style="-fx-border-color: #2962FF; -fx-border-width: 0 0 2px;" text="Tất cả sản phẩm">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="30.0" />
+                           </HBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Label>
+                        <Label layoutX="30.0" layoutY="10.0" prefHeight="51.0" text="Sản phẩm hiển thị">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox maxHeight="51.0" maxWidth="1245.0" prefHeight="100.0" prefWidth="200.0">
+                     <padding>
+                        <Insets left="20.0" right="20.0" />
+                     </padding>
+                     <children>
+                        <JFXButton fx:id="btnFilter" prefHeight="49.0" prefWidth="221.0" style="-fx-border-width: 2px; -fx-border-radius: 10px; -fx-border-color: gray;" text="Thêm điều kiện lọc">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="25.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/Filter-11.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <HBox.margin>
+                              <Insets right="15.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                        <HBox alignment="CENTER" prefHeight="49.0" prefWidth="989.0" style="-fx-border-color: grey; -fx-border-radius: 10px;">
+                           <children>
+                              <ImageView fitHeight="36.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/searchicon.png" />
+                                 </image>
+                              </ImageView>
+                              <TextField prefHeight="48.0" prefWidth="987.0" promptText="Tìm kiếm theo tên" style="-fx-border-color: #ffffff;">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </TextField>
+                           </children>
+                        </HBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="15.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox maxHeight="51.0" maxWidth="1245.0" prefHeight="100.0" prefWidth="200.0" style="-fx-border-color: grey; -fx-border-width: 0 0 2px;">
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets top="15.0" />
+                     </VBox.margin>
+                     <children>
+                        <JFXCheckBox prefHeight="54.0" prefWidth="122.0" text="Tên sản phẩm">
+                           <HBox.margin>
+                              <Insets right="15.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </JFXCheckBox>
+                        <HBox alignment="CENTER_RIGHT" prefHeight="51.0" prefWidth="1104.0">
+                           <children>
+                              <Label alignment="CENTER" prefHeight="37.0" prefWidth="333.0" text="Tồn kho">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER" layoutX="945.0" layoutY="17.0" prefHeight="37.0" prefWidth="186.0" text="Loại">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER" layoutX="796.0" layoutY="17.0" prefHeight="37.0" prefWidth="284.0" text="Nhà cung cấp">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <ScrollPane fx:id="scroll" maxHeight="400.0" maxWidth="1245.0" minHeight="320.0" prefWidth="1245.0">
+                     <content>
+                        <GridPane fx:id="grid" prefHeight="23.0" prefWidth="73.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                        </GridPane>
+                     </content>
+                  </ScrollPane>
+                  <HBox alignment="CENTER_LEFT" maxHeight="51.0" maxWidth="1245.0" prefHeight="51.0" prefWidth="1245.0" style="-fx-border-color: grey; -fx-border-width: 0 0 2px;">
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                     <children>
+                        <JFXComboBox fx:id="showBox" prefHeight="40.0" prefWidth="120.0" promptText="Hiển thị 20" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+         <padding>
+            <Insets top="15.0" />
+         </padding>
+      </VBox>
+   </center>
+   <top>
+      <HBox maxWidth="1600.0" prefHeight="60.0" prefWidth="1600.0" style="-fx-background-color: #ffffff; -fx-border-color: gray; -fx-border-width: 0 0 2px;" BorderPane.alignment="CENTER_LEFT">
+         <padding>
+            <Insets left="15.0" />
+         </padding>
+         <children>
+            <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/CoffeeShopLogo.png" />
+               </image>
+            </ImageView>
+            <Label prefHeight="100.0" prefWidth="89.0" text="COFFEE">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font></Label>
+            <Label layoutX="125.0" layoutY="10.0" prefHeight="100.0" prefWidth="180.0" text="MANAGEMENT" textFill="#f89500">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+   </top>
+   <left>
+      <VBox prefHeight="709.0" prefWidth="265.0" style="-fx-background-color: #EDEFF2; -fx-border-color: gray; -fx-border-width: 0 2px;" BorderPane.alignment="CENTER">
+         <children>
+            <JFXButton alignment="TOP_LEFT" prefHeight="40.0" prefWidth="265.0" style="-fx-border-color: gray; -fx-border-width: 2px 0 2px;" text="Sản phẩm">
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/product-icon.jpg" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </JFXButton>
+            <JFXButton alignment="TOP_LEFT" layoutX="12.0" layoutY="25.0" prefHeight="40.0" prefWidth="265.0" style="-fx-border-color: gray; -fx-border-width: 2px 0 2px;" text="Nhân viên">
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/Staff_management.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </JFXButton>
+         </children>
+         <padding>
+            <Insets top="15.0" />
+         </padding></VBox>
+   </left>
+</BorderPane>

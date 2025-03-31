@@ -7,6 +7,7 @@ public class Product {
     private double price;
     private int category_id;
     private String imgSrc;
+    private int stock;
 
     private boolean deleted = false ;
 
@@ -14,12 +15,15 @@ public class Product {
     public Product() {
     }
 
-    public Product(String product_name, String description, double price, int category_id, String imgSrc) {
+
+
+    public Product(String product_name, String description, double price, int category_id, String imgSrc, int stock) {
         this.product_name = product_name;
         this.description = description;
         this.price = price;
         this.category_id = category_id;
         this.imgSrc = imgSrc;
+        this.stock = stock;
     }
 
     public int getProduct_id() {
@@ -77,4 +81,17 @@ public class Product {
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
     }
+
+
+
+    public int getStock() {
+        return stock;
+    }
+
+
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+    
 }
