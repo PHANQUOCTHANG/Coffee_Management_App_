@@ -8,27 +8,20 @@ import java.util.List;
 
 public class CategoryDAO {
     // add category .
-    public int addProduct(Category category) {
-        int generatedId = -1 ;
+    public void addProduct(Category category) {
         String sql = "INSERT INTO Category(category_name) Value (?) " ;
         try(Connection connection = DatabaseConnection.getConnection();
             PreparedStatement pstmt = connection.prepareStatement(sql , Statement.RETURN_GENERATED_KEYS)
         ) {
             pstmt.setString(1,category.getCategory_name());
             pstmt.executeUpdate() ;
-            ResultSet rs = pstmt.getGeneratedKeys() ;
-            if (rs.next()) {
-                generatedId = rs.getInt(1);
-            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return generatedId ;
     }
 
     // update product .
-    public int updateProduct(Category category) {
-        int generatedId = -1 ;
+    public void updateProduct(Category category) {
         String sql = "UPDATE Category set category_name = ?  where category_id = ?" ;
         try(Connection connection = DatabaseConnection.getConnection() ;
             PreparedStatement pstmt = connection.prepareStatement(sql , Statement.RETURN_GENERATED_KEYS)
@@ -36,14 +29,9 @@ public class CategoryDAO {
             pstmt.setString(1,category.getCategory_name());
             pstmt.setInt(2,category.getCategory_id());
             pstmt.executeUpdate() ;
-            ResultSet rs = pstmt.getGeneratedKeys() ;
-            if (rs.next()) {
-                generatedId = rs.getInt(1);
-            }
         } catch (SQLException e) {
             e.printStackTrace() ;
         }
-        return generatedId ;
     }
 
     // delete product

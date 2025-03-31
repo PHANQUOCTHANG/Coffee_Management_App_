@@ -22,6 +22,7 @@ public class Pages {
             Pane root = loader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
+            stage.setFullScreen(true); // Hiển thị toàn màn hình
             stage.setTitle("Dashboard");
             stage.show();
 

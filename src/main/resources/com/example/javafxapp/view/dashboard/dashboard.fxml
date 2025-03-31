@@ -1,29 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 
 <BorderPane xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
+            xmlns:fa="http://de.jensd.fx.glyphs.fontawesome"
+            stylesheets="@../styles/style.css"
             fx:controller="com.example.javafxapp.controller.DashboardController">
 
     <!-- Thanh điều hướng bên trái -->
     <left>
-        <VBox spacing="10" style="-fx-background-color: #2C3E50; -fx-padding: 20;">
-            <Label text="DASHBOARD" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;"/>
+        <VBox spacing="10" style="-fx-background-color: #2C3E50; -fx-padding: 15;" alignment="TOP_LEFT">
+            <Label text="haravan" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;"/>
+            <Separator/>
 
-            <JFXButton text="Quản lý người dùng" fx:id="btnManageUsers" onAction="#handleManageUsers"
-                       style="-fx-background-color: #34495E; -fx-text-fill: white;"/>
-            <JFXButton text="Quản lý vai trò" fx:id="btnManageRoles" onAction="#handleManageRoles"
-                       style="-fx-background-color: #34495E; -fx-text-fill: white;"/>
-            <JFXButton text="Báo cáo" fx:id="btnReports" onAction="#handleReports"
-                       style="-fx-background-color: #34495E; -fx-text-fill: white;"/>
-            <JFXButton text="Cài đặt" fx:id="btnSettings" onAction="#handleSettings"
-                       style="-fx-background-color: #34495E; -fx-text-fill: white;"/>
-            <JFXButton text="Đăng xuất" fx:id="btnLogout" onAction="#handleLogout"
-                       style="-fx-background-color: #E74C3C; -fx-text-fill: white;"/>
+            <!-- Tổng Quan -->
+            <JFXButton fx:id="btnOverview" onAction="#handleOverview" styleClass="menu-button">
+                <graphic>
+                    <HBox spacing="10">
+                        <fa:FontAwesomeIconView glyphName="HOME" size="20" style="-fx-fill: white;"/>
+                        <Label text="Tổng Quan" style="-fx-text-fill: white;"/>
+                    </HBox>
+                </graphic>
+            </JFXButton>
+
+            <!-- Sản Phẩm -->
+            <JFXButton fx:id="btnProducts" onAction="#handleProducts" styleClass="menu-button">
+                <graphic>
+                    <HBox spacing="10">
+                        <fa:FontAwesomeIconView glyphName="CUBE" size="20" style="-fx-fill: white;"/>
+                        <Label text="Sản Phẩm" style="-fx-text-fill: white;"/>
+                    </HBox>
+                </graphic>
+            </JFXButton>
+
+            <!-- Danh Mục -->
+            <JFXButton fx:id="btnCategories" onAction="#handleCategories" styleClass="menu-button">
+                <graphic>
+                    <HBox spacing="10">
+                        <fa:FontAwesomeIconView glyphName="LIST" size="20" style="-fx-fill: white;"/>
+                        <Label text="Danh Mục" style="-fx-text-fill: white;"/>
+                    </HBox>
+                </graphic>
+            </JFXButton>
+
+            <!-- Đơn Hàng -->
+            <JFXButton fx:id="btnOrders" onAction="#handleOrders" styleClass="menu-button">
+                <graphic>
+                    <HBox spacing="10">
+                        <fa:FontAwesomeIconView glyphName="SHOPPING_CART" size="20" style="-fx-fill: white;"/>
+                        <Label text="Đơn Hàng" style="-fx-text-fill: white;"/>
+                    </HBox>
+                </graphic>
+            </JFXButton>
+
+            <!-- Doanh Thu -->
+            <JFXButton fx:id="btnRevenue" onAction="#handleRevenue" styleClass="menu-button">
+                <graphic>
+                    <HBox spacing="10">
+                        <fa:FontAwesomeIconView glyphName="LINE_CHART" size="20" style="-fx-fill: white;"/>
+                        <Label text="Doanh Thu" style="-fx-text-fill: white;"/>
+                    </HBox>
+                </graphic>
+            </JFXButton>
+
+            <!-- Cài Đặt -->
+            <JFXButton fx:id="btnSettings" onAction="#handleSettings" styleClass="menu-button">
+                <graphic>
+                    <HBox spacing="10">
+                        <fa:FontAwesomeIconView glyphName="COGS" size="20" style="-fx-fill: white;"/>
+                        <Label text="Cài Đặt" style="-fx-text-fill: white;"/>
+                    </HBox>
+                </graphic>
+            </JFXButton>
         </VBox>
     </left>
 
@@ -34,5 +87,4 @@
                    style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
         </StackPane>
     </center>
-
 </BorderPane>

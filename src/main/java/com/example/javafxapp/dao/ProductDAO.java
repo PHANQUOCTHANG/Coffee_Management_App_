@@ -10,8 +10,7 @@ import java.util.List;
 public class ProductDAO {
 
     // add product .
-    public int addProduct(Product product) {
-        int generatedId = -1 ;
+    public void addProduct(Product product) {
         String sql = "INSERT INTO Product(product_name , description , price , category_id , imgSrc) Value (?,?,?,?) " ;
         try(Connection connection = DatabaseConnection.getConnection() ;
             PreparedStatement pstmt = connection.prepareStatement(sql , Statement.RETURN_GENERATED_KEYS)
@@ -22,19 +21,13 @@ public class ProductDAO {
             pstmt.setInt(4,product.getCategory_id());
             pstmt.setString(5, product.getImgSrc());
             pstmt.executeUpdate() ;
-            ResultSet rs = pstmt.getGeneratedKeys() ;
-            if (rs.next()) {
-                generatedId = rs.getInt(1);
-            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return generatedId ;
     }
 
     // update product .
-    public int updateProduct(Product product) {
-        int generatedId = -1 ;
+    public void updateProduct(Product product) {
         String sql = "UPDATE Product set product_name = ? , description = ? , price = ? , category_id = ? , imgSrc = ? where product_id = ?" ;
         try(Connection connection = DatabaseConnection.getConnection() ;
             PreparedStatement pstmt = connection.prepareStatement(sql , Statement.RETURN_GENERATED_KEYS)
@@ -46,14 +39,9 @@ public class ProductDAO {
             pstmt.setString(5, product.getImgSrc());
             pstmt.setInt(6,product.getProduct_id());
             pstmt.executeUpdate() ;
-            ResultSet rs = pstmt.getGeneratedKeys() ;
-            if (rs.next()) {
-                generatedId = rs.getInt(1);
-            }
         } catch (SQLException e) {
             e.printStackTrace() ;
         }
-        return generatedId ;
     }
 
     // delete product

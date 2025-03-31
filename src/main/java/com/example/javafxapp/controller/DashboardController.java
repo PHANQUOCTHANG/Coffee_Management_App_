@@ -1,59 +1,82 @@
 package com.example.javafxapp.controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DashboardController {
-
-    @FXML
-    private Label lblWelcome;
 
     @FXML
     private StackPane contentArea;
 
     @FXML
-    private Button btnManageUsers, btnManageRoles, btnReports, btnSettings, btnLogout;
+    private Label lblWelcome;
 
-    // Phương thức gọi khi trang Dashboard được tải
+    @FXML
+    private Button btnOverview, btnProducts, btnCategories, btnOrders,
+            btnRevenue, btnSettings;
+
+    private List<Button> menuButtons;
+
+    @FXML
     public void initialize() {
-        if (lblWelcome != null)
-            lblWelcome.setText("Chào mừng, Người dùng!");
+        // Danh sách các nút trong menu
+        menuButtons = new ArrayList<>();
+        menuButtons.add(btnOverview);
+        menuButtons.add(btnProducts);
+        menuButtons.add(btnCategories);
+        menuButtons.add(btnOrders);
+        menuButtons.add(btnRevenue);
+        menuButtons.add(btnSettings);
+
+        // Mặc định chọn "Tổng Quan"
+        setActiveButton(btnOverview);
+    }
+
+    private void setActiveButton(Button activeButton) {
+        for (Button btn : menuButtons) {
+            btn.getStyleClass().remove("selected-button");
+        }
+        activeButton.getStyleClass().add("selected-button");
     }
 
     @FXML
-    private void handleManageUsers() {
-        if (lblWelcome != null)
-            lblWelcome.setText("Đây là trang Quản lý người dùng");
+    private void handleOverview(ActionEvent event) {
+        lblWelcome.setText("Tổng Quan");
+        setActiveButton(btnOverview);
     }
 
     @FXML
-    private void handleManageRoles() {
-        if (lblWelcome != null)
-            lblWelcome.setText("Đây là trang Quản lý vai trò");
+    private void handleProducts(ActionEvent event) {
+        lblWelcome.setText("Quản lý Sản Phẩm");
+        setActiveButton(btnProducts);
     }
 
     @FXML
-    private void handleReports() {
-        if (lblWelcome != null)
-            lblWelcome.setText("Đây là trang Báo cáo");
+    private void handleCategories(ActionEvent event) {
+        lblWelcome.setText("Quản lý Danh Mục");
+        setActiveButton(btnCategories);
     }
 
     @FXML
-    private void handleSettings() {
-        if (lblWelcome != null)
-            lblWelcome.setText("Đây là trang Cài đặt");
+    private void handleOrders(ActionEvent event) {
+        lblWelcome.setText("Quản lý Đơn Hàng");
+        setActiveButton(btnOrders);
     }
 
     @FXML
-    private void handleLogout() {
-        // Đóng cửa sổ Dashboard
-        Stage stage = (Stage) btnLogout.getScene().getWindow();
-        stage.close();
+    private void handleRevenue(ActionEvent event) {
+        lblWelcome.setText("Báo cáo Doanh Thu");
+        setActiveButton(btnRevenue);
+    }
 
-        // Quay lại màn hình đăng nhập
-        System.out.println("Đã đăng xuất!");
+    @FXML
+    private void handleSettings(ActionEvent event) {
+        lblWelcome.setText("Cài Đặt Hệ Thống");
+        setActiveButton(btnSettings);
     }
 }

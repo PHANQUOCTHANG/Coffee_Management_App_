@@ -33,15 +33,7 @@ public class RoleController {
         }
 
         Role newRole = new Role(roleName, description);
-        int generatedId = roleDAO.addRole(newRole);
-
-        if (generatedId != -1) {
-            lblStatus.setText("Thêm quyền thành công với ID: " + generatedId);
-            txtRoleName.clear();
-            txtDescription.clear();
-        } else {
-            lblStatus.setText("Lỗi khi thêm quyền!");
-        }
+        roleDAO.addRole(newRole);
     }
 
     // update role .
@@ -56,7 +48,7 @@ public class RoleController {
         }
 
         Role newRole = new Role(roleName, description);
-        int generatedId = roleDAO.updateRole(newRole);
+        roleDAO.updateRole(newRole);
     }
 
     // delete role .

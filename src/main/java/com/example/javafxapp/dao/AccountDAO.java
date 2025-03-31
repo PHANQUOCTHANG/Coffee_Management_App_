@@ -10,29 +10,21 @@ import java.util.List;
 public class AccountDAO {
 
     // add account .
-    public int addAccount(Account account) {
+    public void addAccount(Account account) {
         String sql = "INSERT INTO Account (account_name, password, role_id) VALUES (?, ?, ?)";
-        int generatedId = -1;
 
         try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, account.getAccountName());
             pstmt.setString(2, account.getPassword());
             pstmt.setInt(3, account.getRoleId());
             pstmt.executeUpdate();
 
-            ResultSet rs = pstmt.getGeneratedKeys();
-            if (rs.next()) {
-                generatedId = rs.getInt(1);
-                System.out.println("✅ Thêm tài khoản thành công với ID: " + generatedId);
-            }
-
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("❌ Lỗi khi thêm tài khoản: " + e.getMessage());
         }
-        return generatedId;
     }
 
     // update account .
@@ -56,7 +48,7 @@ public class AccountDAO {
         String sql = "UPDATE Account set deleted = ? WHERE id = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setBoolean(1,true);
+            stmt.setBoolean(1, true);
             stmt.setInt(2, accountId);
             stmt.executeUpdate();
         } catch (SQLException e) {
@@ -70,8 +62,8 @@ public class AccountDAO {
         String sql = "SELECT id, account_name, password, role_id FROM Account where deleted = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setBoolean(1,false);
-            ResultSet rs = stmt.executeQuery() ;
+            stmt.setBoolean(1, false);
+            ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 accounts.add(new Account(
                         rs.getInt("id"),
@@ -84,5 +76,23 @@ public class AccountDAO {
             e.printStackTrace();
         }
         return accounts;
+    }
+
+    // get account
+    public Account getAccount(int accountId) {
+        Account account = new Account();
+        String sql = "SELECT id, account_name, password, role_id FROM Account where deleted = ? and id = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setBoolean(1, false);
+            ResultSet rs = stmt.executeQuery();
+            account.setId(rs.getInt("id")) ;
+            account.setAccountName(rs.getString("account_name")) ;
+            account.setPassword(rs.getString("password"));
+            account.setRoleId(rs.getInt("role_id"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return account;
     }
 }

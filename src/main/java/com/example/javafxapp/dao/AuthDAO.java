@@ -7,7 +7,7 @@ import java.sql.*;
 
 public class AuthDAO {
 
-    // check account
+    // check account login .
     public boolean isValidAccount(String account_name, String password) {
         String sql = "SELECT * FROM Account WHERE account_name = ? AND password = ?";
 
@@ -40,12 +40,10 @@ public class AuthDAO {
             ResultSet rs = pstmt.getGeneratedKeys();
             if (rs.next()) {
                 generatedId = rs.getInt(1);
-                System.out.println("✅ Thêm tài khoản thành công với ID: " + generatedId);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("❌ Lỗi khi thêm tài khoản: " + e.getMessage());
         }
         return generatedId;
     }
