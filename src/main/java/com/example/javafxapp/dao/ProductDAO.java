@@ -21,6 +21,7 @@ public class ProductDAO {
             pstmt.setDouble(3,product.getPrice());
             pstmt.setInt(4,product.getCategory_id());
             pstmt.setString(5, product.getImgSrc());
+            pstmt.setInt(7, product.getStock());
             pstmt.executeUpdate() ;
             ResultSet rs = pstmt.getGeneratedKeys() ;
             if (rs.next()) {
@@ -35,7 +36,7 @@ public class ProductDAO {
     // update product .
     public int updateProduct(Product product) {
         int generatedId = -1 ;
-        String sql = "UPDATE Product set product_name = ? , description = ? , price = ? , category_id = ? , imgSrc = ? where product_id = ?" ;
+        String sql = "UPDATE Product set product_name = ? , description = ? , price = ? , category_id = ? , imgSrc = ?, stock = ? where product_id = ?" ;
         try(Connection connection = DatabaseConnection.getConnection() ;
             PreparedStatement pstmt = connection.prepareStatement(sql , Statement.RETURN_GENERATED_KEYS)
         ) {
@@ -45,6 +46,7 @@ public class ProductDAO {
             pstmt.setInt(4,product.getCategory_id());
             pstmt.setString(5, product.getImgSrc());
             pstmt.setInt(6,product.getProduct_id());
+            pstmt.setInt(7, product.getStock());
             pstmt.executeUpdate() ;
             ResultSet rs = pstmt.getGeneratedKeys() ;
             if (rs.next()) {
@@ -85,7 +87,8 @@ public class ProductDAO {
                         rs.getString("description") ,
                         rs.getDouble("price") ,
                         rs.getInt("category_id")  ,
-                        rs.getString("imgSrc")
+                        rs.getString("imgSrc"),
+                        rs.getInt("stock")
                 )) ;
             }
         } catch (SQLException e) {
