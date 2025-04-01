@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXCheckBox?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
@@ -9,46 +10,47 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox maxHeight="80.0" maxWidth="1215.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="1215.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxapp.controller.ProductController">
+<HBox maxHeight="150.0" maxWidth="1035.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="1035.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxapp.controller.ProductController">
    <children>
-      <HBox alignment="CENTER" prefHeight="80.0" prefWidth="46.0">
+      <HBox alignment="CENTER" maxHeight="150.0" prefHeight="122.0" prefWidth="87.0">
          <children>
             <JFXCheckBox text="." />
-         </children>
-      </HBox>
-      <HBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="400.0">
-         <children>
-            <HBox alignment="CENTER_LEFT" maxHeight="50.0" prefHeight="50.0" prefWidth="380.0">
-               <children>
-                  <ImageView fx:id="productImg" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/img.png" />
-                     </image>
-                  </ImageView>
-                  <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="330.0">
-                     <children>
-                        <Label fx:id="productName" prefHeight="30.0" prefWidth="330.0" text="Label" textFill="#008edb">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Label>
-                     </children>
-                     <padding>
-                        <Insets left="10.0" right="10.0" />
-                     </padding>
-                  </HBox>
-               </children>
-            </HBox>
-         </children>
-      </HBox>
-      <HBox alignment="CENTER" prefHeight="80.0" prefWidth="330.0">
-         <children>
-            <Label fx:id="productStock" contentDisplay="CENTER" maxWidth="-Infinity" prefHeight="30.0" text="rgesgergeger">
+            <Label prefHeight="23.0" prefWidth="32.0" text="1">
                <font>
-                  <Font size="16.0" />
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="80.0" prefWidth="200.0">
+         <children>
+            <ImageView fx:id="productImg" fitHeight="149.0" fitWidth="182.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/img.png" />
+               </image>
+            </ImageView>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="150.0" prefWidth="250.0">
+         <children>
+            <Label fx:id="productName" alignment="CENTER" prefHeight="127.0" prefWidth="230.0" text="Label" textFill="#008edb">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Label>
+         </children>
+         <padding>
+            <Insets left="10.0" right="10.0" />
+         </padding>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" layoutX="456.0" layoutY="10.0" prefHeight="150.0" prefWidth="209.0">
+         <children>
+            <Label fx:id="productCategory" alignment="CENTER" contentDisplay="CENTER" maxWidth="-Infinity" prefHeight="120.0" prefWidth="220.0" text="25000đ">
+               <font>
+                  <Font name="System Bold" size="18.0" />
                </font>
             </Label>
          </children>
@@ -56,29 +58,20 @@
             <Insets left="10.0" right="10.0" />
          </padding>
       </HBox>
-      <HBox alignment="CENTER_LEFT" layoutX="456.0" layoutY="10.0" prefHeight="80.0" prefWidth="190.0">
-         <children>
-            <Label fx:id="productCategory" contentDisplay="CENTER" maxWidth="-Infinity" prefHeight="30.0" text="rgesgergeger">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-         </children>
+      <HBox alignment="CENTER" layoutX="786.0" layoutY="10.0" prefHeight="150.0" prefWidth="275.0">
          <padding>
             <Insets left="10.0" right="10.0" />
          </padding>
-      </HBox>
-      <HBox alignment="CENTER_LEFT" layoutX="786.0" layoutY="10.0" prefHeight="80.0" prefWidth="280.0">
          <children>
-            <Label fx:id="productPrice" contentDisplay="CENTER" maxWidth="-Infinity" prefHeight="30.0" text="rgesgergeger">
+            <JFXButton prefHeight="54.0" prefWidth="152.0" style="-fx-background-color: #004DC4;" text="Xem chi tiết" textFill="WHITE">
                <font>
-                  <Font size="16.0" />
+                  <Font size="18.0" />
                </font>
-            </Label>
+            </JFXButton>
          </children>
-         <padding>
-            <Insets left="10.0" right="10.0" />
-         </padding>
       </HBox>
    </children>
+   <padding>
+      <Insets left="30.0" />
+   </padding>
 </HBox>
