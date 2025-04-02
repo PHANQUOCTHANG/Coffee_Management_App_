@@ -6,6 +6,9 @@ module com.example.javafxapp {
 
     requires com.dlsc.formsfx;
     requires com.jfoenix;
+    requires org.controlsfx.controls;
+    requires javafx.base;
+    requires bcrypt;
 
     opens com.example.javafxapp to javafx.fxml;
     exports com.example.javafxapp;

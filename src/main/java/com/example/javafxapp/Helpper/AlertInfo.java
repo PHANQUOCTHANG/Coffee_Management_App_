@@ -1,4 +1,4 @@
-package com.example.javafxapp.alert;
+package com.example.javafxapp.Helpper;
 
 public class AlertInfo {
 

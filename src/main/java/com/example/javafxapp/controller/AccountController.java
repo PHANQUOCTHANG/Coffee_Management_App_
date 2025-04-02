@@ -1,6 +1,6 @@
 package com.example.javafxapp.controller;
 
-import com.example.javafxapp.alert.AlertInfo;
+import com.example.javafxapp.Helpper.AlertInfo;
 import com.example.javafxapp.dao.AccountDAO;
 import com.example.javafxapp.model.Account;
 import javafx.fxml.FXML;

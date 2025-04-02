@@ -54,6 +54,7 @@ public class DashboardController {
     private void handleProducts(ActionEvent event) {
         lblWelcome.setText("Quản lý Sản Phẩm");
         setActiveButton(btnProducts);
+
     }
 
     @FXML

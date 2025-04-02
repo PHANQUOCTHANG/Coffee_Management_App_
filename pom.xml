@@ -22,6 +22,11 @@
             <version>9.0.10</version>
         </dependency>
         <dependency>
+            <groupId>org.controlsfx</groupId>
+            <artifactId>controlsfx</artifactId>
+            <version>11.2.0</version>
+        </dependency>
+        <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
             <version>${javafx.version}</version>
@@ -65,9 +70,12 @@
             <artifactId>fontawesomefx</artifactId>
             <version>8.2</version>
         </dependency>
-
-
-
+        <!-- https://mvnrepository.com/artifact/at.favre.lib/bcrypt -->
+        <dependency>
+            <groupId>at.favre.lib</groupId>
+            <artifactId>bcrypt</artifactId>
+            <version>0.10.2</version>
+        </dependency>
 
 
     </dependencies>
@@ -83,43 +91,37 @@
                     <target>19</target>
                 </configuration>
             </plugin>
-<!--            <plugin>-->
-<!--                <groupId>org.openjfx</groupId>-->
-<!--                <artifactId>javafx-maven-plugin</artifactId>-->
-<!--                <version>0.0.8</version>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        &lt;!&ndash; Default configuration for running with: mvn clean javafx:run &ndash;&gt;-->
-<!--                        <id>default-cli</id>-->
-<!--                        <configuration>-->
-<!--                            <mainClass>com.example.javafxapp/com.example.javafxapp.Main</mainClass>-->
-<!--                            <launcher>app</launcher>-->
-<!--                            <jlinkZipName>app</jlinkZipName>-->
-<!--                            <jlinkImageName>app</jlinkImageName>-->
-<!--                            <noManPages>true</noManPages>-->
-<!--                            <stripDebug>true</stripDebug>-->
-<!--                            <noHeaderFiles>true</noHeaderFiles>-->
+            <plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>0.0.8</version>
+                <executions>
+                    <execution>
+                        <!-- Default configuration for running with: mvn clean javafx:run -->
+                        <id>default-cli</id>
+                        <configuration>
+                            <mainClass>com.example.javafxapp/com.example.javafxapp.Main</mainClass>
+                            <launcher>app</launcher>
+                            <jlinkZipName>app</jlinkZipName>
+                            <jlinkImageName>app</jlinkImageName>
+                            <noManPages>true</noManPages>
+                            <stripDebug>true</stripDebug>
+                            <noHeaderFiles>true</noHeaderFiles>
 
-<!--                            <jvmArgs>-->
-<!--                                &#45;&#45;add-exports=javafx.graphics/com.sun.javafx.scene=com.jfoenix-->
-<!--                                &#45;&#45;add-exports=javafx.controls/com.sun.javafx.scene.control.behavior=com.jfoenix-->
-<!--                                &#45;&#45;add-exports=javafx.controls/com.sun.javafx.scene.control=com.jfoenix-->
-<!--                                &#45;&#45;add-exports=javafx.base/com.sun.javafx.binding=com.jfoenix-->
-<!--                                &#45;&#45;add-exports=javafx.base/com.sun.javafx.event=com.jfoenix-->
-<!--                                &#45;&#45;add-exports=javafx.graphics/com.sun.javafx.stage=com.jfoenix-->
-<!--                                &#45;&#45;add-opens=java.base/java.lang.reflect=com.jfoenix-->
-<!--                            </jvmArgs>-->
-<!--                        </configuration>-->
-<!--                        -->
-<!--                    </execution>-->
-<!--                </executions>-->
+                            <jvmArgs>
+                                --add-exports=javafx.graphics/com.sun.javafx.scene=com.jfoenix
+                                --add-exports=javafx.controls/com.sun.javafx.scene.control.behavior=com.jfoenix
+                                --add-exports=javafx.controls/com.sun.javafx.scene.control=com.jfoenix
+                                --add-exports=javafx.base/com.sun.javafx.binding=com.jfoenix
+                                --add-exports=javafx.base/com.sun.javafx.event=com.jfoenix
+                                --add-exports=javafx.graphics/com.sun.javafx.stage=com.jfoenix
+                                --add-opens=java.base/java.lang.reflect=com.jfoenix
+                            </jvmArgs>
+                        </configuration>
 
-<!--                <configuration>-->
-<!--                    <jvmArgs>-->
-<!--                        &#45;&#45;add-opens=java.base/java.lang.reflect=com.jfoenix-->
-<!--                    </jvmArgs>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 </project>

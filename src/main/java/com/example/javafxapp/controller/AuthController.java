@@ -1,30 +1,25 @@
 package com.example.javafxapp.controller;
 
-import java.io.IOException;
-import java.net.URL;
-
-import com.example.javafxapp.alert.AlertInfo;
-import com.example.javafxapp.dao.AuthDAO;
-import com.example.javafxapp.model.Account;
-import com.example.javafxapp.pages.Pages;
-import com.jfoenix.controls.JFXButton;
-import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import javafx.util.Duration;
-
-import java.sql.SQLException;
-import java.util.ResourceBundle;
-
-import javafx.animation.FadeTransition;
-import javafx.animation.Interpolator;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.util.Duration;
+import com.example.javafxapp.Helpper.AlertInfo;
+import com.example.javafxapp.dao.AuthDAO;
+import com.example.javafxapp.model.Account;
+import com.example.javafxapp.pages.Pages;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
 
-public class AuthController {
+import javafx.fxml.FXML;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class AuthController{
     @FXML
     private TextField loginNameField ;
 
@@ -41,23 +36,58 @@ public class AuthController {
     private PasswordField confirmPassWordField ;
 
     @FXML
-    private Button btnLogin , btnSignup ;
+    private StackPane authContainer;
+
+    @FXML
+    private BorderPane loginPane, signUpPane;
+
+    private boolean isLoginVisible = true; // Biến kiểm tra trạng thái
+
+    @FXML
+    public void initialize() {
+        // Đẩy Sign Up Pane ra ngoài phải khi bắt đầu
+        signUpPane.setTranslateX(authContainer.getWidth());
+
+        // Đảm bảo layout ổn định trước khi chạy hiệu ứng
+        authContainer.widthProperty().addListener((obs, oldVal, newVal) -> {
+            signUpPane.setTranslateX(newVal.doubleValue());
+        });
+    }
+
+    @FXML
+    public void showSignUp() {
+        if (isLoginVisible) {
+            TranslateTransition slideOut = new TranslateTransition(Duration.seconds(0.5), loginPane);
+            slideOut.setToX(-authContainer.getWidth()); // Trượt Login ra ngoài trái
+
+            TranslateTransition slideIn = new TranslateTransition(Duration.seconds(0.5), signUpPane);
+            slideIn.setToX(0); // Đưa Sign Up vào màn hình
+
+            slideOut.play();
+            slideIn.play();
+
+            isLoginVisible = false;
+        }
+    }
+
+    @FXML
+    public void showLogin() {
+        if (!isLoginVisible) {
+            TranslateTransition slideOut = new TranslateTransition(Duration.seconds(0.5), signUpPane);
+            slideOut.setToX(authContainer.getWidth()); // Trượt Sign Up ra ngoài phải
+
+            TranslateTransition slideIn = new TranslateTransition(Duration.seconds(0.5), loginPane);
+            slideIn.setToX(0); // Đưa Login vào màn hình
+
+            slideOut.play();
+            slideIn.play();
+
+            isLoginVisible = true;
+        }
+    }
 
     private AuthDAO authDAO = new AuthDAO() ;
 
-    // show sign-up
-    public void showSignUp() {
-        Stage stage = (Stage) btnSignup.getScene().getWindow() ;
-        stage.close();
-        Pages.pageSignUp();
-    }
-
-    // show login .
-    public void showLogin() {
-        Stage stage = (Stage) btnLogin.getScene().getWindow() ;
-        stage.close();
-        Pages.pageLogin();
-    }
 
 
     // login .
@@ -107,8 +137,7 @@ public class AuthController {
             confirmPassWordField.clear();
             AlertInfo.showAlert(Alert.AlertType.INFORMATION , "Thành công" , "Đăng kí thành công");
             Stage stage = (Stage) signUpLoginNameField.getScene().getWindow();
-            stage.close(); // đóng trang sign up , chuyển qua login .
-            Pages.pageLogin();
+            showLogin();
         } else {
             AlertInfo.showAlert(Alert.AlertType.WARNING, "Lỗi", "Đăng kí thất bại");
         }
