@@ -24,6 +24,7 @@ public class Main extends Application {
        primaryStage.setScene(scene);
        primaryStage.setTitle("Coffee Shop Management");
        primaryStage.show();
+
     }
 
 
