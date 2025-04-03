@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1">
+
+    <!-- Thanh điều hướng bên trái -->
+
+    <!-- Nội dung chính -->
+    <center>
+        <StackPane fx:id="contentArea" style="-fx-padding: 20;">
+            <Label text="Chào mừng đến với Dashboard" fx:id="lblWelcome"
+                   style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+        </StackPane>
+    </center>
+
+</BorderPane>

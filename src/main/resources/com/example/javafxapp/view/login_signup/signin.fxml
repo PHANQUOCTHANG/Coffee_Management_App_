@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="612.0" prefWidth="1109.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.example.javafxapp.controller.AuthController">
+            fx:controller="com.example.javafxapp.Controller.AuthController">
    <left>
       <VBox alignment="CENTER" prefHeight="612.0" prefWidth="367.0" style="-fx-background-color: #4EB1E6;" BorderPane.alignment="CENTER">
          <children>
