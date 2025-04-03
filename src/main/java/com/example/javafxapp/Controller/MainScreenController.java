@@ -18,7 +18,7 @@ public class MainScreenController {
 
     @FXML
     private JFXButton btnOverview, btnProducts, btnCategories, btnEmployees, btnOrders,
-            btnAccounts, btnPermissions , btnLogOut;
+            btnAccounts, btnRole , btnLogOut;
 
     @FXML
     private StackPane centerPane;
@@ -34,7 +34,7 @@ public class MainScreenController {
         menuButtons.add(btnCategories);
         menuButtons.add(btnOrders);
         menuButtons.add(btnAccounts);
-        menuButtons.add(btnPermissions);
+        menuButtons.add(btnRole);
         menuButtons.add(btnEmployees);
         menuButtons.add(btnLogOut) ;
 
@@ -105,15 +105,16 @@ public class MainScreenController {
     @FXML
     private void handleAccounts() {
         System.out.println("Account Management button clicked");
+        loadCenterContent("/com/example/javafxapp/view/account/account.fxml");
         // Thêm logic chuyển sang trang quản lý tài khoản
         setActiveButton(btnAccounts);
     }
 
     @FXML
-    private void handlePermissions() {
-        System.out.println("Permissions button clicked");
+    private void handleRole() {
+        System.out.println("Role button clicked");
         // Thêm logic chuyển sang trang phân quyền
-        setActiveButton(btnPermissions);
+        setActiveButton(btnRole);
     }
 
     @FXML

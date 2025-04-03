@@ -53,7 +53,7 @@ public class ProductController {
                 // Cột hành động (Button)
                 JFXButton btnDetail = new JFXButton("Chi tiết");
                 btnDetail.getStyleClass().add("detail-button");
-//            btnDetail.setOnAction(e->handleDetail(product));
+            btnDetail.setOnAction(e->handleDetail());
 
                 // Thêm vào GridPane
                 grid.add(lblStt, 0, row);
@@ -77,9 +77,12 @@ public class ProductController {
         Pages.pageAddProduct();
     }
 
-//    public void handleDetail() {
-//
-//    }
+
+    // chi tiết 1 sản phẩm .
+    @FXML
+    public void handleDetail() {
+        System.out.println("OK");
+        Pages.pageDetailProduct();}
 
     // hàm tìm kiếm sản phẩm .
     @FXML
@@ -107,7 +110,7 @@ public class ProductController {
             // Cột hành động (Button)
             JFXButton btnDetail = new JFXButton("Chi tiết");
             btnDetail.getStyleClass().add("detail-button");
-//            btnDetail.setOnAction(e->handleDetail(product));
+            btnDetail.setOnAction(e -> handleDetail());
 
             // Thêm vào GridPane
             grid.add(lblStt, 0, row);

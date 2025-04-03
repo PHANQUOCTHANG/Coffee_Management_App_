@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.shape.Circle?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.171"
+            xmlns:fx="http://javafx.com/fxml/1">
+
+    <!-- VBox chứa button -->
+    <VBox spacing="10" alignment="CENTER" layoutX="50" layoutY="50">
+        <Button text="Click me!" />
+    </VBox>
+
+    <!-- ImageView hiển thị sản phẩm -->
+    <ImageView fx:id="productImage" fitWidth="200" fitHeight="200"
+               layoutX="100" layoutY="100" />
+
+    <!-- Tạo vòng tròn chứa giá -->
+    <Circle fx:id="priceCircle" centerX="150" centerY="150" radius="60"
+            fill="transparent" stroke="black" strokeWidth="3" />
+
+    <!-- Label chứa giá sản phẩm -->
+    <Label fx:id="priceLabel" text="200.000 VND" layoutX="130" layoutY="140"
+           styleClass="price-label"/>
+
+</AnchorPane>

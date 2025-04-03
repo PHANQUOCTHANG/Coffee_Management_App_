@@ -87,5 +87,24 @@ public class Pages {
         }
     }
 
+    // chuyển qua trang chi tiết sản phẩm
+    public static void pageDetailProduct() {
+        try {
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/product/detailProduct.fxml"));
+            Parent root = loader.load() ;
+            Scene scene = new Scene(root);
+            Stage stage = new Stage() ;
+            stage.getIcons().add(new Image(Pages.class.getResourceAsStream("/com/example/javafxapp/view/images/icons.jpg")));
+            stage.setScene(scene);
+            stage.setTitle("Coffee Shop Management");
+            stage.setResizable(false);
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            AlertInfo.showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể mở trang.");
+        }
+    }
+
 
 }
