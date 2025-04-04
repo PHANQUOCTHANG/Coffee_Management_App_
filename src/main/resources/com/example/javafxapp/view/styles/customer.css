@@ -1,0 +1,13 @@
+@font-face {
+    font-family: "Lora";
+    src: url("../fonts/Lora-Italic-VariableFont_wght.ttf");
+}
+
+.label {
+    -fx-font-family: "Lora";
+}
+.navbar{
+    -fx-border-color: rgb(146, 146, 146);
+    -fx-border-width: 0 2px 0 2px;
+    -fx-border-style: dashed;
+}
