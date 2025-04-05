@@ -10,7 +10,7 @@
 <?import javafx.scene.image.Image?>
 <StackPane xmlns="http://javafx.com/javafx"
            xmlns:fx="http://javafx.com/fxml"
-           fx:controller="com.example.javafxapp.Controller.AuthController"
+           fx:controller="com.example.javafxapp.Controller.Admin.AuthController"
            fx:id = "authContainer"
            prefHeight="400.0" prefWidth="600.0">
     <BorderPane fx:id="loginPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="612.0" prefWidth="1109.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1"

@@ -1,5 +1,6 @@
 package com.example.javafxapp.Repository;
 
+import com.example.javafxapp.Repository.JDBCRepository;
 import com.example.javafxapp.Utils.PasswordUtils;
 import com.example.javafxapp.Config.DatabaseConnection;
 import com.example.javafxapp.Model.Account;

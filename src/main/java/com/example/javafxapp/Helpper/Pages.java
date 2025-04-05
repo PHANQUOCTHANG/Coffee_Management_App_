@@ -1,6 +1,6 @@
 package com.example.javafxapp.Helpper;
 
-import com.example.javafxapp.Controller.ProductController;
+import com.example.javafxapp.Controller.Admin.ProductController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;

@@ -1,4 +1,4 @@
-package com.example.javafxapp.Controller;
+package com.example.javafxapp.Controller.Admin;
 
 import com.example.javafxapp.Helpper.AlertInfo;
 import com.example.javafxapp.Helpper.Pages;

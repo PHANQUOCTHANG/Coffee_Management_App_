@@ -1,8 +1,7 @@
 package com.example.javafxapp.Utils;
 
-import com.example.javafxapp.Controller.AccountController;
+import com.example.javafxapp.Controller.Admin.AccountController;
 import com.example.javafxapp.Helpper.AlertInfo;
-import com.example.javafxapp.Repository.AccountRepository;
 import javafx.scene.control.Alert;
 
 public class ValidationUtils {

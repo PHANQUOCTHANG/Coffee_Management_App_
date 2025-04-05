@@ -1,15 +1,8 @@
 package com.example.javafxapp.Service;
 
-import com.example.javafxapp.Config.DatabaseConnection;
 import com.example.javafxapp.Model.Account;
 import com.example.javafxapp.Repository.AccountRepository;
-import com.example.javafxapp.Utils.PasswordUtils;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class AccountService {

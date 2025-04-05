@@ -1,8 +1,6 @@
-package com.example.javafxapp.Controller;
+package com.example.javafxapp.Controller.Admin;
 
 import com.example.javafxapp.Helpper.AlertInfo;
-import com.example.javafxapp.Model.Product;
-import com.example.javafxapp.Repository.AccountRepository;
 import com.example.javafxapp.Model.Account;
 import com.example.javafxapp.Service.AccountService;
 import javafx.fxml.FXML;

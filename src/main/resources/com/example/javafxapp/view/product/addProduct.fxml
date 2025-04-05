@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 
 <?import javafx.scene.control.ComboBox?>
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: #F3F4F6;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxapp.Controller.ProductController">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: #F3F4F6;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxapp.Controller.Admin.ProductController">
     <children>
         <Button fx:id="btnCategoryId"></Button>
         <Button fx:id="btnPathImg"></Button>
@@ -72,7 +72,7 @@
                                                         <Font name="System Bold" size="18.0" />
                                                     </font>
                                                 </Label>
-                                                <TextField fx:id="productNameField" prefHeight="40.0" prefWidth="1172.0" promptText="tên sản phẩm sẽ dc điền sẵn trong này, nếu muốn sửa chỉ cần sửa nội dung r cập nhật là xong">
+                                                <TextField fx:id="productNameField" prefHeight="40.0" prefWidth="1172.0" promptText="Tên sản phẩm">
                                                     <font>
                                                         <Font size="16.0" />
                                                     </font>

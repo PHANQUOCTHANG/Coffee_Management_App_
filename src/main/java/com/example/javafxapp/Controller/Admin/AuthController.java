@@ -1,4 +1,4 @@
-package com.example.javafxapp.Controller;
+package com.example.javafxapp.Controller.Admin;
 
 import com.example.javafxapp.Service.AuthService;
 import com.example.javafxapp.Utils.ValidationUtils;
