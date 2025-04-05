@@ -69,6 +69,7 @@ public class ProductRepository implements JDBCRepository<Product> {
             ResultSet rs = pstmt.executeQuery();
             while(rs.next()) {
                 products.add(new Product(
+                        rs.getInt("product_id") ,
                         rs.getString("product_name")  ,
                         rs.getString("description") ,
                         rs.getDouble("price") ,
@@ -83,6 +84,30 @@ public class ProductRepository implements JDBCRepository<Product> {
     }
 
     // find product by product_name .
+    public Product findProductByID(int productId) {
+        String sql = "SELECT * from product where product_id = ?" ;
+        try(Connection connection = DatabaseConnection.getConnection() ;
+            PreparedStatement preparedStatement = connection.prepareStatement(sql)
+        ){
+            preparedStatement.setInt(1,productId);
+            ResultSet rs = preparedStatement.executeQuery() ;
+            if (rs.next()) {
+                return new Product(
+                        rs.getInt("product_id") ,
+                        rs.getString("product_name")  ,
+                        rs.getString("description") ,
+                        rs.getDouble("price") ,
+                        rs.getInt("category_id")  ,
+                        rs.getString("imgSrc") );
+            }
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return null ;
+    }
+
+    // find product by product_name .
     public Product findProductByName(String product_name) {
         String sql = "SELECT * from product where product_name = ?" ;
         try(Connection connection = DatabaseConnection.getConnection() ;
@@ -92,6 +117,7 @@ public class ProductRepository implements JDBCRepository<Product> {
             ResultSet rs = preparedStatement.executeQuery() ;
             if (rs.next()) {
                 return new Product(
+                        rs.getInt("product_id") ,
                         rs.getString("product_name")  ,
                         rs.getString("description") ,
                         rs.getDouble("price") ,

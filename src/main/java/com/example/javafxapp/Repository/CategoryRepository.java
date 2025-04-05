@@ -2,6 +2,8 @@ package com.example.javafxapp.Repository;
 
 import com.example.javafxapp.Config.DatabaseConnection;
 import com.example.javafxapp.Model.Category;
+import com.example.javafxapp.Model.Product;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +61,7 @@ public class CategoryRepository implements JDBCRepository<Category>{
             ResultSet rs = pstmt.executeQuery();
             while(rs.next()) {
                 categories.add(new Category(
+                        rs.getInt("category_id") ,
                         rs.getString("category_name")
                 )) ;
             }
@@ -67,4 +70,46 @@ public class CategoryRepository implements JDBCRepository<Category>{
         }
         return categories ;
     }
+
+    // find product by category_id .
+    public Category findCategoryByID(int category_id) {
+        String sql = "SELECT * from category where category_id = ?" ;
+        try(Connection connection = DatabaseConnection.getConnection() ;
+            PreparedStatement preparedStatement = connection.prepareStatement(sql)
+        ){
+            preparedStatement.setInt(1,category_id);
+            ResultSet rs = preparedStatement.executeQuery() ;
+            if (rs.next()) {
+                return new Category(
+                        rs.getInt("category_id") ,
+                        rs.getString("category_name")
+                ) ;
+            }
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return null ;
+    }
+
+    // find category by category_name.
+    public Category findCategoryByName(String category_name) {
+        String sql = "SELECT * from category where category_name = ?" ;
+        try(Connection connection = DatabaseConnection.getConnection() ;
+            PreparedStatement preparedStatement = connection.prepareStatement(sql)
+        ){
+            preparedStatement.setString(1,category_name);
+            ResultSet rs = preparedStatement.executeQuery() ;
+            if (rs.next()) {
+                return new Category(
+                        rs.getInt("category_id") ,
+                        rs.getString("category_name"));
+            }
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return null ;
+    }
+
 }

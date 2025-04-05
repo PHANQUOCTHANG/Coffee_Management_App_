@@ -1,5 +1,6 @@
 package com.example.javafxapp.Helpper;
 
+import com.example.javafxapp.Controller.ProductController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -74,6 +75,11 @@ public class Pages {
             FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/product/addProduct.fxml"));
             Parent root = loader.load() ;
             Scene scene = new Scene(root);
+
+
+            ProductController controller = loader.getController();
+            controller.loadDataAddProduct();
+
             Stage stage = new Stage() ;
             stage.getIcons().add(new Image(Pages.class.getResourceAsStream("/com/example/javafxapp/view/images/icons.jpg")));
             stage.setScene(scene);
@@ -88,16 +94,22 @@ public class Pages {
     }
 
     // chuyển qua trang chi tiết sản phẩm
-    public static void pageDetailProduct() {
+    public static void pageDetailProduct(int productId) {
         try {
             FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/product/detailProduct.fxml"));
             Parent root = loader.load() ;
             Scene scene = new Scene(root);
+
+            // Lấy controller của trang chi tiết và truyền ID sản phẩm vào
+           ProductController controller = loader.getController();
+            controller.loadDataDetailProduct(productId);
+
+
             Stage stage = new Stage() ;
             stage.getIcons().add(new Image(Pages.class.getResourceAsStream("/com/example/javafxapp/view/images/icons.jpg")));
             stage.setScene(scene);
             stage.setTitle("Coffee Shop Management");
-            stage.setResizable(false);
+            stage.setResizable(true);
             stage.show();
 
         } catch (IOException e) {

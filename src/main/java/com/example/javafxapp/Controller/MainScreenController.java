@@ -74,7 +74,7 @@ public class MainScreenController {
     }
 
     @FXML
-    private void handleProducts() {
+    public void handleProducts() {
         System.out.println("Products button clicked");
         loadCenterContent("/com/example/javafxapp/view/product/products.fxml");
         // Thêm logic chuyển sang trang sản phẩm

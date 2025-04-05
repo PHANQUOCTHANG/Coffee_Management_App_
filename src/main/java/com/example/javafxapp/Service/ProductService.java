@@ -35,4 +35,9 @@ public class ProductService {
     public Product findProductByName(String product_name) {
         return productRepository.findProductByName(product_name) ;
     }
+
+    // find product by product_name .
+    public Product findProductByID(int productId) {
+        return productRepository.findProductByID(productId) ;
+    }
 }

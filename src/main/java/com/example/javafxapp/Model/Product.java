@@ -14,9 +14,17 @@ public class Product {
     public Product() {
     }
 
-
-
     public Product(String product_name, String description, double price, int category_id, String imgSrc) {
+        this.product_name = product_name;
+        this.description = description;
+        this.price = price;
+        this.category_id = category_id;
+        this.imgSrc = imgSrc;
+    }
+
+
+    public Product(int product_id , String product_name, String description, double price, int category_id, String imgSrc) {
+        this.product_id = product_id;
         this.product_name = product_name;
         this.description = description;
         this.price = price;
