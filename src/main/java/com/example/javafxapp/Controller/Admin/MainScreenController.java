@@ -84,6 +84,7 @@ public class MainScreenController {
     @FXML
     private void handleCategories() {
         System.out.println("Product Categories button clicked");
+        loadCenterContent("/com/example/javafxapp/view/category/category.fxml");
         // Thêm logic chuyển sang trang danh mục sản phẩm
         setActiveButton(btnCategories);
     }

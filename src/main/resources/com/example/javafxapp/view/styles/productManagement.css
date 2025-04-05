@@ -18,6 +18,7 @@
 .label {
     -fx-font-size: 15px;
     -fx-font-weight: bold;
+    -fx-alignment: center ;
 }
 
 /* STT */
@@ -57,6 +58,7 @@
     -fx-padding: 5px 10px;
     -fx-border-radius: 5px;
 }
+
 
 .detail-button:hover {
     -fx-background-color: #003D99;

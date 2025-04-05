@@ -13,22 +13,22 @@ public class CategoryService {
 
     private CategoryRepository categoryRepository = new CategoryRepository() ;
     // add category .
-    public void add(Category category) {
+    public void addCategory(Category category) {
         categoryRepository.add(category);
     }
 
     // update product .
-    public void update(Category category) {
+    public void updateCategory(Category category) {
         categoryRepository.update(category);
     }
 
     // delete product
-    public void delete(int categoryId) {
+    public void deleteCategory(int categoryId) {
         categoryRepository.delete(categoryId);
     }
 
     // get all product .
-    public List<Category> getAll(){
+    public List<Category> getAllCategory(){
         return categoryRepository.getAll() ;
     }
 

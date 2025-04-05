@@ -137,7 +137,7 @@ public class ProductController {
             btnCategoryId.setVisible(false);
             btnPathImg.setVisible(false);
             List<String> categories = new ArrayList<>() ;
-            for (Category category : categoryService.getAll()) {
+            for (Category category : categoryService.getAllCategory()) {
                 categories.add(category.getCategory_name()) ;
             }
             categoryComboBox.getItems().addAll(categories);
@@ -161,7 +161,7 @@ public class ProductController {
             btnPathImg.setText(product.getImgSrc());
             btnPathImg.setVisible(false);
             List<String> categories = new ArrayList<>() ;
-            for (Category category : categoryService.getAll()) {
+            for (Category category : categoryService.getAllCategory()) {
                 categories.add(category.getCategory_name()) ;
             }
             categoryComboBox.getItems().addAll(categories);
@@ -173,12 +173,16 @@ public class ProductController {
     // xóa 1 sản phẩm .
     @FXML
     public void deleteProduct() {
-        int productId = Integer.parseInt(btnId.getText()) ;
-        if (AlertInfo.confirmAlert("Bạn có chắc muốn xóa sản phẩm không ?")) {
-            productService.deleteProduct(productId);
-            AlertInfo.showAlert(Alert.AlertType.INFORMATION , "Thành công" , "Xóa sản phẩm thành công");
-            Stage stage = (Stage)btnId.getScene().getWindow() ;
-            stage.close() ;
+        try {
+            int productId = Integer.parseInt(btnId.getText()) ;
+            if (AlertInfo.confirmAlert("Bạn có chắc muốn xóa sản phẩm không ?")) {
+                productService.deleteProduct(productId);
+                AlertInfo.showAlert(Alert.AlertType.INFORMATION , "Thành công" , "Xóa sản phẩm thành công");
+                Stage stage = (Stage)btnId.getScene().getWindow() ;
+                stage.close() ;
+            }
+        } catch (RuntimeException e) {
+            e.printStackTrace();
         }
     }
 
