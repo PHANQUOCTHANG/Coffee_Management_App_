@@ -85,11 +85,12 @@ public class ProductRepository implements JDBCRepository<Product> {
 
     // find product by product_name .
     public Product findProductByID(int productId) {
-        String sql = "SELECT * from product where product_id = ?" ;
+        String sql = "SELECT * from product where product_id = ? AND deleted = ?" ;
         try(Connection connection = DatabaseConnection.getConnection() ;
             PreparedStatement preparedStatement = connection.prepareStatement(sql)
         ){
             preparedStatement.setInt(1,productId);
+            preparedStatement.setBoolean(2,false);
             ResultSet rs = preparedStatement.executeQuery() ;
             if (rs.next()) {
                 return new Product(
@@ -109,11 +110,12 @@ public class ProductRepository implements JDBCRepository<Product> {
 
     // find product by product_name .
     public Product findProductByName(String product_name) {
-        String sql = "SELECT * from product where product_name = ?" ;
+        String sql = "SELECT * from product where product_name = ? AND deleted = ?" ;
         try(Connection connection = DatabaseConnection.getConnection() ;
         PreparedStatement preparedStatement = connection.prepareStatement(sql)
         ){
             preparedStatement.setString(1,product_name);
+            preparedStatement.setBoolean(2,false);
             ResultSet rs = preparedStatement.executeQuery() ;
             if (rs.next()) {
                 return new Product(

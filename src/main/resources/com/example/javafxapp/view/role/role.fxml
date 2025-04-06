@@ -16,11 +16,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1250.0" style="-fx-background-color: #F3F4F6;" stylesheets="@../styles/productManagement.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxapp.Controller.Admin.AccountController">
+<VBox alignment="TOP_CENTER" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1250.0" style="-fx-background-color: #F3F4F6;" stylesheets="@../styles/productManagement.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxapp.Controller.Admin.RoleController">
     <children>
         <HBox maxHeight="55.0" maxWidth="1245.0" prefHeight="70.0" prefWidth="1095.0">
             <children>
-                <Label prefHeight="50.0" prefWidth="276.0" style="-fx-font-size: 20px;" text="Danh sách tài khoản ">
+                <Label prefHeight="50.0" prefWidth="276.0" style="-fx-font-size: 20px;" text="Danh sách vai trò">
                     <font>
                         <Font name="Arial" size="20.0" />
                     </font>
@@ -29,7 +29,7 @@
                     </padding>
                 </Label>
                 <HBox alignment="TOP_RIGHT" prefHeight="50.0" prefWidth="769.0" />
-                <JFXButton onAction="#addAccount" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #0051CE;" text="Tạo sản phẩm" textFill="WHITE">
+                <JFXButton onAction="#addRole" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #0051CE;" text="Tạo vai trò" textFill="WHITE">
                     <font>
                         <Font size="14.0" />
                     </font>
@@ -53,7 +53,7 @@
                         <Insets left="20.0" right="20.0" />
                     </padding>
                     <children>
-                        <Label prefHeight="100.0" style="-fx-border-color: #2962FF; -fx-border-width: 0 0 2px;" text="Tất cả tài khoản ">
+                        <Label prefHeight="100.0" style="-fx-border-color: #2962FF; -fx-border-width: 0 0 2px;" text="Tất cả vai trò">
                             <font>
                                 <Font size="26.0" />
                             </font>
@@ -71,21 +71,6 @@
                         <Insets left="20.0" />
                     </padding>
                     <children>
-                        <JFXButton fx:id="btnFilter" prefHeight="49.0" prefWidth="218.0" style="-fx-border-width: 2px; -fx-border-radius: 10px; -fx-border-color: gray;" text="Thêm điều kiện lọc">
-                            <font>
-                                <Font size="18.0" />
-                            </font>
-                            <graphic>
-                                <ImageView fitHeight="25.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@../images/Filter-11.png" />
-                                    </image>
-                                </ImageView>
-                            </graphic>
-                            <HBox.margin>
-                                <Insets right="15.0" />
-                            </HBox.margin>
-                        </JFXButton>
                         <HBox alignment="CENTER" prefHeight="51.0" prefWidth="646.0" style="-fx-border-color: grey; -fx-border-radius: 10px;">
                             <children>
                                 <ImageView fitHeight="31.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
@@ -103,7 +88,7 @@
                                 <Insets right="15.0" />
                             </HBox.margin>
                         </HBox>
-                        <JFXButton onAction="#searchAccount" prefHeight="55.0" prefWidth="130.0" style="-fx-background-color: #0051CE;" text="Tìm kiếm" textFill="WHITE">
+                        <JFXButton onAction="#searchRole" prefHeight="55.0" prefWidth="130.0" style="-fx-background-color: #0051CE;" text="Tìm kiếm" textFill="WHITE">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
@@ -121,7 +106,7 @@
                         <Insets top="20.0" />
                     </VBox.margin>
                     <children>
-                        <JFXCheckBox prefHeight="37.0" prefWidth="84.0" text="STT">
+                        <JFXCheckBox prefHeight="40.0" prefWidth="50.0" text="STT">
                             <HBox.margin>
                                 <Insets />
                             </HBox.margin>
@@ -134,7 +119,7 @@
                         </JFXCheckBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="51.0" prefWidth="1104.0">
                             <children>
-                                <Label alignment="CENTER" prefHeight="37.0" prefWidth="215.0" text="Tên đăng nhập ">
+                                <Label alignment="CENTER" layoutX="945.0" layoutY="17.0" prefHeight="41.0" prefWidth="454.0" text="Tên vai trò ">
                                     <font>
                                         <Font name="System Bold" size="20.0" />
                                     </font>
@@ -142,15 +127,7 @@
                                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                     </padding>
                                 </Label>
-                                <Label alignment="CENTER" layoutX="945.0" layoutY="17.0" prefHeight="37.0" prefWidth="250.0" text="Vai trò ">
-                                    <font>
-                                        <Font name="System Bold" size="20.0" />
-                                    </font>
-                                    <padding>
-                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                    </padding>
-                                </Label>
-                                <Label alignment="CENTER" layoutX="796.0" layoutY="17.0" prefHeight="37.0" prefWidth="210.0" text="Hành động">
+                                <Label alignment="CENTER" layoutX="154.0" layoutY="16.0" prefHeight="41.0" prefWidth="374.0" text="Hành động">
                                     <font>
                                         <Font name="System Bold" size="20.0" />
                                     </font>
@@ -166,11 +143,9 @@
                     <content>
                         <GridPane fx:id="grid" prefHeight="23.0" prefWidth="73.0" styleClass="grid-cell">
                             <columnConstraints>
-                                <ColumnConstraints minWidth="150" prefWidth="150" />  <!-- STT -->
-                                <ColumnConstraints minWidth="215" prefWidth="215" /> <!-- Ảnh -->
-                                <ColumnConstraints minWidth="250" prefWidth="250" /> <!-- Tên -->
-                                <ColumnConstraints minWidth="210" prefWidth="210" /> <!-- Giá -->
-                                <ColumnConstraints minWidth="275" prefWidth="275" /> <!-- Hành động -->
+                                <ColumnConstraints minWidth="250" prefWidth="100" />  <!-- STT -->
+                                <ColumnConstraints minWidth="400" prefWidth="400" /> <!-- Tên -->
+                                <ColumnConstraints minWidth="400" prefWidth="400" /> <!-- Hành động -->
                             </columnConstraints>
                         </GridPane>
                     </content>

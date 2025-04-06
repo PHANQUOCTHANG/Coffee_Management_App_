@@ -2,11 +2,12 @@ package com.example.javafxapp.Utils;
 
 import com.example.javafxapp.Controller.Admin.AccountController;
 import com.example.javafxapp.Helpper.AlertInfo;
+import com.example.javafxapp.Service.AccountService;
 import javafx.scene.control.Alert;
 
 public class ValidationUtils {
 
-    private static AccountController accountController = new AccountController() ;
+    private static AccountService accountService  =  new AccountService() ;
 
     public static boolean loginUtils (String loginName , String password) {
         if (loginName.isEmpty() || password.isEmpty()) {
@@ -17,7 +18,7 @@ public class ValidationUtils {
             AlertInfo.showAlert(Alert.AlertType.ERROR , "Lỗi" , "Tên đặng nhập ít nhất 8 kí tự");
             return false ;
         }
-        if (loginName.length() < 6) {
+        if (password.length() < 6) {
             AlertInfo.showAlert(Alert.AlertType.ERROR , "Lỗi" , "Mật khẩu ít nhất 6 kí tự");
             return false ;
         }
@@ -34,7 +35,7 @@ public class ValidationUtils {
             AlertInfo.showAlert(Alert.AlertType.ERROR , "Lỗi" , "Tên đặng nhập ít nhất 8 kí tự");
             return false ;
         }
-        if (loginName.length() < 6) {
+        if (password.length() < 6) {
             AlertInfo.showAlert(Alert.AlertType.ERROR , "Lỗi" , "Mật khẩu ít nhất 6 kí tự");
             return false ;
         }
@@ -46,10 +47,32 @@ public class ValidationUtils {
             AlertInfo.showAlert(Alert.AlertType.WARNING, "Lỗi", "Mật khẩu xác nhận không khớp.");
             return false ;
         }
-        if (accountController.existsNameAccount(loginName)) {
+        if (accountService.existsNameAccount(loginName)) {
             AlertInfo.showAlert(Alert.AlertType.ERROR , "Lỗi" , "Tên đăng nhập đã tồn tại");
             return false ;
         }
+        return true ;
+    }
+
+    public static boolean accountUtils (String loginName , String password , int account_id) {
+        if (loginName.isEmpty() || password.isEmpty()) {
+            AlertInfo.showAlert(Alert.AlertType.WARNING, "Lỗi", "Vui lòng nhập đầy đủ thông tin.");
+            return false ;
+        }
+        if (loginName.length() < 8) {
+            AlertInfo.showAlert(Alert.AlertType.ERROR , "Lỗi" , "Tên đặng nhập ít nhất 8 kí tự");
+            return false ;
+        }
+        if (password.length() < 6) {
+            AlertInfo.showAlert(Alert.AlertType.ERROR , "Lỗi" , "Mật khẩu ít nhất 6 kí tự");
+            return false ;
+        }
+
+        if (accountService.existsNameAccountOther(account_id , loginName)) {
+            AlertInfo.showAlert(Alert.AlertType.ERROR , "Lỗi" , "Tên đăng nhập đã tồn tại");
+            return false ;
+        }
+
         return true ;
     }
 }

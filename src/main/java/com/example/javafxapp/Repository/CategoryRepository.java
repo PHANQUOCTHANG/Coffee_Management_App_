@@ -71,13 +71,14 @@ public class CategoryRepository implements JDBCRepository<Category>{
         return categories ;
     }
 
-    // find product by category_id .
+    // find category by category_id .
     public Category findCategoryByID(int category_id) {
-        String sql = "SELECT * from category where category_id = ?" ;
+        String sql = "SELECT * from category where category_id = ? AND deleted = ?" ;
         try(Connection connection = DatabaseConnection.getConnection() ;
             PreparedStatement preparedStatement = connection.prepareStatement(sql)
         ){
             preparedStatement.setInt(1,category_id);
+            preparedStatement.setBoolean(2,false);
             ResultSet rs = preparedStatement.executeQuery() ;
             if (rs.next()) {
                 return new Category(
@@ -94,11 +95,12 @@ public class CategoryRepository implements JDBCRepository<Category>{
 
     // find category by category_name.
     public Category findCategoryByName(String category_name) {
-        String sql = "SELECT * from category where category_name = ?" ;
+        String sql = "SELECT * from category where category_name = ? AND deleted = ?" ;
         try(Connection connection = DatabaseConnection.getConnection() ;
             PreparedStatement preparedStatement = connection.prepareStatement(sql)
         ){
             preparedStatement.setString(1,category_name);
+            preparedStatement.setBoolean(2,false);
             ResultSet rs = preparedStatement.executeQuery() ;
             if (rs.next()) {
                 return new Category(
