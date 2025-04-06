@@ -1,4 +1,6 @@
 package com.example.javafxapp;
+import com.example.javafxapp.Model.Account;
+import com.example.javafxapp.Repository.AccountRepository;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -29,8 +31,8 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
-//        AccountDAO accountDAO = new AccountDAO() ;
-//        accountDAO.addAccount(new Account("Admin1234" , "123456" , 1));
+//        AccountRepository accountRepository = new AccountRepository() ;
+//        accountRepository.add(new Account("Admin1234" , "123456" , 1));
         launch();
     }
 }

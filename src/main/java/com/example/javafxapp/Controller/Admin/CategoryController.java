@@ -133,9 +133,9 @@ public class CategoryController {
     @FXML
     public void deleteCategory() {
         try {
-            int productId = Integer.parseInt(btnId.getText()) ;
+            int categoryId = Integer.parseInt(btnId.getText()) ;
             if (AlertInfo.confirmAlert("Bạn có chắc muốn xóa danh mục không ?")) {
-                categoryService.deleteCategory(productId);
+                categoryService.deleteCategory(categoryId);
                 AlertInfo.showAlert(Alert.AlertType.INFORMATION , "Thành công" , "Xóa danh mục thành công");
                 Stage stage = (Stage)btnId.getScene().getWindow() ;
                 stage.close() ;

@@ -175,7 +175,7 @@
                     <content>
                         <GridPane fx:id="grid" prefHeight="23.0" prefWidth="73.0" styleClass="grid-cell">
                             <columnConstraints>
-                                <ColumnConstraints minWidth="122" prefWidth="122" />  <!-- STT -->
+                                <ColumnConstraints minWidth="150" prefWidth="150" />  <!-- STT -->
                                 <ColumnConstraints minWidth="215" prefWidth="215" /> <!-- Ảnh -->
                                 <ColumnConstraints minWidth="250" prefWidth="250" /> <!-- Tên -->
                                 <ColumnConstraints minWidth="210" prefWidth="210" /> <!-- Giá -->

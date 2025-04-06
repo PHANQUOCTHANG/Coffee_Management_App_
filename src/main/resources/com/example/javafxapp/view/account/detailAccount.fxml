@@ -3,9 +3,9 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -13,8 +13,10 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: #F3F4F6;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxapp.Controller.Admin.RoleController">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: #F3F4F6;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxapp.Controller.Admin.AccountController">
     <children>
+        <Button fx:id="btnId" />
+        <Button fx:id="btnRoleId" />
         <VBox alignment="CENTER" prefHeight="120.0" prefWidth="1250.0">
             <children>
                 <HBox alignment="CENTER" maxHeight="55.0" maxWidth="1245.0" prefHeight="70.0" prefWidth="1095.0">
@@ -64,36 +66,58 @@
                                                 <Insets bottom="15.0" top="15.0" />
                                             </padding>
                                             <children>
-                                                <Label prefHeight="30.0" prefWidth="206.0" text="Tên danh mục" textFill="#6c798f">
-                                                    t           <font>
-                                                    <Font name="System Bold" size="18.0" />
-                                                </font>
+                                                <Label prefHeight="30.0" prefWidth="206.0" text="Tên đăng nhập " textFill="#6c798f">
+                                                    <font>
+                                                        <Font name="System Bold" size="18.0" />
+                                                    </font>
                                                 </Label>
-                                                <TextField fx:id="roleNameField" prefHeight="40.0" prefWidth="1172.0" promptText="Tên danh mục">
+                                                <TextField fx:id="accountNameField" prefHeight="40.0" prefWidth="1172.0">
                                                     <font>
                                                         <Font size="16.0" />
                                                     </font>
                                                 </TextField>
                                             </children>
                                         </VBox>
+                                        <HBox prefHeight="100.0" prefWidth="200.0">
+                                            <children>
+                                                <VBox prefHeight="100.0" prefWidth="567.0">
+                                                    <padding>
+                                                        <Insets bottom="15.0" top="15.0" />
+                                                    </padding>
+                                                    <children>
+                                                        <Label prefHeight="30.0" prefWidth="206.0" text="Vai trò " textFill="#6c798f">
+                                                            <font>
+                                                                <Font name="System Bold" size="18.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <ComboBox fx:id="roleComboBox" onAction="#roleAction" prefWidth="200.0" />
+
+                                                    </children>
+                                                </VBox>
+                                                <VBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="606.0">
+                                                    <padding>
+                                                        <Insets bottom="15.0" left="30.0" top="15.0" />
+                                                    </padding>
+                                                    <children>
+                                                        <Label prefHeight="30.0" prefWidth="206.0" text="Mật khẩu " textFill="#6c798f">
+                                                            <font>
+                                                                <Font name="System Bold" size="18.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <TextField fx:id="passwordField" prefHeight="40.0" prefWidth="1172.0">
+                                                            <font>
+                                                                <Font size="16.0" />
+                                                            </font>
+                                                        </TextField>
+                                                    </children>
+                                                </VBox>
+                                            </children>
+                                        </HBox>
                                         <VBox prefHeight="292.0" prefWidth="1172.0">
                                             <padding>
                                                 <Insets bottom="15.0" top="15.0" />
                                             </padding>
-                                            <children>
-                                                <Label prefHeight="30.0" prefWidth="206.0" text="Mô tả" textFill="#6c798f">
-                                                    <font>
-                                                        <Font name="System Bold" size="18.0" />
-                                                    </font>
-                                                </Label>
-                                                <TextArea fx:id="descriptionField" prefHeight="235.0" prefWidth="1172.0">
-                                                    <font>
-                                                        <Font size="16.0" />
-                                                    </font>
-                                                </TextArea>
-                                            </children>
                                         </VBox>
-
                                     </children>
                                     <padding>
                                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
@@ -108,9 +132,21 @@
                         <Insets bottom="30.0" left="30.0" right="30.0" top="20.0" />
                     </padding>
                     <children>
+                        <JFXButton fx:id="btnDelete" onAction="#deleteAccount" prefHeight="40.0" prefWidth="90.0" style="-fx-background-color: #FF3F5B;" text="Xoá" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="16.0" />
+                            </font>
+                            <graphic>
+                                <ImageView fitHeight="30.0" fitWidth="1.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/trash-bin.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </JFXButton>
                         <HBox alignment="TOP_RIGHT" prefHeight="40.0" prefWidth="1083.0">
                             <children>
-                                <JFXButton fx:id="btnAdd" onAction="#addRolePost" prefHeight="40.0" prefWidth="90.0" style="-fx-background-color: #2979FF;" text="Thêm" textFill="WHITE">
+                                <JFXButton fx:id="btnUpdate" onAction="#updateAccount" prefHeight="40.0" prefWidth="90.0" style="-fx-background-color: #2979FF;" text="Cập nhật" textFill="WHITE">
                                     <font>
                                         <Font name="System Bold" size="16.0" />
                                     </font>

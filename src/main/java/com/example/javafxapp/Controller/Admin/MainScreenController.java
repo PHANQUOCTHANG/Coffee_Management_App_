@@ -114,6 +114,7 @@ public class MainScreenController {
     @FXML
     private void handleRole() {
         System.out.println("Role button clicked");
+        loadCenterContent("/com/example/javafxapp/view/role/role.fxml");
         // Thêm logic chuyển sang trang phân quyền
         setActiveButton(btnRole);
     }

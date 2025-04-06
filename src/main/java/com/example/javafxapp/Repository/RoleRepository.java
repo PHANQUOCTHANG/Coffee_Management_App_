@@ -1,6 +1,7 @@
 package com.example.javafxapp.Repository;
 
 import com.example.javafxapp.Config.DatabaseConnection;
+import com.example.javafxapp.Model.Category;
 import com.example.javafxapp.Model.Role;
 
 import java.sql.Connection;
@@ -48,7 +49,7 @@ public class RoleRepository implements JDBCRepository<Role> {
 
     // delete role .
     public void delete(int roleId) {
-        String sql = "UPDATE Account set deleted = ? where role_id = id ";
+        String sql = "UPDATE Role set deleted = ? where role_id = ? ";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setBoolean(1, true);
@@ -69,7 +70,8 @@ public class RoleRepository implements JDBCRepository<Role> {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 roles.add(new Role(
-                        rs.getString("role_name"),
+                        rs.getInt("role_id") ,
+                        rs.getString("role_name") ,
                         rs.getString("description")
                 ));
             }
@@ -77,6 +79,52 @@ public class RoleRepository implements JDBCRepository<Role> {
             e.printStackTrace();
         }
         return roles;
+    }
+
+    // find role by role_id .
+    public Role findRoleByID(int role_id) {
+        String sql = "SELECT * from role where role_id = ? AND deleted = ?" ;
+        try(Connection connection = DatabaseConnection.getConnection() ;
+            PreparedStatement preparedStatement = connection.prepareStatement(sql)
+        ){
+            preparedStatement.setInt(1 , role_id);
+            preparedStatement.setBoolean(2,false);
+            ResultSet rs = preparedStatement.executeQuery() ;
+            if (rs.next()) {
+                return new Role(
+                        rs.getInt("role_id") ,
+                        rs.getString("role_name") ,
+                        rs.getString("description")
+                ) ;
+            }
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return null ;
+    }
+
+    // find role by role_name.
+    public Role findRoleByName(String role_name) {
+        String sql = "SELECT * from role where role_name = ? AND deleted = ?" ;
+        try(Connection connection = DatabaseConnection.getConnection() ;
+            PreparedStatement preparedStatement = connection.prepareStatement(sql)
+        ){
+            preparedStatement.setString(1,role_name);
+            preparedStatement.setBoolean(2,false);
+            ResultSet rs = preparedStatement.executeQuery() ;
+            if (rs.next()) {
+                return new Role(
+                        rs.getInt("role_id") ,
+                        rs.getString("role_name") ,
+                        rs.getString("description")
+                ) ;
+            }
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return null ;
     }
 }
 
