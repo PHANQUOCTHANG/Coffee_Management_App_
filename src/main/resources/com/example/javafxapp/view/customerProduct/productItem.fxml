@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -7,26 +8,30 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="363.0" prefWidth="273.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="363.0" prefWidth="214.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox prefHeight="363.0" prefWidth="273.0">
+      <VBox prefHeight="363.0" prefWidth="214.0">
          <children>
-            <ImageView fitHeight="273.0" fitWidth="273.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="273.0" fitWidth="214.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/img.png" />
+                  <Image url="@../images/milkcoffee.png" />
                </image>
             </ImageView>
-            <Label alignment="CENTER" prefHeight="41.0" prefWidth="273.0" text="COFFEE MILK">
+            <Label prefHeight="41.0" prefWidth="273.0" text="COFFEE MILK">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="10.0" layoutY="283.0" prefHeight="41.0" prefWidth="273.0" text="25000đ">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" layoutX="10.0" layoutY="283.0" prefHeight="41.0" prefWidth="273.0" text="25000đ">
+            <JFXButton prefHeight="45.0" prefWidth="214.0" style="-fx-border-color: grey; -fx-border-radius: 10px;" text="Add to cart">
                <font>
-                  <Font size="20.0" />
+                  <Font size="18.0" />
                </font>
-            </Label>
+            </JFXButton>
          </children>
       </VBox>
    </children>

@@ -3,6 +3,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -12,81 +14,96 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="1600.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="809.0" prefWidth="1582.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="1582.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <top>
-      <AnchorPane prefHeight="304.0" prefWidth="1582.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="300.0" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="677.0" layoutY="203.0" prefHeight="100.0" prefWidth="89.0" text="COFFEE">
+            <HBox alignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+               <children>
+                  <ImageView fitHeight="300.0" fitWidth="1580.0" pickOnBounds="true" HBox.hgrow="ALWAYS">
+                     <image>
+                        <Image url="@../images/cfview2.jpg" />
+                     </image>
+                     <effect>
+                        <ColorAdjust brightness="-0.35" />
+                     </effect>
+                  </ImageView>
+               </children>
+            </HBox>
+            <Label layoutX="637.0" layoutY="203.0" prefHeight="100.0" prefWidth="126.0" text="COFFEE" textFill="#752323">
                <font>
-                  <Font name="System Bold" size="24.0" />
+                  <Font name="System Bold" size="35.0" />
                </font>
             </Label>
             <Label layoutX="781.0" layoutY="203.0" prefHeight="100.0" prefWidth="180.0" text="MENU" textFill="#f89500">
                <font>
-                  <Font name="System Bold" size="24.0" />
+                  <Font name="System Bold" size="35.0" />
                </font>
             </Label>
-            <ImageView fitHeight="304.0" fitWidth="1582.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </AnchorPane>
    </top>
    <center>
-      <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <ScrollPane prefWidth="200.0" BorderPane.alignment="CENTER">
          <content>
-            <HBox prefHeight="502.0" prefWidth="1581.0">
+            <VBox>
                <children>
-                  <VBox prefHeight="502.0" prefWidth="530.0" style="-fx-border-color: grey;">
+                  <HBox prefHeight="502.0" prefWidth="1579.0">
                      <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="81.0" prefWidth="1273.0">
+                        <VBox prefWidth="530.0" style="-fx-border-color: grey; -fx-background-color: white;">
                            <children>
-                              <Label prefHeight="45.0" prefWidth="213.0" text="MENU" textFill="#ed8b33">
-                                 <font>
-                                    <Font name="System Bold" size="26.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets left="20.0" />
-                                 </HBox.margin>
-                              </Label>
-                           </children>
-                        </HBox>
-                        <VBox prefHeight="421.0" prefWidth="466.0" />
-                     </children>
-                  </VBox>
-                  <VBox prefHeight="502.0" prefWidth="949.0">
-                     <children>
-                        <HBox alignment="CENTER_LEFT" maxHeight="100.0" prefHeight="100.0" prefWidth="1138.0">
-                           <children>
-                              <Label prefHeight="45.0" prefWidth="300.0" text="MÓN NỔI BẬT">
-                                 <font>
-                                    <Font name="System Bold" size="26.0" />
-                                 </font>
-                                 <padding>
-                                    <Insets left="40.0" />
-                                 </padding>
-                              </Label>
-                              <HBox alignment="CENTER_RIGHT" prefHeight="81.0" prefWidth="773.0">
-                                 <HBox.margin>
-                                    <Insets right="30.0" />
-                                 </HBox.margin>
+                              <HBox alignment="CENTER_LEFT" prefHeight="81.0" prefWidth="1273.0">
                                  <children>
-                                    <Label prefHeight="35.0" prefWidth="118.0" text="Xem tất cả">
+                                    <Label prefHeight="45.0" prefWidth="213.0" text="MENU" textFill="#ed8b33">
                                        <font>
-                                          <Font size="20.0" />
+                                          <Font name="System Bold" size="26.0" />
                                        </font>
+                                       <HBox.margin>
+                                          <Insets left="20.0" />
+                                       </HBox.margin>
                                     </Label>
                                  </children>
                               </HBox>
+                              <VBox maxHeight="1.7976931348623157E308" prefWidth="466.0" />
                            </children>
-                        </HBox>
-                        <GridPane maxWidth="273.0" prefHeight="18.0" prefWidth="273.0">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                          </columnConstraints>
-                        </GridPane>
+                        </VBox>
+                        <VBox prefWidth="1047.0">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" maxHeight="100.0" prefHeight="100.0" prefWidth="1138.0">
+                                 <children>
+                                    <Label prefHeight="45.0" prefWidth="300.0" text="MÓN NỔI BẬT">
+                                       <font>
+                                          <Font name="System Bold" size="26.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets left="40.0" />
+                                       </padding>
+                                    </Label>
+                                    <HBox alignment="CENTER_RIGHT" prefHeight="81.0" prefWidth="773.0">
+                                       <HBox.margin>
+                                          <Insets right="30.0" />
+                                       </HBox.margin>
+                                       <children>
+                                          <Label prefHeight="35.0" prefWidth="118.0" text="Xem tất cả">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </HBox>
+                              <GridPane maxWidth="273.0" prefHeight="18.0" prefWidth="273.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                              </GridPane>
+                           </children>
+                        </VBox>
                      </children>
-                  </VBox>
+                  </HBox>
                </children>
-            </HBox>
+            </VBox>
          </content>
       </ScrollPane>
    </center>
