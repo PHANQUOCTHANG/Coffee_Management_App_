@@ -118,7 +118,7 @@ public class AccountController{
     }
 
 
-    // hàm tìm kiếm danh mục bằng tên .
+    // hàm tìm kiếm bằng tên .
     @FXML
     public void searchAccount() {
         String textSearch = searchField.getText().trim();
@@ -153,7 +153,7 @@ public class AccountController{
         }
     }
 
-    // xóa 1 danh mục.
+    // xóa.
     @FXML
     public void deleteAccount() {
         try {
@@ -169,7 +169,7 @@ public class AccountController{
         }
     }
 
-    // update danh mục .
+    // update  .
     @FXML
     public void updateAccount() {
         try {

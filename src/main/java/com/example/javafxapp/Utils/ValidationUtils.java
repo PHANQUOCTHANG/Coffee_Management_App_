@@ -9,6 +9,7 @@ public class ValidationUtils {
 
     private static AccountService accountService  =  new AccountService() ;
 
+    // validation check login name , password  , khi đăng nhập .
     public static boolean loginUtils (String loginName , String password) {
         if (loginName.isEmpty() || password.isEmpty()) {
             AlertInfo.showAlert(Alert.AlertType.WARNING, "Lỗi", "Vui lòng nhập đầy đủ thông tin.");
@@ -26,6 +27,7 @@ public class ValidationUtils {
         return true ;
     }
 
+    // validation check login name , password  , khi đăng kí .
     public static boolean signUpUtils (String loginName , String password , String confirmPassword) {
         if (loginName.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
             AlertInfo.showAlert(Alert.AlertType.WARNING, "Lỗi", "Vui lòng nhập đầy đủ thông tin.");
@@ -54,6 +56,7 @@ public class ValidationUtils {
         return true ;
     }
 
+    // validation check login name , password  , khi cập nhật hoặc tạo account bằng admin .
     public static boolean accountUtils (String loginName , String password , int account_id) {
         if (loginName.isEmpty() || password.isEmpty()) {
             AlertInfo.showAlert(Alert.AlertType.WARNING, "Lỗi", "Vui lòng nhập đầy đủ thông tin.");

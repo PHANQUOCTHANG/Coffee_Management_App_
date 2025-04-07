@@ -59,6 +59,14 @@
     -fx-border-radius: 5px;
 }
 
+.permission-button {
+    -fx-background-color: #66FF66 ;
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+    -fx-padding: 5px 10px;
+    -fx-border-radius: 5px;
+}
+
 
 .detail-button:hover {
     -fx-background-color: #003D99;

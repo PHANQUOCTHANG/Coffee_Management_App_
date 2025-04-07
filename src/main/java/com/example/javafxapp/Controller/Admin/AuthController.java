@@ -6,6 +6,7 @@ import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import com.example.javafxapp.Helpper.AlertInfo;
 import com.example.javafxapp.Model.Account;
@@ -105,7 +106,9 @@ public class AuthController{
         if (result) {
             loginNameField.clear();
             passWordField.clear();
-            Pages.pagesMainScreen();
+            Stage stage = (Stage) loginNameField.getScene().getWindow() ;
+            stage.close();
+            Pages.pagesMainScreen(loginName);
             AlertInfo.showAlert(Alert.AlertType.INFORMATION , "Thành công" , "Đăng nhập thành công");
         } else {
             AlertInfo.showAlert(Alert.AlertType.ERROR, "Lỗi", "Tên đăng nhập hoặc mật khẩu không đúng.");

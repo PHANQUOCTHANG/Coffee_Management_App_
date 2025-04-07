@@ -9,6 +9,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.UUID;
 
 public class UploadImage {
+    // lưu ảnh đã chọn vào folder .
     public static String saveImageToFolder(File file) {
         try {
             // Tạo thư mục 'images' cùng cấp với thư mục dự án

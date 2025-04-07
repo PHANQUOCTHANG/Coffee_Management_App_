@@ -4,15 +4,19 @@ import com.example.javafxapp.Helpper.AlertInfo;
 import com.example.javafxapp.Helpper.Pages;
 import com.example.javafxapp.Helpper.UploadImage;
 import com.example.javafxapp.Model.Category;
+import com.example.javafxapp.Model.Permission;
 import com.example.javafxapp.Model.Product;
 import com.example.javafxapp.Model.Role;
 import com.example.javafxapp.Service.CategoryService;
+import com.example.javafxapp.Service.PermissionService;
+import com.example.javafxapp.Service.RolePermissionService;
 import com.example.javafxapp.Service.RoleService;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -31,7 +35,12 @@ public class RoleController {
     @FXML
     private JFXButton btnAdd ;
 
+    @FXML
+    private VBox checkboxContainer ;
+
     private RoleService roleService = new RoleService() ;
+    private PermissionService permissionService = new PermissionService() ;
+    private RolePermissionService rolePermissionService = new RolePermissionService() ;
 
 
     // hàm lấy tất cả cả các role đang hoạt động .
@@ -61,10 +70,15 @@ public class RoleController {
             btnDetail.getStyleClass().add("detail-button");
             btnDetail.setOnAction(e -> handleDetail(role.getRole_id())) ;
 
+            JFXButton btnPermission = new JFXButton("Phân quyền");
+            btnPermission.getStyleClass().add("permission-button");
+            btnPermission.setOnAction(e -> handleRolePermission(role.getRole_id())) ;
+
             // Thêm vào GridPane
             grid.add(lblStt, 0, row);
             grid.add(lblName, 1, row);
             grid.add(btnDetail, 2, row);
+            grid.add(btnPermission,3,row);
 
             row++; // Tăng số hàng
         }
@@ -88,6 +102,7 @@ public class RoleController {
         Pages.pageAddRole();
     }
 
+    // thêm role .
     @FXML
     private void addRolePost() {
         try {
@@ -105,7 +120,7 @@ public class RoleController {
     }
 
 
-    // hàm tìm kiếm danh mục bằng tên .
+    // hàm tìm kiếm bằng tên .
     @FXML
     public void searchRole() {
         String textSearch = searchField.getText().trim();
@@ -125,14 +140,19 @@ public class RoleController {
             btnDetail.getStyleClass().add("detail-button");
             btnDetail.setOnAction(e -> handleDetail(role.getRole_id()));
 
+            JFXButton btnPermission = new JFXButton("Phân quyền");
+            btnPermission.getStyleClass().add("permission-button");
+            btnPermission.setOnAction(e -> handleRolePermission(role.getRole_id())) ;
+
             // Thêm vào GridPane
             grid.add(lblStt, 0, row);
             grid.add(lblName, 1, row);
             grid.add(btnDetail, 2, row);
+            grid.add(btnPermission,3,row);
         }
     }
 
-    // xóa 1 danh mục.
+    // xóa .
     @FXML
     public void deleteRole() {
         try {
@@ -149,7 +169,7 @@ public class RoleController {
         }
     }
 
-    // update danh mục .
+    // update .
     @FXML
     public void updateRole() {
         try {
@@ -177,6 +197,52 @@ public class RoleController {
             btnId.setVisible(false);
         } else {
             System.out.println("Không tìm thấy danh mục!");
+        }
+    }
+
+    private List<CheckBox> checkBoxes = new ArrayList<>() ;
+    // chuyển qua trang phân quyền  .
+    @FXML
+    public void handleRolePermission(int roleId) {Pages.pageRolePermission(roleId);}
+
+    // load dữ liệu khi vào trang phân quyền .
+    public void loadDataRolePermission(int roleId) {
+        List<Permission> permissions = permissionService.getAllPermission() ;
+        List<Integer> role_permission = rolePermissionService.getAllRolePermission(roleId) ;
+        btnId.setText(String.valueOf(roleId));
+        btnId.setVisible(false);
+        for (Permission permission : permissions) {
+            CheckBox cb = new CheckBox(permission.getPermission_name());
+            cb.setStyle("-fx-font-size: 16; -fx-text-fill: #374151; -fx-padding: 20 20 20 20;");
+
+            for (Integer integer : role_permission) {
+                if (integer == permission.getPermission_id()) {
+                    cb.setSelected(true);
+                    break ;
+                }
+            }
+            checkBoxes.add(cb) ;
+            checkboxContainer.getChildren().add(cb) ;
+        }
+    }
+
+    // lưu quyền được phân .
+    @FXML
+    public void handleSavePermissions() {
+        try {
+            int roleId = Integer.parseInt(btnId.getText()) ;
+            for (CheckBox cb : checkBoxes) {
+                if (cb.isSelected()) {
+                    String permission_name = cb.getText() ;
+                    Permission permission = permissionService.findPermissionByName(permission_name) ;
+                    rolePermissionService.addRolePermission(roleId , permission.getPermission_id());
+                    AlertInfo.showAlert(Alert.AlertType.INFORMATION , "Thành công" , "Phân quyền thành công");
+                }
+            }
+        }
+        catch (RuntimeException e) {
+            AlertInfo.showAlert(Alert.AlertType.WARNING, "Lỗi", "Phân quyền thất bại");
+            e.printStackTrace();
         }
     }
 

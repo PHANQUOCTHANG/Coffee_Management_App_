@@ -2,6 +2,12 @@ package com.example.javafxapp.Controller.Admin;
 
 import com.example.javafxapp.Helpper.AlertInfo;
 import com.example.javafxapp.Helpper.Pages;
+import com.example.javafxapp.Model.Account;
+import com.example.javafxapp.Model.Role;
+import com.example.javafxapp.Service.AccountService;
+import com.example.javafxapp.Service.PermissionService;
+import com.example.javafxapp.Service.RolePermissionService;
+import com.example.javafxapp.Service.RoleService;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,12 +24,17 @@ public class MainScreenController {
 
     @FXML
     private JFXButton btnOverview, btnProducts, btnCategories, btnEmployees, btnOrders,
-            btnAccounts, btnRole , btnLogOut;
+            btnAccounts, btnRole , btnPermission , btnLogOut;
 
     @FXML
     private StackPane centerPane;
 
     private List<JFXButton> menuButtons;
+
+    private AccountService accountService = new AccountService() ;
+    private RoleService roleService = new RoleService() ;
+    private RolePermissionService rolePermissionService = new RolePermissionService() ;
+    private PermissionService permissionService = new PermissionService() ;
 
     @FXML
     public void initialize() {
@@ -35,8 +46,11 @@ public class MainScreenController {
         menuButtons.add(btnOrders);
         menuButtons.add(btnAccounts);
         menuButtons.add(btnRole);
+        menuButtons.add(btnPermission) ;
         menuButtons.add(btnEmployees);
         menuButtons.add(btnLogOut) ;
+
+
 
         // Mặc định chọn "Tổng Quan"
         setActiveButton(btnOverview);
@@ -66,6 +80,7 @@ public class MainScreenController {
     }
 
 
+    // overview .
     @FXML
     private void handleOverview() {
         System.out.println("Overview button clicked");
@@ -73,6 +88,7 @@ public class MainScreenController {
         setActiveButton(btnOverview);
     }
 
+    // product .
     @FXML
     public void handleProducts() {
         System.out.println("Products button clicked");
@@ -81,6 +97,7 @@ public class MainScreenController {
         setActiveButton(btnProducts);
     }
 
+    // category .
     @FXML
     private void handleCategories() {
         System.out.println("Product Categories button clicked");
@@ -89,6 +106,8 @@ public class MainScreenController {
         setActiveButton(btnCategories);
     }
 
+
+    // employees .
     @FXML
     private void handleEmployees() {
         System.out.println("Employees button clicked");
@@ -96,6 +115,7 @@ public class MainScreenController {
         setActiveButton(btnEmployees);
     }
 
+    // order .
     @FXML
     private void handleOrders() {
         System.out.println("Order Management button clicked");
@@ -103,6 +123,7 @@ public class MainScreenController {
         setActiveButton(btnOrders);
     }
 
+    // account .
     @FXML
     private void handleAccounts() {
         System.out.println("Account Management button clicked");
@@ -111,14 +132,26 @@ public class MainScreenController {
         setActiveButton(btnAccounts);
     }
 
+    // role .
     @FXML
     private void handleRole() {
         System.out.println("Role button clicked");
         loadCenterContent("/com/example/javafxapp/view/role/role.fxml");
-        // Thêm logic chuyển sang trang phân quyền
+        // Thêm logic chuyển sang trang vai trò .
         setActiveButton(btnRole);
     }
 
+
+    // permission
+    @FXML
+    private void handlePermission() {
+        System.out.println("Role button clicked");
+        loadCenterContent("/com/example/javafxapp/view/permission/permission.fxml");
+        // Thêm logic chuyển sang trang phân quyền
+        setActiveButton(btnPermission);
+    }
+
+    // log out .
     @FXML
     private void handleLogOut() {
         System.out.println("LogOut button clicked");
@@ -130,4 +163,28 @@ public class MainScreenController {
         };
         setActiveButton(btnLogOut);
     }
+
+
+    // phân quyền
+    public void setAccount(String accountName) {
+        Account account = accountService.findAccountByName(accountName) ;
+        List<Integer> permissions = rolePermissionService.getAllRolePermission(account.getRoleId()) ;
+        List<String> permissionNames = new ArrayList<>() ;
+        for (Integer integer : permissions) {
+            String permission_name = permissionService.findPermissionByID(integer).getPermission_name() ;
+            permissionNames.add(permission_name) ;
+        }
+        setBtn(permissionNames,"Product" , btnProducts);
+        setBtn(permissionNames,"Category" , btnCategories);
+        setBtn(permissionNames , "Role" , btnRole);
+        setBtn(permissionNames,"Permission" , btnPermission);
+    }
+
+    public void setBtn(List<String> permissions ,String permission , JFXButton button) {
+        if (!permissions.contains(permission)){
+            button.setVisible(false);
+            button.setManaged(false);
+        }
+    }
+
 }

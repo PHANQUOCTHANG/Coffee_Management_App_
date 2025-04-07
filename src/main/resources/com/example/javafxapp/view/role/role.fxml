@@ -143,8 +143,9 @@
                     <content>
                         <GridPane fx:id="grid" prefHeight="23.0" prefWidth="73.0" styleClass="grid-cell">
                             <columnConstraints>
-                                <ColumnConstraints minWidth="250" prefWidth="100" />  <!-- STT -->
+                                <ColumnConstraints minWidth="260" prefWidth="260" />  <!-- STT -->
                                 <ColumnConstraints minWidth="400" prefWidth="400" /> <!-- Tên -->
+                                <ColumnConstraints minWidth="100" prefWidth="100" />
                                 <ColumnConstraints minWidth="400" prefWidth="400" /> <!-- Hành động -->
                             </columnConstraints>
                         </GridPane>

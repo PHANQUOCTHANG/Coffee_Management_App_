@@ -1,9 +1,6 @@
 package com.example.javafxapp.Helpper;
 
-import com.example.javafxapp.Controller.Admin.AccountController;
-import com.example.javafxapp.Controller.Admin.CategoryController;
-import com.example.javafxapp.Controller.Admin.ProductController;
-import com.example.javafxapp.Controller.Admin.RoleController;
+import com.example.javafxapp.Controller.Admin.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -20,10 +17,12 @@ public class Pages {
     }
 
     // Chuyển qua page dashboard .
-    public static void pagesMainScreen() {
+    public static void pagesMainScreen(String accountName) {
         try {
             FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/mainScreen/mainScreen.fxml"));
             Pane root = loader.load();
+            MainScreenController mainScreenController = loader.getController() ;
+            mainScreenController.setAccount(accountName);
             Stage stage = new Stage();
             Scene scene = new Scene(root);
             stage.setScene(scene);
@@ -224,9 +223,33 @@ public class Pages {
         }
     }
 
+    // chuyển qua trang phân quyền .
+    public static void pageRolePermission(int roleId) {
+        try {
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/role/role_permission.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+
+            RoleController controller = loader.getController();
+            controller.loadDataRolePermission(roleId);
+
+
+            Stage stage = new Stage();
+            stage.getIcons().add(new Image(Pages.class.getResourceAsStream("/com/example/javafxapp/view/images/icons.jpg")));
+            stage.setScene(scene);
+            stage.setTitle("Coffee Shop Management");
+            stage.setResizable(true);
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            AlertInfo.showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể mở trang.");
+        }
+    }
+
     //// Account .
 
-    // chuyển qua trang thêm vai trò
+    // chuyển qua trang thêm
     public static void pageAddAccount() {
         try {
             FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/account/addAccount.fxml"));
@@ -250,7 +273,7 @@ public class Pages {
         }
     }
 
-    // chuyển qua trang chi tiết vai trò
+    // chuyển qua trang chi tiết
     public static void pageDetailAccount(int accountId) {
         try {
             FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/account/detailAccount.fxml"));
@@ -275,6 +298,52 @@ public class Pages {
         }
     }
 
+
+    //// Permission .
+    // chuyển qua trang thêm permission .
+    public static void pageAddPermission() {
+        try {
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/permission/addPermission.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+
+            Stage stage = new Stage();
+            stage.getIcons().add(new Image(Pages.class.getResourceAsStream("/com/example/javafxapp/view/images/icons.jpg")));
+            stage.setScene(scene);
+            stage.setTitle("Coffee Shop Management");
+            stage.setResizable(true);
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            AlertInfo.showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể mở trang.");
+        }
+    }
+
+    // chuyển qua trang chi tiết permission .
+    public static void pageDetailPermission(int permissionId) {
+        try {
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/permission/detailPermission.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+
+            // Lấy controller của trang chi tiết và truyền ID sản phẩm vào
+            PermissionController controller = loader.getController();
+            controller.loadDataDetailPermission(permissionId);
+
+
+            Stage stage = new Stage();
+            stage.getIcons().add(new Image(Pages.class.getResourceAsStream("/com/example/javafxapp/view/images/icons.jpg")));
+            stage.setScene(scene);
+            stage.setTitle("Coffee Shop Management");
+            stage.setResizable(true);
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            AlertInfo.showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể mở trang.");
+        }
+    }
 
 
 }
