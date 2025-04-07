@@ -5,3 +5,72 @@
 .hbox-image{
     -fx-background-radius: 30;
 }
+
+
+/* GridPane - danh sách sản phẩm */
+#grid {
+    -fx-padding: 10px;
+    -fx-hgap: 10px; /* Khoảng cách giữa các cột */
+    -fx-vgap: 10px; /* Khoảng cách giữa các hàng */
+}
+
+/* Cột tiêu đề */
+.label {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-alignment: center ;
+}
+
+/* STT */
+.stt-label {
+    -fx-alignment: center;
+    -fx-text-fill: #333;
+}
+
+/* Ảnh sản phẩm */
+.product-image {
+    -fx-border-color: #ccc;
+    -fx-border-radius: 20px;
+    -fx-padding: 5px;
+    -fx-fit-width: 80px;  /* Chiều rộng ảnh */
+    -fx-fit-height: 80px; /* Chiều cao ảnh */
+}
+
+
+/* Tên sản phẩm */
+.product-name {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333;
+}
+
+/* Giá sản phẩm */
+.product-price {
+    -fx-font-size: 14px;
+    -fx-text-fill: #FF5733;
+    -fx-font-weight: bold;
+}
+
+/* Button chi tiết */
+.detail-button {
+    -fx-background-color: #0051CE;
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+    -fx-padding: 5px 10px;
+    -fx-border-radius: 5px;
+}
+
+.permission-button {
+    -fx-background-color: #66FF66 ;
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+    -fx-padding: 5px 10px;
+    -fx-border-radius: 5px;
+}
+
+
+.detail-button:hover {
+    -fx-background-color: #003D99;
+}
+
+
+

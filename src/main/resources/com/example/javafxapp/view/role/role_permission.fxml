@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<?import javafx.scene.control.Button?>
+<VBox xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.javafxapp.Controller.Admin.RoleController"
+      prefWidth="1280.0" prefHeight="800.0" style="-fx-background-color: #F3F4F6;">
+    <children>
+        <!-- Tiêu đề -->
+        <Button fx:id="btnId"></Button>
+        <VBox alignment="CENTER" prefHeight="120.0" prefWidth="1250.0">
+            <children>
+                <HBox alignment="CENTER" prefHeight="70.0" prefWidth="1245.0">
+                    <Label text="Phân quyền" prefWidth="1200.0" style="-fx-text-fill: #1f2937;">
+                        <font>
+                            <Font name="Calibri Bold" size="32.0" />
+                        </font>
+                        <padding>
+                            <Insets left="30.0" />
+                        </padding>
+                    </Label>
+                </HBox>
+            </children>
+        </VBox>
+
+        <!-- Nội dung -->
+        <VBox maxWidth="1245.0" prefWidth="1245.0">
+            <children>
+                <!-- ScrollPane chứa danh sách quyền -->
+                <ScrollPane fx:id="scroll" prefHeight="550.0" prefWidth="1245.0">
+                    <padding>
+                        <Insets left="15.0" right="15.0" />
+                    </padding>
+                    <content>
+                        <VBox fx:id="checkboxContainer" spacing="10.0" style="-fx-background-color: white; -fx-padding: 20; -fx-background-radius: 10;">
+                            <!-- Các checkbox sẽ được thêm bằng code Java -->
+                        </VBox>
+                    </content>
+                </ScrollPane>
+
+                <!-- Nút lưu -->
+                <HBox prefHeight="90.0" prefWidth="1245.0" style="-fx-border-color: gray; -fx-border-width: 2px 0 0 0;">
+                    <padding>
+                        <Insets bottom="30.0" left="30.0" right="30.0" top="20.0" />
+                    </padding>
+                    <children>
+                        <HBox alignment="TOP_RIGHT" prefWidth="1083.0">
+                            <JFXButton fx:id="btnSavePermission"
+                                       onAction="#handleSavePermissions"
+                                       prefHeight="40.0" prefWidth="150.0"
+                                       style="-fx-background-color: #10B981;"
+                                       text="Lưu phân quyền" textFill="WHITE">
+                                <font>
+                                    <Font name="System Bold" size="16.0" />
+                                </font>
+                            </JFXButton>
+                        </HBox>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</VBox>

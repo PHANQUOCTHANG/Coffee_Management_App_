@@ -64,6 +64,19 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.33</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/de.jensd/fontawesomefx -->
+        <dependency>
+            <groupId>de.jensd</groupId>
+            <artifactId>fontawesomefx</artifactId>
+            <version>8.2</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/at.favre.lib/bcrypt -->
+        <dependency>
+            <groupId>at.favre.lib</groupId>
+            <artifactId>bcrypt</artifactId>
+            <version>0.10.2</version>
+        </dependency>
+
 
     </dependencies>
 
@@ -105,15 +118,9 @@
                                 --add-opens=java.base/java.lang.reflect=com.jfoenix
                             </jvmArgs>
                         </configuration>
-                        
+
                     </execution>
                 </executions>
-
-                <configuration>
-                    <jvmArgs>
-                        --add-opens=java.base/java.lang.reflect=com.jfoenix
-                    </jvmArgs>
-                </configuration>
             </plugin>
         </plugins>
     </build>
