@@ -133,4 +133,30 @@ public class ProductRepository implements JDBCRepository<Product> {
         return null ;
     }
 
+    // get all product bu category_id.
+    public List<Product> getAllByCategoryId(int category_id){
+        String sql = "SELECT * FROM Product where deleted = ? AND category_id = ?" ;
+        List<Product> products = new ArrayList<>() ;
+        try (Connection connection = DatabaseConnection.getConnection() ;
+             PreparedStatement pstmt = connection.prepareStatement(sql) ;
+        ) {
+            pstmt.setBoolean(1,false);
+            pstmt.setInt(2,category_id);
+            ResultSet rs = pstmt.executeQuery();
+            while(rs.next()) {
+                products.add(new Product(
+                        rs.getInt("product_id") ,
+                        rs.getString("product_name")  ,
+                        rs.getString("description") ,
+                        rs.getDouble("price") ,
+                        rs.getInt("category_id")  ,
+                        rs.getString("imgSrc")
+                )) ;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return products ;
+    }
+
 }

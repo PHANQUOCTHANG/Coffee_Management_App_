@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AccountService {
@@ -32,6 +33,11 @@ public class AccountService {
     // get all account .
     public List<Account> getAllAccounts() {
         return accountRepository.getAll() ;
+    }
+
+    // get all account by roleId .
+    public List<Account> getAllByRoleId(int roleId) {
+        return accountRepository.getAllByRoleId(roleId) ;
     }
 
     // get nameAccount()

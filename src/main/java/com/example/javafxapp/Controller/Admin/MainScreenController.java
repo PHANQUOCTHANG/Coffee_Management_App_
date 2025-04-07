@@ -174,10 +174,10 @@ public class MainScreenController {
             String permission_name = permissionService.findPermissionByID(integer).getPermission_name() ;
             permissionNames.add(permission_name) ;
         }
-        setBtn(permissionNames,"Product" , btnProducts);
-        setBtn(permissionNames,"Category" , btnCategories);
-        setBtn(permissionNames , "Role" , btnRole);
-        setBtn(permissionNames,"Permission" , btnPermission);
+//        setBtn(permissionNames,"Product" , btnProducts);
+//        setBtn(permissionNames,"Category" , btnCategories);
+//        setBtn(permissionNames , "Role" , btnRole);
+//        setBtn(permissionNames,"Permission" , btnPermission);
     }
 
     public void setBtn(List<String> permissions ,String permission , JFXButton button) {

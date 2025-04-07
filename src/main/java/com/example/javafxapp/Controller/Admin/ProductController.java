@@ -38,19 +38,20 @@ public class ProductController {
     private TextArea descriptionField;
 
     @FXML
-    private ComboBox categoryComboBox ;
+    private ComboBox categoryComboBox;
 
-    @FXML private Button btnUpload  ,  btnId , btnCategoryId , btnPathImg , btnAdd ;
-    @FXML private ImageView imgView;
+    @FXML
+    private Button btnUpload, btnId, btnCategoryId, btnPathImg, btnAdd;
+    @FXML
+    private ImageView imgView;
 
     private String imagePath; // Đường dẫn ảnh
 
 
     private ProductService productService = new ProductService();
-    private CategoryService categoryService = new CategoryService() ;
+    private CategoryService categoryService = new CategoryService();
 
     public void loadData() {
-
 
 
         List<Product> products = productService.getAllProduct(); // Lấy danh sách từ database
@@ -90,6 +91,12 @@ public class ProductController {
 
             row++; // Tăng số hàng
         }
+
+        List<String> categories = new ArrayList<>();
+        for (Category category : categoryService.getAllCategory()) {
+            categories.add(category.getCategory_name());
+        }
+        categoryComboBox.getItems().addAll(categories);
     }
 
     @FXML
@@ -107,18 +114,17 @@ public class ProductController {
     @FXML
     public void addProductPost() {
         try {
-            String product_name = productNameField.getText() ;
-            double price = Double.parseDouble(priceField.getText()) ;
-            String description = descriptionField.getText() ;
-            int category_id = Integer.parseInt(btnCategoryId.getText()) ;
-            String imgSrc = btnPathImg.getText() ;
-            Product product = new Product(product_name , description , price , category_id , imgSrc) ;
+            String product_name = productNameField.getText();
+            double price = Double.parseDouble(priceField.getText());
+            String description = descriptionField.getText();
+            int category_id = Integer.parseInt(btnCategoryId.getText());
+            String imgSrc = btnPathImg.getText();
+            Product product = new Product(product_name, description, price, category_id, imgSrc);
             productService.addProduct(product);
-            AlertInfo.showAlert(Alert.AlertType.INFORMATION , "Thành công" , "Thêm sản phẩm thành công");
-            Stage stage = (Stage) btnAdd.getScene().getWindow() ;
+            AlertInfo.showAlert(Alert.AlertType.INFORMATION, "Thành công", "Thêm sản phẩm thành công");
+            Stage stage = (Stage) btnAdd.getScene().getWindow();
             stage.close();
-        }
-        catch (RuntimeException e) {
+        } catch (RuntimeException e) {
             AlertInfo.showAlert(Alert.AlertType.WARNING, "Lỗi", "Thêm sản phẩm thất bại");
             e.printStackTrace();
         }
@@ -134,39 +140,44 @@ public class ProductController {
     // khi chuyển qua trang thêm sản phẩm sẽ mặc định gọi .
     @FXML
     public void loadDataAddProduct() {
-            btnCategoryId.setVisible(false);
-            btnPathImg.setVisible(false);
-            List<String> categories = new ArrayList<>() ;
-            for (Category category : categoryService.getAllCategory()) {
-                categories.add(category.getCategory_name()) ;
-            }
-            categoryComboBox.getItems().addAll(categories);
+        btnCategoryId.setVisible(false);
+        btnPathImg.setVisible(false);
+        List<String> categories = new ArrayList<>();
+        for (Category category : categoryService.getAllCategory()) {
+            categories.add(category.getCategory_name());
+        }
+        categoryComboBox.getItems().addAll(categories);
     }
 
     // khi chuyển qua trang chi tiết sẽ mặc định gọi .
     @FXML
     public void loadDataDetailProduct(int productId) {
-        Product product = productService.findProductByID(productId)  ; // Lấy dữ liệu từ database .
-        if (product != null) {
-            productNameField.setText(product.getProduct_name());
-            priceField.setText(String.valueOf(product.getPrice()));
-            descriptionField.setText(product.getDescription());
-            imgView.setImage(UploadImage.loadImage(product.getImgSrc()));
-            btnId.setText(String.valueOf(productId));
-            btnId.setVisible(false);
-            btnCategoryId.setText(String.valueOf(product.getCategory_id()));
-            btnCategoryId.setVisible(false);
-            String category_name = categoryService.findCategoryByID(product.getCategory_id()).getCategory_name()  ;
-            categoryComboBox.setValue(category_name);
-            btnPathImg.setText(product.getImgSrc());
-            btnPathImg.setVisible(false);
-            List<String> categories = new ArrayList<>() ;
-            for (Category category : categoryService.getAllCategory()) {
-                categories.add(category.getCategory_name()) ;
+        try {
+            Product product = productService.findProductByID(productId); // Lấy dữ liệu từ database .
+            if (product != null) {
+                productNameField.setText(product.getProduct_name());
+                priceField.setText(String.valueOf(product.getPrice()));
+                descriptionField.setText(product.getDescription());
+                imgView.setImage(UploadImage.loadImage(product.getImgSrc()));
+                btnId.setText(String.valueOf(productId));
+                btnId.setVisible(false);
+                btnCategoryId.setText(String.valueOf(product.getCategory_id()));
+                btnCategoryId.setVisible(false);
+                System.out.println(product.getCategory_id());
+                String category_name = categoryService.findCategoryByID(product.getCategory_id()).getCategory_name();
+                categoryComboBox.setValue(category_name);
+                btnPathImg.setText(product.getImgSrc());
+                btnPathImg.setVisible(false);
+                List<String> categories = new ArrayList<>();
+                for (Category category : categoryService.getAllCategory()) {
+                    categories.add(category.getCategory_name());
+                }
+                categoryComboBox.getItems().addAll(categories);
+            } else {
+                System.out.println("Không tìm thấy sản phẩm!");
             }
-            categoryComboBox.getItems().addAll(categories);
-        } else {
-            System.out.println("Không tìm thấy sản phẩm!");
+        } catch (RuntimeException e) {
+            e.printStackTrace();
         }
     }
 
@@ -174,12 +185,12 @@ public class ProductController {
     @FXML
     public void deleteProduct() {
         try {
-            int productId = Integer.parseInt(btnId.getText()) ;
+            int productId = Integer.parseInt(btnId.getText());
             if (AlertInfo.confirmAlert("Bạn có chắc muốn xóa sản phẩm không ?")) {
                 productService.deleteProduct(productId);
-                AlertInfo.showAlert(Alert.AlertType.INFORMATION , "Thành công" , "Xóa sản phẩm thành công");
-                Stage stage = (Stage)btnId.getScene().getWindow() ;
-                stage.close() ;
+                AlertInfo.showAlert(Alert.AlertType.INFORMATION, "Thành công", "Xóa sản phẩm thành công");
+                Stage stage = (Stage) btnId.getScene().getWindow();
+                stage.close();
             }
         } catch (RuntimeException e) {
             e.printStackTrace();
@@ -247,7 +258,7 @@ public class ProductController {
     // lấy category_id của category mình chọn .
     @FXML
     public void categoryAction() {
-        Category category = categoryService.findCategoryByName((String)categoryComboBox.getValue()) ;
+        Category category = categoryService.findCategoryByName((String) categoryComboBox.getValue());
         btnCategoryId.setText(String.valueOf(category.getCategory_id()));
     }
 
@@ -255,18 +266,63 @@ public class ProductController {
     @FXML
     public void updateProduct() {
         try {
-            int product_id = Integer.parseInt(btnId.getText()) ;
-            String product_name = productNameField.getText() ;
-            double price = Double.parseDouble(priceField.getText()) ;
-            String description = descriptionField.getText() ;
-            int category_id = Integer.parseInt(btnCategoryId.getText()) ;
-            String imgSrc = btnPathImg.getText() ;
-            Product product = new Product(product_id , product_name , description , price , category_id , imgSrc) ;
+            int product_id = Integer.parseInt(btnId.getText());
+            String product_name = productNameField.getText();
+            double price = Double.parseDouble(priceField.getText());
+            String description = descriptionField.getText();
+            int category_id = Integer.parseInt(btnCategoryId.getText());
+            String imgSrc = btnPathImg.getText();
+            Product product = new Product(product_id, product_name, description, price, category_id, imgSrc);
             productService.updateProduct(product);
-            AlertInfo.showAlert(Alert.AlertType.INFORMATION , "Thành công" , "Cập nhật sản phẩm thành công");
-        }
-        catch (RuntimeException e) {
+            AlertInfo.showAlert(Alert.AlertType.INFORMATION, "Thành công", "Cập nhật sản phẩm thành công");
+        } catch (RuntimeException e) {
             e.printStackTrace();
+        }
+    }
+
+    // Lọc
+    @FXML
+    void filterAction() {
+        String categoryValue = (String) categoryComboBox.getValue();
+        if (categoryValue.isEmpty()) return;
+        else {
+            Category category = categoryService.findCategoryByName(categoryValue);
+            List<Product> products = productService.getAllByCategoryId(category.getCategory_id());
+            if (products == null || products.isEmpty()) {
+                System.out.println("Không có dữ liệu từ database!");
+                return;
+            }
+            grid.getChildren().clear();
+            int row = 0;
+            for (Product product : products) {
+                // Cột STT
+                Label lblStt = new Label(String.valueOf(row + 1));
+
+                // Cột ảnh (ImageView)
+                ImageView imageView = new ImageView(UploadImage.loadImage(product.getImgSrc()));
+                imageView.setFitHeight(120);
+                imageView.setFitWidth(120);
+
+                // Cột tên
+                Label lblName = new Label(product.getProduct_name());
+
+                // Cột giá
+                Label lblPrice = new Label(String.format("%.2f", product.getPrice()));
+
+                // Cột hành động (Button)
+                JFXButton btnDetail = new JFXButton("Chi tiết");
+                btnDetail.getStyleClass().add("detail-button");
+                btnDetail.setOnAction(e -> handleDetail(product.getProduct_id()));
+
+                // Thêm vào GridPane
+                grid.add(lblStt, 0, row);
+                grid.add(imageView, 1, row);
+                grid.add(lblName, 2, row);
+                grid.add(lblPrice, 3, row);
+                grid.add(btnDetail, 4, row);
+
+                row++; // Tăng số hàng
+            }
         }
     }
 }

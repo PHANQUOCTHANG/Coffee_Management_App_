@@ -1,6 +1,7 @@
 package com.example.javafxapp.Service;
 
 import com.example.javafxapp.Config.DatabaseConnection;
+import com.example.javafxapp.Model.Account;
 import com.example.javafxapp.Model.Role;
 import com.example.javafxapp.Repository.RoleRepository;
 

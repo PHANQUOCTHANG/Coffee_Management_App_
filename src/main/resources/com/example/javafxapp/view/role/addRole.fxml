@@ -2,13 +2,10 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -64,12 +61,12 @@
                                                 <Insets bottom="15.0" top="15.0" />
                                             </padding>
                                             <children>
-                                                <Label prefHeight="30.0" prefWidth="206.0" text="Tên danh mục" textFill="#6c798f">
+                                                <Label prefHeight="30.0" prefWidth="206.0" text="Tên vai trò" textFill="#6c798f">
                                                     t           <font>
                                                     <Font name="System Bold" size="18.0" />
                                                 </font>
                                                 </Label>
-                                                <TextField fx:id="roleNameField" prefHeight="40.0" prefWidth="1172.0" promptText="Tên danh mục">
+                                                <TextField fx:id="roleNameField" prefHeight="40.0" prefWidth="1172.0">
                                                     <font>
                                                         <Font size="16.0" />
                                                     </font>

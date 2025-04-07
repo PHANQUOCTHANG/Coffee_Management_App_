@@ -77,6 +77,12 @@ public class AccountController{
 
             row++; // Tăng số hàng
         }
+
+        List<String> roles = new ArrayList<>();
+        for (Role role : roleService.getAllRole()) {
+            roles.add(role.getRole_name()) ;
+        }
+        roleComboBox.getItems().addAll(roles) ;
     }
 
 
@@ -201,6 +207,11 @@ public class AccountController{
     @FXML
     public void loadDataDetailAccount(int accountId) {
         Account account = accountService.findAccountByID(accountId) ;
+        List<String> roles = new ArrayList<>();
+        for (Role role : roleService.getAllRole()) {
+            roles.add(role.getRole_name()) ;
+        }
+        roleComboBox.getItems().addAll(roles) ;
         if (account != null) {
             accountNameField.setText(account.getAccountName());
             passwordField.setText(account.getPassword());
@@ -220,6 +231,48 @@ public class AccountController{
     public void roleAction() {
         Role role = roleService.findRoleByName((String)roleComboBox.getValue()) ;
         btnRoleId.setText(String.valueOf(role.getRole_id()));
+    }
+
+    // Lọc
+    @FXML
+    void filterAction() {
+        String roleValue = (String) roleComboBox.getValue();
+        if (roleValue.isEmpty()) return;
+        else {
+            Role role = roleService.findRoleByName(roleValue) ;
+            List<Account> accounts = accountService.getAllByRoleId(role.getRole_id()) ;
+            if (accounts == null || accounts.isEmpty()) {
+                System.out.println("Không có dữ liệu từ database!");
+                return;
+            }
+            grid.getChildren().clear();
+            int row = 0;
+            for (Account account : accounts) {
+                // Cột STT
+                Label lblStt = new Label(String.valueOf(row + 1));
+
+
+                // Cột tên
+                Label lblName = new Label(account.getAccountName());
+
+                // Cột vai trò .
+                String role_name = roleService.findRoleByID(account.getRoleId()).getRole_name() ;
+                Label lblRole = new Label(role_name);
+
+                // Cột hành động (Button)
+                JFXButton btnDetail = new JFXButton("Chi tiết");
+                btnDetail.getStyleClass().add("detail-button");
+                btnDetail.setOnAction(e -> handleDetail(account.getId())) ;
+
+                // Thêm vào GridPane
+                grid.add(lblStt, 0, row);
+                grid.add(lblName, 1, row);
+                grid.add(lblRole, 2, row);
+                grid.add(btnDetail, 3, row);
+
+                row++; // Tăng số hàng
+            }
+        }
     }
 
 

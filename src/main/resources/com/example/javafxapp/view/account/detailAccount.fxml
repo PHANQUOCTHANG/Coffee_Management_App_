@@ -90,7 +90,7 @@
                                                                 <Font name="System Bold" size="18.0" />
                                                             </font>
                                                         </Label>
-                                                        <ComboBox fx:id="roleComboBox" onAction="#roleAction" prefWidth="200.0" />
+                                                        <ComboBox fx:id="roleComboBox" onAction="#roleAction" prefHeight="59.0" prefWidth="200.0" />
 
                                                     </children>
                                                 </VBox>

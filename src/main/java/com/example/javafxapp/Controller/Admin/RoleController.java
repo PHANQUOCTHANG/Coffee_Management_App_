@@ -38,6 +38,9 @@ public class RoleController {
     @FXML
     private VBox checkboxContainer ;
 
+    @FXML
+    private ComboBox roleComboBox ;
+
     private RoleService roleService = new RoleService() ;
     private PermissionService permissionService = new PermissionService() ;
     private RolePermissionService rolePermissionService = new RolePermissionService() ;
@@ -187,9 +190,7 @@ public class RoleController {
     // khi chuyển qua trang chi tiết sẽ mặc định gọi .
     @FXML
     public void loadDataDetailRole(int roleId) {
-        System.out.println(roleId);
         Role role = roleService.findRoleByID(roleId) ;
-        System.out.println(role);
         if (role != null) {
             roleNameField.setText(role.getRole_name());
             descriptionField.setText(role.getDescription());

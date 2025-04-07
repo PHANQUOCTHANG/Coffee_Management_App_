@@ -16,6 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.ComboBox?>
 <VBox alignment="TOP_CENTER" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1250.0" style="-fx-background-color: #F3F4F6;" stylesheets="@../styles/productManagement.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxapp.Controller.Admin.AccountController">
     <children>
         <HBox maxHeight="55.0" maxWidth="1245.0" prefHeight="70.0" prefWidth="1095.0">
@@ -71,21 +72,10 @@
                         <Insets left="20.0" />
                     </padding>
                     <children>
-                        <JFXButton fx:id="btnFilter" prefHeight="49.0" prefWidth="218.0" style="-fx-border-width: 2px; -fx-border-radius: 10px; -fx-border-color: gray;" text="Thêm điều kiện lọc">
-                            <font>
-                                <Font size="18.0" />
-                            </font>
-                            <graphic>
-                                <ImageView fitHeight="25.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@../images/Filter-11.png" />
-                                    </image>
-                                </ImageView>
-                            </graphic>
+                        <ComboBox fx:id="roleComboBox" onAction="#filterAction" prefHeight="42.0" prefWidth="200.0">
                             <HBox.margin>
-                                <Insets right="15.0" />
-                            </HBox.margin>
-                        </JFXButton>
+                                <Insets right="20.0" />
+                            </HBox.margin></ComboBox>
                         <HBox alignment="CENTER" prefHeight="51.0" prefWidth="646.0" style="-fx-border-color: grey; -fx-border-radius: 10px;">
                             <children>
                                 <ImageView fitHeight="31.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">

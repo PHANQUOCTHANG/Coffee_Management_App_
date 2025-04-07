@@ -81,6 +81,29 @@ public class AccountRepository implements JDBCRepository<Account> {
         return accounts;
     }
 
+    // get all account by roleId .
+    public List<Account> getAllByRoleId(int roleId) {
+        List<Account> accounts = new ArrayList<>();
+        String sql = "SELECT id, account_name, password, role_id FROM Account where deleted = ? AND role_id = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setBoolean(1, false);
+            stmt.setInt(2,roleId);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                accounts.add(new Account(
+                        rs.getInt("id"),
+                        rs.getString("account_name"),
+                        rs.getString("password"),
+                        rs.getInt("role_id")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return accounts;
+    }
+
     // check nameAccount is exists .
     public boolean existsNameAccount(String accountName){
         String sql = "SELECT account_name from account where account_name = ? " ;

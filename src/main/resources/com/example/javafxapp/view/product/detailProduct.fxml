@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
@@ -13,12 +14,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.control.ComboBox?>
 <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: #F3F4F6;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxapp.Controller.Admin.ProductController">
     <children>
         <Button fx:id="btnId" />
-        <Button fx:id="btnCategoryId"></Button>
-        <Button fx:id="btnPathImg"></Button>
+        <Button fx:id="btnCategoryId" />
+        <Button fx:id="btnPathImg" />
         <VBox alignment="CENTER" prefHeight="120.0" prefWidth="1250.0">
             <children>
                 <HBox alignment="CENTER" maxHeight="55.0" maxWidth="1245.0" prefHeight="70.0" prefWidth="1095.0">
@@ -73,7 +73,7 @@
                                                         <Font name="System Bold" size="18.0" />
                                                     </font>
                                                 </Label>
-                                                <TextField fx:id="productNameField" prefHeight="40.0" prefWidth="1172.0" promptText="tên sản phẩm sẽ dc điền sẵn trong này, nếu muốn sửa chỉ cần sửa nội dung r cập nhật là xong">
+                                                <TextField fx:id="productNameField" prefHeight="40.0" prefWidth="1172.0">
                                                     <font>
                                                         <Font size="16.0" />
                                                     </font>
@@ -92,7 +92,7 @@
                                                                 <Font name="System Bold" size="18.0" />
                                                             </font>
                                                         </Label>
-                                                        <ComboBox fx:id="categoryComboBox" onAction="#categoryAction" prefWidth="200.0"/>
+                                                        <ComboBox fx:id="categoryComboBox" onAction="#categoryAction" prefHeight="40.0" prefWidth="200.0" />
 
                                                     </children>
                                                 </VBox>

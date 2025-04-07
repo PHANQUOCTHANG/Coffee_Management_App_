@@ -40,4 +40,9 @@ public class ProductService {
     public Product findProductByID(int productId) {
         return productRepository.findProductByID(productId) ;
     }
+
+    // get all product bu category_id.
+    public List<Product> getAllByCategoryId(int category_id){
+        return productRepository.getAllByCategoryId(category_id) ;
+    }
 }
