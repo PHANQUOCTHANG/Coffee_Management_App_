@@ -45,4 +45,9 @@ public class ProductService {
     public List<Product> getAllByCategoryId(int category_id){
         return productRepository.getAllByCategoryId(category_id) ;
     }
+
+    // change status
+    public void changeStatus(int productId , boolean status) {
+       productRepository.changeStatus(productId,status);
+    }
 }

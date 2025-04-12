@@ -7,4 +7,6 @@ public interface JDBCRepository<T> {
     public void update(T a) ;
     public void delete(int id) ;
     public List<T> getAll() ;
+
+
 }

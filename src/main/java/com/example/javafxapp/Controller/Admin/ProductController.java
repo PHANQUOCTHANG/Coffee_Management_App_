@@ -8,11 +8,14 @@ import com.example.javafxapp.Model.Product;
 import com.example.javafxapp.Service.CategoryService;
 import com.example.javafxapp.Service.ProductService;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -21,39 +24,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductController {
-
+    private ProductService productService = new ProductService();
+    private CategoryService categoryService = new CategoryService();
     @FXML
     private GridPane grid;
-
     @FXML
     private TextField searchField;
-
     @FXML
     private TextField productNameField;
-
     @FXML
     private TextField priceField;
-
     @FXML
     private TextArea descriptionField;
-
     @FXML
-    private ComboBox categoryComboBox;
-
+    private ComboBox categoryComboBox, showBox;
     @FXML
     private Button btnUpload, btnId, btnCategoryId, btnPathImg, btnAdd;
     @FXML
     private ImageView imgView;
-
+    @FXML
+    private JFXCheckBox checkBoxAll , activeCheckBox , inactiveCheckBox;
+    private List<JFXCheckBox> checkBoxes;
     private String imagePath; // Đường dẫn ảnh
-
-
-    private ProductService productService = new ProductService();
-    private CategoryService categoryService = new CategoryService();
+    private String newOperation; // lưu thao tác mới nhất (lọc hoặc tìm kiếm)
 
     public void loadData() {
-
-
+        grid.getChildren().clear();
+        checkBoxes = new ArrayList<>();
         List<Product> products = productService.getAllProduct(); // Lấy danh sách từ database
 
         if (products == null || products.isEmpty()) {
@@ -63,40 +60,60 @@ public class ProductController {
 
         int row = 0;
         for (Product product : products) {
-            // Cột STT
-            Label lblStt = new Label(String.valueOf(row + 1));
+            JFXCheckBox checkBox = new JFXCheckBox();
+            checkBox.setId(String.valueOf(product.getProduct_id()));
+            checkBoxes.add(checkBox);
 
-            // Cột ảnh (ImageView)
+            Label lblStt = new Label(String.valueOf(row + 1) + '.');
             ImageView imageView = new ImageView(UploadImage.loadImage(product.getImgSrc()));
             imageView.setFitHeight(120);
             imageView.setFitWidth(120);
 
-            // Cột tên
             Label lblName = new Label(product.getProduct_name());
-
-            // Cột giá
             Label lblPrice = new Label(String.format("%.2f", product.getPrice()));
 
-            // Cột hành động (Button)
             JFXButton btnDetail = new JFXButton("Chi tiết");
             btnDetail.getStyleClass().add("detail-button");
             btnDetail.setOnAction(e -> handleDetail(product.getProduct_id()));
 
-            // Thêm vào GridPane
-            grid.add(lblStt, 0, row);
-            grid.add(imageView, 1, row);
-            grid.add(lblName, 2, row);
-            grid.add(lblPrice, 3, row);
-            grid.add(btnDetail, 4, row);
+            String textStatus = (!product.isStatus()) ? "Hoạt động" : "Dừng hoạt động";
+            String styleBtn = (!product.isStatus()) ? "success-button" : "error-button";
+            JFXButton btnStatus = new JFXButton(textStatus);
+            btnStatus.getStyleClass().add(styleBtn);
+            btnStatus.setOnAction(e -> handleStatus(product.getProduct_id(), product.isStatus()));
+
+            // Thêm các cột vào GridPane
+            grid.add(checkBox, 0, row);
+            grid.add(lblStt, 1, row);
+            grid.add(imageView, 2, row);
+            grid.add(lblName, 3, row);
+            grid.add(lblPrice, 4, row);
+            grid.add(btnDetail, 5, row);
+            grid.add(btnStatus, 6, row);
 
             row++; // Tăng số hàng
+
+            // Thêm Line phân cách
+            Line separator = new Line();
+            separator.setStartX(0);
+            // Ràng buộc chiều rộng của separator theo chiều rộng của GridPane
+            separator.endXProperty().bind(grid.widthProperty());
+            separator.setStroke(Color.LIGHTGRAY);
+            separator.setStrokeWidth(1);
+
+            // Gộp Line qua tất cả các cột (0 đến 6) => tổng cộng 7 cột => colspan = 7
+            grid.add(separator, 0, row, 7, 1);
+
+            row++; // Tăng số hàng tiếp theo để tránh chồng lặp
         }
+
 
         List<String> categories = new ArrayList<>();
         for (Category category : categoryService.getAllCategory()) {
             categories.add(category.getCategory_name());
         }
         categoryComboBox.getItems().addAll(categories);
+        showBox.setValue("Hiển thị " + String.valueOf(products.size()));
     }
 
     @FXML
@@ -118,8 +135,10 @@ public class ProductController {
             double price = Double.parseDouble(priceField.getText());
             String description = descriptionField.getText();
             int category_id = Integer.parseInt(btnCategoryId.getText());
+            boolean status = false ;
+            if (inactiveCheckBox.isSelected()) status = true ;
             String imgSrc = btnPathImg.getText();
-            Product product = new Product(product_name, description, price, category_id, imgSrc);
+            Product product = new Product(product_name, description, price, category_id, imgSrc, status);
             productService.addProduct(product);
             AlertInfo.showAlert(Alert.AlertType.INFORMATION, "Thành công", "Thêm sản phẩm thành công");
             Stage stage = (Stage) btnAdd.getScene().getWindow();
@@ -161,18 +180,26 @@ public class ProductController {
                 imgView.setImage(UploadImage.loadImage(product.getImgSrc()));
                 btnId.setText(String.valueOf(productId));
                 btnId.setVisible(false);
+                btnPathImg.setText(product.getImgSrc());
+                btnPathImg.setVisible(false);
                 btnCategoryId.setText(String.valueOf(product.getCategory_id()));
                 btnCategoryId.setVisible(false);
                 System.out.println(product.getCategory_id());
                 String category_name = categoryService.findCategoryByID(product.getCategory_id()).getCategory_name();
                 categoryComboBox.setValue(category_name);
-                btnPathImg.setText(product.getImgSrc());
-                btnPathImg.setVisible(false);
                 List<String> categories = new ArrayList<>();
                 for (Category category : categoryService.getAllCategory()) {
                     categories.add(category.getCategory_name());
                 }
                 categoryComboBox.getItems().addAll(categories);
+                if(product.isStatus()) {
+                    inactiveCheckBox.setSelected(true);
+                    activeCheckBox.setSelected(false);
+                }
+                else {
+                    inactiveCheckBox.setSelected(false);
+                    activeCheckBox.setSelected(true);
+                }
             } else {
                 System.out.println("Không tìm thấy sản phẩm!");
             }
@@ -197,17 +224,46 @@ public class ProductController {
         }
     }
 
+    // xóa nhiều sản phẩm .
+    @FXML
+    public void deleteAll() {
+        try {
+            if (AlertInfo.confirmAlert("Bạn có chắc muốn xóa sản phẩm không ?")) {
+                boolean check = false ;
+                for (JFXCheckBox checkBox : checkBoxes) {
+                    if (checkBox.isSelected()) {
+                        check = true ;
+                        int productId = Integer.parseInt(checkBox.getId());
+                        productService.deleteProduct(productId);
+                    }
+                }
+                if (!check) {
+                    AlertInfo.showAlert(Alert.AlertType.ERROR, "Lỗi", "Vui lòng chọn ít nhất 1 sản phẩm để xóa");
+                    return ;
+                }
+                loadData();
+                AlertInfo.showAlert(Alert.AlertType.INFORMATION, "Thành công", "Xóa sản phẩm thành công");
+            }
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+        }
+    }
+
     // hàm tìm kiếm sản phẩm .
     @FXML
     public void searchProduct() {
         String textSearch = searchField.getText().trim();
         if (textSearch.isEmpty()) return;
+        newOperation = "search";
         grid.getChildren().clear();
         Product product = productService.findProductByName(textSearch);
         if (product != null) {
             int row = 0;
+            JFXCheckBox checkBox = new JFXCheckBox();
+            checkBox.setId(String.valueOf(product.getProduct_id()));
+            checkBoxes.add(checkBox);
             // Cột STT
-            Label lblStt = new Label(String.valueOf(row + 1));
+            Label lblStt = new Label(String.valueOf(row + 1) + '.');
 
             // Cột ảnh (ImageView)
             ImageView imageView = new ImageView(UploadImage.loadImage(product.getImgSrc()));
@@ -225,15 +281,25 @@ public class ProductController {
             btnDetail.getStyleClass().add("detail-button");
             btnDetail.setOnAction(e -> handleDetail(product.getProduct_id()));
 
+            String textStatus = (!product.isStatus()) ? "Hoạt động" : "Dừng hoạt động";
+            String styleBtn = (!product.isStatus()) ? "success-button" : "error-button";
+            JFXButton btnStatus = new JFXButton(textStatus);
+            btnStatus.getStyleClass().add(styleBtn);
+            btnStatus.setOnAction(e -> handleStatus(product.getProduct_id(), product.isStatus()));
+
             // Thêm vào GridPane
-            grid.add(lblStt, 0, row);
-            grid.add(imageView, 1, row);
-            grid.add(lblName, 2, row);
-            grid.add(lblPrice, 3, row);
-            grid.add(btnDetail, 4, row);
+            grid.add(checkBox, 0, row);
+            grid.add(lblStt, 1, row);
+            grid.add(imageView, 2, row);
+            grid.add(lblName, 3, row);
+            grid.add(lblPrice, 4, row);
+            grid.add(btnDetail, 5, row);
+            grid.add(btnStatus, 6, row);
 
+
+            row++; // Tăng số hàng
         }
-
+        showBox.setValue("Hiển thị 1 ");
     }
 
     // upload image
@@ -272,7 +338,8 @@ public class ProductController {
             String description = descriptionField.getText();
             int category_id = Integer.parseInt(btnCategoryId.getText());
             String imgSrc = btnPathImg.getText();
-            Product product = new Product(product_id, product_name, description, price, category_id, imgSrc);
+            boolean status = true;
+            Product product = new Product(product_id, product_name, description, price, category_id, imgSrc, status, false);
             productService.updateProduct(product);
             AlertInfo.showAlert(Alert.AlertType.INFORMATION, "Thành công", "Cập nhật sản phẩm thành công");
         } catch (RuntimeException e) {
@@ -285,44 +352,97 @@ public class ProductController {
     void filterAction() {
         String categoryValue = (String) categoryComboBox.getValue();
         if (categoryValue.isEmpty()) return;
-        else {
-            Category category = categoryService.findCategoryByName(categoryValue);
-            List<Product> products = productService.getAllByCategoryId(category.getCategory_id());
-            if (products == null || products.isEmpty()) {
-                System.out.println("Không có dữ liệu từ database!");
-                return;
-            }
-            grid.getChildren().clear();
-            int row = 0;
-            for (Product product : products) {
-                // Cột STT
-                Label lblStt = new Label(String.valueOf(row + 1));
+        newOperation = "filter" ;
+        grid.getChildren().clear();
+        Category category = categoryService.findCategoryByName(categoryValue);
+        List<Product> products = productService.getAllByCategoryId(category.getCategory_id());
+        if (products == null || products.isEmpty()) {
+            System.out.println("Không có dữ liệu từ database!");
+            return;
+        }
+        int row = 0;
+        for (Product product : products) {
+            JFXCheckBox checkBox = new JFXCheckBox();
+            checkBox.setId(String.valueOf(product.getProduct_id()));
+            checkBoxes.add(checkBox);
+            // Cột STT
+            Label lblStt = new Label(String.valueOf(row + 1) + '.');
 
-                // Cột ảnh (ImageView)
-                ImageView imageView = new ImageView(UploadImage.loadImage(product.getImgSrc()));
-                imageView.setFitHeight(120);
-                imageView.setFitWidth(120);
+            // Cột ảnh (ImageView)
+            ImageView imageView = new ImageView(UploadImage.loadImage(product.getImgSrc()));
+            imageView.setFitHeight(120);
+            imageView.setFitWidth(120);
 
-                // Cột tên
-                Label lblName = new Label(product.getProduct_name());
+            // Cột tên
+            Label lblName = new Label(product.getProduct_name());
 
-                // Cột giá
-                Label lblPrice = new Label(String.format("%.2f", product.getPrice()));
+            // Cột giá
+            Label lblPrice = new Label(String.format("%.2f", product.getPrice()));
 
-                // Cột hành động (Button)
-                JFXButton btnDetail = new JFXButton("Chi tiết");
-                btnDetail.getStyleClass().add("detail-button");
-                btnDetail.setOnAction(e -> handleDetail(product.getProduct_id()));
+            // Cột hành động (Button)
+            JFXButton btnDetail = new JFXButton("Chi tiết");
+            btnDetail.getStyleClass().add("detail-button");
+            btnDetail.setOnAction(e -> handleDetail(product.getProduct_id()));
 
-                // Thêm vào GridPane
-                grid.add(lblStt, 0, row);
-                grid.add(imageView, 1, row);
-                grid.add(lblName, 2, row);
-                grid.add(lblPrice, 3, row);
-                grid.add(btnDetail, 4, row);
+            String textStatus = (!product.isStatus()) ? "Hoạt động" : "Dừng hoạt động";
+            String styleBtn = (!product.isStatus()) ? "success-button" : "error-button";
+            JFXButton btnStatus = new JFXButton(textStatus);
+            btnStatus.getStyleClass().add(styleBtn);
+            btnStatus.setOnAction(e -> handleStatus(product.getProduct_id(), product.isStatus()));
 
-                row++; // Tăng số hàng
-            }
+            // Thêm vào GridPane
+            grid.add(checkBox, 0, row);
+            grid.add(lblStt, 1, row);
+            grid.add(imageView, 2, row);
+            grid.add(lblName, 3, row);
+            grid.add(lblPrice, 4, row);
+            grid.add(btnDetail, 5, row);
+            grid.add(btnStatus, 6, row);
+
+            row++; // Tăng số hàng
+        }
+        showBox.setValue("Hiển thị " + String.valueOf(products.size()));
+
+    }
+
+    // checkBox all
+    @FXML
+    private void checkBoxAll() {
+        for (JFXCheckBox jfxCheckBox : checkBoxes) {
+            jfxCheckBox.setSelected(checkBoxAll.isSelected());
         }
     }
+
+    // change status
+    @FXML
+    private void handleStatus(int productId, boolean status) {
+        try {
+            productService.changeStatus(productId, status);
+            if (newOperation == "search") {
+                searchProduct();
+                return;
+            }
+            if (newOperation == "filter") {
+                filterAction();
+                return;
+            }
+            loadData();
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void handleActive() {
+        activeCheckBox.setSelected(true);
+        inactiveCheckBox.setSelected(false);
+    }
+
+    @FXML
+    public void handleInactive() {
+        activeCheckBox.setSelected(false);
+        inactiveCheckBox.setSelected(true);
+    }
+
+
 }

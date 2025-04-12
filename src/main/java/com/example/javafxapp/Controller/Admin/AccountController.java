@@ -239,13 +239,13 @@ public class AccountController{
         String roleValue = (String) roleComboBox.getValue();
         if (roleValue.isEmpty()) return;
         else {
+            grid.getChildren().clear();
             Role role = roleService.findRoleByName(roleValue) ;
             List<Account> accounts = accountService.getAllByRoleId(role.getRole_id()) ;
             if (accounts == null || accounts.isEmpty()) {
                 System.out.println("Không có dữ liệu từ database!");
                 return;
             }
-            grid.getChildren().clear();
             int row = 0;
             for (Account account : accounts) {
                 // Cột STT

@@ -11,8 +11,9 @@
 #grid {
     -fx-padding: 10px;
     -fx-hgap: 10px; /* Khoảng cách giữa các cột */
-    -fx-vgap: 10px; /* Khoảng cách giữa các hàng */
+    -fx-vgap: 20px; /* Khoảng cách giữa các hàng */
 }
+
 
 /* Cột tiêu đề */
 .label {
@@ -55,16 +56,16 @@
     -fx-background-color: #0051CE;
     -fx-text-fill: white;
     -fx-font-size: 20px;
-    -fx-padding: 5px 10px;
-    -fx-border-radius: 5px;
+    -fx-padding: 12px ;
+    -fx-border-radius: 12px;
 }
 
 .permission-button {
     -fx-background-color: #66FF66 ;
     -fx-text-fill: white;
-    -fx-font-size: 20px;
-    -fx-padding: 5px 10px;
-    -fx-border-radius: 5px;
+        -fx-font-size: 20px;
+        -fx-padding: 12px ;
+        -fx-border-radius: 12px;
 }
 
 
@@ -72,5 +73,52 @@
     -fx-background-color: #003D99;
 }
 
+.product-row {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 12px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 4, 0.5, 0, 2);
+}
 
+.column-stt {
+    -fx-font-size: 16px;
+    -fx-text-fill: #555;
+    -fx-min-width: 40px;
+}
+
+.column-name {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+    -fx-min-width: 200px;
+}
+
+.column-price {
+    -fx-font-size: 16px;
+    -fx-text-fill: #27ae60;
+    -fx-min-width: 100px;
+}
+
+.success-button {
+    -fx-background-color: #32cd32;
+    -fx-text-fill: white;
+        -fx-font-size: 20px;
+        -fx-padding: 12px ;
+        -fx-border-radius: 12px;
+}
+
+.error-button {
+    -fx-background-color: #ff0000;
+    -fx-text-fill: white;
+        -fx-font-size: 20px;
+        -fx-padding: 12px ;
+        -fx-border-radius: 12px;
+}
+
+.detail-button:hover {
+    -fx-background-color: #2980b9;
+}
+
+.combo-box {
+    -fx-font-size: 16px; /* Tăng cỡ chữ ở đây */
+}
 

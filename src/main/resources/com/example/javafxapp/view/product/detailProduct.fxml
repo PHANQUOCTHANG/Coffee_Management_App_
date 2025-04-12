@@ -14,7 +14,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: #F3F4F6;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxapp.Controller.Admin.ProductController">
+<?import com.jfoenix.controls.JFXCheckBox?>
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../styles/productManagement.css" style="-fx-background-color: #F3F4F6;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxapp.Controller.Admin.ProductController">
     <children>
         <Button fx:id="btnId" />
         <Button fx:id="btnCategoryId" />
@@ -92,7 +93,7 @@
                                                                 <Font name="System Bold" size="18.0" />
                                                             </font>
                                                         </Label>
-                                                        <ComboBox fx:id="categoryComboBox" onAction="#categoryAction" prefHeight="40.0" prefWidth="200.0" />
+                                                        <ComboBox value="Lọc" fx:id="categoryComboBox" onAction="#categoryAction" styleClass="combo-box" prefHeight="40.0" prefWidth="200.0" />
 
                                                     </children>
                                                 </VBox>
@@ -133,6 +134,30 @@
                                             </children>
                                         </VBox>
                                     </children>
+                                    <padding>
+                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    </padding>
+                                    <!-- Label trạng thái -->
+                                    <Label fx:id="statusLabel" text="Chọn trạng thái" textFill="#c9b4b4">
+                                        <font>
+                                            <Font size="18.0" />
+                                        </font>
+                                        <VBox.margin>
+                                            <Insets bottom="15.0" top="15.0" />
+                                        </VBox.margin>
+                                    </Label>
+
+                                    <!-- Hai checkbox cùng một dòng -->
+                                    <HBox spacing="10">
+                                        <JFXCheckBox fx:id="activeCheckBox" text="Hoạt động" onAction="#handleActive">
+                                            <font>
+                                                <Font size="18.0" />
+                                            </font></JFXCheckBox>
+                                        <JFXCheckBox fx:id="inactiveCheckBox" text="Không hoạt động" onAction="#handleInactive">
+                                            <font>
+                                                <Font size="18.0" />
+                                            </font></JFXCheckBox>
+                                    </HBox>
                                     <padding>
                                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                                     </padding>

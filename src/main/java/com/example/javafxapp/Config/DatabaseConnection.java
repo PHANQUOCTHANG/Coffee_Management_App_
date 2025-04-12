@@ -31,15 +31,15 @@ public class DatabaseConnection {
 
 
 //    // Hàm đóng kết nối
-//    public static void closeConnection() {
-//        try {
-//            if (connection != null) {
-//                connection.close();
-//                System.out.println("🔌 Đóng kết nối Database.");
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    public static void closeConnection(Connection connection) {
+        try {
+            if (connection != null) {
+                connection.close();
+                System.out.println("🔌 Đóng kết nối Database.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
