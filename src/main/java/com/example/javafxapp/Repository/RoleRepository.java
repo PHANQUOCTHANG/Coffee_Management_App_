@@ -82,7 +82,7 @@ public class RoleRepository implements JDBCRepository<Role> {
     }
 
     // find role by role_id .
-    public Role findRoleByID(int role_id) {
+    public Role findByID(int role_id) {
         String sql = "SELECT * from role where role_id = ? AND deleted = ?" ;
         try(Connection connection = DatabaseConnection.getConnection() ;
             PreparedStatement preparedStatement = connection.prepareStatement(sql)
@@ -105,7 +105,7 @@ public class RoleRepository implements JDBCRepository<Role> {
     }
 
     // find role by role_name.
-    public Role findRoleByName(String role_name) {
+    public Role findByName(String role_name) {
         String sql = "SELECT * from role where role_name = ? AND deleted = ?" ;
         try(Connection connection = DatabaseConnection.getConnection() ;
             PreparedStatement preparedStatement = connection.prepareStatement(sql)

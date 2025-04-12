@@ -34,11 +34,11 @@ public class CategoryService {
 
     // find product by product_name .
     public Category findCategoryByID(int category_id) {
-        return categoryRepository.findCategoryByID(category_id) ;
+        return categoryRepository.findByID(category_id) ;
     }
 
     // find category by product_name .
     public Category findCategoryByName(String category_name) {
-        return categoryRepository.findCategoryByName(category_name) ;
+        return categoryRepository.findByName(category_name) ;
     }
 }

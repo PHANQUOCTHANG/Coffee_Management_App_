@@ -12,11 +12,14 @@ import com.example.javafxapp.Service.PermissionService;
 import com.example.javafxapp.Service.RolePermissionService;
 import com.example.javafxapp.Service.RoleService;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -40,6 +43,10 @@ public class RoleController {
 
     @FXML
     private ComboBox roleComboBox ;
+    @FXML
+    private JFXCheckBox checkBoxAll ;
+    private List<JFXCheckBox> checkBoxes;
+
 
     private RoleService roleService = new RoleService() ;
     private PermissionService permissionService = new PermissionService() ;
@@ -48,21 +55,23 @@ public class RoleController {
 
     // hàm lấy tất cả cả các role đang hoạt động .
     public void loadData() {
-
-
+        grid.getChildren().clear();
 
         List<Role> roles = roleService.getAllRole() ;
-
 
         if (roles == null || roles.isEmpty()) {
             System.out.println("Không có dữ liệu từ database!");
             return;
         }
-
-        int row = 0;
+        checkBoxes = new ArrayList<>();
+        int row = 0 , stt = 1 ;
         for (Role role : roles) {
-            // Cột STT
-            Label lblStt = new Label(String.valueOf(row + 1));
+            JFXCheckBox checkBox = new JFXCheckBox();
+            checkBox.setId(String.valueOf(role.getRole_id()));
+            checkBoxes.add(checkBox);
+
+            // STT
+            Label lblStt = new Label(String.valueOf(stt++) + '.');
 
 
             // Cột tên
@@ -78,12 +87,27 @@ public class RoleController {
             btnPermission.setOnAction(e -> handleRolePermission(role.getRole_id())) ;
 
             // Thêm vào GridPane
-            grid.add(lblStt, 0, row);
-            grid.add(lblName, 1, row);
-            grid.add(btnDetail, 2, row);
-            grid.add(btnPermission,3,row);
+            grid.add(checkBox, 0, row);
+            grid.add(lblStt, 1, row);
+            grid.add(lblName, 2, row);
+            grid.add(btnDetail, 3, row);
+            grid.add(btnPermission,4,row);
 
             row++; // Tăng số hàng
+
+            // Thêm Line phân cách
+            Line separator = new Line();
+            separator.setStartX(0);
+            // Ràng buộc chiều rộng của separator theo chiều rộng của GridPane
+            separator.endXProperty().bind(grid.widthProperty());
+            separator.setStroke(Color.LIGHTGRAY);
+            separator.setStrokeWidth(1);
+
+            // Gộp Line qua tất cả các cột (0 đến 6) => tổng cộng 7 cột => colspan = 7
+            grid.add(separator, 0, row, 7, 1);
+
+            row++ ;
+
         }
     }
 
@@ -201,7 +225,7 @@ public class RoleController {
         }
     }
 
-    private List<CheckBox> checkBoxes = new ArrayList<>() ;
+    private List<CheckBox> checkBoxPermissions = new ArrayList<>() ;
     // chuyển qua trang phân quyền  .
     @FXML
     public void handleRolePermission(int roleId) {Pages.pageRolePermission(roleId);}
@@ -222,7 +246,7 @@ public class RoleController {
                     break ;
                 }
             }
-            checkBoxes.add(cb) ;
+            checkBoxPermissions.add(cb) ;
             checkboxContainer.getChildren().add(cb) ;
         }
     }
@@ -232,7 +256,7 @@ public class RoleController {
     public void handleSavePermissions() {
         try {
             int roleId = Integer.parseInt(btnId.getText()) ;
-            for (CheckBox cb : checkBoxes) {
+            for (CheckBox cb : checkBoxPermissions) {
                 if (cb.isSelected()) {
                     String permission_name = cb.getText() ;
                     Permission permission = permissionService.findPermissionByName(permission_name) ;
@@ -243,6 +267,39 @@ public class RoleController {
         }
         catch (RuntimeException e) {
             AlertInfo.showAlert(Alert.AlertType.WARNING, "Lỗi", "Phân quyền thất bại");
+            e.printStackTrace();
+        }
+    }
+
+    // checkBox all
+    @FXML
+    private void checkBoxAll() {
+        for (JFXCheckBox jfxCheckBox : checkBoxes) {
+            jfxCheckBox.setSelected(checkBoxAll.isSelected());
+        }
+    }
+
+    // xóa nhiều đối tượng cùng 1 lúc.
+    @FXML
+    public void deleteAll() {
+        try {
+            if (AlertInfo.confirmAlert("Bạn có chắc muốn xóa không ?")) {
+                boolean check = false ;
+                for (JFXCheckBox checkBox : checkBoxes) {
+                    if (checkBox.isSelected()) {
+                        check = true ;
+                        int roleId = Integer.parseInt(checkBox.getId());
+                        roleService.deleteRole(roleId);
+                    }
+                }
+                if (!check) {
+                    AlertInfo.showAlert(Alert.AlertType.ERROR, "Lỗi", "Vui lòng chọn ít nhất 1 vai trò để xóa");
+                    return ;
+                }
+                loadData();
+                AlertInfo.showAlert(Alert.AlertType.INFORMATION, "Thành công", "Xóa thành công");
+            }
+        } catch (RuntimeException e) {
             e.printStackTrace();
         }
     }

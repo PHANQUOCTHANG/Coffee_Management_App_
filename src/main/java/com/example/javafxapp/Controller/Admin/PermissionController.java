@@ -9,6 +9,7 @@ import com.example.javafxapp.Model.Product;
 import com.example.javafxapp.Service.CategoryService;
 import com.example.javafxapp.Service.PermissionService;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -16,6 +17,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -31,26 +34,31 @@ public class PermissionController {
     private Button btnId ;
     @FXML
     private JFXButton btnAdd ;
-
+    @FXML
+    private JFXCheckBox checkBoxAll ;
+    private List<JFXCheckBox> checkBoxes;
     private PermissionService permissionService = new PermissionService() ;
 
 
     // hàm lấy tất cả các quyền đang hoạt động .
     public void loadData() {
-
-
+        grid.getChildren().clear();
 
         List<Permission> permissions = permissionService.getAllPermission() ;
-
         if (permissions == null || permissions.isEmpty()) {
             System.out.println("Không có dữ liệu từ database!");
             return;
         }
-
-        int row = 0;
+        checkBoxes = new ArrayList<>();
+        int row = 0 , stt = 1 ;
         for (Permission permission : permissions) {
-            // Cột STT
-            Label lblStt = new Label(String.valueOf(row + 1));
+
+            JFXCheckBox checkBox = new JFXCheckBox();
+            checkBox.setId(String.valueOf(permission.getPermission_id()));
+            checkBoxes.add(checkBox);
+
+            // STT
+            Label lblStt = new Label(String.valueOf(stt++) + '.');
 
 
             // Cột tên
@@ -62,11 +70,25 @@ public class PermissionController {
             btnDetail.setOnAction(e -> handleDetail(permission.getPermission_id())) ;
 
             // Thêm vào GridPane
-            grid.add(lblStt, 0, row);
-            grid.add(lblName, 1, row);
-            grid.add(btnDetail, 2, row);
+            grid.add(checkBox, 0, row);
+            grid.add(lblStt, 1, row);
+            grid.add(lblName, 2, row);
+            grid.add(btnDetail, 3, row);
 
             row++; // Tăng số hàng
+
+            // Thêm Line phân cách
+            Line separator = new Line();
+            separator.setStartX(0);
+            // Ràng buộc chiều rộng của separator theo chiều rộng của GridPane
+            separator.endXProperty().bind(grid.widthProperty());
+            separator.setStroke(Color.LIGHTGRAY);
+            separator.setStrokeWidth(1);
+
+            // Gộp Line qua tất cả các cột (0 đến 6) => tổng cộng 7 cột => colspan = 7
+            grid.add(separator, 0, row, 7, 1);
+
+            row++ ;
         }
     }
 
@@ -172,6 +194,39 @@ public class PermissionController {
             btnId.setVisible(false);
         } else {
             System.out.println("Không tìm thấy !");
+        }
+    }
+
+    // checkBox all
+    @FXML
+    private void checkBoxAll() {
+        for (JFXCheckBox jfxCheckBox : checkBoxes) {
+            jfxCheckBox.setSelected(checkBoxAll.isSelected());
+        }
+    }
+
+    // xóa nhiều đối tượng cùng 1 lúc.
+    @FXML
+    public void deleteAll() {
+        try {
+            if (AlertInfo.confirmAlert("Bạn có chắc muốn xóa không ?")) {
+                boolean check = false ;
+                for (JFXCheckBox checkBox : checkBoxes) {
+                    if (checkBox.isSelected()) {
+                        check = true ;
+                        int permissionId = Integer.parseInt(checkBox.getId());
+                        permissionService.deletePermission(permissionId);
+                    }
+                }
+                if (!check) {
+                    AlertInfo.showAlert(Alert.AlertType.ERROR, "Lỗi", "Vui lòng chọn ít nhất 1 danh mục để xóa");
+                    return ;
+                }
+                loadData();
+                AlertInfo.showAlert(Alert.AlertType.INFORMATION, "Thành công", "Xóa thành công");
+            }
+        } catch (RuntimeException e) {
+            e.printStackTrace();
         }
     }
 

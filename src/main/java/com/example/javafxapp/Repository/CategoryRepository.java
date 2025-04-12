@@ -72,7 +72,7 @@ public class CategoryRepository implements JDBCRepository<Category>{
     }
 
     // find category by category_id .
-    public Category findCategoryByID(int category_id) {
+    public Category findByID(int category_id) {
         String sql = "SELECT * from category where category_id = ? AND deleted = ?" ;
         try(Connection connection = DatabaseConnection.getConnection() ;
             PreparedStatement preparedStatement = connection.prepareStatement(sql)
@@ -94,7 +94,7 @@ public class CategoryRepository implements JDBCRepository<Category>{
     }
 
     // find category by category_name.
-    public Category findCategoryByName(String category_name) {
+    public Category findByName(String category_name) {
         String sql = "SELECT * from category where category_name = ? AND deleted = ?" ;
         try(Connection connection = DatabaseConnection.getConnection() ;
             PreparedStatement preparedStatement = connection.prepareStatement(sql)

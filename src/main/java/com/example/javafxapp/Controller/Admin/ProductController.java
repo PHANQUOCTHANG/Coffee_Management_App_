@@ -48,23 +48,23 @@ public class ProductController {
     private String imagePath; // Đường dẫn ảnh
     private String newOperation; // lưu thao tác mới nhất (lọc hoặc tìm kiếm)
 
+    // load data mặc định khi vào trang .
     public void loadData() {
         grid.getChildren().clear();
-        checkBoxes = new ArrayList<>();
         List<Product> products = productService.getAllProduct(); // Lấy danh sách từ database
 
         if (products == null || products.isEmpty()) {
             System.out.println("Không có dữ liệu từ database!");
             return;
         }
-
-        int row = 0;
+        checkBoxes = new ArrayList<>();
+        int row = 0 , stt = 1 ;
         for (Product product : products) {
             JFXCheckBox checkBox = new JFXCheckBox();
             checkBox.setId(String.valueOf(product.getProduct_id()));
             checkBoxes.add(checkBox);
 
-            Label lblStt = new Label(String.valueOf(row + 1) + '.');
+            Label lblStt = new Label(String.valueOf(stt++) + '.');
             ImageView imageView = new ImageView(UploadImage.loadImage(product.getImgSrc()));
             imageView.setFitHeight(120);
             imageView.setFitWidth(120);
@@ -116,6 +116,8 @@ public class ProductController {
         showBox.setValue("Hiển thị " + String.valueOf(products.size()));
     }
 
+
+    // tự động chạy khi vào .
     @FXML
     public void initialize() {
         if (grid != null) loadData();
@@ -224,7 +226,7 @@ public class ProductController {
         }
     }
 
-    // xóa nhiều sản phẩm .
+    // xóa nhiều đối tượng cùng 1 lúc.
     @FXML
     public void deleteAll() {
         try {
@@ -261,7 +263,6 @@ public class ProductController {
             int row = 0;
             JFXCheckBox checkBox = new JFXCheckBox();
             checkBox.setId(String.valueOf(product.getProduct_id()));
-            checkBoxes.add(checkBox);
             // Cột STT
             Label lblStt = new Label(String.valueOf(row + 1) + '.');
 
@@ -360,26 +361,20 @@ public class ProductController {
             System.out.println("Không có dữ liệu từ database!");
             return;
         }
-        int row = 0;
+        int row = 0 , stt = 1 ;
         for (Product product : products) {
             JFXCheckBox checkBox = new JFXCheckBox();
             checkBox.setId(String.valueOf(product.getProduct_id()));
             checkBoxes.add(checkBox);
-            // Cột STT
-            Label lblStt = new Label(String.valueOf(row + 1) + '.');
 
-            // Cột ảnh (ImageView)
+            Label lblStt = new Label(String.valueOf(stt++) + '.');
             ImageView imageView = new ImageView(UploadImage.loadImage(product.getImgSrc()));
             imageView.setFitHeight(120);
             imageView.setFitWidth(120);
 
-            // Cột tên
             Label lblName = new Label(product.getProduct_name());
-
-            // Cột giá
             Label lblPrice = new Label(String.format("%.2f", product.getPrice()));
 
-            // Cột hành động (Button)
             JFXButton btnDetail = new JFXButton("Chi tiết");
             btnDetail.getStyleClass().add("detail-button");
             btnDetail.setOnAction(e -> handleDetail(product.getProduct_id()));
@@ -390,7 +385,7 @@ public class ProductController {
             btnStatus.getStyleClass().add(styleBtn);
             btnStatus.setOnAction(e -> handleStatus(product.getProduct_id(), product.isStatus()));
 
-            // Thêm vào GridPane
+            // Thêm các cột vào GridPane
             grid.add(checkBox, 0, row);
             grid.add(lblStt, 1, row);
             grid.add(imageView, 2, row);
@@ -400,6 +395,19 @@ public class ProductController {
             grid.add(btnStatus, 6, row);
 
             row++; // Tăng số hàng
+
+            // Thêm Line phân cách
+            Line separator = new Line();
+            separator.setStartX(0);
+            // Ràng buộc chiều rộng của separator theo chiều rộng của GridPane
+            separator.endXProperty().bind(grid.widthProperty());
+            separator.setStroke(Color.LIGHTGRAY);
+            separator.setStrokeWidth(1);
+
+            // Gộp Line qua tất cả các cột (0 đến 6) => tổng cộng 7 cột => colspan = 7
+            grid.add(separator, 0, row, 7, 1);
+
+            row++; // Tăng số hàng tiếp theo để tránh chồng lặp
         }
         showBox.setValue("Hiển thị " + String.valueOf(products.size()));
 

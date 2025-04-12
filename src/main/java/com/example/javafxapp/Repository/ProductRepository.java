@@ -88,7 +88,7 @@ public class ProductRepository implements JDBCRepository<Product> {
     }
 
     // find product by product_name .
-    public Product findProductByID(int productId) {
+    public Product findByID(int productId) {
         String sql = "SELECT * from product where product_id = ? AND deleted = ?" ;
         try(Connection connection = DatabaseConnection.getConnection() ;
             PreparedStatement preparedStatement = connection.prepareStatement(sql)
@@ -115,7 +115,7 @@ public class ProductRepository implements JDBCRepository<Product> {
     }
 
     // find product by product_name .
-    public Product findProductByName(String product_name) {
+    public Product findByName(String product_name) {
         String sql = "SELECT * from product where product_name = ? AND deleted = ?" ;
         try(Connection connection = DatabaseConnection.getConnection() ;
         PreparedStatement preparedStatement = connection.prepareStatement(sql)

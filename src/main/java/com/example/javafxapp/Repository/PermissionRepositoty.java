@@ -73,7 +73,7 @@ public class PermissionRepositoty implements JDBCRepository<Permission>{
     }
 
     // find permission by permission_id .
-    public Permission findPermissionByID(int permissionId) {
+    public Permission findByID(int permissionId) {
         String sql = "SELECT * from Permission where permission_id = ? AND deleted = ?" ;
         try(Connection connection = DatabaseConnection.getConnection() ;
             PreparedStatement preparedStatement = connection.prepareStatement(sql)
@@ -96,7 +96,7 @@ public class PermissionRepositoty implements JDBCRepository<Permission>{
     }
 
     // find permission by permission_name .
-    public Permission findPermissionByName(String permissionName) {
+    public Permission findByName(String permissionName) {
         String sql = "SELECT * from Permission where permission_name = ? AND deleted = ?" ;
         try(Connection connection = DatabaseConnection.getConnection() ;
             PreparedStatement preparedStatement = connection.prepareStatement(sql)

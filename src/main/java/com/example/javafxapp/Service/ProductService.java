@@ -33,12 +33,12 @@ public class ProductService {
 
     // find product by product_name .
     public Product findProductByName(String product_name) {
-        return productRepository.findProductByName(product_name) ;
+        return productRepository.findByName(product_name) ;
     }
 
     // find product by product_name .
     public Product findProductByID(int productId) {
-        return productRepository.findProductByID(productId) ;
+        return productRepository.findByID(productId) ;
     }
 
     // get all product bu category_id.
