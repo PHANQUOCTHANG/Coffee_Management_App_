@@ -35,7 +35,7 @@
                                     <Font size="16.0" />
                                 </font>
                             </Label>
-                            <JFXButton onAction="#showSignUp" prefHeight="62.0" prefWidth="250.0" style="-fx-background-color: #ffffff; -fx-background-radius: 30px;" text="SING UP">
+                            <JFXButton onAction="#showSignUp" prefHeight="62.0" prefWidth="250.0" style="-fx-background-color: #ffffff; -fx-background-radius: 30px;" text="SIGN UP">
                                 <font>
                                     <Font name="System Bold" size="18.0" />
                                 </font>

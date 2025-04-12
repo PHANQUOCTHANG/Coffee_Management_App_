@@ -13,13 +13,13 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="707.0" minWidth="-Infinity" prefHeight="707.0" prefWidth="1582.0" style="-fx-background-color: #3B2F2F;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" minHeight="707.0" minWidth="-Infinity" prefHeight="707.0" prefWidth="1300.0" style="-fx-background-color: #3B2F2F;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ScrollPane fx:id="scroll" blendMode="SRC_ATOP" maxHeight="1.7976931348623157E308" maxWidth="1582.0" minHeight="707.0" prefWidth="1582.0" style="-fx-background-color: white;">
+      <ScrollPane fx:id="scroll" blendMode="SRC_ATOP" fitToWidth="true" maxHeight="1.7976931348623157E308" minHeight="707.0" prefWidth="1300.0" style="-fx-background-color: white;">
          <content>
-            <VBox maxHeight="1.7976931348623157E308" maxWidth="1582.0" prefHeight="2731.0" prefWidth="1567.0" style="-fx-background-color: white;">
+            <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="1300.0" style="-fx-background-color: white;">
                <children>
-                  <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="50.0" prefWidth="1580.0" style="-fx-background-color: #3B2F2F;">
+                  <HBox alignment="CENTER" minHeight="-Infinity" prefHeight="50.0" style="-fx-background-color: #3B2F2F;">
                      <children>
                         <Label prefHeight="26.0" text="☕ Gửi trọn hương vị - đến tận nơi bạn" textFill="WHITE">
                            <font>
@@ -28,23 +28,23 @@
                         </Label>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="513.0" prefWidth="1567.0" style="-fx-background-color: #3B2F2F;">
+                  <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" minHeight="-Infinity" prefHeight="513.0" style="-fx-background-color: #3B2F2F;">
                      <children>
-                        <AnchorPane prefHeight="513.0" prefWidth="1566.0">
+                        <AnchorPane prefHeight="513.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <ImageView fitHeight="512.0" fitWidth="1568.0" layoutX="-2.0" layoutY="2.0" pickOnBounds="true">
+                              <ImageView fitHeight="512.0" fitWidth="1285.0" layoutX="-2.0" layoutY="2.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <image>
                                     <Image url="@../images/coffee-view.jpg" />
                                  </image>
                                  <effect>
                                     <ColorAdjust brightness="-0.33" />
                                  </effect></ImageView>
-                              <Label alignment="TOP_LEFT" contentDisplay="TOP" layoutX="389.0" layoutY="106.0" prefWidth="786.0" text="Không gian cà phê pha trộn giữa mộc mạc và hiện đại" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                              <Label alignment="TOP_LEFT" contentDisplay="TOP" layoutX="249.0" layoutY="118.0" prefWidth="786.0" text="Không gian cà phê pha trộn giữa mộc mạc và hiện đại" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                                  <font>
                                     <Font size="52.0" />
                                  </font>
                               </Label>
-                              <Label alignment="CENTER" layoutX="372.0" layoutY="276.0" prefHeight="65.0" prefWidth="820.0" text="Địa chỉ cửa hàng: Quận Thủ Đức, tp.HCM" textFill="WHITE">
+                              <Label alignment="CENTER" layoutX="232.0" layoutY="272.0" prefHeight="65.0" prefWidth="820.0" text="Địa chỉ cửa hàng: Quận Thủ Đức, tp.HCM" textFill="WHITE">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -53,9 +53,9 @@
                         </AnchorPane>
                      </children>
                   </HBox>
-                  <VBox alignment="TOP_CENTER" prefHeight="2136.0" prefWidth="1567.0">
+                  <VBox alignment="TOP_CENTER">
                      <children>
-                        <HBox layoutX="194.0" layoutY="575.0" maxWidth="1200.0" prefHeight="123.0" prefWidth="1200.0">
+                        <HBox alignment="CENTER" layoutX="194.0" layoutY="575.0" prefHeight="123.0" prefWidth="1100.0">
                            <padding>
                               <Insets left="50.0" right="50.0" top="50.0" />
                            </padding>
@@ -71,7 +71,7 @@
                               </HBox>
                            </children>
                         </HBox>
-                        <HBox layoutX="194.0" layoutY="783.0" maxWidth="1200.0" prefHeight="430.0" prefWidth="1200.0">
+                        <HBox alignment="CENTER" layoutX="194.0" layoutY="783.0" prefHeight="430.0" prefWidth="1100.0">
                            <padding>
                               <Insets left="50.0" right="50.0" top="50.0" />
                            </padding>
@@ -191,7 +191,7 @@
                               </HBox>
                            </children>
                         </HBox>
-                        <HBox layoutX="194.0" layoutY="218.0" maxWidth="1200.0" prefHeight="96.0" prefWidth="1200.0">
+                        <HBox alignment="CENTER" layoutX="194.0" layoutY="218.0" prefHeight="96.0" prefWidth="1100.0">
                            <padding>
                               <Insets left="50.0" right="50.0" top="50.0" />
                            </padding>
@@ -207,7 +207,7 @@
                               </HBox>
                            </children>
                         </HBox>
-                        <HBox layoutX="194.0" layoutY="341.0" maxWidth="1200.0" minHeight="220.0" prefHeight="219.0" prefWidth="1200.0">
+                        <HBox alignment="CENTER" layoutX="194.0" layoutY="341.0" minHeight="220.0" prefHeight="219.0" prefWidth="1100.0">
                            <padding>
                               <Insets left="50.0" right="50.0" top="10.0" />
                            </padding>
@@ -439,14 +439,14 @@
                               </HBox>
                            </children>
                         </HBox>
-                        <HBox alignment="CENTER" prefHeight="400.0" prefWidth="1567.0">
+                        <HBox alignment="CENTER" prefHeight="400.0" prefWidth="1100.0">
                            <children>
                               <Label prefHeight="121.0" prefWidth="469.0" text="Nhà tài trợ của Hiệp hội cà phê đặc sản Đan Mạch" wrapText="true">
                                  <font>
                                     <Font size="40.0" />
                                  </font>
                               </Label>
-                              <ImageView fitHeight="355.0" fitWidth="361.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="355.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/danish.png" />
                                  </image>
@@ -459,11 +459,11 @@
                               <Insets top="20.0" />
                            </VBox.margin>
                         </HBox>
-                        <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="513.0" prefWidth="1567.0" style="-fx-background-color: #3B2F2F;">
+                        <HBox alignment="CENTER" minHeight="-Infinity" prefHeight="513.0" style="-fx-background-color: #3B2F2F;">
                            <children>
-                              <AnchorPane prefHeight="513.0" prefWidth="1566.0">
+                              <AnchorPane prefHeight="513.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <ImageView fitHeight="553.0" fitWidth="1568.0" layoutX="-2.0" layoutY="2.0" pickOnBounds="true">
+                                    <ImageView fitHeight="553.0" fitWidth="1285.0" layoutX="-2.0" layoutY="2.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <image>
                                           <Image url="@../images/cfview.jpg" />
                                        </image>
@@ -471,12 +471,12 @@
                                           <ColorAdjust brightness="-0.33" />
                                        </effect>
                                     </ImageView>
-                                    <Label alignment="TOP_LEFT" contentDisplay="TOP" layoutX="412.0" layoutY="172.0" prefWidth="786.0" text="Ghé thăm cửa hàng của chúng tôi" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                                    <Label alignment="TOP_LEFT" contentDisplay="TOP" layoutX="400.0" layoutY="172.0" prefWidth="786.0" text="Ghé thăm cửa hàng của chúng tôi" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                                        <font>
                                           <Font size="52.0" />
                                        </font>
                                     </Label>
-                                    <Label alignment="CENTER" layoutX="376.0" layoutY="271.0" prefHeight="65.0" prefWidth="820.0" text="Hãy tự mình xem cách sản xuất sản phẩm của chúng tôi và ghé thăm cửa hàng xưởng của chúng tôi." textFill="WHITE">
+                                    <Label alignment="CENTER" layoutX="350.0" layoutY="271.0" prefHeight="65.0" prefWidth="820.0" text="Hãy tự mình xem cách sản xuất sản phẩm của chúng tôi và ghé thăm cửa hàng xưởng của chúng tôi." textFill="WHITE">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
@@ -488,7 +488,7 @@
                               <Insets top="20.0" />
                            </VBox.margin>
                         </HBox>
-                        <HBox layoutX="194.0" layoutY="575.0" maxWidth="1200.0" prefHeight="351.0" prefWidth="1200.0">
+                        <HBox layoutX="194.0" layoutY="575.0" prefHeight="351.0" prefWidth="1100.0">
                            <padding>
                               <Insets left="50.0" right="50.0" top="50.0" />
                            </padding>

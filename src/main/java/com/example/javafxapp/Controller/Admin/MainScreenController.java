@@ -54,6 +54,7 @@ public class MainScreenController {
 
         // Mặc định chọn "Tổng Quan"
         setActiveButton(btnOverview);
+        handleOverview();
     }
 
     public void setActiveButton(JFXButton activeButton) {
@@ -84,7 +85,7 @@ public class MainScreenController {
     @FXML
     private void handleOverview() {
         System.out.println("Overview button clicked");
-        loadCenterContent("/com/example/javafxapp/view/dashboard/dashboard.fxml");
+        loadCenterContent("/com/example/javafxapp/view/dashboard/homePage.fxml");
         setActiveButton(btnOverview);
     }
 
