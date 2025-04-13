@@ -84,21 +84,6 @@
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </padding>
             </JFXButton>
-            <JFXButton fx:id="btnCart" alignment="TOP_LEFT" layoutX="12.0" layoutY="274.0" onAction="#handleCart" prefHeight="83.0" prefWidth="303.0" style="-fx-border-color: gray; -fx-border-width: 2px 0 2px;" text="  Cart" textFill="WHITE">
-               <graphic>
-                  <ImageView fitHeight="40.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/icons8-order-64.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-               <padding>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-               </padding>
-            </JFXButton>
             <JFXButton fx:id="btnLogOut" alignment="TOP_LEFT" layoutX="12.0" layoutY="300.0" onAction="#handleLogOut" prefHeight="83.0" prefWidth="306.0" style="-fx-border-color: gray; -fx-border-width: 2px 0 2px;" text="  Log Out" textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">

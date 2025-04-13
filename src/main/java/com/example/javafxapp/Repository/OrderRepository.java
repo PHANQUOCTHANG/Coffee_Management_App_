@@ -1,5 +1,6 @@
 package com.example.javafxapp.Repository;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,18 +12,15 @@ import java.util.List;
 import com.example.javafxapp.Config.DatabaseConnection;
 import com.example.javafxapp.Model.Order;
 
-public class OrderRepository implements JDBCRepository<Order>{
-    @Override
-    public void add(Order order){
-        String sql = "insert into table Orders(user_id, table_id, total_amount, status) values (?, ?, ?, ?)";
+public class OrderRepository{
+    
+    public void add(int userId, BigDecimal totalAmount){
+        String sql = "insert into Orders(user_id, total_amount, status) values (?, ?, ?)";
         try (Connection conn = DatabaseConnection.getConnection();
             PreparedStatement pre = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
-            pre.setInt(1, order.getUserId());
-            if (order.getTableId() != null)
-                pre.setInt(2, order.getTableId());
-            else pre.setNull(2, java.sql.Types.INTEGER);
-            pre.setBigDecimal(3, order.getTotalAmount());
-            pre.setString(4, order.getStatus());
+            pre.setInt(1, userId);
+            pre.setBigDecimal(2, totalAmount);
+            pre.setString(3, "Pending");
             pre.executeUpdate();
             
         } catch (SQLException e){
@@ -30,26 +28,20 @@ public class OrderRepository implements JDBCRepository<Order>{
         }
     }
 
-    @Override
-    public void update(Order order) {
-        String sql = "update Orders set user_id = ?, table_id = ?, total_amount = ?, status = ? where id = ?";
+    public void update(BigDecimal totalAmount, String status, int id) {
+        String sql = "update Orders set total_amount = ?, status = ? where id = ?";
         try (Connection conn = DatabaseConnection.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
             
-            pstmt.setInt(1, order.getUserId());
-            if (order.getTableId() != null)
-                pstmt.setInt(2, order.getTableId());
-            else pstmt.setNull(2, java.sql.Types.INTEGER);
-            pstmt.setBigDecimal(3, order.getTotalAmount());
-            pstmt.setString(4, order.getStatus());
-            pstmt.setInt(5, order.getId());
+            pstmt.setBigDecimal(1, totalAmount);
+            pstmt.setString(2, status);
+            pstmt.setInt(3, id);
             pstmt.executeUpdate();
         } catch (SQLException e){
             e.printStackTrace();
         }
     }
 
-    @Override
     public void delete(int id) {
         String sql = "delete from Orders where id = ?";
         try (Connection conn = DatabaseConnection.getConnection();
@@ -62,9 +54,12 @@ public class OrderRepository implements JDBCRepository<Order>{
         }
     }
 
-    @Override
     public List<Order> getAll() {
-        String sql = "select * from Orders";
+        String sql = "select o.id, o.user_id, a.account_name, o.total_amount, o.status, o.order_time " + 
+                    "from Orders o " +
+                    "left join Account a " + 
+                    "on o.user_id = a.id " +
+                    "order by o.id desc ";
         List<Order> ans = new ArrayList<>();
         try (Connection conn = DatabaseConnection.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -73,10 +68,40 @@ public class OrderRepository implements JDBCRepository<Order>{
                 Order order = new Order(
                     rs.getInt("id"), 
                     rs.getInt("user_id"),
-                    rs.getObject("table_id") != null ? rs.getInt("table_id") : null,
+                    rs.getString("account_name"),
                     rs.getBigDecimal("total_amount"),
                     rs.getString("status"),
                     rs.getTimestamp("order_time"));
+                ans.add(order);
+            }
+            return ans;
+        } catch (SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public List<Order> getOrderByStatus(String s) {
+        String sql = "select o.id, o.user_id, a.account_name, o.total_amount, o.status, o.order_time " + 
+                    "from Orders o " +
+                    "left join Account a " + 
+                    "on o.user_id = a.id " +
+                    "where status = ? " +
+                    "order by o.id desc ";
+        List<Order> ans = new ArrayList<>();
+        try (Connection conn = DatabaseConnection.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql)){
+            stmt.setString(1, s);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()){
+                Order order = new Order(
+                    rs.getInt("id"),
+                    rs.getInt("user_id"),
+                    rs.getString("account_name"),
+                    rs.getBigDecimal("total_amount"),
+                    rs.getString("status"),
+                    rs.getTimestamp("order_time")
+                );
                 ans.add(order);
             }
             return ans;

@@ -3,6 +3,8 @@ package com.example.javafxapp.Controller.User;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.javafxapp.Controller.Admin.MainScreenController;
+import com.example.javafxapp.Helpper.Pages;
 import com.example.javafxapp.Model.Order;
 import com.example.javafxapp.Repository.OrderRepository;
 import com.example.javafxapp.Service.OrderService;
@@ -17,8 +19,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 
-public class OrdersController {
+public class OrderController extends BaseController {
     @FXML
     private ComboBox statusComboBox;
 
@@ -46,6 +49,7 @@ public class OrdersController {
     private OrderService orderService = new OrderService();
 
     private List<Order> orders = new ArrayList<>();
+
     private int currentPage = 0;
     private final int ordersPerPage = 10;
 
@@ -74,16 +78,19 @@ public class OrdersController {
             Order order = orders.get(i);
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/javafxapp/view/orders/orderItem.fxml"));
-                Node node = loader.load();
+                HBox hbox = loader.load();
 
-                OrderItemController oic = new OrderItemController();
+                OrderItemController oic = loader.getController();
                 oic.setOrder(order);
 
-                grid.add(node, 0, row++);
+                grid.add(hbox, 0, row++);
             } catch (Exception e){
                 e.printStackTrace();
             }
         }
+
+        prevBtn.setDisable(currentPage == 0);
+        nextBtn.setDisable((currentPage + 1) * ordersPerPage >= orders.size());
     }
     @FXML
     public void initialize(){
@@ -105,7 +112,8 @@ public class OrdersController {
 
     @FXML
     void addOrder(ActionEvent event) {
-
+        System.out.println("Add order button clicked!");
+        umsc.handleAddOrder();
     }
 
     @FXML
@@ -123,9 +131,12 @@ public class OrdersController {
                 s = "Completed";
             else s = "Cancelled";
             orders = orderService.getOrderByStatus(s);
-            currentPage = 0;
-            loadPage(currentPage);
         }
+        if (orders.isEmpty() || orders == null){
+            System.out.println("Khong lay du lieu duoc!");
+        }
+        currentPage = 0;
+        loadPage(currentPage);
     }
 
     @FXML

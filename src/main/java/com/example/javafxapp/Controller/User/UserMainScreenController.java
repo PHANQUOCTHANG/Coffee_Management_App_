@@ -60,12 +60,26 @@ public class UserMainScreenController {
         try {
             p = loader.load();
             centerPane.getChildren().setAll(p);
+
+            // dua controller qua controller con(ordercontroller) cho no biet controll bo la ai 
+            // de nut addorderbtn hoat dong
+            Object controller = loader.getController();
+
+            // if (controller != null && controller.getClass().equals(OrderController.class)){
+            //     OrderController oc = (OrderController) controller;
+            //     oc.setMainScreenController(this);
+            // }
+            if (controller != null && controller instanceof BaseController){
+                BaseController base = (BaseController) controller;
+                base.setController(this);
+            }
+
             centerPane.setMargin(p, new Insets(0));
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
+
     }
 
     @FXML
@@ -80,7 +94,7 @@ public class UserMainScreenController {
     }
 
     @FXML
-    private void handleOrders() {
+    public void handleOrders() {
         System.out.println("Orders button clicked!");
         loadCenterContent("/com/example/javafxapp/view/orders/orders.fxml");
         setActiveButton(btnOrders);
@@ -98,5 +112,11 @@ public class UserMainScreenController {
         System.out.println("Cart button clicked!");
         loadCenterContent("/com/example/javafxapp/view/userDashboard/cartPage.fxml");
         setActiveButton(btnCart);
+    }
+
+    // add order page (in orderController)
+    @FXML
+    public void handleAddOrder(){
+        loadCenterContent("/com/example/javafxapp/view/cart/cartPage.fxml");
     }
 }

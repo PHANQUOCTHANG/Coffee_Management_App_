@@ -1,5 +1,6 @@
 package com.example.javafxapp.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.example.javafxapp.Model.Order;
@@ -12,15 +13,19 @@ public class OrderService {
         return or.getAll();
     }
 
-    public void addOrder(Order order){
-        or.add(order);
+    public void addOrder(int userId, BigDecimal totalAmount){
+        or.add(userId, totalAmount);
     }
 
     public void deleteOrder(int id){
         or.delete(id);
     }
 
-    public void updateOrder(Order order){
-        or.update(order);
+    public void updateOrder(BigDecimal totalAmount, String status, int id){
+        or.update(totalAmount, status, id);
+    }
+
+    public List<Order> getOrderByStatus(String s) {
+        return or.getOrderByStatus(s);
     }
 }

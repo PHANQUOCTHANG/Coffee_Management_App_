@@ -27,7 +27,7 @@
                     </padding>
                 </Label>
                 <HBox alignment="TOP_RIGHT" prefHeight="50.0" prefWidth="769.0" />
-                  <JFXButton onAction="#addProduct" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #0051CE;" text="Tạo hoá đơn" textFill="WHITE">
+                  <JFXButton onAction="#addOrder" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #0051CE;" text="Tạo hoá đơn" textFill="WHITE">
                       <font>
                           <Font size="14.0" />
                       </font>
@@ -72,7 +72,7 @@
                                 <Insets right="15.0" />
                             </HBox.margin>
                         </HBox>
-                        <JFXButton onAction="#searchProduct" prefHeight="55.0" prefWidth="130.0" style="-fx-background-color: #0051CE;" text="Tìm kiếm" textFill="WHITE">
+                        <JFXButton onAction="#searchOrder" prefHeight="55.0" prefWidth="130.0" style="-fx-background-color: #0051CE;" text="Tìm kiếm" textFill="WHITE">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
@@ -89,66 +89,72 @@
                     <VBox.margin>
                         <Insets top="20.0" />
                     </VBox.margin>
-                    <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="41.0" prefWidth="1200.0">
-                            <children>
-                        <Label alignment="CENTER" prefHeight="41.0" prefWidth="180.0" text="ID hoá đơn">
-                           <font>
-                              <Font name="System Bold" size="20.0" />
-                           </font>
-                        </Label>
-                                <Label alignment="CENTER" prefHeight="41.0" prefWidth="150.0" text="Số bàn(id)">
-                                    <font>
-                                        <Font name="System Bold" size="20.0" />
-                                    </font>
-                                    <padding>
-                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                    </padding>
-                                </Label>
-                                <Label alignment="CENTER" layoutX="945.0" layoutY="17.0" prefHeight="41.0" prefWidth="250.0" text="Tên sản phẩm">
-                                    <font>
-                                        <Font name="System Bold" size="20.0" />
-                                    </font>
-                                    <padding>
-                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                    </padding>
-                                </Label>
-                                <Label alignment="CENTER" layoutX="796.0" layoutY="17.0" prefHeight="37.0" prefWidth="210.0" text="Tổng giá">
-                                    <font>
-                                        <Font name="System Bold" size="20.0" />
-                                    </font>
-                                    <padding>
-                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                    </padding>
-                                </Label>
-                        <Label alignment="CENTER" layoutX="554.0" layoutY="10.0" prefHeight="41.0" prefWidth="180.0" text="Trạng thái">
-                           <font>
-                              <Font name="System Bold" size="20.0" />
-                           </font>
-                           <padding>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </padding>
-                        </Label>
-                        <Label alignment="CENTER" layoutX="673.0" layoutY="10.0" prefHeight="41.0" prefWidth="225.0" text="Thời gian tạo">
-                           <font>
-                              <Font name="System Bold" size="20.0" />
-                           </font>
-                           <padding>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </padding>
-                        </Label>
-                                <Label alignment="CENTER" layoutX="154.0" layoutY="16.0" prefHeight="41.0" prefWidth="200.0" text="Hành động">
-                                    <font>
-                                        <Font name="System Bold" size="20.0" />
-                                    </font>
-                                    <padding>
-                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                    </padding>
-                                </Label>
-                            </children>
-                        </HBox>
-                    </children>
                 </HBox>
+            <HBox alignment="CENTER_LEFT" maxWidth="1247.0" minHeight="55.0" minWidth="1200.0" prefHeight="55.0" prefWidth="1247.0">
+               <children>
+                  <Label alignment="CENTER" maxWidth="180.0" minWidth="50.0" prefHeight="41.0" prefWidth="50.0" text="ID ">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" maxWidth="210.0" minWidth="200.0" prefHeight="41.0" prefWidth="198.0" text="Tên nhân viên">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="945.0" layoutY="17.0" maxWidth="250.0" minWidth="250.0" prefHeight="41.0" prefWidth="199.0" text="Tên sản phẩm">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="796.0" layoutY="17.0" maxWidth="175.0" minWidth="175.0" prefHeight="37.0" prefWidth="210.0" text="Tổng giá">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </Label>
+                  <HBox alignment="CENTER" maxWidth="200.0" minWidth="200.0" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <HBox alignment="CENTER" minWidth="150.0" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label text="Trạng thái">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                     </padding>
+                  </HBox>
+                  <Label alignment="CENTER" layoutX="673.0" layoutY="10.0" maxWidth="200.0" minWidth="200.0" prefHeight="41.0" prefWidth="225.0" text="Thời gian tạo">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="920.0" layoutY="17.0" maxWidth="170.0" minWidth="170.0" prefHeight="41.0" prefWidth="225.0" text="Hành động">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </HBox>
                 <ScrollPane fx:id="scroll" maxHeight="709.0" maxWidth="1245.0" minHeight="320.0" prefHeight="709.0" prefWidth="1035.0">
                     <content>
                         <GridPane fx:id="grid" prefHeight="23.0" prefWidth="73.0" styleClass="grid-cell">
@@ -179,9 +185,9 @@
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
                         <Label prefHeight="37.0" prefWidth="54.0" text="Page" textFill="#945e43" />
-                        <Label layoutX="10.0" layoutY="10.0" prefHeight="37.0" prefWidth="54.0" text="Page" textFill="#945e43" />
+                        <Label fx:id="firstPage" layoutX="10.0" layoutY="10.0" prefHeight="37.0" prefWidth="54.0" text="Page" textFill="#945e43" />
                         <Label layoutX="64.0" layoutY="10.0" prefHeight="37.0" prefWidth="54.0" text="of" textFill="#945e43" />
-                        <Label layoutX="118.0" layoutY="10.0" prefHeight="37.0" prefWidth="54.0" text="Page" textFill="#945e43" />
+                        <Label fx:id="lastPage" layoutX="118.0" layoutY="10.0" prefHeight="37.0" prefWidth="54.0" text="Page" textFill="#945e43" />
                      </children>
                   </HBox>
                   <JFXButton fx:id="nextBtn" layoutX="619.0" layoutY="10.0" onAction="#nextPage" style="-fx-background-color: #945E43;" text="&gt;" textFill="WHITE">
