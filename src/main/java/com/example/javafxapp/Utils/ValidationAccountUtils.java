@@ -1,18 +1,17 @@
 package com.example.javafxapp.Utils;
 
-import com.example.javafxapp.Controller.Admin.AccountController;
 import com.example.javafxapp.Helpper.AlertInfo;
 import com.example.javafxapp.Service.AccountService;
 import javafx.scene.control.Alert;
 
-public class ValidationUtils {
+public class ValidationAccountUtils {
 
     private static AccountService accountService  =  new AccountService() ;
 
     // validation check login name , password  , khi đăng nhập .
     public static boolean loginUtils (String loginName , String password) {
         if (loginName.isEmpty() || password.isEmpty()) {
-            AlertInfo.showAlert(Alert.AlertType.WARNING, "Lỗi", "Vui lòng nhập đầy đủ thông tin.");
+            AlertInfo.showAlert(Alert.AlertType.ERROR, "Lỗi", "Vui lòng nhập đầy đủ thông tin.");
             return false ;
         }
         if (loginName.length() < 8) {
@@ -30,7 +29,7 @@ public class ValidationUtils {
     // validation check login name , password  , khi đăng kí .
     public static boolean signUpUtils (String loginName , String password , String confirmPassword) {
         if (loginName.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
-            AlertInfo.showAlert(Alert.AlertType.WARNING, "Lỗi", "Vui lòng nhập đầy đủ thông tin.");
+            AlertInfo.showAlert(Alert.AlertType.ERROR, "Lỗi", "Vui lòng nhập đầy đủ thông tin.");
             return false ;
         }
         if (loginName.length() < 8) {
@@ -59,7 +58,7 @@ public class ValidationUtils {
     // validation check login name , password  , khi cập nhật hoặc tạo account bằng admin .
     public static boolean accountUtils (String loginName , String password , int account_id) {
         if (loginName.isEmpty() || password.isEmpty()) {
-            AlertInfo.showAlert(Alert.AlertType.WARNING, "Lỗi", "Vui lòng nhập đầy đủ thông tin.");
+            AlertInfo.showAlert(Alert.AlertType.ERROR, "Lỗi", "Vui lòng nhập đầy đủ thông tin.");
             return false ;
         }
         if (loginName.length() < 8) {

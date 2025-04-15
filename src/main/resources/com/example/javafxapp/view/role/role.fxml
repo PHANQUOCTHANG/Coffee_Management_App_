@@ -156,11 +156,11 @@
                     <content>
                         <GridPane fx:id="grid" prefHeight="23.0" prefWidth="73.0" styleClass="grid-cell">
                             <columnConstraints>
-                                <ColumnConstraints minWidth="30" prefWidth="50" />  <!-- CheckBox -->
-                                <ColumnConstraints minWidth="220" prefWidth="220" />  <!-- STT -->
-                                <ColumnConstraints minWidth="400" prefWidth="400" /> <!-- Tên -->
-                                <ColumnConstraints minWidth="100" prefWidth="100" />
-                                <ColumnConstraints minWidth="400" prefWidth="400" /> <!-- Hành động -->
+                                <ColumnConstraints minWidth="30" prefWidth="50"/>  <!-- CheckBox -->
+                                <ColumnConstraints minWidth="200" prefWidth="100"/>  <!-- STT -->
+                                <ColumnConstraints minWidth="410" prefWidth="400"/> <!-- Tên -->
+                                <ColumnConstraints minWidth="100" prefWidth="100"/> <!-- Hành động -->
+                                <ColumnConstraints minWidth="400" prefWidth="400"/> <!-- Hành động -->
                             </columnConstraints>
                         </GridPane>
                     </content>
@@ -170,7 +170,7 @@
                         <Insets left="20.0" />
                     </padding>
                     <children>
-                        <JFXComboBox fx:id="showBox" prefHeight="40.0" prefWidth="120.0" promptText="Hiển thị 20" />
+                        <ComboBox fx:id="showBox" prefHeight="35.0" prefWidth="216.0"/>
                     </children>
                 </HBox>
             </children>

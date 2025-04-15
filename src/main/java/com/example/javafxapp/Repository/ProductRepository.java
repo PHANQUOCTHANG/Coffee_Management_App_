@@ -1,6 +1,7 @@
 package com.example.javafxapp.Repository;
 
 import com.example.javafxapp.Config.DatabaseConnection;
+import com.example.javafxapp.Model.Category;
 import com.example.javafxapp.Model.Product;
 
 import java.sql.*;
@@ -181,6 +182,34 @@ public class ProductRepository implements JDBCRepository<Product> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    // find all product by keyword .
+    public List<Product> findAllByKeyword(String keyword) {
+        String sql = "SELECT * FROM product WHERE product_name LIKE ? AND deleted = ?";
+        List<Product> products = new ArrayList<>() ;
+        try (Connection connection = DatabaseConnection.getConnection() ;
+             PreparedStatement preparedStatement = connection.prepareStatement(sql) ;
+        ){
+            preparedStatement.setString(1, "%" + keyword + "%");
+            preparedStatement.setBoolean(2, false);
+            ResultSet rs = preparedStatement.executeQuery();
+            while(rs.next()) {
+                products.add(new Product(
+                        rs.getInt("product_id") ,
+                        rs.getString("product_name")  ,
+                        rs.getString("description") ,
+                        rs.getDouble("price") ,
+                        rs.getInt("category_id")  ,
+                        rs.getString("imgSrc") ,
+                        rs.getBoolean("status"),
+                        rs.getBoolean("deleted")
+                )) ;
+            }
+        }catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return products ;
     }
 
 

@@ -50,4 +50,9 @@ public class ProductService {
     public void changeStatus(int productId , boolean status) {
        productRepository.changeStatus(productId,status);
     }
+
+    // find all product by keyword .
+    public List<Product> findProductsByKeyword(String keyword) {
+        return productRepository.findAllByKeyword(keyword) ;
+    }
 }

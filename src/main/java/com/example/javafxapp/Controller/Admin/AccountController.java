@@ -2,20 +2,14 @@ package com.example.javafxapp.Controller.Admin;
 
 import com.example.javafxapp.Helpper.AlertInfo;
 import com.example.javafxapp.Helpper.Pages;
-import com.example.javafxapp.Helpper.UploadImage;
 import com.example.javafxapp.Model.Account;
-import com.example.javafxapp.Model.Category;
-import com.example.javafxapp.Model.Product;
 import com.example.javafxapp.Model.Role;
 import com.example.javafxapp.Service.AccountService;
-import com.example.javafxapp.Service.CategoryService;
 import com.example.javafxapp.Service.RoleService;
-import com.example.javafxapp.Utils.PasswordUtils;
-import com.example.javafxapp.Utils.ValidationUtils;
+import com.example.javafxapp.Utils.ValidationAccountUtils;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -111,7 +105,7 @@ public class AccountController{
             String account_name = accountNameField.getText().trim() ;
             String password = passwordField.getText().trim() ;
             int roleId = roleService.findRoleByName((String)roleComboBox.getValue()).getRole_id() ;
-            if (!ValidationUtils.accountUtils(account_name,password,0)) return     ;
+            if (!ValidationAccountUtils.accountUtils(account_name,password,0)) return     ;
             accountService.addAccount(new Account(account_name,password,roleId));
             AlertInfo.showAlert(Alert.AlertType.INFORMATION , "Thành công" , "Thêm thành công");
             Stage stage = (Stage) btnAdd.getScene().getWindow() ;
@@ -183,7 +177,7 @@ public class AccountController{
             String account_name = accountNameField.getText().trim() ;
             String password = passwordField.getText().trim() ;
             int roleId = roleService.findRoleByName((String)roleComboBox.getValue()).getRole_id() ;
-            if (!ValidationUtils.accountUtils(account_name,password,account_id)) return     ;
+            if (!ValidationAccountUtils.accountUtils(account_name,password,account_id)) return     ;
             accountService.updateAccount(new Account(account_id , account_name,password,roleId));
             AlertInfo.showAlert(Alert.AlertType.INFORMATION , "Thành công" , "Cập nhật thành công");
         }

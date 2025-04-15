@@ -122,3 +122,10 @@
     -fx-font-size: 16px; /* Tăng cỡ chữ ở đây */
 }
 
+.button.active {
+    -fx-background-color: #3399ff; /* màu nền xanh */
+    -fx-text-fill: white;
+    -fx-border-color: #007acc;
+}
+
+

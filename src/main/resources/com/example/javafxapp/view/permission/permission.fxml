@@ -16,6 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.ComboBox?>
 <VBox alignment="TOP_CENTER" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1250.0" style="-fx-background-color: #F3F4F6;" stylesheets="@../styles/productManagement.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxapp.Controller.Admin.PermissionController">
     <children>
         <HBox maxHeight="55.0" maxWidth="1245.0" prefHeight="70.0" prefWidth="1095.0">
@@ -155,10 +156,10 @@
                     <content>
                         <GridPane fx:id="grid" prefHeight="23.0" prefWidth="73.0" styleClass="grid-cell">
                             <columnConstraints>
-                                <ColumnConstraints minWidth="30" prefWidth="50" />  <!-- CheckBox -->
-                                <ColumnConstraints minWidth="220" prefWidth="220" />  <!-- STT -->
-                                <ColumnConstraints minWidth="400" prefWidth="400" /> <!-- Tên -->
-                                <ColumnConstraints minWidth="400" prefWidth="400" /> <!-- Hành động -->
+                                <ColumnConstraints minWidth="30" prefWidth="50"/>  <!-- CheckBox -->
+                                <ColumnConstraints minWidth="200" prefWidth="100"/>  <!-- STT -->
+                                <ColumnConstraints minWidth="400" prefWidth="400"/> <!-- Tên -->
+                                <ColumnConstraints minWidth="400" prefWidth="400"/> <!-- Hành động -->
                             </columnConstraints>
                         </GridPane>
                     </content>
@@ -168,7 +169,7 @@
                         <Insets left="20.0" />
                     </padding>
                     <children>
-                        <JFXComboBox fx:id="showBox" prefHeight="40.0" prefWidth="120.0" promptText="Hiển thị 20" />
+                        <ComboBox fx:id="showBox" prefHeight="35.0" prefWidth="216.0"/>
                     </children>
                 </HBox>
             </children>

@@ -6,13 +6,11 @@ import com.example.javafxapp.Helpper.UploadImage;
 import com.example.javafxapp.Model.Category;
 import com.example.javafxapp.Model.Product;
 import com.example.javafxapp.Service.CategoryService;
+import com.example.javafxapp.Utils.ValidationCategoryUtils;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -34,6 +32,8 @@ public class CategoryController {
     private JFXButton btnAdd ;
     @FXML
     private JFXCheckBox checkBoxAll ;
+    @FXML
+    private ComboBox showBox;
     private List<JFXCheckBox> checkBoxes;
 
     private CategoryService categoryService = new CategoryService() ;
@@ -87,7 +87,9 @@ public class CategoryController {
 
             // Gộp Line qua tất cả các cột (0 đến 6) => tổng cộng 7 cột => colspan = 7
             grid.add(separator, 0, row, 7, 1);
+            row++ ;
         }
+        showBox.setValue("Hiển thị " + String.valueOf(categories.size()));
     }
 
 
@@ -112,6 +114,7 @@ public class CategoryController {
     private void addCategoryPost() {
         try {
             String category_name = categoryNameField.getText() ;
+            if(!ValidationCategoryUtils.validationCategoryName(category_name)) return ;
             categoryService.addCategory(new Category(category_name));
             AlertInfo.showAlert(Alert.AlertType.INFORMATION , "Thành công" , "Thêm danh mục thành công");
             Stage stage = (Stage) btnAdd.getScene().getWindow() ;
@@ -127,34 +130,57 @@ public class CategoryController {
     // hàm tìm kiếm danh mục bằng tên .
     @FXML
     public void searchCategory() {
-        String textSearch = searchField.getText().trim();
-        if (textSearch.isEmpty()) return;
-        grid.getChildren().clear();
-        Category category = categoryService.findCategoryByName(textSearch) ;
-        if (category != null) {
-            int row = 0;
-            JFXCheckBox checkBox = new JFXCheckBox();
-            checkBox.setId(String.valueOf(category.getCategory_id()));
+        // Lắng nghe nhập liệu trong searchField
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            String textSearch = newValue.trim();
+            grid.getChildren().clear();
+            if (textSearch.isEmpty()) {
+                loadData() ;
+                return ;
+            }
 
-            // STT
-            Label lblStt = new Label(String.valueOf(row + 1) + '.');
+            // Giả sử đây là method bạn thêm vào CategoryService để trả về nhiều kết quả
+            List<Category> categories = categoryService.findCategoriesByKeyword(textSearch);
+
+            int row = 0 , stt = 1 ;
+            for (Category category : categories) {
+                JFXCheckBox checkBox = new JFXCheckBox();
+                checkBox.setId(String.valueOf(category.getCategory_id()));
+
+                // STT
+                Label lblStt = new Label(String.valueOf(stt++) + '.');
 
 
-            // Cột tên
-            Label lblName = new Label(category.getCategory_name());
+                // Cột tên
+                Label lblName = new Label(category.getCategory_name());
 
-            // Cột hành động (Button)
-            JFXButton btnDetail = new JFXButton("Chi tiết");
-            btnDetail.getStyleClass().add("detail-button");
-            btnDetail.setOnAction(e -> handleDetail(category.getCategory_id())) ;
+                // Cột hành động (Button)
+                JFXButton btnDetail = new JFXButton("Chi tiết");
+                btnDetail.getStyleClass().add("detail-button");
+                btnDetail.setOnAction(e -> handleDetail(category.getCategory_id())) ;
 
-            // Thêm vào GridPane
-            grid.add(checkBox, 0, row);
-            grid.add(lblStt, 1, row);
-            grid.add(lblName, 2, row);
-            grid.add(btnDetail, 3, row);
+                // Thêm vào GridPane
+                grid.add(checkBox, 0, row);
+                grid.add(lblStt, 1, row);
+                grid.add(lblName, 2, row);
+                grid.add(btnDetail, 3, row);
 
-        }
+                row++; // Tăng số hàng
+
+                // Thêm Line phân cách
+                Line separator = new Line();
+                separator.setStartX(0);
+                // Ràng buộc chiều rộng của separator theo chiều rộng của GridPane
+                separator.endXProperty().bind(grid.widthProperty());
+                separator.setStroke(Color.LIGHTGRAY);
+                separator.setStrokeWidth(1);
+
+                // Gộp Line qua tất cả các cột (0 đến 6) => tổng cộng 7 cột => colspan = 7
+                grid.add(separator, 0, row, 7, 1);
+                row++ ;
+            }
+            showBox.setValue("Hiển thị " + String.valueOf(categories.size()));
+        });
     }
 
     // xóa 1 danh mục.
@@ -179,6 +205,7 @@ public class CategoryController {
         try {
             int category_id = Integer.parseInt(btnId.getText()) ;
             String category_name = categoryNameField.getText().trim() ;
+            if(!ValidationCategoryUtils.validationCategoryName(category_name)) return ;
             categoryService.updateCategory(new Category(category_id , category_name));
             AlertInfo.showAlert(Alert.AlertType.INFORMATION , "Thành công" , "Cập nhật sản phẩm thành công");
         }

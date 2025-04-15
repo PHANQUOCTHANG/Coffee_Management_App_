@@ -11,6 +11,7 @@ import com.example.javafxapp.Service.CategoryService;
 import com.example.javafxapp.Service.PermissionService;
 import com.example.javafxapp.Service.RolePermissionService;
 import com.example.javafxapp.Service.RoleService;
+import com.example.javafxapp.Utils.ValidationRoleUtils;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import javafx.fxml.FXML;
@@ -42,7 +43,7 @@ public class RoleController {
     private VBox checkboxContainer ;
 
     @FXML
-    private ComboBox roleComboBox ;
+    private ComboBox roleComboBox , showBox  ;
     @FXML
     private JFXCheckBox checkBoxAll ;
     private List<JFXCheckBox> checkBoxes;
@@ -109,6 +110,7 @@ public class RoleController {
             row++ ;
 
         }
+        showBox.setValue("Hiển thị " + String.valueOf(roles.size()));
     }
 
 
@@ -134,6 +136,7 @@ public class RoleController {
     private void addRolePost() {
         try {
             String role_name = roleNameField.getText().trim() ;
+            if(!ValidationRoleUtils.validationRoleName(role_name)) return ;
             String description = descriptionField.getText().trim() ;
             roleService.addRole(new Role(role_name,description));
             AlertInfo.showAlert(Alert.AlertType.INFORMATION , "Thành công" , "Thêm thành công");
@@ -177,6 +180,7 @@ public class RoleController {
             grid.add(btnDetail, 2, row);
             grid.add(btnPermission,3,row);
         }
+        showBox.setValue("Hiển thị 1");
     }
 
     // xóa .
@@ -202,6 +206,7 @@ public class RoleController {
         try {
             int role_id = Integer.parseInt(btnId.getText()) ;
             String role_name = roleNameField.getText().trim() ;
+            if(!ValidationRoleUtils.validationRoleName(role_name)) return ;
             String description = descriptionField.getText().trim() ;
             roleService.updateRole(new Role(role_id,role_name,description));
             AlertInfo.showAlert(Alert.AlertType.INFORMATION , "Thành công" , "Cập nhật thành công");

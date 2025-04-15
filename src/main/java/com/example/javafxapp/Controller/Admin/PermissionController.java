@@ -8,13 +8,11 @@ import com.example.javafxapp.Model.Permission;
 import com.example.javafxapp.Model.Product;
 import com.example.javafxapp.Service.CategoryService;
 import com.example.javafxapp.Service.PermissionService;
+import com.example.javafxapp.Utils.ValidationPermissionUtils;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -37,6 +35,8 @@ public class PermissionController {
     @FXML
     private JFXCheckBox checkBoxAll ;
     private List<JFXCheckBox> checkBoxes;
+    @FXML
+    private ComboBox showBox;
     private PermissionService permissionService = new PermissionService() ;
 
 
@@ -90,6 +90,7 @@ public class PermissionController {
 
             row++ ;
         }
+        showBox.setValue("Hiển thị " + String.valueOf(permissions.size()));
     }
 
 
@@ -115,6 +116,7 @@ public class PermissionController {
     private void addPermissionPost() {
         try {
             String permission_name = permissionNameField.getText() ;
+            if (!ValidationPermissionUtils.validationPermissionName(permission_name)) return ;
             permissionService.addPermission(new Permission(permission_name,false));
             AlertInfo.showAlert(Alert.AlertType.INFORMATION , "Thành công" , "Thêm thành công");
             Stage stage = (Stage) btnAdd.getScene().getWindow() ;
@@ -152,6 +154,7 @@ public class PermissionController {
             grid.add(lblName, 1, row);
             grid.add(btnDetail, 2, row);
         }
+        showBox.setValue("Hiển thị 1");
     }
 
     // xóa.
@@ -176,6 +179,7 @@ public class PermissionController {
         try {
             int permission_id = Integer.parseInt(btnId.getText()) ;
             String permission_name = permissionNameField.getText().trim() ;
+            if (!ValidationPermissionUtils.validationPermissionName(permission_name)) return ;
             permissionService.updatePermission(new Permission(permission_id,permission_name,false));
             AlertInfo.showAlert(Alert.AlertType.INFORMATION , "Thành công" , "Cập nhật thành công");
         }

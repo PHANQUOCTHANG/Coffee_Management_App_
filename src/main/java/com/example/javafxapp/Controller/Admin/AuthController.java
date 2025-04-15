@@ -1,7 +1,7 @@
 package com.example.javafxapp.Controller.Admin;
 
 import com.example.javafxapp.Service.AuthService;
-import com.example.javafxapp.Utils.ValidationUtils;
+import com.example.javafxapp.Utils.ValidationAccountUtils;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.layout.BorderPane;
@@ -99,7 +99,7 @@ public class AuthController{
         String loginName = loginNameField.getText().trim();
         String password = passWordField.getText().trim();
 
-        if(!ValidationUtils.loginUtils(loginName,password)) return ;
+        if(!ValidationAccountUtils.loginUtils(loginName,password)) return ;
         boolean result = authService.Login(loginName,password);
 
         // check account .
@@ -122,7 +122,7 @@ public class AuthController{
         String password = signUpPassWordField.getText().trim();
         String confirmPassword = confirmPassWordField.getText().trim();
 
-        if (!ValidationUtils.signUpUtils(loginName,password,confirmPassword)) return ;
+        if (!ValidationAccountUtils.signUpUtils(loginName,password,confirmPassword)) return ;
 
         Account newAccount = new Account(loginName, password,2);
         int generatedId = authService.signUp(newAccount);

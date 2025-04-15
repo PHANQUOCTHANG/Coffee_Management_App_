@@ -89,7 +89,7 @@
                                         <Image url="@../images/searchicon.png"/>
                                     </image>
                                 </ImageView>
-                                <TextField fx:id="searchField" prefHeight="48.0" prefWidth="602.0"
+                                <TextField fx:id="searchField" onAction="#searchCategory"  prefHeight="48.0" prefWidth="602.0"
                                            promptText="Tìm kiếm theo tên" style="-fx-border-color: #ffffff;">
                                     <font>
                                         <Font size="18.0"/>
@@ -100,7 +100,7 @@
                                 <Insets right="15.0"/>
                             </HBox.margin>
                         </HBox>
-                        <JFXButton onAction="#searchCategory" prefHeight="55.0" prefWidth="130.0"
+                        <JFXButton prefHeight="55.0" prefWidth="130.0"
                                    style="-fx-background-color: #0051CE;" text="Tìm kiếm" textFill="WHITE">
                             <font>
                                 <Font name="System Bold" size="14.0"/>
@@ -161,7 +161,7 @@
                         <GridPane fx:id="grid" prefHeight="23.0" prefWidth="73.0" styleClass="grid-cell">
                             <columnConstraints>
                                 <ColumnConstraints minWidth="30" prefWidth="50"/>  <!-- CheckBox -->
-                                <ColumnConstraints minWidth="210" prefWidth="100"/>  <!-- STT -->
+                                <ColumnConstraints minWidth="190" prefWidth="100"/>  <!-- STT -->
                                 <ColumnConstraints minWidth="410" prefWidth="400"/> <!-- Tên -->
                                 <ColumnConstraints minWidth="400" prefWidth="400"/> <!-- Hành động -->
                             </columnConstraints>
@@ -174,7 +174,7 @@
                         <Insets left="20.0"/>
                     </padding>
                     <children>
-                        <JFXComboBox fx:id="showBox" prefHeight="40.0" prefWidth="120.0" promptText="Hiển thị 20"/>
+                        <ComboBox fx:id="showBox" prefHeight="35.0" prefWidth="216.0"/>
                     </children>
                 </HBox>
             </children>

@@ -203,15 +203,30 @@
                             </columnConstraints>
                         </GridPane>
                     </content>
+                    <!--                    <HBox fx:id="paginationBox" spacing="10">-->
+                    <!--                        <Button fx:id="prevButton" text="← Trước"/>-->
+
+                    <!--                        &lt;!&ndash; Các nút số trang sẽ được thêm động bằng code &ndash;&gt;-->
+
+                    <!--                        <Button fx:id="nextButton" text="Sau →" />-->
+                    <!--                    </HBox>-->
                 </ScrollPane>
                 <HBox alignment="CENTER_LEFT" maxHeight="258.0" maxWidth="1245.0" prefHeight="62.0" prefWidth="1035.0"
                       style="-fx-border-color: grey; -fx-border-width: 0 0 2px;">
                     <padding>
                         <Insets left="20.0"/>
                     </padding>
-                    <children>
-                        <ComboBox fx:id="showBox" prefHeight="35.0" prefWidth="216.0"/>
-                    </children>
+                    <HBox fx:id="boxPage">
+                        <Button fx:id="prevButton" prefHeight="50.0" prefWidth="60.0" text="← Trước" onAction="#handlePrev">
+                            <HBox.margin>
+                                <Insets left="500.0"/>
+                            </HBox.margin>
+                        </Button>
+
+                        <!-- Các nút số trang sẽ được thêm động bằng code -->
+
+                        <Button fx:id="nextButton" prefHeight="50.0" prefWidth="60.0" text="Sau →" onAction="#handleNext"/>
+                    </HBox>
                 </HBox>
             </children>
         </VBox>

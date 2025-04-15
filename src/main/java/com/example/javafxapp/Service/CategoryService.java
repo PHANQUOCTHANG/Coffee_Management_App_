@@ -41,4 +41,9 @@ public class CategoryService {
     public Category findCategoryByName(String category_name) {
         return categoryRepository.findByName(category_name) ;
     }
+
+    // find all category by keyword .
+    public List<Category> findCategoriesByKeyword(String keyword) {
+        return categoryRepository.findAllByKeyword(keyword) ;
+    }
 }

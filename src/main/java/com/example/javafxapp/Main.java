@@ -27,9 +27,7 @@ public class Main extends Application {
         // Full màn hình
         primaryStage.setMaximized(true);
         primaryStage.setTitle("Coffee Shop Management");
-        primaryStage.show();
-
-
+        primaryStage.show() ;
     }
 
 
