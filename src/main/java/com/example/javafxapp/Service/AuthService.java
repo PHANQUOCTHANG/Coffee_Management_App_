@@ -13,4 +13,12 @@ public class AuthService {
     public int signUp(Account account) {
         return authRepository.signUp(account) ;
     }
+
+    public int getId(String userName){
+        return authRepository.getId(userName);
+    }
+
+    public String getRole(int id){
+        return authRepository.getRole(id);
+    }
 }

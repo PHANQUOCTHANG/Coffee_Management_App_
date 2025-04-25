@@ -1,10 +1,10 @@
-package com.example.javafxapp.Service;
+package com.example.javafxapp.Service.User;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 import com.example.javafxapp.Model.Order;
-import com.example.javafxapp.Repository.OrderRepository;
+import com.example.javafxapp.Repository.User.OrderRepository;
 
 public class OrderService {
     private OrderRepository or = new OrderRepository();

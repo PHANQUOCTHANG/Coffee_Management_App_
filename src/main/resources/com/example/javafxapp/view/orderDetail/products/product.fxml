@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="214.0" minHeight="-Infinity" minWidth="-Infinity" prefWidth="214.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxapp.Controller.User.Order.ProductItemController">
+   <children>
+      <ImageView fx:id="img" fitHeight="214.0" fitWidth="214.0" pickOnBounds="true">
+         <image>
+            <Image url="@../../images/milkcoffee.png" />
+         </image></ImageView>
+      <Label fx:id="nameLabel" prefHeight="42.0" prefWidth="234.0" text="Cà phê sữa cappuchino" wrapText="true">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="priceLabel" layoutX="10.0" layoutY="224.0" prefHeight="42.0" prefWidth="234.0" text="25.000 VND" wrapText="true">
+         <font>
+            <Font name="Bell MT" size="22.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="addBtn" maxHeight="50.0" onAction="#addProduct" prefHeight="50.0" prefWidth="214.0" style="-fx-border-width: 2px; -fx-border-radius: 10px; -fx-border-color: black;" text="Thêm vào hoá đơn">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </JFXButton>
+   </children>
+   <padding>
+      <Insets bottom="10.0" />
+   </padding>
+</VBox>

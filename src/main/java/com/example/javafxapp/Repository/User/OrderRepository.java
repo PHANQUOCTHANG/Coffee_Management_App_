@@ -1,4 +1,4 @@
-package com.example.javafxapp.Repository;
+package com.example.javafxapp.Repository.User;
 
 import java.math.BigDecimal;
 import java.sql.Connection;

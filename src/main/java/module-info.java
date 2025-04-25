@@ -14,6 +14,8 @@ module com.example.javafxapp {
     exports com.example.javafxapp;
     exports com.example.javafxapp.Controller.Admin;
     exports com.example.javafxapp.Controller.User;
+    exports com.example.javafxapp.Controller.User.Order;
     opens com.example.javafxapp.Controller.Admin to javafx.fxml;
     opens com.example.javafxapp.Controller.User to javafx.fxml;
+    opens com.example.javafxapp.Controller.User.Order to javafx.fxml;
 }

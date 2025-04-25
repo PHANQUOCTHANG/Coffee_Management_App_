@@ -1,13 +1,14 @@
-package com.example.javafxapp.Controller.User;
+package com.example.javafxapp.Controller.User.Order;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.example.javafxapp.Controller.Admin.MainScreenController;
+import com.example.javafxapp.Controller.User.BaseController;
 import com.example.javafxapp.Helpper.Pages;
 import com.example.javafxapp.Model.Order;
-import com.example.javafxapp.Repository.OrderRepository;
-import com.example.javafxapp.Service.OrderService;
+import com.example.javafxapp.Repository.User.OrderRepository;
+import com.example.javafxapp.Service.User.OrderService;
 import com.jfoenix.controls.JFXButton;
 
 import javafx.event.ActionEvent;
@@ -20,6 +21,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 public class OrderController extends BaseController {
     @FXML
@@ -45,6 +47,7 @@ public class OrderController extends BaseController {
 
     @FXML
     private TextField searchField;
+
 
     private OrderService orderService = new OrderService();
 
@@ -77,7 +80,8 @@ public class OrderController extends BaseController {
         for (int i = start; i < Math.min(start + ordersPerPage, orders.size()); i++){
             Order order = orders.get(i);
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/javafxapp/view/orders/orderItem.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                    "/com/example/javafxapp/view/orders/orderItem.fxml"));
                 HBox hbox = loader.load();
 
                 OrderItemController oic = loader.getController();
@@ -95,7 +99,8 @@ public class OrderController extends BaseController {
     @FXML
     public void initialize(){
         loadData();
-        lastPage.setText(String.valueOf(orders.size() / ordersPerPage + (orders.size() % ordersPerPage != 0 ? 1 : 0)));
+        lastPage.setText(String.valueOf(orders.size() / ordersPerPage + 
+                            (orders.size() % ordersPerPage != 0 ? 1 : 0)));
     }
 
     @FXML

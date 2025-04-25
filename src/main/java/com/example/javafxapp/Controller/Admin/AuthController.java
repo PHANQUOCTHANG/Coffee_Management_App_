@@ -4,10 +4,13 @@ import com.example.javafxapp.Service.AuthService;
 import com.example.javafxapp.Utils.ValidationUtils;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
+import com.example.javafxapp.Controller.User.UserMainScreenController;
 import com.example.javafxapp.Helpper.AlertInfo;
 import com.example.javafxapp.Model.Account;
 import com.example.javafxapp.Helpper.Pages;
@@ -107,8 +110,19 @@ public class AuthController{
             loginNameField.clear();
             passWordField.clear();
             Stage stage = (Stage) loginNameField.getScene().getWindow() ;
+            int userId = authService.getId(loginName);
+            String role = authService.getRole(userId);
+            if (role.equals("")){
+                AlertInfo.showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể load phân quyền.");
+                return;
+            }
             stage.close();
-            Pages.pagesMainScreen(loginName);
+            if (role.equals("User")){
+                FXMLLoader loader = Pages.loadPage("/com/example/javafxapp/view/mainScreen/userMainScreen.fxml");
+                UserMainScreenController umsc = loader.getController();
+                umsc.setUserId(userId);
+            }
+            else Pages.pagesMainScreen(loginName);
             AlertInfo.showAlert(Alert.AlertType.INFORMATION , "Thành công" , "Đăng nhập thành công");
         } else {
             AlertInfo.showAlert(Alert.AlertType.ERROR, "Lỗi", "Tên đăng nhập hoặc mật khẩu không đúng.");

@@ -35,6 +35,20 @@ public class UserMainScreenController {
 
     JFXButton activeBtn;
 
+    private int userId;
+
+    public UserMainScreenController(){};
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+
+
     @FXML
     public void initialize(){
         activeBtn = btnOverview;
@@ -72,6 +86,7 @@ public class UserMainScreenController {
             if (controller != null && controller instanceof BaseController){
                 BaseController base = (BaseController) controller;
                 base.setController(this);
+                base.setUserId(userId);
             }
 
             centerPane.setMargin(p, new Insets(0));
@@ -117,6 +132,6 @@ public class UserMainScreenController {
     // add order page (in orderController)
     @FXML
     public void handleAddOrder(){
-        loadCenterContent("/com/example/javafxapp/view/cart/cartPage.fxml");
+        loadCenterContent("/com/example/javafxapp/view/orderDetail/orderDetail.fxml");
     }
 }

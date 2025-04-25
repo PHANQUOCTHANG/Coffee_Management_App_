@@ -28,6 +28,46 @@ public class AuthRepository {
         return false;
     }
 
+    public int getId(String userName){
+        String sql = "SELECT id FROM Account WHERE account_name = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, userName);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("id");
+            }else {
+                throw new RuntimeException() ;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public String getRole(int id){
+        String sql = "SELECT r.role_name " +
+                    "from Account a " +
+                    "left join Role r " +
+                    "on r.role_id = a.role_id " +
+                    "where a.id = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getString("role_name");
+            }else {
+                throw new RuntimeException() ;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
 
     // sign up
     public int signUp (Account account) {

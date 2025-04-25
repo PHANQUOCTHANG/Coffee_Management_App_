@@ -345,4 +345,25 @@ public class Pages {
         }
     }
 
+    // hiện 1 cửa sổ mới
+    public static FXMLLoader loadPage(String fxmlPath) {
+        try {
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource(fxmlPath));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.getIcons().add(new Image(Pages.class.getResourceAsStream("/com/example/javafxapp/view/images/icons.jpg")));
+            stage.setScene(scene);
+            stage.setTitle("Coffee Shop Management");
+            stage.setResizable(false);
+            stage.show();
+            return loader;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            AlertInfo.showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể mở trang.");
+        }
+        return null;
+    }
+
 }
