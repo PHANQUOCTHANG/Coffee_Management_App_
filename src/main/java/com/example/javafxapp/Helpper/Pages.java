@@ -355,7 +355,7 @@ public class Pages {
             stage.getIcons().add(new Image(Pages.class.getResourceAsStream("/com/example/javafxapp/view/images/icons.jpg")));
             stage.setScene(scene);
             stage.setTitle("Coffee Shop Management");
-            stage.setResizable(false);
+            stage.setResizable(true);
             stage.show();
             return loader;
 

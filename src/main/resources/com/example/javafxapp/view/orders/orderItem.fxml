@@ -64,7 +64,7 @@
       </Label>
       <HBox alignment="CENTER" maxWidth="200.0" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <JFXButton fx:id="edit" ellipsisString="" maxHeight="45.0" prefHeight="45.0" prefWidth="55.0" text="Button">
+            <JFXButton fx:id="edit" ellipsisString="" maxHeight="45.0" onAction="#edit" prefHeight="45.0" prefWidth="55.0" text="Button">
                <graphic>
                   <ImageView fitHeight="41.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -73,7 +73,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="delete" ellipsisString="" layoutX="67.0" layoutY="15.0" maxHeight="45.0" prefHeight="45.0" prefWidth="55.0" text="Button">
+            <JFXButton fx:id="delete" ellipsisString="" layoutX="67.0" layoutY="15.0" maxHeight="45.0" onAction="#del" prefHeight="45.0" prefWidth="55.0" text="Button">
                <graphic>
                   <ImageView fitHeight="41.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                      <image>

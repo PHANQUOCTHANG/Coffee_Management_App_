@@ -1,10 +1,13 @@
 package com.example.javafxapp.Controller.User.Order;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.example.javafxapp.Controller.Admin.MainScreenController;
 import com.example.javafxapp.Controller.User.BaseController;
+import com.example.javafxapp.Helpper.AlertInfo;
 import com.example.javafxapp.Helpper.Pages;
 import com.example.javafxapp.Model.Order;
 import com.example.javafxapp.Repository.User.OrderRepository;
@@ -56,6 +59,10 @@ public class OrderController extends BaseController {
     private int currentPage = 0;
     private final int ordersPerPage = 10;
 
+    // map lưu trữ key value là id -> orderDetailController 
+    // dùng để xoá mục orderDetail tương ứng
+    Map<Integer, OrderItemController> mp = new HashMap<>();
+
 
     public void loadData(){
         orders = orderService.getAllOrder();
@@ -86,6 +93,8 @@ public class OrderController extends BaseController {
 
                 OrderItemController oic = loader.getController();
                 oic.setOrder(order);
+                oic.setOrderController(this);
+                mp.put(order.getId(), oic);
 
                 grid.add(hbox, 0, row++);
             } catch (Exception e){
@@ -146,6 +155,11 @@ public class OrderController extends BaseController {
 
     @FXML
     void searchOrder(ActionEvent event) {
+        
+    }
 
+    public void deleteOrder(int id){
+        orders.removeIf(od -> od.getId() == id);
+        loadPage(0);
     }
 }

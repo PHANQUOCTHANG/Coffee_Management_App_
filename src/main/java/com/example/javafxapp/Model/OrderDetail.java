@@ -13,7 +13,7 @@ public class OrderDetail {
     private int quantity;
     private double unitPrice;
 
-    OrderDetail(){}
+    public OrderDetail(){}
 
     public OrderDetail(int orderId, int productId, int quantity, double unitPrice) {
         this.orderId = orderId;
@@ -52,6 +52,12 @@ public class OrderDetail {
 
     public void setUnitPrice(double unitPrice) {
         this.unitPrice = unitPrice;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderDetail [orderId=" + orderId + ", productId=" + productId + ", quantity=" + quantity
+                + ", unitPrice=" + unitPrice + "]";
     }
 
     

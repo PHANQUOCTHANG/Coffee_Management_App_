@@ -28,6 +28,8 @@ public class ProductItemController {
 
     private Product product;
 
+    private OrderDetailController orderDetailController;
+
     public void setProduct(Product p){
         product = p;
         System.out.println(product);
@@ -38,10 +40,18 @@ public class ProductItemController {
         priceLabel.setText("" + p.getPrice() + "VND");
     }
 
+    public Product getProduct(){
+        return product;
+    }
+
     @FXML
     void addProduct() {
-
         addBtn.setDisable(true);
+        orderDetailController.addOrderDetail(product);
+    }
+
+    public void setOrderDetailController(OrderDetailController orderDetailController) {
+        this.orderDetailController = orderDetailController;
     }
 
     @FXML
@@ -49,5 +59,9 @@ public class ProductItemController {
         System.out.println("pic initialized!"); 
         nameLabel.setText("N/A");
         priceLabel.setText("N/A");
+    }
+
+    public void setStatus(boolean status){
+        addBtn.setDisable(status);
     }
 }
