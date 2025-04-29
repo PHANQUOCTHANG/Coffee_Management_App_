@@ -1,5 +1,6 @@
 package com.example.javafxapp.Controller.User.Order;
 
+import com.example.javafxapp.Controller.User.UserMainScreenController;
 import com.example.javafxapp.Helpper.AlertInfo;
 import com.example.javafxapp.Model.Order;
 import com.example.javafxapp.Service.User.OrderService;
@@ -64,36 +65,6 @@ public class OrderItemController {
     @FXML
     public void initialize(){
         System.out.println("initialize orderitemcontroller");
-
-        // if (id == null)
-        //     System.out.println("id label is null");
-        // else 
-        //     System.out.println("id label is not null");
-
-        // if (name == null)
-        //     System.out.println("name label is null");
-        // else 
-        //     System.out.println("name label is not null");
-
-        // if (status == null)
-        //     System.out.println("status label is null");
-        // else 
-        //     System.out.println("status label is not null");
-
-        // if (staffName == null)
-        //     System.out.println("staffName label is null");
-        // else 
-        //     System.out.println("staffName label is not null");
-
-        // if (time == null)
-        //     System.out.println("time label is null");
-        // else 
-        //     System.out.println("time label is not null");
-
-        // if (total == null)
-        //     System.out.println("total label is null");
-        // else 
-        //     System.out.println("total label is not null");
         id.setText("N/A");
         name.setText("N/A");
         staffName.setText("N/A");
@@ -114,6 +85,7 @@ public class OrderItemController {
 
     @FXML
     void edit() {
-        
+        UserMainScreenController umsc = orderController.getUMSC();
+        umsc.handleEditOrder(order);
     }
 }

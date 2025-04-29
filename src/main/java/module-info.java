@@ -9,6 +9,7 @@ module com.example.javafxapp {
     requires org.controlsfx.controls;
     requires javafx.base;
     requires bcrypt;
+    requires itextpdf;
 
     opens com.example.javafxapp to javafx.fxml;
     exports com.example.javafxapp;

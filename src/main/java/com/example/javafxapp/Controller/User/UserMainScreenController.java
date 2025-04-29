@@ -2,8 +2,10 @@ package com.example.javafxapp.Controller.User;
 
 import java.io.IOException;
 
+import com.example.javafxapp.Controller.User.Order.OrderDetailController;
 import com.example.javafxapp.Helpper.AlertInfo;
 import com.example.javafxapp.Helpper.Pages;
+import com.example.javafxapp.Model.Order;
 import com.jfoenix.controls.JFXButton;
 
 import javafx.event.ActionEvent;
@@ -47,6 +49,7 @@ public class UserMainScreenController {
         return userId;
     }
 
+    
 
 
     @FXML
@@ -68,16 +71,17 @@ public class UserMainScreenController {
         setActiveButton(btnOverview);
     }
 
-    public void loadCenterContent(String fxmlPath){
+    public Object loadCenterContent(String fxmlPath){
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
         Parent p;
+        Object controller = null;
         try {
             p = loader.load();
             centerPane.getChildren().setAll(p);
 
             // dua controller qua controller con(ordercontroller) cho no biet controll bo la ai 
             // de nut addorderbtn hoat dong
-            Object controller = loader.getController();
+            controller = loader.getController();
 
             // if (controller != null && controller.getClass().equals(OrderController.class)){
             //     OrderController oc = (OrderController) controller;
@@ -94,7 +98,7 @@ public class UserMainScreenController {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
+        return controller;
     }
 
     @FXML
@@ -133,5 +137,13 @@ public class UserMainScreenController {
     @FXML
     public void handleAddOrder(){
         loadCenterContent("/com/example/javafxapp/view/orderDetail/orderDetail.fxml");
+    }
+
+    @FXML
+    public void handleEditOrder(Order order){
+        OrderDetailController odc = (OrderDetailController) loadCenterContent(
+            "/com/example/javafxapp/view/orderDetail/orderDetail.fxml");
+        odc.setOrder(order);
+        odc.loadData();
     }
 }

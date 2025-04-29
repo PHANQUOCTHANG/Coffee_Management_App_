@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.example.javafxapp.Controller.Admin.MainScreenController;
 import com.example.javafxapp.Controller.User.BaseController;
+import com.example.javafxapp.Controller.User.UserMainScreenController;
 import com.example.javafxapp.Helpper.AlertInfo;
 import com.example.javafxapp.Helpper.Pages;
 import com.example.javafxapp.Model.Order;
@@ -62,6 +63,10 @@ public class OrderController extends BaseController {
     // map lưu trữ key value là id -> orderDetailController 
     // dùng để xoá mục orderDetail tương ứng
     Map<Integer, OrderItemController> mp = new HashMap<>();
+
+    public UserMainScreenController getUMSC(){
+        return umsc;
+    }
 
 
     public void loadData(){

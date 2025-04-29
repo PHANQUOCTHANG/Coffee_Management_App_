@@ -1,5 +1,6 @@
 package com.example.javafxapp.Controller.User.Order;
 
+import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -9,10 +10,14 @@ import java.util.List;
 
 import com.example.javafxapp.Controller.User.BaseController;
 import com.example.javafxapp.Helpper.AlertInfo;
+import com.example.javafxapp.Helpper.PDFExporter;
 import com.example.javafxapp.Helpper.Pages;
+import com.example.javafxapp.Model.Account;
 import com.example.javafxapp.Model.Category;
+import com.example.javafxapp.Model.Order;
 import com.example.javafxapp.Model.OrderDetail;
 import com.example.javafxapp.Model.Product;
+import com.example.javafxapp.Service.AccountService;
 import com.example.javafxapp.Service.CategoryService;
 import com.example.javafxapp.Service.ProductService;
 import com.example.javafxapp.Service.User.OrderDetailService;
@@ -56,13 +61,30 @@ public class OrderDetailController extends BaseController {
     @FXML
     private Label priceLabel;
 
-    private int orderDetailId;
+    @FXML
+    private Label userNameLabel;
+
+    @FXML
+    private JFXComboBox statusComboBox;
+
+    @FXML
+    private Label timeLabel;
+
+    @FXML
+    private JFXButton markBtn;
+
+    @FXML
+    private Label idLabel;
+
+    private int orderId = -1;
 
     public OrderDetailController(){};
 
-    public void setOrderDetailId(int orderDetailId) {
-        this.orderDetailId = orderDetailId;
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
     }
+
+    private Order order = null;
 
     private double totalPrice = 0;
 
@@ -83,13 +105,33 @@ public class OrderDetailController extends BaseController {
 
     @FXML 
     private void initialize(){
+        userNameLabel.setText("N/A");
+        timeLabel.setText("N/A");
+        idLabel.setText("#...");
+
+        // chon trang thai
+        List<String> statusList = new ArrayList<>();
+        statusList.add("Đang chờ xử lí");
+        statusList.add("Đang xử lí");
+        statusList.add("Đã xử lí");
+        statusList.add("Đã huỷ");
+
+        statusComboBox.getItems().addAll(statusList);
+        statusComboBox.setValue("Đang chờ xử lí");
+
         loadData();
     }
 
-    private void loadData(){
+    public void setOrder(Order order){
+        this.order = order;
+        orderId = order.getId();
+    }
+
+    public void loadData(){
         // load danh sach sp
         products = productService.getAllProduct();
-        orderDetailList = FXCollections.observableArrayList(orderDetailService.getAll(orderDetailId));
+        setOrderDetailList();
+        System.out.println("odl size = " + orderDetailList.size());
 
         // load list filter (loai sp trong combobox)
         
@@ -98,8 +140,11 @@ public class OrderDetailController extends BaseController {
         typeComboBox.getItems().addAll(typeList);
         typeComboBox.setValue(typeList.get(typeList.size() - 1));
 
-
         loadPage();
+    }
+
+    private void setOrderDetailList(){
+        orderDetailList = FXCollections.observableArrayList(orderDetailService.getAll(orderId));
     }
 
     @FXML
@@ -137,16 +182,31 @@ public class OrderDetailController extends BaseController {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            
         }
+        loadOrderDetailList();
+        loadTitle();
+    }
+
+    // load title
+    private void loadTitle(){
+        //load username
+        setUserNameLabel();
+
+        // load id order
+        if (orderId != -1)
+            idLabel.setText("#" + orderId);
+        
+        // load thoi diem tao
+        if (order != null)
+            timeLabel.setText("" + order.getOrderTime());
     }
 
     @FXML
     void cancel() {
         try {
             // kiem tra co thay doi list order detail khong, neu co thi hien bang thong bao
-            boolean checkChange = orderDetailService.checkChange(orderDetailId, orderDetailList);
-            if ((checkChange && AlertInfo.confirmAlert("Bạn có chắc muốn huỷ thay đổi?") ||
+            boolean checkChange = orderDetailService.checkChange(orderId, orderDetailList);
+            if ((checkChange && AlertInfo.confirmAlert("Bạn có chắc muốn trở về mà không lưu thay đổi?") ||
                 !checkChange)) {
                 umsc.handleOrders();
             }
@@ -159,19 +219,26 @@ public class OrderDetailController extends BaseController {
     void saveOrderDetail() {
         try {
             // kiem tra co thay doi list order detail khong, neu co thi hien bang thong bao
-            boolean checkChange = orderDetailService.checkChange(orderDetailId, orderDetailList);
+            boolean checkChange = orderDetailService.checkChange(orderId, orderDetailList);
             if ((orderDetailList.size() > 0 &&
                 AlertInfo.confirmAlert("Bạn có chắc muốn lưu thay đổi?") || 
                 !checkChange)) {
                 if (orderDetailList.size() > 0 &&
                 AlertInfo.confirmAlert("Bạn có chắc muốn lưu thay đổi?")){
+                    // neu hoa don chua co trong orders thi tao mot orders moi, neu da co thi update
+                    if (orderId == -1){
+                        orderId = orderService.addOrder(userId, new BigDecimal("" + totalPrice));
+                    }
+                    else orderService.updateOrder(orderId, new BigDecimal("" + totalPrice));
+                    // update order trong database
+                    orderDetailService.update(orderId, orderDetailList);
+                    // load ten nguoi tao, cap nhat trang thai order va ngay tao
+                    setUserNameLabel();
+                    
+                    loadData();
                     AlertInfo.showAlert(Alert.AlertType.INFORMATION, 
                         "Thành công", "Đã lưu thành công");
-                    orderDetailService.update(orderDetailId, orderDetailList);
-                    orderService.addOrder(userId, new BigDecimal("" + totalPrice));
-                    loadData();
                 }
-                umsc.handleOrders();
             }
         } catch (RuntimeException e) {
             e.printStackTrace();
@@ -199,7 +266,7 @@ public class OrderDetailController extends BaseController {
         for (OrderDetail od : orderDetailList)
             if (od.getProductId() == product.getProduct_id())
                 return;
-        OrderDetail od = new OrderDetail(orderDetailId, product.getProduct_id(), 1, product.getPrice());
+        OrderDetail od = new OrderDetail(orderId, product.getProduct_id(), 1, product.getPrice());
         orderDetailList.add(od);
 
         updateTotalPrice();
@@ -239,5 +306,48 @@ public class OrderDetailController extends BaseController {
         return mp.get(id);
     }
 
-    
+    public void setUserNameLabel(){
+        AccountService accountService = new AccountService();
+        Account account = accountService.findAccountByID(userId);
+        if (account != null) 
+            userNameLabel.setText(accountService.findAccountByID(userId).getAccountName());
+    }
+
+    @FXML
+    void selectStatus(){
+        String selectedStatus = (String) statusComboBox.getValue();
+        if (selectedStatus.equals("Đang chờ xử lí"))
+            order.setStatus("Pending");
+        else if (selectedStatus.equals("Đang xử lí"))
+            order.setStatus("Processing");
+        else if (selectedStatus.equals("Đã xử lí"))
+            order.setStatus("Completed");
+        else order.setStatus("Cancelled");
+    }
+
+    @FXML
+    void mark(ActionEvent event) {
+        statusComboBox.setValue("Đã xử lí");
+        order.setStatus("Completed");
+    }
+
+    @FXML
+    void payment(ActionEvent event) {
+        if (orderId != -1)
+            exportInvoicePDF(orderId, (List<OrderDetail>) orderDetailList);
+    }
+
+    public void exportInvoicePDF(int orderId, List<OrderDetail> details) {
+        // Thư mục invoices ở cùng cấp với src/
+        File dir = new File("invoices");
+        if (!dir.exists()) dir.mkdirs();
+
+        String fileName = "invoice_" + orderId + ".pdf";
+        File file = new File(dir, fileName);
+
+        // Gọi class xuất PDF
+        PDFExporter.exportToPDF(file.getAbsolutePath(), details, orderId);
+
+        System.out.println("PDF hóa đơn đã được lưu tại: " + file.getAbsolutePath());
+    }
 }

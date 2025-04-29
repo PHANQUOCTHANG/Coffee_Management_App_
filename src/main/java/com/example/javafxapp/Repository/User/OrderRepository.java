@@ -14,18 +14,28 @@ import com.example.javafxapp.Model.Order;
 
 public class OrderRepository{
     
-    public void add(int userId, BigDecimal totalAmount){
-        String sql = "insert into Orders(user_id, total_amount, status) values (?, ?, ?)";
+    public int add(int userId, BigDecimal totalAmount){
+        int ans = -1;
+        String sql = "INSERT INTO Orders(user_id, total_amount, status) VALUES (?, ?, ?)";
         try (Connection conn = DatabaseConnection.getConnection();
-            PreparedStatement pre = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
+            PreparedStatement pre = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            
             pre.setInt(1, userId);
             pre.setBigDecimal(2, totalAmount);
             pre.setString(3, "Pending");
-            pre.executeUpdate();
-            
-        } catch (SQLException e){
+
+            int affectedRows = pre.executeUpdate(); 
+
+            if (affectedRows > 0) {
+                ResultSet rs = pre.getGeneratedKeys();
+                if (rs.next()) {
+                    ans = rs.getInt(1); 
+                }
+            }
+        } catch (SQLException e) {
             e.printStackTrace();
         }
+        return ans;
     }
 
     public void update(BigDecimal totalAmount, String status, int id) {
@@ -108,6 +118,21 @@ public class OrderRepository{
         } catch (SQLException e){
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public void updateOrder(int orderDetailId, BigDecimal val){
+        String sql = "update Orders " +
+                    "set total_amount = ? " +
+                    "where id = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ){
+            stmt.setBigDecimal(1, val);
+            stmt.setInt(2, orderDetailId);
+            stmt.executeUpdate();
+        } catch (SQLException e){
+            e.printStackTrace();
         }
     }
 }

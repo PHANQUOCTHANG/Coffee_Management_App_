@@ -13,8 +13,9 @@ public class OrderService {
         return or.getAll();
     }
 
-    public void addOrder(int userId, BigDecimal totalAmount){
-        or.add(userId, totalAmount);
+    // tra ve orderId
+    public int addOrder(int userId, BigDecimal totalAmount){
+        return or.add(userId, totalAmount);
     }
 
     public void deleteOrder(int id){
@@ -27,5 +28,9 @@ public class OrderService {
 
     public List<Order> getOrderByStatus(String s) {
         return or.getOrderByStatus(s);
+    }
+
+    public void updateOrder(int OrderDetailId, BigDecimal val){
+        or.updateOrder(OrderDetailId, val);
     }
 }
