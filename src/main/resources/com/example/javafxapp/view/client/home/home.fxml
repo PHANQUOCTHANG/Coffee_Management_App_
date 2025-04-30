@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<?import javafx.scene.control.Pagination?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Separator?>
+<BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxapp.Controller.Client.CoffeeShopController">
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="20" style="-fx-background-color: #1A2235;">
+            <padding>
+                <Insets bottom="15" left="15" right="15" top="15" />
+            </padding>
+            <children>
+                <Label text="Coffee Shop" textFill="WHITE">
+                    <font>
+                        <Font name="Arial Bold" size="24" />
+                    </font>
+                </Label>
+                <Button fx:id="homeBtn" onAction="#handleButtonAction" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-weight: bold;" styleClass="navbar-button" text="Trang chủ" />
+                <Button fx:id="menuBtn" onAction="#handleButtonAction" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-weight: bold;" styleClass="navbar-button" text="Sản phẩm" />
+                <Button fx:id="promotionBtn" onAction="#handleButtonAction" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-weight: bold;" styleClass="navbar-button" text="Khuyến mãi" />
+                <Button fx:id="aboutBtn" onAction="#handleButtonAction" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-weight: bold;" styleClass="navbar-button" text="Giới thiệu" />
+                <Button fx:id="contactBtn" onAction="#handleButtonAction" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-weight: bold;" styleClass="navbar-button" text="Liên hệ" />
+                <Region HBox.hgrow="ALWAYS" />
+                <!-- Shopping Cart Button -->
+                <StackPane>
+                    <Button fx:id="cartBtn" onAction="#handleCart" style="-fx-background-color: transparent;" styleClass="icon-button">
+                        <graphic>
+                            <ImageView fitHeight="50.0" fitWidth="65.0" preserveRatio="true">
+                                <Image url="@../../images/cart-icon.jpg" />
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                    <Label fx:id="cartItemCount" style="-fx-background-color: #FF5722; -fx-text-fill: white; -fx-background-radius: 50%; -fx-padding: 2 6 2 6; -fx-font-weight: bold;" StackPane.alignment="TOP_RIGHT" />
+                </StackPane>
+                <!-- Settings Button -->
+                <Button fx:id="settingsBtn" onAction="#handleSetting" style="-fx-background-color: transparent;" styleClass="icon-button">
+                    <graphic>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" preserveRatio="true">
+                            <Image url="@../../images/settings-icon.png" />
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </children>
+        </HBox>
+    </top>
+    <center>
+        <HBox spacing="0">
+            <!-- Sidebar Menu với màu sáng hơn -->
+            <VBox fx:id="sidebar" style="-fx-background-color: #1A2235; -fx-min-width: 200px;" styleClass="sidebar">
+                <padding>
+                    <Insets bottom="15" left="10" right="10" top="15" />
+                </padding>
+                <children>
+                    <Label style="-fx-font-weight: bold; -fx-font-size: 16px;" text="Danh mục" textFill="WHITE">
+                        <VBox.margin>
+                            <Insets bottom="10" />
+                        </VBox.margin>
+                    </Label>
+                    <!-- Category list will be added programmatically -->
+                </children>
+            </VBox>
+
+            <!-- Main Content Area -->
+            <StackPane HBox.hgrow="ALWAYS">
+                <!-- Products Grid -->
+                <ScrollPane fx:id="productsScrollPane" fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: #1A2235;" vbarPolicy="AS_NEEDED">
+                    <content>
+                        <GridPane fx:id="productsGrid" alignment="CENTER" hgap="20" vgap="20">
+                            <padding>
+                                <Insets bottom="20" left="20" right="20" top="20" />
+                             </padding>
+                        </GridPane>
+                    </content>
+                </ScrollPane>
+
+                <!-- Shopping Cart Panel (initially hidden) -->
+                <VBox fx:id="cartPanel" managed="false" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10 0 0 0;" visible="false">
+                    <HBox alignment="CENTER_LEFT" style="-fx-background-color: #1A2235; -fx-padding: 10;">
+                        <Label style="-fx-font-weight: bold; -fx-font-size: 18px;" text="Giỏ hàng" textFill="WHITE" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Button fx:id="closeCartBtn" onAction="#handleButtonAction" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-weight: bold;" text="✕" />
+                    </HBox>
+                    <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;" VBox.vgrow="ALWAYS">
+                        <content>
+                            <VBox fx:id="cartItemsContainer" spacing="10">
+                                <padding>
+                                    <Insets bottom="15" left="15" right="15" top="15" />
+                                </padding>
+                                <!-- Cart items will be added programmatically -->
+                            </VBox>
+                        </content>
+                    </ScrollPane>
+                    <VBox style="-fx-background-color: #F5F5F5; -fx-padding: 15;">
+                        <HBox alignment="CENTER_RIGHT">
+                            <Label style="-fx-font-weight: bold;" text="Tổng cộng: " />
+                            <Label fx:id="totalAmount" style="-fx-font-weight: bold;" text="0₫" />
+                        </HBox>
+                        <Button fx:id="checkoutBtn" maxWidth="Infinity" onAction="#handleButtonAction" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 5;" text="Thanh toán">
+                            <VBox.margin>
+                                <Insets top="10" />
+                            </VBox.margin>
+                        </Button>
+                    </VBox>
+                </VBox>
+
+                <!-- Settings Panel (initially hidden) -->
+                <VBox fx:id="settingsPanel" managed="false" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10 0 0 0;" visible="false">
+                    <HBox alignment="CENTER_LEFT" style="-fx-background-color: #1A2235; -fx-padding: 10;">
+                        <Label style="-fx-font-weight: bold; -fx-font-size: 18px;" text="Cài đặt" textFill="WHITE" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Button fx:id="closeSettingsBtn" onAction="#handleButtonAction" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-weight: bold;" text="✕" />
+                    </HBox>
+                    <VBox spacing="15" style="-fx-padding: 15;">
+                        <!-- Thông tin tài khoản -->
+                        <TitledPane expanded="true" text="Thông tin tài khoản">
+                            <VBox spacing="10">
+                                <HBox alignment="CENTER_LEFT" spacing="10">
+                                    <Label minWidth="120" text="Tên đầy đủ:" />
+                                    <TextField fx:id="fullNameField" promptText="Tên đầy đủ" prefWidth="300" />
+                                </HBox>
+                                <HBox alignment="CENTER_LEFT" spacing="10">
+                                    <Label minWidth="120" text="Email:" />
+                                    <TextField fx:id="emailField" promptText="Email" prefWidth="300" />
+                                </HBox>
+                                <HBox alignment="CENTER_LEFT" spacing="10">
+                                    <Label minWidth="120" text="Số điện thoại:" />
+                                    <TextField fx:id="phoneField" promptText="Số điện thoại" prefWidth="300" />
+                                </HBox>
+                                <HBox alignment="CENTER_LEFT" spacing="10">
+                                    <Label minWidth="120" text="Địa chỉ:" />
+                                    <TextField fx:id="addressField" promptText="Địa chỉ" prefWidth="300" />
+                                </HBox>
+                                <HBox alignment="CENTER_RIGHT" spacing="10">
+                                    <Button fx:id="actionProfileBtn" style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>
+                                </HBox>
+                            </VBox>
+                        </TitledPane>
+
+                        <!-- Thay đổi thông tin đăng nhập -->
+                        <TitledPane expanded="false" text="Thay đổi thông tin đăng nhập">
+                            <VBox spacing="15">
+                                <!-- Thay đổi tên đăng nhập -->
+                                <VBox spacing="8">
+                                    <Label style="-fx-font-weight: bold;" text="Thay đổi tên đăng nhập" />
+                                    <HBox alignment="CENTER_LEFT" spacing="10">
+                                        <Label minWidth="150" text="Tên đăng nhập hiện tại:" />
+                                        <Label fx:id="currentLoginNameLabel" />
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" spacing="10">
+                                        <Label minWidth="150" text="Tên đăng nhập mới:" />
+                                        <TextField fx:id="newLoginNameField" promptText="Nhập tên đăng nhập mới" />
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" spacing="10">
+                                        <Label minWidth="150" text="Xác nhận mật khẩu:" />
+                                        <PasswordField fx:id="confirmPasswordForLoginName" promptText="Nhập mật khẩu hiện tại" />
+                                    </HBox>
+                                    <HBox alignment="CENTER_RIGHT">
+                                        <Button fx:id="saveLoginNameBtn" onAction="#handleChangeLoginName" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="Lưu thay đổi" />
+                                    </HBox>
+                                </VBox>
+
+                                <Separator />
+
+                                <!-- Thay đổi mật khẩu -->
+                                <VBox spacing="8">
+                                    <Label style="-fx-font-weight: bold;" text="Thay đổi mật khẩu" />
+                                    <HBox alignment="CENTER_LEFT" spacing="10">
+                                        <Label minWidth="150" text="Mật khẩu hiện tại:" />
+                                        <PasswordField fx:id="currentPasswordField" promptText="Nhập mật khẩu hiện tại" />
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" spacing="10">
+                                        <Label minWidth="150" text="Mật khẩu mới:" />
+                                        <PasswordField fx:id="newPasswordField" promptText="Nhập mật khẩu mới" />
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" spacing="10">
+                                        <Label minWidth="150" text="Xác nhận mật khẩu mới:" />
+                                        <PasswordField fx:id="confirmNewPasswordField" promptText="Nhập lại mật khẩu mới" />
+                                    </HBox>
+                                    <HBox alignment="CENTER_RIGHT">
+                                        <Button fx:id="savePasswordBtn" onAction="#handleChangePassword" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="Cập nhật mật khẩu" />
+                                    </HBox>
+                                </VBox>
+                            </VBox>
+                        </TitledPane>
+
+                        <!-- Danh sách đơn hàng -->
+                        <TitledPane expanded="false" text="Danh sách đơn hàng">
+                            <VBox spacing="10">
+                                <HBox alignment="CENTER_LEFT" spacing="10">
+                                    <Label text="Hiển thị:" />
+                                    <ComboBox fx:id="orderFilterComboBox" promptText="Tất cả đơn hàng">
+                                        <items>
+                                            <FXCollections fx:factory="observableArrayList">
+                                                <String fx:value="Tất cả đơn hàng" />
+                                                <String fx:value="Đang xử lý" />
+                                                <String fx:value="Đang giao" />
+                                                <String fx:value="Đã hoàn thành" />
+                                                <String fx:value="Đã hủy" />
+                                            </FXCollections>
+                                        </items>
+                                    </ComboBox>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <Button fx:id="refreshOrdersBtn" onAction="#handleRefreshOrders" style="-fx-background-color: #607D8B; -fx-text-fill: white;" text="Làm mới" />
+                                </HBox>
+
+                                <TableView fx:id="ordersTableView" VBox.vgrow="ALWAYS">
+                                    <columns>
+                                        <TableColumn fx:id="orderIdColumn" prefWidth="100" text="Mã đơn hàng" />
+                                        <TableColumn fx:id="orderDateColumn" prefWidth="120" text="Ngày đặt" />
+                                        <TableColumn fx:id="orderTotalColumn" prefWidth="100" text="Tổng tiền" />
+                                        <TableColumn fx:id="orderStatusColumn" prefWidth="120" text="Trạng thái" />
+                                        <TableColumn fx:id="orderActionColumn" prefWidth="100" text="Thao tác" />
+                                    </columns>
+                                </TableView>
+
+                                <Pagination fx:id="orderPagination" pageCount="6" />
+                            </VBox>
+                        </TitledPane>
+
+                        <TitledPane expanded="false" text="Thông báo">
+                            <VBox spacing="10">
+                                <CheckBox fx:id="emailNotificationCheckbox" selected="true" text="Nhận thông báo qua email" />
+                                <CheckBox fx:id="appNotificationCheckbox" selected="true" text="Nhận thông báo trong ứng dụng" />
+                                <CheckBox fx:id="orderUpdateNotificationCheckbox" selected="true" text="Cập nhật về đơn hàng" />
+                                <CheckBox fx:id="promotionNotificationCheckbox" selected="true" text="Nhận thông báo khuyến mãi" />
+                            </VBox>
+                        </TitledPane>
+
+                        <HBox alignment="CENTER" spacing="15">
+                            <Button fx:id="saveSettingsBtn" onAction="#handleSaveSettings" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 5;" text="Lưu cài đặt" />
+                            <Button fx:id="logoutBtn" onAction="#handleLogout" style="-fx-background-color: #F44336; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 5;" text="Đăng xuất" />
+                        </HBox>
+                    </VBox>
+                </VBox>
+            </StackPane>
+        </HBox>
+    </center>
+</BorderPane>

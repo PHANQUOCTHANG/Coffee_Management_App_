@@ -1,7 +1,13 @@
 package com.example.javafxapp.Controller.Admin;
 
+import com.example.javafxapp.Model.Cart;
+import com.example.javafxapp.Model.Role;
+import com.example.javafxapp.Service.AccountService;
 import com.example.javafxapp.Service.AuthService;
-import com.example.javafxapp.Utils.ValidationAccountUtils;
+import com.example.javafxapp.Service.CartService;
+import com.example.javafxapp.Service.RoleService;
+import com.example.javafxapp.Utils.SaveAccountUtils;
+import com.example.javafxapp.Validation.ValidationAccount;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.layout.BorderPane;
@@ -40,6 +46,9 @@ public class AuthController{
 
     private boolean isLoginVisible = true; // Biến kiểm tra trạng thái
     private AuthService authService = new AuthService() ;
+    private AccountService accountService = new AccountService() ;
+    private RoleService roleService = new RoleService() ;
+    private CartService cartSevice = new CartService() ;
 
     @FXML
     public void initialize() {
@@ -96,45 +105,69 @@ public class AuthController{
     // login .
     @FXML
     public void Login(){
-        String loginName = loginNameField.getText().trim();
-        String password = passWordField.getText().trim();
+       try {
+           String loginName = loginNameField.getText().trim();
+           String password = passWordField.getText().trim();
 
-        if(!ValidationAccountUtils.loginUtils(loginName,password)) return ;
-        boolean result = authService.Login(loginName,password);
+           if(!ValidationAccount.loginUtils(loginName,password)) return ;
+           boolean result = authService.Login(loginName,password);
+           System.out.println(result);
+           // Nếu đăng nhập thành công .
+           if (result) {
+               loginNameField.clear();
+               passWordField.clear();
+               SaveAccountUtils.loginName = loginName ;
+               SaveAccountUtils.password = password ;
+               Account account = accountService.findAccountByName(loginName);
+               SaveAccountUtils.account_id = account.getId() ;
+               SaveAccountUtils.role_id = account.getRoleId() ;
+               Role role = roleService.findRoleByID(account.getRoleId()) ;
+               System.out.println(role.getRole_name());
+               if (role.getRole_name().equals("Customer")) {
+                   if (cartSevice.checkAccountHaveCart(account.getId()) == null) {
+                       Cart cart = new Cart(account.getId()) ;
+                       cartSevice.add(cart);
+                   }
+                   SaveAccountUtils.cart_id = cartSevice.checkAccountHaveCart(account.getId()) ; // id giỏ hàng của tài khoản .
+                   Pages.pageUser() ;
+               }
+               else Pages.pagesMainScreen();
+               Stage stage = (Stage) loginNameField.getScene().getWindow() ;
+               stage.close();
+               AlertInfo.showAlert(Alert.AlertType.INFORMATION , "Thành công" , "Đăng nhập thành công");
+           } else {
+               AlertInfo.showAlert(Alert.AlertType.ERROR, "Lỗi", "Tên đăng nhập hoặc mật khẩu không đúng.");
+           }
+       }catch(Exception e) {
 
-        // check account .
-        if (result) {
-            loginNameField.clear();
-            passWordField.clear();
-            Stage stage = (Stage) loginNameField.getScene().getWindow() ;
-            stage.close();
-            Pages.pagesMainScreen(loginName);
-            AlertInfo.showAlert(Alert.AlertType.INFORMATION , "Thành công" , "Đăng nhập thành công");
-        } else {
-            AlertInfo.showAlert(Alert.AlertType.ERROR, "Lỗi", "Tên đăng nhập hoặc mật khẩu không đúng.");
-        }
+       }
     }
 
     // sign up .
     @FXML
     public void signUp() {
-        String loginName = signUpLoginNameField.getText().trim();
-        String password = signUpPassWordField.getText().trim();
-        String confirmPassword = confirmPassWordField.getText().trim();
+        try {
+            String loginName = signUpLoginNameField.getText().trim();
+            String password = signUpPassWordField.getText().trim();
+            String confirmPassword = confirmPassWordField.getText().trim();
 
-        if (!ValidationAccountUtils.signUpUtils(loginName,password,confirmPassword)) return ;
+            if (!ValidationAccount.signUpUtils(loginName,password,confirmPassword)) return ;
+            Role role = roleService.findRoleByName("Customer") ;
+            Account newAccount = new Account(loginName, password, role.getRole_id());
+            int generatedId = authService.signUp(newAccount);
 
-        Account newAccount = new Account(loginName, password,2);
-        int generatedId = authService.signUp(newAccount);
+            if (generatedId != -1) {
+                signUpLoginNameField.clear();
+                signUpPassWordField.clear();
+                confirmPassWordField.clear();
+                AlertInfo.showAlert(Alert.AlertType.INFORMATION , "Thành công" , "Đăng kí thành công");
+                showLogin();
+            } else {
+                AlertInfo.showAlert(Alert.AlertType.WARNING, "Lỗi", "Đăng kí thất bại");
+            }
+        }
+        catch(Exception e) {
 
-        if (generatedId != -1) {
-            signUpLoginNameField.clear();
-            signUpPassWordField.clear();
-            confirmPassWordField.clear();
-            AlertInfo.showAlert(Alert.AlertType.INFORMATION , "Thành công" , "Đăng kí thành công");
-            showLogin();
-        } else {
-            AlertInfo.showAlert(Alert.AlertType.WARNING, "Lỗi", "Đăng kí thất bại");
         }
 
 

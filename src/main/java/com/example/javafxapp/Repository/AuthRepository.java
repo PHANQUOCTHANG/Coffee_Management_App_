@@ -19,8 +19,6 @@ public class AuthRepository {
             if (rs.next()) {
                 String passwordCheck = rs.getString("password") ;
                 return PasswordUtils.checkPassword(password,passwordCheck) ;
-            }else {
-                throw new RuntimeException() ;
             }
         } catch (SQLException e) {
             e.printStackTrace();

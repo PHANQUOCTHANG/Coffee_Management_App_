@@ -2,16 +2,13 @@ package com.example.javafxapp.Controller.Admin;
 
 import com.example.javafxapp.Helpper.AlertInfo;
 import com.example.javafxapp.Helpper.Pages;
-import com.example.javafxapp.Helpper.UploadImage;
 import com.example.javafxapp.Model.Category;
-import com.example.javafxapp.Model.Product;
 import com.example.javafxapp.Service.CategoryService;
-import com.example.javafxapp.Utils.ValidationCategoryUtils;
+import com.example.javafxapp.Validation.ValidationCategory;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -85,8 +82,8 @@ public class CategoryController {
             separator.setStroke(Color.LIGHTGRAY);
             separator.setStrokeWidth(1);
 
-            // Gộp Line qua tất cả các cột (0 đến 6) => tổng cộng 7 cột => colspan = 7
-            grid.add(separator, 0, row, 7, 1);
+            // Gộp Line qua tất cả các cột (0 đến 3) => tổng cộng 4 cột => colspan = 4
+            grid.add(separator, 0, row, 4, 1);
             row++ ;
         }
         showBox.setValue("Hiển thị " + String.valueOf(categories.size()));
@@ -110,11 +107,12 @@ public class CategoryController {
         Pages.pageAddCategory();
     }
 
+    // thêm danh mục .
     @FXML
     private void addCategoryPost() {
         try {
             String category_name = categoryNameField.getText() ;
-            if(!ValidationCategoryUtils.validationCategoryName(category_name)) return ;
+            if(!ValidationCategory.validationCategoryName(category_name)) return ;
             categoryService.addCategory(new Category(category_name));
             AlertInfo.showAlert(Alert.AlertType.INFORMATION , "Thành công" , "Thêm danh mục thành công");
             Stage stage = (Stage) btnAdd.getScene().getWindow() ;
@@ -205,7 +203,7 @@ public class CategoryController {
         try {
             int category_id = Integer.parseInt(btnId.getText()) ;
             String category_name = categoryNameField.getText().trim() ;
-            if(!ValidationCategoryUtils.validationCategoryName(category_name)) return ;
+            if(!ValidationCategory.validationCategoryName(category_name)) return ;
             categoryService.updateCategory(new Category(category_id , category_name));
             AlertInfo.showAlert(Alert.AlertType.INFORMATION , "Thành công" , "Cập nhật sản phẩm thành công");
         }

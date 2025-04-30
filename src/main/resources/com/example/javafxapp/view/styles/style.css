@@ -3,6 +3,11 @@
     -fx-text-fill: white !important;
 }
 
+.active-button {
+    -fx-background-color: #2980B9 !important;
+    -fx-text-fill: white !important;
+}
+
 JFXButton:hover {
     -fx-background-color: #2980B9 ;
 }

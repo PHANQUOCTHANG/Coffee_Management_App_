@@ -12,7 +12,7 @@ public class ProductRepository implements JDBCRepository<Product> {
 
     // add product .
     public void add(Product product) {
-        String sql = "INSERT INTO Product(product_name , description , price , category_id , imgSrc , status) Value (?,?,?,?,?,?) " ;
+        String sql = "INSERT INTO Product(product_name , description , price , category_id , imgSrc , status , outstanding) Value (?,?,?,?,?,?,?) " ;
         try(Connection connection = DatabaseConnection.getConnection() ;
             PreparedStatement pstmt = connection.prepareStatement(sql , Statement.RETURN_GENERATED_KEYS)
         ) {
@@ -22,6 +22,7 @@ public class ProductRepository implements JDBCRepository<Product> {
             pstmt.setInt(4,product.getCategory_id());
             pstmt.setString(5, product.getImgSrc());
             pstmt.setBoolean(6,product.isStatus());
+            pstmt.setBoolean(7, product.isOutstanding());
             pstmt.executeUpdate() ;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -30,7 +31,7 @@ public class ProductRepository implements JDBCRepository<Product> {
 
     // update product .
     public void update(Product product) {
-        String sql = "UPDATE Product set product_name = ? , description = ? , price = ? , category_id = ? , imgSrc = ? , status = ? where product_id = ?" ;
+        String sql = "UPDATE Product set product_name = ? , description = ? , price = ? , category_id = ? , imgSrc = ? , status = ? , outstanding = ? where product_id = ?" ;
         try(Connection connection = DatabaseConnection.getConnection() ;
             PreparedStatement pstmt = connection.prepareStatement(sql , Statement.RETURN_GENERATED_KEYS)
         ) {
@@ -40,7 +41,8 @@ public class ProductRepository implements JDBCRepository<Product> {
             pstmt.setInt(4,product.getCategory_id());
             pstmt.setString(5, product.getImgSrc());
             pstmt.setBoolean(6,product.isStatus());
-            pstmt.setInt(7,product.getProduct_id());
+            pstmt.setBoolean(7, product.isOutstanding());
+            pstmt.setInt(8,product.getProduct_id());
             pstmt.executeUpdate() ;
         } catch (SQLException e) {
             e.printStackTrace() ;
@@ -79,6 +81,7 @@ public class ProductRepository implements JDBCRepository<Product> {
                         rs.getInt("category_id")  ,
                         rs.getString("imgSrc") ,
                         rs.getBoolean("status"),
+                        rs.getBoolean("outstanding") ,
                         rs.getBoolean("deleted")
                 )) ;
             }
@@ -106,7 +109,8 @@ public class ProductRepository implements JDBCRepository<Product> {
                         rs.getInt("category_id")  ,
                         rs.getString("imgSrc") ,
                         rs.getBoolean("status"),
-                        rs.getBoolean("deleted"));
+                        rs.getBoolean("outstanding") ,
+                        rs.getBoolean("deleted")) ;
             }
         }
         catch(SQLException e) {
@@ -133,7 +137,8 @@ public class ProductRepository implements JDBCRepository<Product> {
                         rs.getInt("category_id")  ,
                         rs.getString("imgSrc") ,
                         rs.getBoolean("status"),
-                        rs.getBoolean("deleted"));
+                        rs.getBoolean("outstanding") ,
+                        rs.getBoolean("deleted")) ;
             }
         }
         catch(SQLException e) {
@@ -142,7 +147,7 @@ public class ProductRepository implements JDBCRepository<Product> {
         return null ;
     }
 
-    // get all product bu category_id.
+    // get all product by category_id.
     public List<Product> getAllByCategoryId(int category_id){
         String sql = "SELECT * FROM Product where deleted = ? AND category_id = ?" ;
         List<Product> products = new ArrayList<>() ;
@@ -161,6 +166,37 @@ public class ProductRepository implements JDBCRepository<Product> {
                         rs.getInt("category_id")  ,
                         rs.getString("imgSrc") ,
                         rs.getBoolean("status"),
+                        rs.getBoolean("outstanding") ,
+                        rs.getBoolean("deleted")
+                )) ;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return products ;
+    }
+
+    // get all product is outstanding .
+    public List<Product> getAllIsOutStanding(){
+        String sql = "SELECT * FROM Product where deleted = ? and outstanding = ? and status = ?" ;
+        List<Product> products = new ArrayList<>() ;
+        try (Connection connection = DatabaseConnection.getConnection() ;
+             PreparedStatement pstmt = connection.prepareStatement(sql) ;
+        ) {
+            pstmt.setBoolean(1,false);
+            pstmt.setBoolean(2,true);
+            pstmt.setBoolean(3,false);
+            ResultSet rs = pstmt.executeQuery();
+            while(rs.next()) {
+                products.add(new Product(
+                        rs.getInt("product_id") ,
+                        rs.getString("product_name")  ,
+                        rs.getString("description") ,
+                        rs.getDouble("price") ,
+                        rs.getInt("category_id")  ,
+                        rs.getString("imgSrc") ,
+                        rs.getBoolean("status"),
+                        rs.getBoolean("outstanding") ,
                         rs.getBoolean("deleted")
                 )) ;
             }
@@ -177,6 +213,20 @@ public class ProductRepository implements JDBCRepository<Product> {
             PreparedStatement pstmt = connection.prepareStatement(sql) ;
         ) {
             pstmt.setBoolean(1,!status);
+            pstmt.setInt(2,productId);
+            pstmt.executeUpdate() ;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // change status
+    public void changeOutStanding(int productId , boolean outstanding) {
+        String sql = "UPDATE Product set outstanding = ? where product_id = ?" ;
+        try(Connection connection = DatabaseConnection.getConnection() ;
+            PreparedStatement pstmt = connection.prepareStatement(sql) ;
+        ) {
+            pstmt.setBoolean(1,!outstanding);
             pstmt.setInt(2,productId);
             pstmt.executeUpdate() ;
         } catch (SQLException e) {
@@ -203,6 +253,7 @@ public class ProductRepository implements JDBCRepository<Product> {
                         rs.getInt("category_id")  ,
                         rs.getString("imgSrc") ,
                         rs.getBoolean("status"),
+                        rs.getBoolean("outstanding") ,
                         rs.getBoolean("deleted")
                 )) ;
             }

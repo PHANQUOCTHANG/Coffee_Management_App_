@@ -2,18 +2,13 @@ package com.example.javafxapp.Controller.Admin;
 
 import com.example.javafxapp.Helpper.AlertInfo;
 import com.example.javafxapp.Helpper.Pages;
-import com.example.javafxapp.Helpper.UploadImage;
-import com.example.javafxapp.Model.Category;
 import com.example.javafxapp.Model.Permission;
-import com.example.javafxapp.Model.Product;
-import com.example.javafxapp.Service.CategoryService;
 import com.example.javafxapp.Service.PermissionService;
-import com.example.javafxapp.Utils.ValidationPermissionUtils;
+import com.example.javafxapp.Validation.ValidationPermission;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -86,7 +81,7 @@ public class PermissionController {
             separator.setStrokeWidth(1);
 
             // Gộp Line qua tất cả các cột (0 đến 6) => tổng cộng 7 cột => colspan = 7
-            grid.add(separator, 0, row, 7, 1);
+            grid.add(separator, 0, row, 4, 1);
 
             row++ ;
         }
@@ -116,7 +111,7 @@ public class PermissionController {
     private void addPermissionPost() {
         try {
             String permission_name = permissionNameField.getText() ;
-            if (!ValidationPermissionUtils.validationPermissionName(permission_name)) return ;
+            if (!ValidationPermission.validationPermissionName(permission_name)) return ;
             permissionService.addPermission(new Permission(permission_name,false));
             AlertInfo.showAlert(Alert.AlertType.INFORMATION , "Thành công" , "Thêm thành công");
             Stage stage = (Stage) btnAdd.getScene().getWindow() ;
@@ -132,29 +127,6 @@ public class PermissionController {
     // hàm tìm kiếm bằng tên .
     @FXML
     public void searchPermission() {
-        String textSearch = searchField.getText().trim();
-        if (textSearch.isEmpty()) return;
-        grid.getChildren().clear();
-        Permission permission = permissionService.findPermissionByName(textSearch) ;
-        if (permission != null) {
-            int row = 0;
-            // Cột STT
-            Label lblStt = new Label(String.valueOf(row + 1));
-
-            // Cột tên
-            Label lblName = new Label(permission.getPermission_name());
-
-            // Cột hành động (Button)
-            JFXButton btnDetail = new JFXButton("Chi tiết");
-            btnDetail.getStyleClass().add("detail-button");
-            btnDetail.setOnAction(e -> handleDetail(permission.getPermission_id()));
-
-            // Thêm vào GridPane
-            grid.add(lblStt, 0, row);
-            grid.add(lblName, 1, row);
-            grid.add(btnDetail, 2, row);
-        }
-        showBox.setValue("Hiển thị 1");
     }
 
     // xóa.
@@ -179,7 +151,7 @@ public class PermissionController {
         try {
             int permission_id = Integer.parseInt(btnId.getText()) ;
             String permission_name = permissionNameField.getText().trim() ;
-            if (!ValidationPermissionUtils.validationPermissionName(permission_name)) return ;
+            if (!ValidationPermission.validationPermissionName(permission_name)) return ;
             permissionService.updatePermission(new Permission(permission_id,permission_name,false));
             AlertInfo.showAlert(Alert.AlertType.INFORMATION , "Thành công" , "Cập nhật thành công");
         }

@@ -25,12 +25,13 @@ public class RolePermissionRepository {
     }
 
 
-    public void delete (int roleId) {
-        String sql = "DELETE FROM Role_Permission where role_id = ?" ;
+    public void delete (int roleId , int permissionId) {
+        String sql = "DELETE FROM Role_Permission where role_id = ? and permission_id = ?" ;
         try(Connection connection = DatabaseConnection.getConnection() ;
             PreparedStatement preparedStatement = connection.prepareStatement(sql) ;
         ){
             preparedStatement.setInt(1,roleId);
+            preparedStatement.setInt(2,permissionId);
             preparedStatement.executeUpdate() ;
         }
         catch (SQLException e) {
@@ -46,7 +47,7 @@ public class RolePermissionRepository {
             preparedStatement.setInt(1,roleId);
             ResultSet rs = preparedStatement.executeQuery();
             List<Integer> role_permission = new ArrayList<>() ;
-            if (rs.next()) {
+            while (rs.next()) {
                 role_permission.add(rs.getInt("permission_id")) ;
             }
             return role_permission ;

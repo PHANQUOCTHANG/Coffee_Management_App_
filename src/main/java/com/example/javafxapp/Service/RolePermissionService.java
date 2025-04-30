@@ -12,8 +12,8 @@ public class RolePermissionService {
     }
 
 
-    public void deleteRolePermission(int roleId) {
-        rolePermissionRepository.delete(roleId);
+    public void deleteRolePermission(int roleId , int permissionId) {
+        rolePermissionRepository.delete(roleId , permissionId);
     }
 
     public List<Integer> getAllRolePermission(int roleId) {

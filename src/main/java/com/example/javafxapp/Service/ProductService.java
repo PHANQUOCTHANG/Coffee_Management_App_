@@ -46,9 +46,19 @@ public class ProductService {
         return productRepository.getAllByCategoryId(category_id) ;
     }
 
+    // get all product is outstanding .
+    public List<Product> getAllIsOutStanding(){
+       return productRepository.getAllIsOutStanding() ;
+    }
+
     // change status
     public void changeStatus(int productId , boolean status) {
        productRepository.changeStatus(productId,status);
+    }
+
+    // change status
+    public void changeOutStanding(int productId , boolean outstanding) {
+        productRepository.changeOutStanding(productId,outstanding);
     }
 
     // find all product by keyword .

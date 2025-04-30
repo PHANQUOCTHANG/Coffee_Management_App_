@@ -7,15 +7,14 @@ import com.example.javafxapp.Model.Category;
 import com.example.javafxapp.Model.Product;
 import com.example.javafxapp.Service.CategoryService;
 import com.example.javafxapp.Service.ProductService;
-import com.example.javafxapp.Utils.ValidationProductUtils;
+import com.example.javafxapp.Validation.ValidationProduct;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
@@ -24,7 +23,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -95,6 +93,13 @@ public class ProductController {
             btnStatus.getStyleClass().add(styleBtn);
             btnStatus.setOnAction(e -> handleStatus(product.getProduct_id(), product.isStatus()));
 
+            String textOutStanding = (product.isOutstanding()) ? "Mở" : "Đóng";
+            styleBtn = (product.isOutstanding()) ? "success-button" : "error-button";
+            JFXButton btnOutStanding = new JFXButton(textOutStanding);
+            btnOutStanding.getStyleClass().add(styleBtn);
+            btnOutStanding.setOnAction(e -> handleOutStanding(product.getProduct_id(), product.isOutstanding()));
+
+
             // Thêm các cột vào GridPane
             grid.add(checkBox, 0, row);
             grid.add(lblStt, 1, row);
@@ -103,6 +108,7 @@ public class ProductController {
             grid.add(lblPrice, 4, row);
             grid.add(btnDetail, 5, row);
             grid.add(btnStatus, 6, row);
+            grid.add(btnOutStanding, 7, row);
 
             row++; // Tăng số hàng
 
@@ -115,20 +121,22 @@ public class ProductController {
             separator.setStrokeWidth(1);
 
             // Gộp Line qua tất cả các cột (0 đến 6) => tổng cộng 7 cột => colspan = 7
-            grid.add(separator, 0, row, 7, 1);
+            grid.add(separator, 0, row, 8, 1);
 
             row++; // Tăng số hàng tiếp theo để tránh chồng lặp
         }
-
 
         List<String> categories = new ArrayList<>();
         for (Category category : categoryService.getAllCategory()) {
             categories.add(category.getCategory_name());
         }
         categoryComboBox.getItems().addAll(categories);
+        searchField.setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.ENTER) searchProduct();
+        });
     }
 
-    // Tạo ra các nút chuyển tran .
+    // Tạo ra các nút chuyển trang .
     public void createPaginationButtons() {
         // Xóa hết nút cũ trừ Prev và Next
         boxPage.getChildren().removeIf(node -> node != prevButton && node != nextButton);
@@ -150,6 +158,7 @@ public class ProductController {
 
             boxPage.getChildren().add(boxPage.getChildren().size() - 1, pageButton); // thêm trước nút nextButton
         }
+        currentPage = 1;
         buttons.get(0).getStyleClass().add("active");
     }
 
@@ -158,34 +167,24 @@ public class ProductController {
     public void loadDataPage(int page) {
         if (page == currentPage) return;
         currentPage = page;
-        boolean check = false;
-        int cnt = 0;
         for (Button button : buttons) {
-            int newPage = page + cnt++;
             button.getStyleClass().remove("active");
-            if (pages > numberPage && page > 1 && page <= pages - numberPage + 1) {
-                button.setText(String.valueOf(newPage));
-                button.setOnAction(event -> loadDataPage(newPage));
-                check = true; // đánh dấu page vẫn có thể đẩy về trước được .
-            }
         }
-        int index = 0;
-        if (!check) index = page - Integer.parseInt(buttons.get(0).getText()) ;
-        buttons.get(index).getStyleClass().add("active");
+        buttons.get(page - Integer.parseInt(buttons.get(0).getText())).getStyleClass().add("active");
         loadData();
     }
 
     // lui về trang trước .
     @FXML
     public void handlePrev() {
-        if (currentPage == 1) return ;
-        int index = currentPage - Integer.parseInt(buttons.get(0).getText()) ;
+        if (currentPage == 1) return;
+        int index = currentPage - Integer.parseInt(buttons.get(0).getText());
         buttons.get(index).getStyleClass().remove("active");
-        currentPage-- ;
+        currentPage--;
         loadData();
         if (Integer.parseInt(buttons.get(0).getText()) == 1) {
             buttons.get(index - 1).getStyleClass().add("active");
-            return ;
+            return;
         }
         for (Button button : buttons) {
             int newPage = Integer.parseInt(button.getText()) - 1;
@@ -198,14 +197,14 @@ public class ProductController {
     // đi về trang sau .
     @FXML
     public void handleNext() {
-        if (currentPage == pages) return ;
-        int index = currentPage - Integer.parseInt(buttons.get(0).getText()) ;
+        if (currentPage == pages) return;
+        int index = currentPage - Integer.parseInt(buttons.get(0).getText());
         buttons.get(index).getStyleClass().remove("active");
-        currentPage++ ;
+        currentPage++;
         loadData();
-        if (Integer.parseInt(buttons.get(buttons.size()-1).getText()) == pages) {
+        if (Integer.parseInt(buttons.get(buttons.size() - 1).getText()) == pages) {
             buttons.get(index + 1).getStyleClass().add("active");
-            return ;
+            return;
         }
         for (Button button : buttons) {
             int newPage = Integer.parseInt(button.getText()) + 1;
@@ -236,32 +235,27 @@ public class ProductController {
     public void addProductPost() {
         try {
             String product_name = productNameField.getText().trim();
-            if (!ValidationProductUtils.validationProductName(product_name)) return;
-            double price = ValidationProductUtils.validationPrice(priceField.getText().trim());
+            if (!ValidationProduct.validationProductName(product_name)) return;
+            double price = ValidationProduct.validationPrice(priceField.getText().trim());
             if (price == -1) return;
             String description = descriptionField.getText().trim();
-            if (!ValidationProductUtils.validationCategory(btnCategoryId.getText())) return;
+            if (!ValidationProduct.validationCategory(btnCategoryId.getText())) return;
             int category_id = Integer.parseInt(btnCategoryId.getText());
             boolean status = false;
             if (inactiveCheckBox.isSelected()) status = true;
+            boolean outstanding = false;
             String imgSrc = btnPathImg.getText();
-            Product product = new Product(product_name, description, price, category_id, imgSrc, status);
+            Product product = new Product(product_name, description, price, category_id, imgSrc, status, outstanding);
             productService.addProduct(product);
             AlertInfo.showAlert(Alert.AlertType.INFORMATION, "Thành công", "Thêm sản phẩm thành công");
-            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/product/products.fxml"));
-            Parent root = loader.load();
-            ProductController controller = loader.getController();
-            controller.loadData();
             Stage stage = (Stage) btnAdd.getScene().getWindow();
             stage.close();
+
         } catch (RuntimeException e) {
             AlertInfo.showAlert(Alert.AlertType.WARNING, "Lỗi", "Thêm sản phẩm thất bại");
             e.printStackTrace();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
-
 
     // chi tiết 1 sản phẩm .
     @FXML
@@ -272,8 +266,6 @@ public class ProductController {
     // khi chuyển qua trang thêm sản phẩm sẽ mặc định gọi .
     @FXML
     public void loadDataAddProduct() {
-        btnCategoryId.setVisible(false);
-        btnPathImg.setVisible(false);
         activeCheckBox.setSelected(true);
         List<String> categories = new ArrayList<>();
         for (Category category : categoryService.getAllCategory()) {
@@ -293,11 +285,8 @@ public class ProductController {
                 descriptionField.setText(product.getDescription());
                 imgView.setImage(UploadImage.loadImage(product.getImgSrc()));
                 btnId.setText(String.valueOf(productId));
-                btnId.setVisible(false);
                 btnPathImg.setText(product.getImgSrc());
-                btnPathImg.setVisible(false);
                 btnCategoryId.setText(String.valueOf(product.getCategory_id()));
-                btnCategoryId.setVisible(false);
                 System.out.println(product.getCategory_id());
                 String category_name = categoryService.findCategoryByID(product.getCategory_id()).getCategory_name();
                 categoryComboBox.setValue(category_name);
@@ -354,8 +343,8 @@ public class ProductController {
                     AlertInfo.showAlert(Alert.AlertType.ERROR, "Lỗi", "Vui lòng chọn ít nhất 1 sản phẩm để xóa");
                     return;
                 }
-                loadData();
                 createPaginationButtons();
+                loadData();
                 AlertInfo.showAlert(Alert.AlertType.INFORMATION, "Thành công", "Xóa sản phẩm thành công");
             }
         } catch (RuntimeException e) {
@@ -371,7 +360,7 @@ public class ProductController {
             newOperation = "search";
             String textSearch = newValue.trim();
             grid.getChildren().clear();
-            if (textSearch.isEmpty()) {
+            if (textSearch.isEmpty() || textSearch == null) {
                 loadData();
                 return;
             }
@@ -426,11 +415,10 @@ public class ProductController {
 
                 row++; // Tăng số hàng tiếp theo để tránh chồng lặp
             }
-            if (showBox != null) showBox.setValue("Hiển thị " + String.valueOf(products.size()));
         });
     }
 
-    // upload image
+    // upload ảnh
     @FXML
     private void uploadImage() {
         FileChooser fileChooser = new FileChooser();
@@ -461,17 +449,18 @@ public class ProductController {
     public void updateProduct() {
         try {
             int product_id = Integer.parseInt(btnId.getText());
+            Product productFind = productService.findProductByID(product_id);
             String product_name = productNameField.getText().trim();
-            if (!ValidationProductUtils.validationProductName(product_name)) return;
-            double price = ValidationProductUtils.validationPrice(priceField.getText().trim());
+            if (!ValidationProduct.validationProductName(product_name)) return;
+            double price = ValidationProduct.validationPrice(priceField.getText().trim());
             if (price == -1) return;
             String description = descriptionField.getText().trim();
-            if (!ValidationProductUtils.validationCategory(btnCategoryId.getText())) return;
+            if (!ValidationProduct.validationCategory(btnCategoryId.getText())) return;
             int category_id = Integer.parseInt(btnCategoryId.getText());
             String imgSrc = btnPathImg.getText();
             boolean status = false;
             if (inactiveCheckBox.isSelected()) status = true;
-            Product product = new Product(product_id, product_name, description, price, category_id, imgSrc, status, false);
+            Product product = new Product(product_id, product_name, description, price, category_id, imgSrc, status, productFind.isOutstanding(), false);
             productService.updateProduct(product);
             AlertInfo.showAlert(Alert.AlertType.INFORMATION, "Thành công", "Cập nhật sản phẩm thành công");
         } catch (RuntimeException e) {
@@ -540,8 +529,6 @@ public class ProductController {
 
             row++; // Tăng số hàng tiếp theo để tránh chồng lặp
         }
-        if (showBox != null) showBox.setValue("Hiển thị " + String.valueOf(products.size()));
-
     }
 
     // checkBox all
@@ -552,7 +539,7 @@ public class ProductController {
         }
     }
 
-    // change status
+    // thay đổi trạng thái.
     @FXML
     private void handleStatus(int productId, boolean status) {
         try {
@@ -571,12 +558,33 @@ public class ProductController {
         }
     }
 
+    // thay đổi nổi bật .
+    @FXML
+    private void handleOutStanding(int productId, boolean outstanding) {
+        try {
+            productService.changeOutStanding(productId, outstanding);
+            if (newOperation == "search") {
+                searchProduct();
+                return;
+            }
+            if (newOperation == "filter") {
+                filterAction();
+                return;
+            }
+            loadData();
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Khi click chọn hoạt động .
     @FXML
     public void handleActive() {
         activeCheckBox.setSelected(true);
         inactiveCheckBox.setSelected(false);
     }
 
+    // Khi click chọn không hoạt động .
     @FXML
     public void handleInactive() {
         activeCheckBox.setSelected(false);

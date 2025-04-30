@@ -124,7 +124,7 @@ public class AccountRepository implements JDBCRepository<Account> {
 
     // check nameAccount is exists and different it .
     public boolean existsNameAccountOther(int account_id , String accountName){
-        String sql = "SELECT account_name from account where account_name = ? and id != account_id " ;
+        String sql = "SELECT account_name from account where account_name = ? and id != ? " ;
         try(Connection connection = DatabaseConnection.getConnection() ;
             PreparedStatement preparedStatement = connection.prepareStatement(sql)
         ) {
