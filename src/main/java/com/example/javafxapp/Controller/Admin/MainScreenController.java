@@ -1,13 +1,15 @@
 package com.example.javafxapp.Controller.Admin;
 
+import com.example.javafxapp.Controller.Admin.BaseController;
+import com.example.javafxapp.Controller.Admin.Order.OrderDetailController;
 import com.example.javafxapp.Helpper.AlertInfo;
 import com.example.javafxapp.Helpper.Pages;
-import com.example.javafxapp.Model.Account;
-import com.example.javafxapp.Model.Role;
+import com.example.javafxapp.Model.Order;
 import com.example.javafxapp.Service.AccountService;
 import com.example.javafxapp.Service.PermissionService;
 import com.example.javafxapp.Service.RolePermissionService;
 import com.example.javafxapp.Service.RoleService;
+import com.example.javafxapp.Utils.SaveAccountUtils;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -50,8 +52,6 @@ public class MainScreenController {
         menuButtons.add(btnEmployees);
         menuButtons.add(btnLogOut) ;
 
-
-
         // Mặc định chọn "Tổng Quan"
         setActiveButton(btnOverview);
         handleOverview();
@@ -64,20 +64,34 @@ public class MainScreenController {
         activeButton.getStyleClass().add("selected-button");
     }
 
-
-    public void loadCenterContent(String fxmlPath) {
+    // repair
+    public Object loadCenterContent(String fxmlPath){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+        Parent p;
+        Object controller = null;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-            Parent newContent = loader.load();
+            p = loader.load();
+            centerPane.getChildren().setAll(p);
 
-            // Xóa nội dung cũ và thêm nội dung mới
-            centerPane.getChildren().setAll(newContent);
+            // dua controller qua controller con(ordercontroller) cho no biet controll bo la ai 
+            // de nut addorderbtn hoat dong
+            controller = loader.getController();
 
-            // Đảm bảo nội dung mới chiếm hết phần StackPane
-            StackPane.setMargin(newContent, new Insets(0, 0, 0, 0));
+            // if (controller != null && controller.getClass().equals(OrderController.class)){
+            //     OrderController oc = (OrderController) controller;
+            //     oc.setMainScreenController(this);
+            // }
+            if (controller != null && controller instanceof BaseController){
+                BaseController base = (BaseController) controller;
+                base.setController(this);
+            }
+
+            centerPane.setMargin(p, new Insets(0));
         } catch (IOException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        return controller;
     }
 
 
@@ -85,7 +99,7 @@ public class MainScreenController {
     @FXML
     private void handleOverview() {
         System.out.println("Overview button clicked");
-        loadCenterContent("/com/example/javafxapp/view/dashboard/homePage.fxml");
+        loadCenterContent("/com/example/javafxapp/view/admin/dashboard/dashboard.fxml");
         setActiveButton(btnOverview);
     }
 
@@ -93,7 +107,7 @@ public class MainScreenController {
     @FXML
     public void handleProducts() {
         System.out.println("Products button clicked");
-        loadCenterContent("/com/example/javafxapp/view/product/products.fxml");
+        loadCenterContent("/com/example/javafxapp/view/admin/product/products.fxml");
         // Thêm logic chuyển sang trang sản phẩm
         setActiveButton(btnProducts);
     }
@@ -102,7 +116,7 @@ public class MainScreenController {
     @FXML
     private void handleCategories() {
         System.out.println("Product Categories button clicked");
-        loadCenterContent("/com/example/javafxapp/view/category/category.fxml");
+        loadCenterContent("/com/example/javafxapp/view/admin/category/category.fxml");
         // Thêm logic chuyển sang trang danh mục sản phẩm
         setActiveButton(btnCategories);
     }
@@ -118,8 +132,10 @@ public class MainScreenController {
 
     // order .
     @FXML
-    private void handleOrders() {
+    public void handleOrders() {
         System.out.println("Order Management button clicked");
+        //        loadCenterContent("/com/example/javafxapp/view/admin/order/order.fxml");
+        loadCenterContent("/com/example/javafxapp/view/orders/orders.fxml");      
         // Thêm logic chuyển sang trang quản lý đơn hàng
         setActiveButton(btnOrders);
     }
@@ -128,7 +144,7 @@ public class MainScreenController {
     @FXML
     private void handleAccounts() {
         System.out.println("Account Management button clicked");
-        loadCenterContent("/com/example/javafxapp/view/account/account.fxml");
+        loadCenterContent("/com/example/javafxapp/view/admin/account/account.fxml");
         // Thêm logic chuyển sang trang quản lý tài khoản
         setActiveButton(btnAccounts);
     }
@@ -137,7 +153,7 @@ public class MainScreenController {
     @FXML
     private void handleRole() {
         System.out.println("Role button clicked");
-        loadCenterContent("/com/example/javafxapp/view/role/role.fxml");
+        loadCenterContent("/com/example/javafxapp/view/admin/role/role.fxml");
         // Thêm logic chuyển sang trang vai trò .
         setActiveButton(btnRole);
     }
@@ -147,7 +163,7 @@ public class MainScreenController {
     @FXML
     private void handlePermission() {
         System.out.println("Role button clicked");
-        loadCenterContent("/com/example/javafxapp/view/permission/permission.fxml");
+        loadCenterContent("/com/example/javafxapp/view/admin/permission/permission.fxml");
         // Thêm logic chuyển sang trang phân quyền
         setActiveButton(btnPermission);
     }
@@ -162,23 +178,26 @@ public class MainScreenController {
             Pages.pageLogin();
             stage.close();
         };
-        setActiveButton(btnLogOut);
+//        setActiveButton(btnLogOut);
     }
 
 
     // phân quyền
-    public void setAccount(String accountName) {
-        Account account = accountService.findAccountByName(accountName) ;
-        List<Integer> permissions = rolePermissionService.getAllRolePermission(account.getRoleId()) ;
+    public void setAccount(){
+        List<Integer> permissions = rolePermissionService.getAllRolePermission(SaveAccountUtils.role_id) ;
         List<String> permissionNames = new ArrayList<>() ;
-        for (Integer integer : permissions) {
-            String permission_name = permissionService.findPermissionByID(integer).getPermission_name() ;
+        for (Integer permissionId : permissions) {
+            String permission_name = permissionService.findPermissionByID(permissionId).getPermission_name() ;
             permissionNames.add(permission_name) ;
         }
-//        setBtn(permissionNames,"Product" , btnProducts);
-//        setBtn(permissionNames,"Category" , btnCategories);
-//        setBtn(permissionNames , "Role" , btnRole);
-//        setBtn(permissionNames,"Permission" , btnPermission);
+        setBtn(permissionNames,"Overview" , btnOverview );
+        setBtn(permissionNames,"Product" , btnProducts);
+        setBtn(permissionNames,"Category" , btnCategories);
+        setBtn(permissionNames , "Employee"  , btnEmployees);
+        setBtn(permissionNames , "Order" , btnOrders) ;
+        setBtn(permissionNames , "Account" , btnAccounts) ;
+        setBtn(permissionNames , "Role" , btnRole);
+        setBtn(permissionNames,"Permission" , btnPermission);
     }
 
     public void setBtn(List<String> permissions ,String permission , JFXButton button) {
@@ -188,6 +207,18 @@ public class MainScreenController {
         }
     }
 
-    
+    // add order page (in orderController)
+    @FXML
+    public void handleAddOrder(){
+        loadCenterContent("/com/example/javafxapp/view/orders/orderDetail/orderDetail.fxml");
+    }
+
+    @FXML
+    public void handleEditOrder(Order order){
+        OrderDetailController odc = (OrderDetailController) loadCenterContent(
+            "/com/example/javafxapp/view/orders/orderDetail/orderDetail.fxml");
+        odc.setOrder(order);
+        odc.loadData();
+    }
 
 }

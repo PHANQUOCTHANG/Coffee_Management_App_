@@ -17,21 +17,42 @@ public class Pages {
     }
 
     // Chuyển qua page dashboard .
-    public static void pagesMainScreen(String accountName) {
+    public static void pagesMainScreen() {
         try {
-            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/mainScreen/mainScreen.fxml"));
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/admin/mainScreen/mainScreen.fxml"));
             Pane root = loader.load();
             MainScreenController mainScreenController = loader.getController() ;
-            mainScreenController.setAccount(accountName);
+            mainScreenController.setAccount();
             Stage stage = new Stage();
             Scene scene = new Scene(root);
             stage.setScene(scene);
+            // Full màn hình
+            stage.setMaximized(true);
             stage.show();
             scene.getStylesheets().add(Pages.class.getResource("/com/example/javafxapp/view/styles/style.css").toExternalForm());
 
         } catch (IOException e) {
             e.printStackTrace();
             AlertInfo.showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể mở trang Dashboard.");
+        }
+    }
+
+    // chuyển qua trang người dùng .
+    public static void pageUser() {
+        try {
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/client/home/home.fxml"));
+            Pane root = loader.load();
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            // Full màn hình
+            stage.setMaximized(true);
+            stage.show();
+            scene.getStylesheets().add(Pages.class.getResource("/com/example/javafxapp/view/styles/style.css").toExternalForm());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            AlertInfo.showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể mở trang.");
         }
     }
 
@@ -79,13 +100,38 @@ public class Pages {
     // chuyển qua trang thêm mới sản phẩm .
     public static void pageAddProduct() {
         try {
-            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/product/addProduct.fxml"));
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/admin/product/addProduct.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
 
 
             ProductController controller = loader.getController();
             controller.loadDataAddProduct();
+
+            Stage stage = new Stage();
+            stage.getIcons().add(new Image(Pages.class.getResourceAsStream("/com/example/javafxapp/view/images/icons.jpg")));
+            stage.setScene(scene);
+            stage.setTitle("Coffee Shop Management");
+            stage.setResizable(false);
+
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            AlertInfo.showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể mở trang.");
+        }
+    }
+
+    // chuyển qua trang chi tiết sản phẩm
+    public static void pageDetailProduct(int productId) {
+        try {
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/admin/product/detailProduct.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+
+            // Lấy controller của trang chi tiết và truyền ID sản phẩm vào
+            ProductController controller = loader.getController();
+            controller.loadDataDetailProduct(productId);
 
             Stage stage = new Stage();
             stage.getIcons().add(new Image(Pages.class.getResourceAsStream("/com/example/javafxapp/view/images/icons.jpg")));
@@ -100,38 +146,13 @@ public class Pages {
         }
     }
 
-    // chuyển qua trang chi tiết sản phẩm
-    public static void pageDetailProduct(int productId) {
-        try {
-            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/product/detailProduct.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-
-            // Lấy controller của trang chi tiết và truyền ID sản phẩm vào
-            ProductController controller = loader.getController();
-            controller.loadDataDetailProduct(productId);
-
-
-            Stage stage = new Stage();
-            stage.getIcons().add(new Image(Pages.class.getResourceAsStream("/com/example/javafxapp/view/images/icons.jpg")));
-            stage.setScene(scene);
-            stage.setTitle("Coffee Shop Management");
-            stage.setResizable(true);
-            stage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            AlertInfo.showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể mở trang.");
-        }
-    }
-
 
     //// Category .
 
     // chuyển qua trang thêm danh mục
     public static void pageAddCategory() {
         try {
-            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/category/addCategory.fxml"));
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/admin/category/addCategory.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
 
@@ -140,6 +161,7 @@ public class Pages {
             stage.setScene(scene);
             stage.setTitle("Coffee Shop Management");
             stage.setResizable(true);
+            stage.setMaximized(false);
             stage.show();
 
         } catch (IOException e) {
@@ -152,7 +174,7 @@ public class Pages {
     // chuyển qua trang chi tiết damh mục
     public static void pageDetailCategory(int categoryId) {
         try {
-            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/category/detailCategory.fxml"));
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/admin/category/detailCategory.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
 
@@ -165,7 +187,7 @@ public class Pages {
             stage.getIcons().add(new Image(Pages.class.getResourceAsStream("/com/example/javafxapp/view/images/icons.jpg")));
             stage.setScene(scene);
             stage.setTitle("Coffee Shop Management");
-            stage.setResizable(true);
+            stage.setResizable(false);
             stage.show();
 
         } catch (IOException e) {
@@ -180,7 +202,7 @@ public class Pages {
     // chuyển qua trang thêm vai trò
     public static void pageAddRole() {
         try {
-            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/role/addRole.fxml"));
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/admin/role/addRole.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
 
@@ -189,7 +211,7 @@ public class Pages {
             stage.getIcons().add(new Image(Pages.class.getResourceAsStream("/com/example/javafxapp/view/images/icons.jpg")));
             stage.setScene(scene);
             stage.setTitle("Coffee Shop Management");
-            stage.setResizable(true);
+            stage.setResizable(false);
             stage.show();
 
         } catch (IOException e) {
@@ -201,7 +223,7 @@ public class Pages {
     // chuyển qua trang chi tiết vai trò
     public static void pageDetailRole(int roleId) {
         try {
-            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/role/detailRole.fxml"));
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/admin/role/detailRole.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
 
@@ -214,7 +236,7 @@ public class Pages {
             stage.getIcons().add(new Image(Pages.class.getResourceAsStream("/com/example/javafxapp/view/images/icons.jpg")));
             stage.setScene(scene);
             stage.setTitle("Coffee Shop Management");
-            stage.setResizable(true);
+            stage.setResizable(false);
             stage.show();
 
         } catch (IOException e) {
@@ -226,7 +248,7 @@ public class Pages {
     // chuyển qua trang phân quyền .
     public static void pageRolePermission(int roleId) {
         try {
-            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/role/role_permission.fxml"));
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/admin/role/role_permission.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
 
@@ -252,7 +274,7 @@ public class Pages {
     // chuyển qua trang thêm
     public static void pageAddAccount() {
         try {
-            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/account/addAccount.fxml"));
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/admin/account/addAccount.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
 
@@ -276,7 +298,7 @@ public class Pages {
     // chuyển qua trang chi tiết
     public static void pageDetailAccount(int accountId) {
         try {
-            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/account/detailAccount.fxml"));
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/admin/account/detailAccount.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
 
@@ -303,7 +325,7 @@ public class Pages {
     // chuyển qua trang thêm permission .
     public static void pageAddPermission() {
         try {
-            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/permission/addPermission.fxml"));
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/admin/permission/addPermission.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
 
@@ -311,7 +333,7 @@ public class Pages {
             stage.getIcons().add(new Image(Pages.class.getResourceAsStream("/com/example/javafxapp/view/images/icons.jpg")));
             stage.setScene(scene);
             stage.setTitle("Coffee Shop Management");
-            stage.setResizable(true);
+            stage.setResizable(false);
             stage.show();
 
         } catch (IOException e) {
@@ -323,7 +345,7 @@ public class Pages {
     // chuyển qua trang chi tiết permission .
     public static void pageDetailPermission(int permissionId) {
         try {
-            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/permission/detailPermission.fxml"));
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/admin/permission/detailPermission.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
 
@@ -336,7 +358,7 @@ public class Pages {
             stage.getIcons().add(new Image(Pages.class.getResourceAsStream("/com/example/javafxapp/view/images/icons.jpg")));
             stage.setScene(scene);
             stage.setTitle("Coffee Shop Management");
-            stage.setResizable(true);
+            stage.setResizable(false);
             stage.show();
 
         } catch (IOException e) {
@@ -365,5 +387,42 @@ public class Pages {
         }
         return null;
     }
+    //// Shopping cart
+    public static void pageShoppingCart() throws IOException {
+        try {
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/client/cart/cart.fxml"));
+            Pane root = loader.load();
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            // Full màn hình
+            stage.setMaximized(true);
+            stage.show();
+            scene.getStylesheets().add(Pages.class.getResource("/com/example/javafxapp/view/styles/style.css").toExternalForm());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            AlertInfo.showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể mở trang Dashboard.");
+        }
+    }
+
+    public static void pageCheckOut() throws IOException {
+        try {
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/client/checkout/checkout.fxml"));
+            Pane root = loader.load();
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            // Full màn hình
+            stage.setMaximized(true);
+            stage.show();
+            scene.getStylesheets().add(Pages.class.getResource("/com/example/javafxapp/view/styles/style.css").toExternalForm());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            AlertInfo.showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể mở trang .");
+        }
+    }
+
 
 }

@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.javafxapp.Controller.Client.CheckoutController">
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="20" style="-fx-background-color: #1A2235;">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
+            <children>
+                <Button fx:id="backBtn" onAction="#handleBackToCart" styleClass="icon-button" style="-fx-background-color: transparent;">
+                    <graphic>
+                        <ImageView fitHeight="24" fitWidth="24" preserveRatio="true">
+                            <Image url="@../../images/back-icon.jpg"/>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Label text="Thanh Toán" textFill="WHITE">
+                    <font>
+                        <Font name="Arial Bold" size="20"/>
+                    </font>
+                </Label>
+            </children>
+        </HBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;">
+            <content>
+                <VBox spacing="20">
+                    <padding>
+                        <Insets top="20" right="20" bottom="20" left="20"/>
+                    </padding>
+
+                    <!-- Thông tin giao hàng -->
+                    <VBox spacing="10"
+                          style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 5; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 5);">
+                        <Label text="Thông tin giao hàng" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
+
+                        <GridPane hgap="15" vgap="10">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="100" prefWidth="120"/>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="200" prefWidth="300"/>
+                            </columnConstraints>
+
+                            <Label text="Họ và tên:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                            <TextField fx:id="nameField" promptText="Nhập họ và tên người nhận" GridPane.rowIndex="0"
+                                       GridPane.columnIndex="1"/>
+
+                            <Label text="Số điện thoại:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                            <TextField fx:id="phoneField" promptText="Nhập số điện thoại liên hệ" GridPane.rowIndex="1"
+                                       GridPane.columnIndex="1"/>
+
+                            <Label text="Địa chỉ:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                            <TextArea fx:id="addressField" promptText="Nhập địa chỉ giao hàng" prefHeight="60"
+                                      wrapText="true" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                            <Label text="Ghi chú:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                            <TextArea fx:id="noteField" promptText="Ghi chú đơn hàng (không bắt buộc)" prefHeight="60"
+                                      wrapText="true" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+                        </GridPane>
+                    </VBox>
+
+                    <!-- Phương thức giao hàng -->
+                    <VBox spacing="10"
+                          style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 5; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 5);">
+                        <Label text="Phương thức giao hàng" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
+
+                        <VBox spacing="10">
+                            <RadioButton fx:id="standardDeliveryRadio" onAction="#handleMethodShip"
+                                         text="Giao hàng tiêu chuẩn (2-3 ngày) - 30.000 VNĐ" selected="true"
+                                         toggleGroup="$deliveryGroup"/>
+                            <RadioButton fx:id="expressDeliveryRadio" onAction="#handleMethodShip" text="Giao hàng nhanh (24h) - 60.000 VNĐ"
+                                         toggleGroup="$deliveryGroup"/>
+                        </VBox>
+
+                        <fx:define>
+                            <ToggleGroup fx:id="deliveryGroup"/>
+                        </fx:define>
+                    </VBox>
+
+                    <!-- Phương thức thanh toán -->
+                    <VBox spacing="10"
+                          style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 5; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 5);">
+                        <Label text="Phương thức thanh toán" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
+
+                        <VBox spacing="15">
+                            <!-- Thanh toán COD -->
+                            <HBox alignment="CENTER_LEFT" spacing="10"
+                                  style="-fx-padding: 10; -fx-border-color: #E0E0E0; -fx-border-radius: 5;">
+                                <RadioButton fx:id="codRadio" text="Thanh toán khi nhận hàng (COD)" selected="true" onAction="#handleMethodCheckOut"
+                                             toggleGroup="$paymentGroup"/>
+                            </HBox>
+
+                            <!-- Chuyển khoản ngân hàng -->
+                            <VBox spacing="10">
+                                <HBox alignment="CENTER_LEFT" spacing="10"
+                                      style="-fx-padding: 10; -fx-border-color: #E0E0E0; -fx-border-radius: 5;">
+                                    <RadioButton fx:id="bankTransferRadio" text="Chuyển khoản ngân hàng" onAction="#handleMethodCheckOut"
+                                                 toggleGroup="$paymentGroup"/>
+                                </HBox>
+
+                                <!-- Container cho thông tin chuyển khoản -->
+                                <VBox fx:id="bankTransferDetailsContainer" spacing="10" visible="false" managed="false"
+                                      style="-fx-padding: 10; -fx-background-color: #F5F5F5; -fx-background-radius: 5;">
+                                    <Label text="Thông tin chuyển khoản:" style="-fx-font-weight: bold"/>
+                                    <GridPane hgap="10" vgap="5">
+                                        <columnConstraints>
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="100" prefWidth="140"/>
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="200" prefWidth="250"/>
+                                        </columnConstraints>
+
+                                        <Label text="Tên ngân hàng:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                                        <Label text="Ngân hàng TMCP Á Châu (ACB)" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                                        <Label text="Số tài khoản:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                                        <Label text="123456789" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                                        <Label text="Chủ tài khoản:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                                        <Label text="CÔNG TY TNHH THƯƠNG MẠI DỊCH VỤ XYZ" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                                        <Label text="Nội dung CK:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                                        <Label text="[Mã đơn hàng - SĐT]" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                                    </GridPane>
+
+                                    <Text text="* Sau khi chuyển khoản thành công, đơn hàng của bạn sẽ được xử lý trong vòng 24h."
+                                          style="-fx-font-style: italic"/>
+                                    <Text text="* Vui lòng chụp lại màn hình giao dịch thành công để đối chiếu khi cần thiết."
+                                          style="-fx-font-style: italic"/>
+                                </VBox>
+                            </VBox>
+
+                            <!-- Thẻ tín dụng -->
+                            <VBox spacing="10">
+                                <HBox alignment="CENTER_LEFT" spacing="10"
+                                      style="-fx-padding: 10; -fx-border-color: #E0E0E0; -fx-border-radius: 5;">
+                                    <RadioButton fx:id="creditCardRadio" text="Thẻ tín dụng/Ghi nợ"
+                                                 toggleGroup="$paymentGroup" onAction="#handleMethodCheckOut"/>
+                                    <ImageView fitHeight="24" fitWidth="36" preserveRatio="true">
+                                        <Image url="@../../images/card.jpg"/>
+                                    </ImageView>
+                                </HBox>
+
+                                <!-- Container cho thông tin thẻ tín dụng -->
+                                <VBox fx:id="creditCardDetailsContainer" spacing="10" visible="false" managed="false"
+                                      style="-fx-padding: 10; -fx-background-color: #F5F5F5; -fx-background-radius: 5;">
+
+                                    <Label text="Thông tin thẻ:" style="-fx-font-weight: bold"/>
+                                    <GridPane hgap="10" vgap="10">
+                                        <Label text="Số thẻ:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                                        <TextField fx:id="cardNumberField" promptText="XXXX XXXX XXXX XXXX"
+                                                   GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                                        <Label text="Tên chủ thẻ:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                                        <TextField fx:id="cardHolderField" promptText="Nhập tên in trên thẻ"
+                                                   GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                                        <Label text="Ngày hết hạn:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                                        <HBox spacing="5" GridPane.rowIndex="2" GridPane.columnIndex="1">
+                                            <TextField fx:id="cardMonthField" promptText="MM" maxWidth="60"/>
+                                            <Label text="/"/>
+                                            <TextField fx:id="cardYearField" promptText="YY" maxWidth="60"/>
+                                        </HBox>
+
+                                        <Label text="Mã CVV:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                                        <TextField fx:id="cardCvvField" promptText="XXX" maxWidth="60"
+                                                   GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                                    </GridPane>
+
+                                    <Text text="* Thông tin thẻ của bạn được bảo mật và mã hóa theo tiêu chuẩn PCI DSS."
+                                          style="-fx-font-style: italic"/>
+                                </VBox>
+                            </VBox>
+
+                            <!-- Ví MoMo -->
+                            <VBox spacing="10">
+                                <HBox alignment="CENTER_LEFT" spacing="10"
+                                      style="-fx-padding: 10; -fx-border-color: #E0E0E0; -fx-border-radius: 5;">
+                                    <RadioButton fx:id="momoRadio" text="Ví MoMo" toggleGroup="$paymentGroup" onAction="#handleMethodCheckOut"/>
+                                    <ImageView fitHeight="24" fitWidth="24" preserveRatio="true">
+                                        <Image url="@../../images/momo.jpg"/>
+                                    </ImageView>
+                                </HBox>
+
+                                <!-- Container cho thanh toán MoMo -->
+                                <VBox fx:id="momoDetailsContainer" spacing="10" visible="false" managed="false"
+                                      style="-fx-padding: 10; -fx-background-color: #F5F5F5; -fx-background-radius: 5;" alignment="CENTER">
+                                    <Label text="Quét mã QR để thanh toán qua MoMo" style="-fx-font-weight: bold"/>
+
+                                    <ImageView fx:id="momoQrImage" fitHeight="200" fitWidth="200" preserveRatio="true">
+                                        <Image url="@../../images/momo.jpg"/>
+                                    </ImageView>
+
+                                    <Text text="Hoặc chuyển khoản đến số điện thoại:" textAlignment="CENTER"/>
+                                    <Label text="0987 654 321" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
+                                    <Text text="Nội dung chuyển khoản: [Mã đơn hàng]" textAlignment="CENTER"/>
+
+                                    <Button fx:id="checkMomoPaymentBtn" text="Tôi đã thanh toán"
+                                            style="-fx-background-color: #AF2070; -fx-text-fill: white;"/>
+
+                                    <Text text="* Đơn hàng sẽ được xử lý sau khi hệ thống xác nhận đã nhận được thanh toán."
+                                          style="-fx-font-style: italic"/>
+                                </VBox>
+                            </VBox>
+
+                            <fx:define>
+                                <ToggleGroup fx:id="paymentGroup"/>
+                            </fx:define>
+                        </VBox>
+                    </VBox>
+
+                    <!-- Thông tin đơn hàng -->
+                    <VBox spacing="10"
+                          style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 5; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 5);">
+                        <Label text="Đơn hàng của bạn" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
+
+                        <VBox fx:id="orderSummaryContainer" spacing="10">
+                            <!-- Các sản phẩm sẽ được thêm vào đây từ Controller -->
+                        </VBox>
+
+                        <Separator/>
+
+                        <HBox alignment="CENTER_RIGHT" spacing="5">
+                            <Label text="Tạm tính:"/>
+                            <Label fx:id="subtotalLabel" text="0 VNĐ"/>
+                        </HBox>
+
+                        <HBox alignment="CENTER_RIGHT" spacing="5">
+                            <Label text="Phí vận chuyển:"/>
+                            <Label fx:id="shippingFeeLabel" text="30.000 VNĐ"/>
+                        </HBox>
+
+                        <HBox alignment="CENTER_RIGHT" spacing="5">
+                            <Label text="Giảm giá:"/>
+                            <Label fx:id="discountLabel" text="0 VNĐ" style="-fx-text-fill: #4CAF50;"/>
+                        </HBox>
+
+                        <Separator/>
+
+                        <HBox alignment="CENTER_RIGHT" spacing="5">
+                            <Label text="Tổng cộng:" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+                            <Label fx:id="totalAmountLabel" text="0 VNĐ"
+                                   style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #FF5722;"/>
+                        </HBox>
+                    </VBox>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+
+    <bottom>
+        <HBox alignment="CENTER_RIGHT"
+              style="-fx-background-color: white; -fx-padding: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, -10);">
+            <VBox spacing="5">
+                <CheckBox fx:id="agreeTermsCheckBox" text="Tôi đồng ý với các điều khoản và điều kiện mua hàng"/>
+                <HBox spacing="15">
+                    <Button fx:id="backToCartBtn" onAction="#handleBackToCart" text="Quay lại giỏ hàng" style="-fx-background-color: #E0E0E0;"/>
+                    <Button fx:id="placeOrderBtn" text="Đặt hàng"
+                            style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 30;"
+                            />
+                </HBox>
+            </VBox>
+        </HBox>
+    </bottom>
+</BorderPane>

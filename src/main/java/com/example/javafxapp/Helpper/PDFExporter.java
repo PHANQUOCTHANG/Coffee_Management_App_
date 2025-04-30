@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.awt.Desktop;
 
 import com.example.javafxapp.Model.OrderDetail;
 import com.example.javafxapp.Service.ProductService;
@@ -28,7 +29,7 @@ public class PDFExporter {
             document.open();
 
             // Load Vietnamese font
-            InputStream is = PDFExporter.class.getResourceAsStream("/com/example/javafxapp/view/fonts/Lora-Italic-VariableFont_wght.ttf");
+            InputStream is = PDFExporter.class.getResourceAsStream("/com/example/javafxapp/font/Lora-Italic-VariableFont_wght.ttf");
             if (is == null) {
                 throw new IOException("Font not found");
             }
@@ -102,7 +103,34 @@ public class PDFExporter {
             thankYou.setAlignment(Element.ALIGN_CENTER);
             document.add(thankYou);
 
+            // Mã QR thanh toán qua Momo
+            String momoPhone = "0987654321"; // số điện thoại nhận tiền Momo
+            String momoLink = "https://nhantien.momo.vn/" + momoPhone;
+
+            // Bạn cũng có thể thêm nội dung thanh toán vào QR nếu muốn
+            String qrText = momoLink + "\nThanh toán đơn hàng #" + oi + "\nSố tiền: " + String.format("%.0f", total) + " đ";
+
+            // Tạo mã QR
+            BarcodeQRCode qrCode = new BarcodeQRCode(qrText, 150, 150, null);
+            Image qrImage = qrCode.getImage();
+            qrImage.setAlignment(Element.ALIGN_CENTER); // canh giữa
+            qrImage.scaleAbsolute(120, 120); // kích thước QR
+
+            // Thêm ghi chú dưới QR
+            Paragraph qrNote = new Paragraph("Quét mã để thanh toán qua Momo", regularFont);
+            qrNote.setAlignment(Element.ALIGN_CENTER);
+
+            document.add(qrImage);
+            document.add(qrNote);
+
             document.close();
+            if (Desktop.isDesktopSupported()) {
+                try {
+                    Desktop.getDesktop().open(new File(filePath));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
             System.out.println("PDF exported successfully.");
 
         } catch (Exception e) {

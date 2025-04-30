@@ -72,7 +72,7 @@ public class CategoryRepository implements JDBCRepository<Category>{
     }
 
     // find category by category_id .
-    public Category findCategoryByID(int category_id) {
+    public Category findByID(int category_id) {
         String sql = "SELECT * from category where category_id = ? AND deleted = ?" ;
         try(Connection connection = DatabaseConnection.getConnection() ;
             PreparedStatement preparedStatement = connection.prepareStatement(sql)
@@ -94,7 +94,7 @@ public class CategoryRepository implements JDBCRepository<Category>{
     }
 
     // find category by category_name.
-    public Category findCategoryByName(String category_name) {
+    public Category findByName(String category_name) {
         String sql = "SELECT * from category where category_name = ? AND deleted = ?" ;
         try(Connection connection = DatabaseConnection.getConnection() ;
             PreparedStatement preparedStatement = connection.prepareStatement(sql)
@@ -113,5 +113,28 @@ public class CategoryRepository implements JDBCRepository<Category>{
         }
         return null ;
     }
+
+    // find all category by keyword .
+    public List<Category> findAllByKeyword(String keyword) {
+        String sql = "SELECT * FROM category WHERE category_name LIKE ? AND deleted = ?";
+        List<Category> categories = new ArrayList<>() ;
+        try (Connection connection = DatabaseConnection.getConnection() ;
+            PreparedStatement preparedStatement = connection.prepareStatement(sql) ;
+        ){
+            preparedStatement.setString(1, "%" + keyword + "%");
+            preparedStatement.setBoolean(2, false);
+            ResultSet rs = preparedStatement.executeQuery();
+            while(rs.next()) {
+                categories.add(new Category(
+                        rs.getInt("category_id") ,
+                        rs.getString("category_name")
+                )) ;
+            }
+        }catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return categories ;
+    }
+
 
 }

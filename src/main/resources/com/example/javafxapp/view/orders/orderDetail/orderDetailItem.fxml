@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox maxHeight="50.0" maxWidth="405.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="405.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxapp.Controller.Admin.Order.OrderDetailItemController">
+   <children>
+      <VBox alignment="CENTER_LEFT" minWidth="115.0" prefHeight="50.0" prefWidth="128.0">
+         <HBox.margin>
+            <Insets />
+         </HBox.margin>
+         <children>
+            <Label fx:id="unitName" prefHeight="20.0" prefWidth="300.0" text="Cà phê sữa">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <HBox alignment="CENTER_RIGHT" minWidth="170.0" prefHeight="50.0" prefWidth="236.0">
+         <children>
+            <HBox maxHeight="50.0" prefHeight="50.0" prefWidth="98.0" style="-fx-border-color: black;">
+               <children>
+                  <JFXButton fx:id="decBtn" onAction="#dec" prefHeight="50.0" prefWidth="50.0" text="-">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </JFXButton>
+                  <Label fx:id="cntItem" alignment="CENTER" prefHeight="50.0" prefWidth="50.0" text="1">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <JFXButton fx:id="incBtn" layoutX="10.0" layoutY="10.0" onAction="#inc" prefHeight="50.0" prefWidth="50.0" text="+">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </HBox>
+            <JFXButton fx:id="deleteBtn" onAction="#deleteUnit" prefHeight="51.0" prefWidth="65.0" text=".">
+               <graphic>
+                  <ImageView fitHeight="41.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/bin.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+               </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" layoutX="750.0" layoutY="60.0" prefHeight="50.0" prefWidth="107.0">
+         <children>
+            <Label fx:id="unitPrice" alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="300.0" text="25,000đ">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+   </children>
+</HBox>

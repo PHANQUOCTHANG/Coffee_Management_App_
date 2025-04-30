@@ -7,7 +7,9 @@ public class Product {
     private double price;
     private int category_id;
     private String imgSrc;
-    private int stock;
+    private boolean status ;
+
+    private boolean outstanding ;
 
     private boolean deleted = false ;
 
@@ -17,22 +19,26 @@ public class Product {
 
 
 
-    public Product(String product_name, String description, double price, int category_id, String imgSrc) {
+    public Product(String product_name, String description, double price, int category_id, String imgSrc, boolean status , boolean outstanding) {
         this.product_name = product_name;
         this.description = description;
         this.price = price;
         this.category_id = category_id;
         this.imgSrc = imgSrc;
+        this.status = status;
+        this.outstanding = outstanding ;
     }
 
-
-    public Product(int product_id , String product_name, String description, double price, int category_id, String imgSrc) {
+    public Product(int product_id, String product_name, String description, double price, int category_id, String imgSrc, boolean status, boolean outstanding , boolean deleted) {
         this.product_id = product_id;
         this.product_name = product_name;
         this.description = description;
         this.price = price;
         this.category_id = category_id;
         this.imgSrc = imgSrc;
+        this.status = status;
+        this.outstanding = outstanding ;
+        this.deleted = deleted;
     }
 
     public int getProduct_id() {
@@ -81,6 +87,22 @@ public class Product {
 
     public void setImgSrc(String imgSrc) {
         this.imgSrc = imgSrc;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public boolean isOutstanding() {
+        return outstanding;
+    }
+
+    public void setOutstanding(boolean outstanding) {
+        this.outstanding = outstanding;
     }
 
     public boolean isDeleted() {

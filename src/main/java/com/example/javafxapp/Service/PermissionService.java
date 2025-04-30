@@ -33,11 +33,11 @@ public class PermissionService {
 
     // find permission by permission_id .
     public Permission findPermissionByID(int permissionId) {
-        return permissionRepositoty.findPermissionByID(permissionId) ;
+        return permissionRepositoty.findByID(permissionId) ;
     }
 
     // find permission by permission_name .
     public Permission findPermissionByName(String permissionName) {
-        return permissionRepositoty.findPermissionByName(permissionName) ;
+        return permissionRepositoty.findByName(permissionName) ;
     }
 }

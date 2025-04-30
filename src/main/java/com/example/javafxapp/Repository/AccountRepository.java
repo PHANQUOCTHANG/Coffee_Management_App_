@@ -124,7 +124,7 @@ public class AccountRepository implements JDBCRepository<Account> {
 
     // check nameAccount is exists and different it .
     public boolean existsNameAccountOther(int account_id , String accountName){
-        String sql = "SELECT account_name from account where account_name = ? and id != account_id " ;
+        String sql = "SELECT account_name from account where account_name = ? and id != ? " ;
         try(Connection connection = DatabaseConnection.getConnection() ;
             PreparedStatement preparedStatement = connection.prepareStatement(sql)
         ) {
@@ -142,7 +142,7 @@ public class AccountRepository implements JDBCRepository<Account> {
     }
 
     // find role by account_id .
-    public Account findAccountByID(int account_id) {
+    public Account findByID(int account_id) {
         String sql = "SELECT * from account where id = ? AND deleted = ?" ;
         try(Connection connection = DatabaseConnection.getConnection() ;
             PreparedStatement preparedStatement = connection.prepareStatement(sql)
@@ -166,7 +166,7 @@ public class AccountRepository implements JDBCRepository<Account> {
     }
 
     // find role by account_name.
-    public Account findAccountByName(String account_name) {
+    public Account findByName(String account_name) {
         String sql = "SELECT * from account where account_name= ? AND deleted = ?" ;
         try(Connection connection = DatabaseConnection.getConnection() ;
             PreparedStatement preparedStatement = connection.prepareStatement(sql)

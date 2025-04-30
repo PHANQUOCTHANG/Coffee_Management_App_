@@ -2,21 +2,18 @@ package com.example.javafxapp.Controller.Admin;
 
 import com.example.javafxapp.Helpper.AlertInfo;
 import com.example.javafxapp.Helpper.Pages;
-import com.example.javafxapp.Helpper.UploadImage;
 import com.example.javafxapp.Model.Account;
-import com.example.javafxapp.Model.Category;
-import com.example.javafxapp.Model.Product;
 import com.example.javafxapp.Model.Role;
 import com.example.javafxapp.Service.AccountService;
-import com.example.javafxapp.Service.CategoryService;
 import com.example.javafxapp.Service.RoleService;
-import com.example.javafxapp.Utils.PasswordUtils;
-import com.example.javafxapp.Utils.ValidationUtils;
+import com.example.javafxapp.Validation.ValidationAccount;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -34,6 +31,9 @@ public class AccountController{
     private Button btnId , btnRoleId ;
     @FXML
     private JFXButton btnAdd ;
+    @FXML
+    private JFXCheckBox checkBoxAll ;
+    private List<JFXCheckBox> checkBoxes;
 
     private AccountService accountService = new AccountService() ;
     private RoleService roleService = new RoleService() ;
@@ -42,7 +42,13 @@ public class AccountController{
     // hàm lấy tất cả tài khoản đang hoạt động .
     public void loadData() {
 
+        List<String> roles = new ArrayList<>();
+        for (Role role : roleService.getAllRole()) {
+            roles.add(role.getRole_name()) ;
+        }
+        roleComboBox.getItems().addAll(roles) ;
 
+        grid.getChildren().clear();
 
         List<Account> accounts = accountService.getAllAccounts() ;
 
@@ -50,39 +56,53 @@ public class AccountController{
             System.out.println("Không có dữ liệu từ database!");
             return;
         }
-
-        int row = 0;
+        checkBoxes = new ArrayList<>() ;
+        int row = 0, stt = 1 ;
         for (Account account : accounts) {
-            // Cột STT
-            Label lblStt = new Label(String.valueOf(row + 1));
+            Role role = roleService.findRoleByID(account.getRoleId()) ;
+            if (!role.getRole_name().equals("Customer")) {
+                JFXCheckBox checkBox = new JFXCheckBox();
+                checkBox.setId(String.valueOf(account.getRoleId()));
+                checkBoxes.add(checkBox);
 
+                //STT
+                Label lblStt = new Label(String.valueOf(stt++) + '.');
 
-            // Cột tên
-            Label lblName = new Label(account.getAccountName());
+                // Cột tên
+                Label lblName = new Label(account.getAccountName());
 
-            // Cột vai trò .
-            String role_name = roleService.findRoleByID(account.getRoleId()).getRole_name() ;
-            Label lblRole = new Label(role_name);
+                // Cột vai trò .
+                String role_name = roleService.findRoleByID(account.getRoleId()).getRole_name() ;
+                Label lblRole = new Label(role_name);
 
-            // Cột hành động (Button)
-            JFXButton btnDetail = new JFXButton("Chi tiết");
-            btnDetail.getStyleClass().add("detail-button");
-            btnDetail.setOnAction(e -> handleDetail(account.getId())) ;
+                // Cột hành động (Button)
+                JFXButton btnDetail = new JFXButton("Chi tiết");
+                btnDetail.getStyleClass().add("detail-button");
+                btnDetail.setOnAction(e -> handleDetail(account.getId())) ;
 
-            // Thêm vào GridPane
-            grid.add(lblStt, 0, row);
-            grid.add(lblName, 1, row);
-            grid.add(lblRole, 2, row);
-            grid.add(btnDetail, 3, row);
+                // Thêm vào GridPane
+                grid.add(checkBox, 0, row);
+                grid.add(lblStt, 1, row);
+                grid.add(lblName, 2, row);
+                grid.add(lblRole, 3, row);
+                grid.add(btnDetail, 4, row);
 
-            row++; // Tăng số hàng
+                row++; // Tăng số hàng
+
+                // Thêm Line phân cách
+                Line separator = new Line();
+                separator.setStartX(0);
+                // Ràng buộc chiều rộng của separator theo chiều rộng của GridPane
+                separator.endXProperty().bind(grid.widthProperty());
+                separator.setStroke(Color.LIGHTGRAY);
+                separator.setStrokeWidth(1);
+
+                // Gộp Line qua tất cả các cột (0 đến 6) => tổng cộng 7 cột => colspan = 7
+                grid.add(separator, 0, row, 5, 1);
+
+                row++; // Tăng số hàng tiếp theo để tránh chồng lặp
+            }
         }
-
-        List<String> roles = new ArrayList<>();
-        for (Role role : roleService.getAllRole()) {
-            roles.add(role.getRole_name()) ;
-        }
-        roleComboBox.getItems().addAll(roles) ;
     }
 
 
@@ -111,7 +131,7 @@ public class AccountController{
             String account_name = accountNameField.getText().trim() ;
             String password = passwordField.getText().trim() ;
             int roleId = roleService.findRoleByName((String)roleComboBox.getValue()).getRole_id() ;
-            if (!ValidationUtils.accountUtils(account_name,password,0)) return     ;
+            if (!ValidationAccount.accountUtils(account_name,password,0)) return     ;
             accountService.addAccount(new Account(account_name,password,roleId));
             AlertInfo.showAlert(Alert.AlertType.INFORMATION , "Thành công" , "Thêm thành công");
             Stage stage = (Stage) btnAdd.getScene().getWindow() ;
@@ -174,6 +194,30 @@ public class AccountController{
             e.printStackTrace();
         }
     }
+    // xóa nhiều đối tượng cùng 1 lúc.
+    @FXML
+    public void deleteAll() {
+        try {
+            if (AlertInfo.confirmAlert("Bạn có chắc muốn xóa không ?")) {
+                boolean check = false;
+                for (JFXCheckBox checkBox : checkBoxes) {
+                    if (checkBox.isSelected()) {
+                        check = true;
+                        int accountId = Integer.parseInt(checkBox.getId());
+                        accountService.deleteAccount(accountId);
+                    }
+                }
+                if (!check) {
+                    AlertInfo.showAlert(Alert.AlertType.ERROR, "Lỗi", "Vui lòng chọn ít nhất 1 tài khoản để xóa");
+                    return;
+                }
+                loadData();
+                AlertInfo.showAlert(Alert.AlertType.INFORMATION, "Thành công", "Xóa tài khoản thành công");
+            }
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+        }
+    }
 
     // update  .
     @FXML
@@ -183,7 +227,7 @@ public class AccountController{
             String account_name = accountNameField.getText().trim() ;
             String password = passwordField.getText().trim() ;
             int roleId = roleService.findRoleByName((String)roleComboBox.getValue()).getRole_id() ;
-            if (!ValidationUtils.accountUtils(account_name,password,account_id)) return     ;
+            if (!ValidationAccount.accountUtils(account_name,password,account_id)) return     ;
             accountService.updateAccount(new Account(account_id , account_name,password,roleId));
             AlertInfo.showAlert(Alert.AlertType.INFORMATION , "Thành công" , "Cập nhật thành công");
         }
@@ -239,18 +283,21 @@ public class AccountController{
         String roleValue = (String) roleComboBox.getValue();
         if (roleValue.isEmpty()) return;
         else {
+            grid.getChildren().clear();
             Role role = roleService.findRoleByName(roleValue) ;
             List<Account> accounts = accountService.getAllByRoleId(role.getRole_id()) ;
             if (accounts == null || accounts.isEmpty()) {
                 System.out.println("Không có dữ liệu từ database!");
                 return;
             }
-            grid.getChildren().clear();
-            int row = 0;
+            int row = 0 , stt = 1 ;
             for (Account account : accounts) {
-                // Cột STT
-                Label lblStt = new Label(String.valueOf(row + 1));
+                JFXCheckBox checkBox = new JFXCheckBox();
+                checkBox.setId(String.valueOf(account.getRoleId()));
+                checkBoxes.add(checkBox);
 
+                //STT
+                Label lblStt = new Label(String.valueOf(stt++) + '.');
 
                 // Cột tên
                 Label lblName = new Label(account.getAccountName());
@@ -265,13 +312,34 @@ public class AccountController{
                 btnDetail.setOnAction(e -> handleDetail(account.getId())) ;
 
                 // Thêm vào GridPane
-                grid.add(lblStt, 0, row);
-                grid.add(lblName, 1, row);
-                grid.add(lblRole, 2, row);
-                grid.add(btnDetail, 3, row);
+                grid.add(checkBox, 0, row);
+                grid.add(lblStt, 1, row);
+                grid.add(lblName, 2, row);
+                grid.add(lblRole, 3, row);
+                grid.add(btnDetail, 4, row);
 
                 row++; // Tăng số hàng
+
+                // Thêm Line phân cách
+                Line separator = new Line();
+                separator.setStartX(0);
+                // Ràng buộc chiều rộng của separator theo chiều rộng của GridPane
+                separator.endXProperty().bind(grid.widthProperty());
+                separator.setStroke(Color.LIGHTGRAY);
+                separator.setStrokeWidth(1);
+
+                grid.add(separator, 0, row, 5, 1);
+
+                row++; // Tăng số hàng tiếp theo để tránh chồng lặp
             }
+        }
+    }
+
+    // checkBox all
+    @FXML
+    private void checkBoxAll() {
+        for (JFXCheckBox jfxCheckBox : checkBoxes) {
+            jfxCheckBox.setSelected(checkBoxAll.isSelected());
         }
     }
 

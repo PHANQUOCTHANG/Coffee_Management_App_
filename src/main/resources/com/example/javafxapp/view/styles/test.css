@@ -1,0 +1,335 @@
+/* Định nghĩa biến màu sắc */
+* {
+    -fx-primary: #2a3b90;
+    -fx-secondary: #4a6bff;
+    -fx-light-gray: #f5f6fa;
+    -fx-mid-gray: #e0e0e0;
+    -fx-dark-gray: #9e9e9e;
+    -fx-success: #00c853;
+    -fx-warning: #ffa000;
+    -fx-danger: #d32f2f;
+    -fx-info: #0288d1;
+
+    -fx-revenue-color: #4a6bff;
+    -fx-orders-color: #00c853;
+    -fx-customers-color: #ffa000;
+    -fx-conversion-color: #d32f2f;
+}
+
+/* Thiết lập chung */
+.root {
+    -fx-font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -fx-font-size: 13px;
+    -fx-background-color: -fx-light-gray;
+}
+
+/* Sidebar */
+.sidebar {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0, 0, 0);
+    -fx-min-width: 220px;
+    -fx-pref-width: 220px;
+    -fx-padding: 0;
+}
+
+.logo-container {
+    -fx-padding: 20px 15px;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: -fx-mid-gray;
+}
+
+.logo-text {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-primary;
+}
+
+.menu-items {
+    -fx-padding: 20px 10px;
+}
+
+.menu-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: -fx-dark-gray;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 15px;
+    -fx-alignment: center-left;
+    -fx-background-radius: 5px;
+    -fx-cursor: hand;
+    -fx-pref-width: 200px;
+}
+
+.menu-button .glyph-icon {
+    -fx-fill: -fx-dark-gray;
+    -fx-padding: 0 10px 0 0;
+}
+
+.menu-button:hover {
+    -fx-background-color: derive(-fx-primary, 90%);
+    -fx-text-fill: -fx-primary;
+}
+
+.menu-button:hover .glyph-icon {
+    -fx-fill: -fx-primary;
+}
+
+.active-menu-button {
+    -fx-background-color: derive(-fx-primary, 90%);
+    -fx-text-fill: -fx-primary;
+    -fx-font-weight: bold;
+}
+
+.active-menu-button .glyph-icon {
+    -fx-fill: -fx-primary;
+}
+
+.logout-button {
+    -fx-padding: 10px 15px;
+    -fx-margin: 15px 0 15px 0;
+}
+
+/* Content Area */
+.content-area {
+    -fx-background-color: -fx-light-gray;
+    -fx-padding: 20px;
+    -fx-spacing: 15px;
+}
+
+/* Header */
+.header {
+    -fx-padding: 0 0 15px 0;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: -fx-mid-gray;
+}
+
+.page-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+
+.page-subtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: -fx-dark-gray;
+}
+
+.date-picker {
+    -fx-pref-width: 120px;
+}
+
+.filter-button {
+    -fx-background-color: -fx-primary;
+    -fx-text-fill: white;
+    -fx-background-radius: 4px;
+    -fx-padding: 8px 15px;
+}
+
+/* Stat Cards */
+.stat-cards-container {
+    -fx-pref-height: 120px;
+    -fx-min-height: 120px;
+}
+
+.stat-card {
+    -fx-background-color: white;
+    -fx-background-radius: 8px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 5, 0, 0, 1);
+    -fx-padding: 15px;
+    -fx-spacing: 5px;
+    -fx-pref-width: 250px;
+    -fx-max-width: 250px;
+    -fx-alignment: center-left;
+    -fx-cursor: hand;
+}
+
+.stat-title {
+    -fx-font-size: 14px;
+    -fx-text-fill: -fx-dark-gray;
+}
+
+.stat-value {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+    -fx-padding: 5px 0;
+}
+
+.stat-trend-up {
+    -fx-text-fill: -fx-success;
+    -fx-spacing: 5px;
+}
+
+.stat-trend-down {
+    -fx-text-fill: -fx-danger;
+    -fx-spacing: 5px;
+}
+
+.stat-icon-container {
+    -fx-min-width: 50px;
+    -fx-min-height: 50px;
+    -fx-pref-width: 50px;
+    -fx-pref-height: 50px;
+    -fx-alignment: center;
+}
+
+.stat-icon-bg {
+    -fx-arc-height: 10px;
+    -fx-arc-width: 10px;
+    -fx-width: 50px;
+    -fx-height: 50px;
+    -fx-opacity: 0.2;
+}
+
+.revenue-bg {
+    -fx-fill: -fx-revenue-color;
+}
+
+.orders-bg {
+    -fx-fill: -fx-orders-color;
+}
+
+.customers-bg {
+    -fx-fill: -fx-customers-color;
+}
+
+.conversion-bg {
+    -fx-fill: -fx-conversion-color;
+}
+
+.stat-icon {
+    -fx-fill: #333333;
+}
+
+/* Charts */
+.chart-container {
+    -fx-background-color: white;
+    -fx-background-radius: 8px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 5, 0, 0, 1);
+    -fx-padding: 15px;
+    -fx-spacing: 10px;
+}
+
+.chart-header {
+    -fx-padding: 0 0 10px 0;
+}
+
+.chart-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+
+.period-selector {
+    -fx-pref-width: 120px;
+}
+
+.revenue-chart {
+    -fx-create-symbols: false;
+    -fx-background-color: transparent;
+}
+
+.category-chart {
+    -fx-pie-label-visible: false;
+    -fx-background-color: transparent;
+}
+
+.completion-container {
+    -fx-padding: 15px;
+}
+
+.completion-indicator {
+    -fx-progress-color: -fx-success;
+    -fx-pref-width: 150px;
+    -fx-pref-height: 150px;
+}
+
+.completion-value {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-success;
+    -fx-padding: 10px 0 5px 0;
+}
+
+.completion-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: -fx-dark-gray;
+}
+
+/* Table */
+.table-container {
+    -fx-background-color: white;
+    -fx-background-radius: 8px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 5, 0, 0, 1);
+    -fx-padding: 15px;
+    -fx-spacing: 10px;
+    -fx-min-width: 350px;
+    -fx-pref-width: 600px;
+}
+
+.table-header {
+    -fx-padding: 0 0 10px 0;
+}
+
+.table-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+
+.view-all-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: -fx-primary;
+    -fx-cursor: hand;
+}
+
+.recent-orders-table {
+    -fx-border-width: 0;
+    -fx-background-color: transparent;
+}
+
+.recent-orders-table .column-header {
+    -fx-background-color: derive(-fx-light-gray, 10%);
+    -fx-font-weight: bold;
+}
+
+.recent-orders-table .table-row-cell {
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: -fx-mid-gray;
+}
+
+.recent-orders-table .table-row-cell:odd {
+    -fx-background-color: derive(-fx-light-gray, 20%);
+}
+
+.recent-orders-table .table-row-cell:even {
+    -fx-background-color: white;
+}
+
+/* Trạng thái đơn hàng */
+.status-complete {
+    -fx-background-color: derive(-fx-success, 80%);
+    -fx-text-fill: -fx-success;
+    -fx-background-radius: 4px;
+    -fx-padding: 3px 8px;
+}
+
+.status-pending {
+    -fx-background-color: derive(-fx-warning, 80%);
+    -fx-text-fill: -fx-warning;
+    -fx-background-radius: 4px;
+    -fx-padding: 3px 8px;
+}
+
+.status-cancelled {
+    -fx-background-color: derive(-fx-danger, 80%);
+    -fx-text-fill: -fx-danger;
+    -fx-background-radius: 4px;
+    -fx-padding: 3px 8px;
+}
+
+.status-processing {
+    -fx-background-color: derive(-fx-info, 80%);
+    -fx-text-fill: -fx-info;
+    -fx-background-radius: 4px;
+    -fx-padding: 3px 8px;
+}

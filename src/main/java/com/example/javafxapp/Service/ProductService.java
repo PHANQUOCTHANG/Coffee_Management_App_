@@ -33,16 +33,36 @@ public class ProductService {
 
     // find product by product_name .
     public Product findProductByName(String product_name) {
-        return productRepository.findProductByName(product_name) ;
+        return productRepository.findByName(product_name) ;
     }
 
     // find product by product_name .
     public Product findProductByID(int productId) {
-        return productRepository.findProductByID(productId) ;
+        return productRepository.findByID(productId) ;
     }
 
     // get all product bu category_id.
     public List<Product> getAllByCategoryId(int category_id){
         return productRepository.getAllByCategoryId(category_id) ;
+    }
+
+    // get all product is outstanding .
+    public List<Product> getAllIsOutStanding(){
+       return productRepository.getAllIsOutStanding() ;
+    }
+
+    // change status
+    public void changeStatus(int productId , boolean status) {
+       productRepository.changeStatus(productId,status);
+    }
+
+    // change status
+    public void changeOutStanding(int productId , boolean outstanding) {
+        productRepository.changeOutStanding(productId,outstanding);
+    }
+
+    // find all product by keyword .
+    public List<Product> findProductsByKeyword(String keyword) {
+        return productRepository.findAllByKeyword(keyword) ;
     }
 }

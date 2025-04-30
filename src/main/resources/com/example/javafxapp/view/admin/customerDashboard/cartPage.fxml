@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="707.0" minWidth="-Infinity" prefHeight="707.0" prefWidth="1582.0" style="-fx-background-color: #3B2F2F;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ScrollPane fx:id="scroll" blendMode="SRC_ATOP" maxHeight="1.7976931348623157E308" maxWidth="1582.0" minHeight="707.0" prefWidth="1582.0" style="-fx-background-color: white;">
+         <content>
+            <VBox maxHeight="1.7976931348623157E308" prefWidth="1567.0" style="-fx-background-color: white;">
+               <children>
+                  <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="50.0" prefWidth="1580.0" style="-fx-background-color: #3B2F2F;">
+                     <children>
+                        <Label prefHeight="26.0" text="☕ Gửi trọn hương vị - đến tận nơi bạn" textFill="WHITE">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <VBox alignment="TOP_CENTER" prefWidth="1567.0">
+                     <children>
+                        <HBox layoutX="194.0" layoutY="575.0" maxWidth="1200.0" prefHeight="123.0" prefWidth="1200.0">
+                           <padding>
+                              <Insets left="50.0" right="50.0" top="50.0" />
+                           </padding>
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="64.0" prefWidth="1118.0" style="-fx-border-color: #EDEDED; -fx-border-width: 0 0 2px;">
+                                 <children>
+                                    <Label alignment="CENTER" prefHeight="71.0" style="-fx-border-color: black; -fx-border-width: 0 0 2px;" text="Giỏ hàng của bạn">
+                                       <font>
+                                          <Font name="System Bold" size="30.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </HBox>
+                        <HBox layoutX="194.0" layoutY="10.0" maxWidth="1200.0" prefHeight="123.0" prefWidth="1200.0">
+                           <padding>
+                              <Insets left="50.0" right="50.0" top="50.0" />
+                           </padding>
+                           <children>
+                              <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="1100.0" style="-fx-border-color: #EDEDED; -fx-border-width: 0 0 2px;">
+                                 <children>
+                                    <Label prefHeight="32.0" prefWidth="660.0" text="SẢN PHẨM" textFill="#949494">
+                                       <font>
+                                          <Font name="System Bold" size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label alignment="CENTER" layoutX="10.0" layoutY="30.0" prefHeight="32.0" prefWidth="270.0" text="SỐ LƯỢNG" textFill="#949494">
+                                       <font>
+                                          <Font name="System Bold" size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label alignment="CENTER_RIGHT" layoutX="670.0" layoutY="30.0" prefHeight="32.0" prefWidth="160.0" text="GIÁ TIỀN" textFill="#949494">
+                                       <font>
+                                          <Font name="System Bold" size="16.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </HBox>
+                        <VBox maxWidth="1100.0" prefWidth="1100.0" style="-fx-border-color: #EDEDED; -fx-border-width: 0 0 2px;">
+                           <children>
+                              <GridPane>
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                              </GridPane>
+                           </children>
+                        </VBox>
+                        <HBox layoutX="194.0" layoutY="484.0" maxWidth="1200.0" prefHeight="123.0" prefWidth="1200.0">
+                           <padding>
+                              <Insets left="50.0" right="50.0" top="50.0" />
+                           </padding>
+                           <children>
+                              <HBox alignment="CENTER_RIGHT" prefHeight="60.0" prefWidth="1100.0" style="-fx-border-color: #EDEDED; -fx-border-width: 0 0 2px;">
+                                 <children>
+                                    <Label alignment="CENTER_RIGHT" layoutX="670.0" layoutY="30.0" prefHeight="32.0" prefWidth="188.0" text="TỔNG TIỀN ƯỚC TÍNH:">
+                                       <font>
+                                          <Font name="System Bold" size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label alignment="CENTER_RIGHT" layoutX="950.0" layoutY="30.0" prefHeight="32.0" prefWidth="109.0" text="250,000Đ">
+                                       <font>
+                                          <Font name="System Bold" size="16.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </HBox>
+                        <HBox layoutX="194.0" layoutY="575.0" maxWidth="1200.0" prefHeight="351.0" prefWidth="1200.0">
+                           <padding>
+                              <Insets left="50.0" right="50.0" top="50.0" />
+                           </padding>
+                           <children>
+                              <HBox prefHeight="64.0" prefWidth="1118.0" style="-fx-border-color: #EDEDED; -fx-border-width: 0 0 2px;">
+                                 <children>
+                                    <VBox prefHeight="415.0" prefWidth="366.0">
+                                       <children>
+                                          <Label prefWidth="373.0" text="Về Coffee Shop">
+                                             <font>
+                                                <Font name="System Bold" size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <Label alignment="TOP_LEFT" prefHeight="383.0" prefWidth="367.0" text="Với niềm đam mê hạt cà phê nguyên bản và công nghệ phục vụ hiện đại, CoffeeShop mang đến trải nghiệm thưởng thức cà phê trọn vẹn – từ không gian quán đến ly cà phê tận tay bạn. Chúng tôi không chỉ phục vụ cà phê, mà còn đồng hành cùng bạn tạo nên những khoảnh khắc thư giãn, sâu lắng và đầy cảm hứng mỗi ngày." textAlignment="JUSTIFY" wrapText="true">
+                                             <VBox.margin>
+                                                <Insets top="15.0" />
+                                             </VBox.margin>
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                    <VBox layoutX="10.0" layoutY="10.0" prefHeight="415.0" prefWidth="366.0" />
+                                    <VBox layoutX="376.0" layoutY="10.0" prefHeight="415.0" prefWidth="366.0">
+                                       <children>
+                                          <Label prefWidth="373.0" text="Địa chỉ">
+                                             <font>
+                                                <Font name="System Bold" size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <Label alignment="TOP_LEFT" prefHeight="26.0" prefWidth="366.0" text="Thủ Đức, Tp.hcm" textAlignment="JUSTIFY" wrapText="true">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                          </Label>
+                                          <Label layoutX="10.0" layoutY="10.0" prefWidth="373.0" text="Số điện thoại">
+                                             <font>
+                                                <Font name="System Bold" size="20.0" />
+                                             </font>
+                                             <VBox.margin>
+                                                <Insets top="30.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <Label alignment="TOP_LEFT" prefHeight="26.0" prefWidth="366.0" text="+84 987654321" textAlignment="JUSTIFY" wrapText="true">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </children>
+</VBox>

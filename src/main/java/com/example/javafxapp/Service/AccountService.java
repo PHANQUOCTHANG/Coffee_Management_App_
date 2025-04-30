@@ -47,12 +47,12 @@ public class AccountService {
 
     // find role by account_id .
     public Account findAccountByID(int account_id) {
-        return accountRepository.findAccountByID(account_id) ;
+        return accountRepository.findByID(account_id) ;
     }
 
     // find role by account_name.
     public Account findAccountByName(String account_name) {
-        return accountRepository.findAccountByName(account_name) ;
+        return accountRepository.findByName(account_name) ;
     }
 
     // check nameAccount is exists and different it .

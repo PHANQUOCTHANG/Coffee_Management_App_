@@ -9,6 +9,7 @@ public class PasswordUtils {
     }
 
     // Kiểm tra mật khẩu nhập vào có khớp với mật khẩu đã mã hóa không
+    // plainPassword là mật khẩu gốc , hashedPassword là mật khẩu đã mã hóa .
     public static boolean checkPassword(String plainPassword, String hashedPassword) {
         return BCrypt.verifyer().verify(plainPassword.toCharArray(), hashedPassword).verified;
     }
