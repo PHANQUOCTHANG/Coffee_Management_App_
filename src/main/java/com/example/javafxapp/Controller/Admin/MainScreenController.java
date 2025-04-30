@@ -171,7 +171,7 @@ public class MainScreenController {
             String permission_name = permissionService.findPermissionByID(permissionId).getPermission_name() ;
             permissionNames.add(permission_name) ;
         }
-        setBtn(permissionNames,"Dashboard" , btnOverview );
+        setBtn(permissionNames,"Overview" , btnOverview );
         setBtn(permissionNames,"Product" , btnProducts);
         setBtn(permissionNames,"Category" , btnCategories);
         setBtn(permissionNames , "Employee"  , btnEmployees);
