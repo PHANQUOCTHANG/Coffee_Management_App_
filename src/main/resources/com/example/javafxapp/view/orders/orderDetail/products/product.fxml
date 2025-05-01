@@ -14,12 +14,12 @@
          <image>
             <Image url="@../../images/milkcoffee.png" />
          </image></ImageView>
-      <Label fx:id="nameLabel" prefHeight="42.0" prefWidth="234.0" text="Cà phê sữa cappuchino" wrapText="true">
+      <Label fx:id="nameLabel" prefHeight="42.0" prefWidth="234.0" style="-fx-text-fill: #070707;" text="Cà phê sữa cappuchino" wrapText="true">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
-      <Label fx:id="priceLabel" layoutX="10.0" layoutY="224.0" prefHeight="42.0" prefWidth="234.0" text="25.000 VND" wrapText="true">
+      <Label fx:id="priceLabel" layoutX="10.0" layoutY="224.0" prefHeight="42.0" prefWidth="234.0" style="-fx-text-fill: #070707;" text="25.000 VND" wrapText="true">
          <font>
             <Font name="Bell MT" size="22.0" />
          </font>
