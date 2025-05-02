@@ -105,7 +105,7 @@ public class EmployeeController {
     //// Trang chi tiết .
     // chi tiết nhân viên .
     private void handleDetail(int employeeId) {
-        Pages.pageDetailEmployee(employeeId);
+        Pages.pageDetailRole(employeeId);
     }
 
     // khi chuyển qua trang chi tiết sẽ mặc định gọi .
@@ -126,7 +126,7 @@ public class EmployeeController {
     // chuyển qua trang thêm 1 nhân viên .
     @FXML
     private void addEmployee() {
-        Pages.pageAddEmployee();
+        Pages.pageAddRole();
     }
 
     // thêm nhân viên .
@@ -275,4 +275,3 @@ public class EmployeeController {
     }
 
 }
-
