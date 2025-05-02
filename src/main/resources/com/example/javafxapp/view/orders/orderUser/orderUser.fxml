@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -16,11 +16,26 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1250.0" style="-fx-background-color: #F3F4F6;" stylesheets="@../styles/productManagement.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxapp.Controller.Admin.Order.OrderController">
+<VBox alignment="TOP_CENTER" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1250.0" style="-fx-background-color: #F3F4F6;" stylesheets="@../styles/productManagement.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxapp.Controller.Admin.Order.OrderUserController">
     <children>
         <HBox alignment="CENTER_LEFT" maxHeight="55.0" maxWidth="1245.0" prefHeight="70.0" prefWidth="1095.0">
             <children>
-                <Label prefHeight="50.0" prefWidth="276.0" style="-fx-font-size: 20px;" text="Danh sách hoá đơn">
+                  <JFXButton onAction="#back" prefHeight="29.0" prefWidth="43.0" style="-fx-background-color: transparent;" text="." textFill="WHITE">
+                      <font>
+                          <Font size="14.0" />
+                      </font>
+                      <HBox.margin>
+                          <Insets left="10.0" />
+                      </HBox.margin>
+               <graphic>
+                  <ImageView fitHeight="33.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/back-icon.jpg" />
+                     </image>
+                  </ImageView>
+               </graphic>
+                  </JFXButton>
+                <Label prefHeight="50.0" prefWidth="303.0" style="-fx-font-size: 20px;" text="Danh sách đơn hàng trực tuyến">
                     <font>
                         <Font name="Arial" size="20.0" />
                     </font>
@@ -28,37 +43,6 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                     </padding>
                 </Label>
-            <JFXButton contentDisplay="RIGHT" onAction="#goToOnline" prefHeight="43.0" prefWidth="216.0" style="-fx-background-color: #bfbfbf; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 3); -fx-background-radius: 8px;" text="Xem danh sách trực tuyến">
-               <font>
-                  <Font size="14.0" />
-               </font>
-               <graphic>
-                  <ImageView fitHeight="33.0" fitWidth="27.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/back-icon.jpg" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <effect>
-                  <DropShadow />
-               </effect>
-            </JFXButton>
-                <HBox alignment="TOP_RIGHT" prefHeight="50.0" prefWidth="551.0" />
-                  <JFXButton onAction="#addOrder" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #0051CE;" text="Tạo hoá đơn" textFill="WHITE">
-                      <font>
-                          <Font size="14.0" />
-                      </font>
-                      <graphic>
-                          <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                              <image>
-                                  <Image url="@../images/circleplus.png" />
-                              </image>
-                          </ImageView>
-                      </graphic>
-                      <HBox.margin>
-                          <Insets left="10.0" />
-                      </HBox.margin>
-                  </JFXButton>
             </children>
         </HBox>
         <VBox maxHeight="1000.0" maxWidth="1245.0" prefHeight="1000.0" prefWidth="1034.0" style="-fx-background-color: #FFFFFF;">
@@ -72,7 +56,7 @@
                             <children>
                                 <ImageView fitHeight="31.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../images/searchicon.png" />
+                                        <Image url="@../../images/searchicon.png" />
                                     </image>
                                 </ImageView>
                                 <TextField fx:id="searchField" prefHeight="41.0" prefWidth="459.0" promptText="Tìm kiếm theo tên" style="-fx-border-color: #ffffff;">
@@ -110,12 +94,17 @@
                 </HBox>
             <HBox alignment="CENTER_LEFT" maxWidth="1247.0" minHeight="55.0" minWidth="1200.0" prefHeight="55.0" prefWidth="1247.0">
                <children>
-                  <Label alignment="CENTER" maxWidth="180.0" minWidth="50.0" prefHeight="41.0" prefWidth="50.0" text="ID ">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
-                  <Label alignment="CENTER" maxWidth="210.0" minWidth="200.0" prefHeight="41.0" prefWidth="198.0" text="Tên người tạo">
+                  <HBox alignment="CENTER">
+                     <children>
+                        <JFXCheckBox text="." />
+                        <Label alignment="CENTER" maxWidth="180.0" minWidth="49.0" prefHeight="41.0" prefWidth="152.0" text="Mã đơn hàng">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <Label alignment="CENTER" maxWidth="210.0" minWidth="112.0" prefHeight="45.0" prefWidth="220.0" text="Khách hàng">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -123,7 +112,7 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                   </Label>
-                  <Label alignment="CENTER" layoutX="945.0" layoutY="17.0" maxWidth="250.0" minWidth="250.0" prefHeight="41.0" prefWidth="199.0" text="Loại">
+                  <Label alignment="CENTER" layoutX="945.0" layoutY="17.0" maxWidth="250.0" minWidth="200.0" prefHeight="45.0" prefWidth="270.0" text="Ngày đặt">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -131,7 +120,7 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                   </Label>
-                  <Label alignment="CENTER" layoutX="796.0" layoutY="17.0" maxWidth="175.0" minWidth="175.0" prefHeight="37.0" prefWidth="210.0" text="Tổng giá">
+                  <Label alignment="CENTER" layoutX="796.0" layoutY="17.0" maxWidth="175.0" minWidth="175.0" prefHeight="37.0" prefWidth="210.0" text="Giá trị">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -155,15 +144,7 @@
                         <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                      </padding>
                   </HBox>
-                  <Label alignment="CENTER" layoutX="673.0" layoutY="10.0" maxWidth="200.0" minWidth="200.0" prefHeight="41.0" prefWidth="225.0" text="Thời gian tạo">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </Label>
-                  <Label alignment="CENTER" layoutX="920.0" layoutY="17.0" maxWidth="170.0" minWidth="170.0" prefHeight="41.0" prefWidth="225.0" text="Hành động">
+                  <Label alignment="CENTER" layoutX="920.0" layoutY="17.0" maxWidth="240.0" minWidth="170.0" prefHeight="41.0" prefWidth="225.0" text="Hành động">
                      <font>
                         <Font size="16.0" />
                      </font>

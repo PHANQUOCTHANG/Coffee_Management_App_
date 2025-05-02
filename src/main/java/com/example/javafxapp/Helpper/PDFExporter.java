@@ -89,8 +89,7 @@ public class PDFExporter {
             totalTable.setWidthPercentage(40);
             totalTable.setHorizontalAlignment(Element.ALIGN_RIGHT);
 
-            double tax = subtotal * 0.1;
-            double total = subtotal + tax;
+            double total = subtotal;
             addTotalRow(totalTable, "Tổng Cộng:", String.format("%.2f đ", total), totalFont);
 
             document.add(totalTable);

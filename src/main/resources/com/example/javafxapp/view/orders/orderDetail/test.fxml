@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.coffeeshop.controller.OnlineInvoiceDetailController">
+    <!-- Main container for the dialog -->
+    <StackPane AnchorPane.topAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+        <!-- Online Invoice Detail Dialog -->
+        <VBox fx:id="invoiceDetailDialog" styleClass="detail-dialog" maxWidth="900" maxHeight="700">
+            <padding>
+                <Insets top="15" right="20" bottom="20" left="20" />
+            </padding>
+            
+            <VBox styleClass="dialog-header">
+                <padding>
+                    <Insets bottom="15" />
+                </padding>
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label text="Chi tiết đơn hàng trực tuyến" styleClass="dialog-title">
+                        <font>
+                            <Font name="System Bold" size="16.0" />
+                        </font>
+                    </Label>
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Button fx:id="closeDetailButton" styleClass="close-button" text="✕" onAction="#handleCloseDialog" />
+                </HBox>
+            </VBox>
+            
+            <HBox spacing="20" styleClass="invoice-info-section">
+                <padding>
+                    <Insets top="10" bottom="20" />
+                </padding>
+                <VBox spacing="10" HBox.hgrow="ALWAYS">
+                    <Label text="Thông tin đơn hàng" styleClass="section-title">
+                        <font>
+                            <Font name="System Bold" size="14.0" />
+                        </font>
+                    </Label>
+                    <GridPane hgap="10" vgap="8">
+                        <Label text="Mã đơn:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <Label fx:id="orderIdLabel" text="OL-20250501-001" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                        
+                        <Label text="Thời gian:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <Label fx:id="orderTimeLabel" text="01/05/2025 09:25:18" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        
+                        <Label text="Tổng tiền:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                        <Label fx:id="totalPriceLabel" text="750,000 đ" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        
+                        <Label text="Trạng thái:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                        <HBox alignment="CENTER_LEFT" spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                            <ComboBox fx:id="statusComboBox" promptText="Chọn trạng thái" prefWidth="150" />
+                            <Button fx:id="updateStatusButton" text="Cập nhật" onAction="#handleUpdateStatus" />
+                        </HBox>
+                        
+                        <columnConstraints>
+                            <ColumnConstraints minWidth="80" />
+                            <ColumnConstraints minWidth="200" />
+                        </columnConstraints>
+                    </GridPane>
+                </VBox>
+                
+                <VBox spacing="10" HBox.hgrow="ALWAYS">
+                    <Label text="Thông tin khách hàng" styleClass="section-title">
+                        <font>
+                            <Font name="System Bold" size="14.0" />
+                        </font>
+                    </Label>
+                    <GridPane hgap="10" vgap="8">
+                        <Label text="Tên:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <Label fx:id="customerNameLabel" text="Nguyễn Văn A" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                        
+                        <Label text="Điện thoại:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <Label fx:id="customerPhoneLabel" text="0912345678" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        
+                        <Label text="Địa chỉ:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                        <Label fx:id="customerAddressLabel" text="123 Nguyễn Huệ, Quận 1, TP.HCM" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        
+                        <Label text="Ghi chú:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                        <Label fx:id="customerNoteLabel" text="Giao hàng nhanh" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        
+                        <columnConstraints>
+                            <ColumnConstraints minWidth="80" />
+                            <ColumnConstraints minWidth="200" />
+                        </columnConstraints>
+                    </GridPane>
+                </VBox>
+            </HBox>
+            
+            <VBox spacing="10" styleClass="order-items-section" VBox.vgrow="ALWAYS">
+                <Label text="Các món đã đặt" styleClass="section-title">
+                    <font>
+                        <Font name="System Bold" size="14.0" />
+                    </font>
+                </Label>
+                <TableView fx:id="orderItemsTable" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="itemNameColumn" text="Tên sản phẩm" prefWidth="300" />
+                        <TableColumn fx:id="itemQuantityColumn" text="Số lượng" prefWidth="100" />
+                        <TableColumn fx:id="itemPriceColumn" text="Đơn giá" prefWidth="150" />
+                        <TableColumn fx:id="itemTotalColumn" text="Thành tiền" prefWidth="150" />
+                    </columns>
+                    <placeholder>
+                        <Label text="Không có sản phẩm nào" />
+                    </placeholder>
+                </TableView>
+            </VBox>
+            
+            <HBox spacing="10" alignment="CENTER_RIGHT" styleClass="dialog-actions">
+                <padding>
+                    <Insets top="20" />
+                </padding>
+                <Button fx:id="printInvoiceButton" text="In hoá đơn" onAction="#handlePrintInvoice">
+                    <graphic>
+                        <ImageView fitHeight="16" fitWidth="16">
+                            <Image url="@/icons/print.png" />
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="exportInvoiceButton" text="Xuất PDF" onAction="#handleExportInvoice">
+                    <graphic>
+                        <ImageView fitHeight="16" fitWidth="16">
+                            <Image url="@/icons/pdf.png" />
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </HBox>
+        </VBox>
+    </StackPane>
+</AnchorPane>

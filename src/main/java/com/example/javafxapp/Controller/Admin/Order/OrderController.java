@@ -9,11 +9,14 @@ import com.example.javafxapp.Controller.Admin.BaseController;
 import com.example.javafxapp.Controller.Admin.MainScreenController;
 import com.example.javafxapp.Helpper.AlertInfo;
 import com.example.javafxapp.Helpper.Pages;
+import com.example.javafxapp.Helpper.TextNormalizer;
 import com.example.javafxapp.Model.Order;
+import com.example.javafxapp.Model.Product;
 import com.example.javafxapp.Repository.OrderRepository;
 import com.example.javafxapp.Service.OrderService;
 import com.jfoenix.controls.JFXButton;
 
+import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,6 +28,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 public class OrderController extends BaseController {
     @FXML
@@ -62,6 +66,11 @@ public class OrderController extends BaseController {
     // map lưu trữ key value là id -> orderDetailController 
     // dùng để xoá mục orderDetail tương ứng
     Map<Integer, OrderItemController> mp = new HashMap<>();
+
+    @FXML
+    void goToOnline(){
+        msc.handleOnlineOrder();
+    }
 
     public MainScreenController getMSC(){
         return msc;
@@ -111,9 +120,46 @@ public class OrderController extends BaseController {
     }
     @FXML
     public void initialize(){
+        PauseTransition pause = new PauseTransition(Duration.seconds(0.75));
+
+        // ham search
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            pause.stop(); // Dừng transition nếu đang chạy
+            pause.setOnFinished(event -> {
+                if (newValue != null) {
+                    String cleaned = newValue.trim().replaceAll("\\s+", " ");
+                    if (cleaned.isEmpty()) {
+                        updateOrderDisplay(orders);
+                        return;
+                    }
+
+                    String keyword = TextNormalizer.normalize(cleaned);
+
+                    List<Order> filtered = new ArrayList<>();
+                    for (Order order : orders) {
+                        if (TextNormalizer.normalize(order.getStaffName()).contains(keyword)) {
+                            filtered.add(order);
+                        }
+                    }
+
+                    updateOrderDisplay(filtered);
+                }
+            });
+            pause.playFromStart(); // Bắt đầu đếm lại 1s sau mỗi lần nhập
+
+            
+        });
+
         loadData();
         lastPage.setText(String.valueOf(orders.size() / ordersPerPage + 
                             (orders.size() % ordersPerPage != 0 ? 1 : 0)));
+    }
+
+    private void updateOrderDisplay(List<Order> l){
+        List<Order> o = orders;
+        orders = l;
+        loadPage(currentPage);
+        orders = o;
     }
 
     @FXML

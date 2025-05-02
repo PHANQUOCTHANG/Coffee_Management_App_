@@ -258,7 +258,11 @@ public class CheckoutController implements Initializable {
             OrderUser orderUserCurrent = orderUserService.getOrderUserCurrent() ;
             // mua thành công thì sẽ thêm các sản phẩm đó vào đơn hàng và xóa các sản phẩm đã mua trong giỏ thanh toán ;
             for (Cart_Product cartProduct : ListProductOrderUser.list) {
-                if (orderUserCurrent != null) orderUserProductService.add(new OrderUser_Product(orderUserCurrent.getOrderUser_id() , cartProduct.getProduct_id() , cartProduct.getQuantity()));
+                System.out.println(orderUserCurrent.getOrderUser_id());
+                System.out.println(cartProduct.getProduct_id() );
+                System.out.println(cartProduct.getQuantity());
+                if (orderUserCurrent != null)
+                    orderUserProductService.add(new OrderUser_Product(orderUserCurrent.getOrderUser_id(), cartProduct.getProduct_id(), cartProduct.getQuantity()));
                 cartProductService.delete(cartProduct);
             }
             // xóa các sản phẩm đã chọn mua từ cart .

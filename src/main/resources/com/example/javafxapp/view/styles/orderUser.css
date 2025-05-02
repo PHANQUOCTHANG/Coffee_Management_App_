@@ -1,0 +1,27 @@
+.create-button:hover {
+    -fx-background-color: #1d4ed8;
+    -fx-cursor: hand;
+}
+
+#btnPrev:hover, #btnNext:hover {
+    -fx-background-color: #e2e8f0;
+    -fx-cursor: hand;
+}
+
+#btnPrev:disabled, #btnNext:disabled {
+    -fx-opacity: 0.4;
+}
+
+#txtTimKiem:focused, #cboTrangThai:focused {
+    -fx-border-color: #2563eb;
+    -fx-border-width: 2;
+}
+
+.table-view .column-header {
+    -fx-background-color: #f8fafc;
+    -fx-border-color: #e2e8f0;
+}
+
+.table-row-cell:filled:hover {
+    -fx-background-color: #f1f5f9;
+}

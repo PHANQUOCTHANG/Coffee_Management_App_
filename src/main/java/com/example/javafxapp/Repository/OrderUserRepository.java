@@ -70,7 +70,7 @@ public class OrderUserRepository {
 
     // get orderUser in currentTime ;
     public OrderUser getOrderUserCurrent () {
-        String sql = "SELECT * FROM OrderUser ORDER BY order_time limit 1" ;
+        String sql = "SELECT * FROM OrderUser ORDER BY order_time DESC limit 1" ;
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             ResultSet rs = stmt.executeQuery() ;

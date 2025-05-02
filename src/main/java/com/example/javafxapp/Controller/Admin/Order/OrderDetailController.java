@@ -88,6 +88,9 @@ public class OrderDetailController extends BaseController {
     @FXML
     private Label idLabel;
 
+    @FXML
+    private ScrollPane scroll1;  
+
     private int orderId = -1;
 
     public OrderDetailController(){};
@@ -99,6 +102,10 @@ public class OrderDetailController extends BaseController {
     private Order order = null;
 
     private double totalPrice = 0;
+
+    // dung cho responsive loadpage
+    double containerWidth = -1;
+
 
     @FXML
     private JFXComboBox typeComboBox;
@@ -147,6 +154,8 @@ public class OrderDetailController extends BaseController {
                 }
             });
             pause.playFromStart(); // Bắt đầu đếm lại 1s sau mỗi lần nhập
+
+            
         });
 
         
@@ -242,6 +251,8 @@ public class OrderDetailController extends BaseController {
             });
         }
 
+        
+
         executorService.shutdown();
         try {
             // Đợi các thread hoàn thành
@@ -255,16 +266,66 @@ public class OrderDetailController extends BaseController {
         // Sau khi hoàn thành tất cả các thread, cập nhật giao diện trên thread chính
         Platform.runLater(() -> {
             grid1.getChildren().clear();
-            for (int i = 0; i < vboxes.size(); i++) {
-                VBox vbox = vboxes.get(i);
-                grid1.add(vbox, i % 3 + 1, i / 3 + 1);
-                grid1.setMargin(vbox, new Insets(2));
-                grid1.setMaxWidth(214);
+            if (containerWidth == -1){
+                for (int i = 0; i < vboxes.size(); i++) {
+                    VBox vbox = vboxes.get(i);
+                    grid1.add(vbox, i % 3 + 1, i / 3 + 1);
+                    grid1.setMargin(vbox, new Insets(8));
+                    grid1.setMaxWidth(214);
+                }
+            } else {
+                int itemWidth = 214;
+                int margin = 8;
+                int numColumns = Math.max(3, (int) ((containerWidth - margin) / (itemWidth + margin * 2)));
+    
+                for (int i = 0; i < vboxes.size(); i++) {
+                    VBox vbox = vboxes.get(i);
+    
+                    int col = i % numColumns + 1;
+                    int row = i / numColumns + 1;
+    
+                    grid1.add(vbox, col, row);
+                    grid1.setMargin(vbox, new Insets(margin));
+                }
             }
+            
 
             loadOrderDetailList();
             loadTitle();
         });
+        // responsive scroll
+        PauseTransition pause = new PauseTransition(Duration.seconds(0.75));
+        
+        scroll1.widthProperty().addListener((obs, oldVal, newVal) -> { 
+            pause.stop(); // Dừng transition nếu đang chạy
+            pause.setOnFinished(event -> {
+                Platform.runLater(() -> {
+            
+                    grid1.getChildren().clear();
+        
+                    containerWidth = newVal.doubleValue(); // container bao quanh grid1
+                    int itemWidth = 214;
+                    int margin = 8;
+                    int numColumns = Math.max(3, (int) ((containerWidth - margin) / (itemWidth + margin * 2)));
+        
+                    for (int i = 0; i < vboxes.size(); i++) {
+                        VBox vbox = vboxes.get(i);
+        
+                        int col = i % numColumns + 1;
+                        int row = i / numColumns + 1;
+        
+                        grid1.add(vbox, col, row);
+                        grid1.setMargin(vbox, new Insets(margin));
+                    }
+        
+                    loadOrderDetailList();
+                    loadTitle();
+                });
+            });
+            pause.playFromStart(); // Bắt đầu đếm lại 1s sau mỗi lần nhập
+            
+        });
+        
     }
 
     // load title
@@ -419,8 +480,7 @@ public class OrderDetailController extends BaseController {
             if (checkChange && AlertInfo.confirmAlert("Bạn muốn in những thay đổi hay in hoá đơn cũ? Chọn Ok để lưu thay đổi."))
                 saveOrderDetail();
             exportInvoicePDF(orderId, (List<OrderDetail>) orderDetailList);
-            if (!order.getStatus().equals("Completed"))
-                order.setStatus("Processing");
+            order.setStatus("Completed");
             AlertInfo.showAlert(Alert.AlertType.INFORMATION, 
                         "Thành công", "File invoice_" + orderId + ".pdf đã được lưu trong file invoices.");
         }

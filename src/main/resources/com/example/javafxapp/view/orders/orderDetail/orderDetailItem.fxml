@@ -17,7 +17,7 @@
             <Insets />
          </HBox.margin>
          <children>
-            <Label fx:id="unitName" prefHeight="20.0" prefWidth="300.0" text="Cà phê sữa">
+            <Label fx:id="unitName" prefHeight="20.0" prefWidth="300.0" style="-fx-text-fill: #070707;" text="Cà phê sữa">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
@@ -33,7 +33,7 @@
                         <Font size="20.0" />
                      </font>
                   </JFXButton>
-                  <Label fx:id="cntItem" alignment="CENTER" prefHeight="50.0" prefWidth="50.0" text="1">
+                  <Label fx:id="cntItem" alignment="CENTER" prefHeight="50.0" prefWidth="50.0" style="-fx-text-fill: #070707;" text="1">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -64,7 +64,7 @@
       </HBox>
       <HBox alignment="CENTER" layoutX="750.0" layoutY="60.0" prefHeight="50.0" prefWidth="107.0">
          <children>
-            <Label fx:id="unitPrice" alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="300.0" text="25,000đ">
+            <Label fx:id="unitPrice" alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="300.0" style="-fx-text-fill: #070707;" text="25,000đ">
                <font>
                   <Font size="18.0" />
                </font>
