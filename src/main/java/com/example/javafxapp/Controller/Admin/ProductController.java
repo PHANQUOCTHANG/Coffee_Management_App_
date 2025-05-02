@@ -224,6 +224,7 @@ public class ProductController {
         }
     }
 
+    // Trang thêm .
     // chuyển qua trang thêm 1 product .
     @FXML
     public void addProduct() {
@@ -257,12 +258,6 @@ public class ProductController {
         }
     }
 
-    // chi tiết 1 sản phẩm .
-    @FXML
-    public void handleDetail(int productId) {
-        Pages.pageDetailProduct(productId);
-    }
-
     // khi chuyển qua trang thêm sản phẩm sẽ mặc định gọi .
     @FXML
     public void loadDataAddProduct() {
@@ -272,6 +267,13 @@ public class ProductController {
             categories.add(category.getCategory_name());
         }
         categoryComboBox.getItems().addAll(categories);
+    }
+
+    // Trang chi tiết .
+    // chi tiết 1 sản phẩm .
+    @FXML
+    public void handleDetail(int productId) {
+        Pages.pageDetailProduct(productId);
     }
 
     // khi chuyển qua trang chi tiết sẽ mặc định gọi .
@@ -321,6 +323,30 @@ public class ProductController {
                 Stage stage = (Stage) btnId.getScene().getWindow();
                 stage.close();
             }
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // update sản phẩm .
+    @FXML
+    public void updateProduct() {
+        try {
+            int product_id = Integer.parseInt(btnId.getText());
+            Product productFind = productService.findProductByID(product_id);
+            String product_name = productNameField.getText().trim();
+            if (!ValidationProduct.validationProductName(product_name)) return;
+            double price = ValidationProduct.validationPrice(priceField.getText().trim());
+            if (price == -1) return;
+            String description = descriptionField.getText().trim();
+            if (!ValidationProduct.validationCategory(btnCategoryId.getText())) return;
+            int category_id = Integer.parseInt(btnCategoryId.getText());
+            String imgSrc = btnPathImg.getText();
+            boolean status = false;
+            if (inactiveCheckBox.isSelected()) status = true;
+            Product product = new Product(product_id, product_name, description, price, category_id, imgSrc, status, productFind.isOutstanding(), false);
+            productService.updateProduct(product);
+            AlertInfo.showAlert(Alert.AlertType.INFORMATION, "Thành công", "Cập nhật sản phẩm thành công");
         } catch (RuntimeException e) {
             e.printStackTrace();
         }
@@ -442,30 +468,6 @@ public class ProductController {
     public void categoryAction() {
         Category category = categoryService.findCategoryByName((String) categoryComboBox.getValue());
         btnCategoryId.setText(String.valueOf(category.getCategory_id()));
-    }
-
-    // update sản phẩm .
-    @FXML
-    public void updateProduct() {
-        try {
-            int product_id = Integer.parseInt(btnId.getText());
-            Product productFind = productService.findProductByID(product_id);
-            String product_name = productNameField.getText().trim();
-            if (!ValidationProduct.validationProductName(product_name)) return;
-            double price = ValidationProduct.validationPrice(priceField.getText().trim());
-            if (price == -1) return;
-            String description = descriptionField.getText().trim();
-            if (!ValidationProduct.validationCategory(btnCategoryId.getText())) return;
-            int category_id = Integer.parseInt(btnCategoryId.getText());
-            String imgSrc = btnPathImg.getText();
-            boolean status = false;
-            if (inactiveCheckBox.isSelected()) status = true;
-            Product product = new Product(product_id, product_name, description, price, category_id, imgSrc, status, productFind.isOutstanding(), false);
-            productService.updateProduct(product);
-            AlertInfo.showAlert(Alert.AlertType.INFORMATION, "Thành công", "Cập nhật sản phẩm thành công");
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-        }
     }
 
     // Lọc

@@ -70,8 +70,6 @@ public class ShoppingCartController implements Initializable {
         // Update totals
         updateTotalsAndSelectAll();
 
-//        // Check for promotions
-//        checkForPromotions();
     }
 
     private void loadCartItems() {

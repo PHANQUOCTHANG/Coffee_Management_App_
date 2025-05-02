@@ -112,17 +112,41 @@ public class AccountController{
         if (grid != null) loadData();
     }
 
-    // chi tiết category .
+    // Trang chi tiết .
+    // chi tiết  .
     private void handleDetail(int accountId) {
         Pages.pageDetailAccount(accountId);
     }
 
+    // khi chuyển qua trang chi tiết sẽ mặc định gọi .
+    @FXML
+    public void loadDataDetailAccount(int accountId) {
+        Account account = accountService.findAccountByID(accountId) ;
+        List<String> roles = new ArrayList<>();
+        for (Role role : roleService.getAllRole()) {
+            roles.add(role.getRole_name()) ;
+        }
+        roleComboBox.getItems().addAll(roles) ;
+        if (account != null) {
+            accountNameField.setText(account.getAccountName());
+            passwordField.setText(account.getPassword());
+            String role_name = roleService.findRoleByID(account.getRoleId()).getRole_name() ;
+            roleComboBox.setValue(role_name);
+            btnId.setText(String.valueOf(accountId));
+            btnId.setVisible(false);
+            btnRoleId.setText(String.valueOf(account.getRoleId()));
+            btnRoleId.setVisible(false);
+        } else {
+            System.out.println("Không tìm thấy!");
+        }
+    }
+
+    // Trang thêm .
     // chuyển qua trang thêm 1 tài khoản  .
     @FXML
     private void addAccount() {
         Pages.pageAddAccount();
     }
-
 
     // thêm tài khoản .
     @FXML
@@ -142,6 +166,18 @@ public class AccountController{
             e.printStackTrace();
         }
     }
+
+    // khi chuyển qua trang thêm sẽ mặc định gọi .
+    @FXML
+    public void loadDataAddAccount() {
+        btnRoleId.setVisible(false);
+        List<String> roles = new ArrayList<>() ;
+        for (Role role : roleService.getAllRole()) {
+            roles.add(role.getRole_name()) ;
+        }
+        roleComboBox.getItems().addAll(roles) ;
+    }
+
 
 
     // hàm tìm kiếm bằng tên .
@@ -233,40 +269,6 @@ public class AccountController{
         }
         catch (RuntimeException e) {
             e.printStackTrace();
-        }
-    }
-
-    // khi chuyển qua trang thêm sẽ mặc định gọi .
-    @FXML
-    public void loadDataAddAccount() {
-        btnRoleId.setVisible(false);
-        List<String> roles = new ArrayList<>() ;
-        for (Role role : roleService.getAllRole()) {
-           roles.add(role.getRole_name()) ;
-        }
-        roleComboBox.getItems().addAll(roles) ;
-    }
-
-    // khi chuyển qua trang chi tiết sẽ mặc định gọi .
-    @FXML
-    public void loadDataDetailAccount(int accountId) {
-        Account account = accountService.findAccountByID(accountId) ;
-        List<String> roles = new ArrayList<>();
-        for (Role role : roleService.getAllRole()) {
-            roles.add(role.getRole_name()) ;
-        }
-        roleComboBox.getItems().addAll(roles) ;
-        if (account != null) {
-            accountNameField.setText(account.getAccountName());
-            passwordField.setText(account.getPassword());
-            String role_name = roleService.findRoleByID(account.getRoleId()).getRole_name() ;
-            roleComboBox.setValue(role_name);
-            btnId.setText(String.valueOf(accountId));
-            btnId.setVisible(false);
-            btnRoleId.setText(String.valueOf(account.getRoleId()));
-            btnRoleId.setVisible(false);
-        } else {
-            System.out.println("Không tìm thấy!");
         }
     }
 

@@ -56,6 +56,7 @@ public class MainScreenController {
         handleOverview();
     }
 
+    // css cho mục đang chọn .
     public void setActiveButton(JFXButton activeButton) {
         for (JFXButton btn : menuButtons) {
             btn.getStyleClass().remove("selected-button");

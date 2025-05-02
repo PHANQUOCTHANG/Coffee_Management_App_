@@ -781,11 +781,4 @@ public class CoffeeShopController implements Initializable {
         confirmNewPasswordField.clear();
     }
 
-    @FXML
-    private void handleRefreshOrders() {
-    }
-
-    @FXML
-    private void handleSaveSettings() {
-    }
 }

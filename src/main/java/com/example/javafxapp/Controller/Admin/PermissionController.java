@@ -100,6 +100,21 @@ public class PermissionController {
         Pages.pageDetailPermission(permissionId) ;
     }
 
+    // Trang chi tiết .
+    // khi chuyển qua trang chi tiết sẽ mặc định gọi .
+    @FXML
+    public void loadDataDetailPermission(int permissionId) {
+        Permission permission = permissionService.findPermissionByID(permissionId) ;
+        if (permission != null) {
+            permissionNameField.setText(permission.getPermission_name());
+            btnId.setText(String.valueOf(permissionId));
+            btnId.setVisible(false);
+        } else {
+            System.out.println("Không tìm thấy !");
+        }
+    }
+
+    // Trang thêm .
     // chuyển qua trang thêm.
     @FXML
     private void addPermission() {
@@ -160,18 +175,6 @@ public class PermissionController {
         }
     }
 
-    // khi chuyển qua trang chi tiết sẽ mặc định gọi .
-    @FXML
-    public void loadDataDetailPermission(int permissionId) {
-        Permission permission = permissionService.findPermissionByID(permissionId) ;
-        if (permission != null) {
-            permissionNameField.setText(permission.getPermission_name());
-            btnId.setText(String.valueOf(permissionId));
-            btnId.setVisible(false);
-        } else {
-            System.out.println("Không tìm thấy !");
-        }
-    }
 
     // checkBox all
     @FXML

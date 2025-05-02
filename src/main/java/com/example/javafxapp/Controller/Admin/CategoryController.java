@@ -96,11 +96,26 @@ public class CategoryController {
         if (grid != null) loadData();
     }
 
+    // Trang chi tiết .
     // chi tiết category .
     private void handleDetail(int categoryId) {
         Pages.pageDetailCategory(categoryId) ;
     }
 
+    // khi chuyển qua trang chi tiết sẽ mặc định gọi .
+    @FXML
+    public void loadDataDetailCategory(int categoryId) {
+        Category category = categoryService.findCategoryByID(categoryId) ;
+        if (category != null) {
+            categoryNameField.setText(category.getCategory_name());
+            btnId.setText(String.valueOf(categoryId));
+            btnId.setVisible(false);
+        } else {
+            System.out.println("Không tìm thấy danh mục!");
+        }
+    }
+
+    // Trang thêm .
     // chuyển qua trang thêm 1 danh mục .
     @FXML
     private void addCategory() {
@@ -209,19 +224,6 @@ public class CategoryController {
         }
         catch (RuntimeException e) {
             e.printStackTrace();
-        }
-    }
-
-    // khi chuyển qua trang chi tiết sẽ mặc định gọi .
-    @FXML
-    public void loadDataDetailCategory(int categoryId) {
-        Category category = categoryService.findCategoryByID(categoryId) ;
-        if (category != null) {
-            categoryNameField.setText(category.getCategory_name());
-            btnId.setText(String.valueOf(categoryId));
-            btnId.setVisible(false);
-        } else {
-            System.out.println("Không tìm thấy danh mục!");
         }
     }
 

@@ -119,38 +119,25 @@ public class RoleController {
         if (grid != null) loadData();
     }
 
+
+    // Trang chi tiết .
     // chi tiết role .
     private void handleDetail(int roleId) {
         Pages.pageDetailRole(roleId);
     }
 
-    // chuyển qua trang thêm 1 danh mục .
+    // khi chuyển qua trang chi tiết sẽ mặc định gọi .
     @FXML
-    private void addRole() {
-        Pages.pageAddRole();
-    }
-
-    // thêm role .
-    @FXML
-    private void addRolePost() {
-        try {
-            String role_name = roleNameField.getText().trim();
-            if (!ValidationRole.validationRoleName(role_name)) return;
-            String description = descriptionField.getText().trim();
-            roleService.addRole(new Role(role_name, description));
-            AlertInfo.showAlert(Alert.AlertType.INFORMATION, "Thành công", "Thêm thành công");
-            Stage stage = (Stage) btnAdd.getScene().getWindow();
-            stage.close();
-        } catch (RuntimeException e) {
-            AlertInfo.showAlert(Alert.AlertType.WARNING, "Lỗi", "Thêm thất bại");
-            e.printStackTrace();
+    public void loadDataDetailRole(int roleId) {
+        Role role = roleService.findRoleByID(roleId);
+        if (role != null) {
+            roleNameField.setText(role.getRole_name());
+            descriptionField.setText(role.getDescription());
+            btnId.setText(String.valueOf(roleId));
+            btnId.setVisible(false);
+        } else {
+            System.out.println("Không tìm thấy danh mục!");
         }
-    }
-
-
-    // hàm tìm kiếm bằng tên .
-    @FXML
-    public void searchRole() {
     }
 
     // xóa .
@@ -185,18 +172,33 @@ public class RoleController {
         }
     }
 
-    // khi chuyển qua trang chi tiết sẽ mặc định gọi .
+    // Trang thêm .
+    // chuyển qua trang thêm .
     @FXML
-    public void loadDataDetailRole(int roleId) {
-        Role role = roleService.findRoleByID(roleId);
-        if (role != null) {
-            roleNameField.setText(role.getRole_name());
-            descriptionField.setText(role.getDescription());
-            btnId.setText(String.valueOf(roleId));
-            btnId.setVisible(false);
-        } else {
-            System.out.println("Không tìm thấy danh mục!");
+    private void addRole() {
+        Pages.pageAddRole();
+    }
+
+    // thêm role .
+    @FXML
+    private void addRolePost() {
+        try {
+            String role_name = roleNameField.getText().trim();
+            if (!ValidationRole.validationRoleName(role_name)) return;
+            String description = descriptionField.getText().trim();
+            roleService.addRole(new Role(role_name, description));
+            AlertInfo.showAlert(Alert.AlertType.INFORMATION, "Thành công", "Thêm thành công");
+            Stage stage = (Stage) btnAdd.getScene().getWindow();
+            stage.close();
+        } catch (RuntimeException e) {
+            AlertInfo.showAlert(Alert.AlertType.WARNING, "Lỗi", "Thêm thất bại");
+            e.printStackTrace();
         }
+    }
+
+    // hàm tìm kiếm bằng tên .
+    @FXML
+    public void searchRole() {
     }
 
     private List<CheckBox> checkBoxPermissions = new ArrayList<>();

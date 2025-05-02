@@ -63,6 +63,7 @@ public class AuthController{
         });
     }
 
+    // chuyển qua giao diện sign up .
     @FXML
     public void showSignUp() {
         if (isLoginVisible) {
@@ -82,6 +83,7 @@ public class AuthController{
         }
     }
 
+    // chuyển qua giao diện login .
     @FXML
     public void showLogin() {
         if (!isLoginVisible) {
