@@ -3,21 +3,17 @@ package com.example.javafxapp.Controller.Admin.Order;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-import java.util.regex.Pattern;
 import java.util.HashMap;
 import java.util.List;
 
-import com.example.javafxapp.Controller.Admin.MainScreenController;
 import com.example.javafxapp.Controller.Admin.BaseController;
 import com.example.javafxapp.Helpper.AlertInfo;
 import com.example.javafxapp.Helpper.PDFExporter;
-import com.example.javafxapp.Helpper.Pages;
 import com.example.javafxapp.Helpper.TextNormalizer;
 import com.example.javafxapp.Model.Account;
 import com.example.javafxapp.Model.Category;
@@ -48,7 +44,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class OrderDetailController extends BaseController {
@@ -233,7 +228,7 @@ public class OrderDetailController extends BaseController {
                 Product product = products.get(finalI);
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource(
-                        "/com/example/javafxapp/view/orders/orderDetail/products/product.fxml"));
+                            "/com/example/javafxapp/View/Orders/OrderDetail/products/product.fxml"));
                     VBox vbox = loader.load();
 
                     ProductOrderDetailItemController pic = loader.getController();
@@ -424,7 +419,7 @@ public class OrderDetailController extends BaseController {
             OrderDetail od = orderDetailList.get(i);
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource(
-                    "/com/example/javafxapp/view/orders/orderDetail/orderDetailItem.fxml"
+                        "/com/example/javafxapp/View/Orders/OrderDetail/orderDetailItem.fxml"
                 ));
                 HBox hbox = loader.load();
                 OrderDetailItemController odic = loader.getController();

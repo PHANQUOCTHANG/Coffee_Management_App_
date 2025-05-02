@@ -370,7 +370,7 @@ public class CoffeeShopController implements Initializable {
 
         // Thêm sản phẩm vào grid
         for (int i = 0; i < products.size(); i++) {
-            categoryGrid.add(createProductCard(products.get(i)), i % 3, i / 3);
+            categoryGrid.add(createProductCard(products.get(i)), i % productLimit, i / productLimit);
         }
 
         // Thêm vào container chính

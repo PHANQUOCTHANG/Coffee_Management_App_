@@ -27,7 +27,7 @@
                                  <children>
                                     <ImageView fitHeight="300.0" fitWidth="1300.0" pickOnBounds="true" HBox.hgrow="ALWAYS">
                                        <image>
-                                          <Image url="@../images/cfview2.jpg" />
+                                          <Image url="@../Images/cfview2.jpg" />
                                        </image>
                                        <effect>
                                           <ColorAdjust brightness="-0.35" />

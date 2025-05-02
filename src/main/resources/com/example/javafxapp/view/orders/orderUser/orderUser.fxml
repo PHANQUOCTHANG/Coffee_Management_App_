@@ -30,7 +30,7 @@
                <graphic>
                   <ImageView fitHeight="33.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../images/back-icon.jpg" />
+                        <Image url="@../../Images/back-icon.jpg" />
                      </image>
                   </ImageView>
                </graphic>
@@ -56,7 +56,7 @@
                             <children>
                                 <ImageView fitHeight="31.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../../images/searchicon.png" />
+                                        <Image url="@../../Images/searchicon.png" />
                                     </image>
                                 </ImageView>
                                 <TextField fx:id="searchField" prefHeight="41.0" prefWidth="459.0" promptText="Tìm kiếm theo tên" style="-fx-border-color: #ffffff;">

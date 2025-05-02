@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="1600.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="809.0" prefWidth="1582.0" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxapp.Controller.Admin.MainScreenController">
+<BorderPane maxHeight="-Infinity" maxWidth="1600.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="809.0" prefWidth="1582.0" stylesheets="@../../Styles/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxapp.Controller.Admin.MainScreenController">
     <top>
         <HBox maxWidth="1600.0" prefHeight="60.0" prefWidth="1300.0" style="-fx-background-color: #ffffff; -fx-border-color: gray; -fx-border-width: 0 0 2px;" BorderPane.alignment="CENTER_LEFT">
             <padding>
@@ -20,7 +20,7 @@
             <children>
                 <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../../images/CoffeeShopLogo.png" />
+                        <Image url="@../../Images/CoffeeShopLogo.png" />
                     </image>
                 </ImageView>
                 <Label prefHeight="100.0" prefWidth="89.0" text="COFFEE">
@@ -39,11 +39,11 @@
     <left>
         <VBox prefHeight="723.0" prefWidth="307.0" style="-fx-background-color: #1A2235; -fx-border-color: gray; -fx-border-width: 0 2px;" BorderPane.alignment="CENTER">
             <children>
-                <JFXButton fx:id="btnOverview" alignment="TOP_LEFT" layoutX="12.0" layoutY="25.0" onAction="#handleOverview" prefHeight="83.0" prefWidth="296.0" style="-fx-border-color: gray; -fx-border-width: 2px 0 2px;" text="  Overview" textFill="WHITE">
+                <JFXButton fx:id="btnOverview" alignment="TOP_LEFT" layoutX="12.0" layoutY="25.0" onAction="#handleOverview" prefHeight="83.0" prefWidth="304.0" style="-fx-border-color: gray; -fx-border-width: 2px 0 2px;" text="  Overview" textFill="WHITE">
                     <graphic>
                         <ImageView fitHeight="40.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../../images/dashboard1.png" />
+                                <Image url="@../../Images/dashboard1.png" />
                             </image>
                         </ImageView>
                     </graphic>
@@ -58,7 +58,7 @@
                     <graphic>
                         <ImageView fitHeight="40.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../../images/icons8-product-64.png" />
+                                <Image url="@../../Images/icons8-product-64.png" />
                             </image>
                         </ImageView>
                     </graphic>
@@ -73,7 +73,7 @@
                     <graphic>
                         <ImageView fitHeight="40.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../../images/icons8-category-64.png" />
+                                <Image url="@../../Images/icons8-category-64.png" />
                             </image>
                         </ImageView>
                     </graphic>
@@ -88,7 +88,7 @@
                     <graphic>
                         <ImageView fitHeight="40.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../../images/icons8-employees-48.png" />
+                                <Image url="@../../Images/icons8-employees-48.png" />
                             </image>
                         </ImageView>
                     </graphic>
@@ -103,7 +103,7 @@
                     <graphic>
                         <ImageView fitHeight="40.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../../images/icons8-order-64.png" />
+                                <Image url="@../../Images/icons8-order-64.png" />
                             </image>
                         </ImageView>
                     </graphic>
@@ -118,7 +118,7 @@
                     <graphic>
                         <ImageView fitHeight="40.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../../images/icons8-account-64.png" />
+                                <Image url="@../../Images/icons8-account-64.png" />
                             </image>
                         </ImageView>
                     </graphic>
@@ -133,7 +133,7 @@
                     <graphic>
                         <ImageView fitHeight="40.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../../images/icon-role.png" />
+                                <Image url="@../../Images/icon-role.png" />
                             </image>
                         </ImageView>
                     </graphic>
@@ -148,7 +148,7 @@
                     <graphic>
                         <ImageView fitHeight="40.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../../images/icon-role.png" />
+                                <Image url="@../../Images/icon-role.png" />
                             </image>
                         </ImageView>
                     </graphic>
@@ -163,7 +163,7 @@
                     <graphic>
                         <ImageView fitHeight="40.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../../images/icons8-log-out-48.png" />
+                                <Image url="@../../Images/icons8-log-out-48.png" />
                             </image>
                         </ImageView>
                     </graphic>
@@ -179,7 +179,7 @@
     </left>
     <center>
         <StackPane fx:id="centerPane">
-            <fx:include source="../dashboard/dashboard.fxml" />
+            <fx:include source="../Dashboard/dashboard.fxml" />
          <padding>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </padding>

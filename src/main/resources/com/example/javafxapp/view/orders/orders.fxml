@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1250.0" style="-fx-background-color: #F3F4F6;" stylesheets="@../styles/productManagement.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxapp.Controller.Admin.Order.OrderController">
+<VBox alignment="TOP_CENTER" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1250.0" style="-fx-background-color: #F3F4F6;" stylesheets="@../Styles/productManagement.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxapp.Controller.Admin.Order.OrderController">
     <children>
         <HBox alignment="CENTER_LEFT" maxHeight="55.0" maxWidth="1245.0" prefHeight="70.0" prefWidth="1095.0">
             <children>
@@ -35,7 +35,7 @@
                <graphic>
                   <ImageView fitHeight="33.0" fitWidth="27.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/back-icon.jpg" />
+                        <Image url="@../Images/back-icon.jpg" />
                      </image>
                   </ImageView>
                </graphic>
@@ -51,7 +51,7 @@
                       <graphic>
                           <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                               <image>
-                                  <Image url="@../images/circleplus.png" />
+                                  <Image url="@../Images/circleplus.png" />
                               </image>
                           </ImageView>
                       </graphic>
@@ -72,7 +72,7 @@
                             <children>
                                 <ImageView fitHeight="31.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../images/searchicon.png" />
+                                        <Image url="@../Images/searchicon.png" />
                                     </image>
                                 </ImageView>
                                 <TextField fx:id="searchField" prefHeight="41.0" prefWidth="459.0" promptText="Tìm kiếm theo tên" style="-fx-border-color: #ffffff;">

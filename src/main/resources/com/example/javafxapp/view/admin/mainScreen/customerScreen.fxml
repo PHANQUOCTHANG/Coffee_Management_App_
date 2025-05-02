@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="1600.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="809.0" prefWidth="1582.0" stylesheets="@../../styles/customer.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="1600.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="809.0" prefWidth="1582.0" stylesheets="@../../Styles/customer.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <HBox maxWidth="1600.0" prefHeight="60.0" prefWidth="1300.0" style="-fx-background-color: #ffffff; -fx-border-color: gray; -fx-border-width: 0 0 2px;" BorderPane.alignment="CENTER_LEFT">
          <padding>
@@ -19,7 +19,7 @@
          <children>
             <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../images/CoffeeShopLogo.png" />
+                  <Image url="@../../Images/CoffeeShopLogo.png" />
                </image>
             </ImageView>
             <Label prefHeight="100.0" prefWidth="112.0" text="Coffee">

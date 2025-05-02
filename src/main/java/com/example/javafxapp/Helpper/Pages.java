@@ -19,7 +19,7 @@ public class Pages {
     // Chuyển qua page dashboard .
     public static void pagesMainScreen() {
         try {
-            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/admin/mainScreen/mainScreen.fxml"));
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/View/Admin/MainScreen/mainScreen.fxml"));
             Pane root = loader.load();
             MainScreenController mainScreenController = loader.getController() ;
             mainScreenController.setAccount();
@@ -40,7 +40,7 @@ public class Pages {
     // chuyển qua trang người dùng .
     public static void pageUser() {
         try {
-            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/client/home/home.fxml"));
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/View/Client/Home/home.fxml"));
             Pane root = loader.load();
             Stage stage = new Stage();
             Scene scene = new Scene(root);
@@ -61,7 +61,7 @@ public class Pages {
     // chuyển qua trang login .
     public static void pageLogin() {
         try {
-            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/login_signup/auth.fxml"));
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/View/Auth/auth.fxml"));
             Scene scene = new Scene(loader.load());
             Stage stage = new Stage();
             stage.getIcons().add(new Image(Pages.class.getResourceAsStream("/com/example/javafxapp/view/images/icons.jpg")));
@@ -79,7 +79,7 @@ public class Pages {
     // chuyển qua trang sign-up .
     public static void pageSignUp() {
         try {
-            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/login_signup/signup.fxml"));
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/View/Auth/signup.fxml"));
             Scene scene = new Scene(loader.load());
             Stage stage = new Stage();
             stage.getIcons().add(new Image(Pages.class.getResourceAsStream("/com/example/javafxapp/view/images/icons.jpg")));
@@ -100,7 +100,7 @@ public class Pages {
     // chuyển qua trang thêm mới sản phẩm .
     public static void pageAddProduct() {
         try {
-            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/admin/product/addProduct.fxml"));
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/View/Admin/Product/addProduct.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
 
@@ -125,7 +125,7 @@ public class Pages {
     // chuyển qua trang chi tiết sản phẩm
     public static void pageDetailProduct(int productId) {
         try {
-            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/admin/product/detailProduct.fxml"));
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/View/Admin/Product/detailProduct.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
 
@@ -152,7 +152,7 @@ public class Pages {
     // chuyển qua trang thêm danh mục
     public static void pageAddCategory() {
         try {
-            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/admin/category/addCategory.fxml"));
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/View/Admin/Category/addCategory.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
 
@@ -172,7 +172,7 @@ public class Pages {
     // chuyển qua trang chi tiết damh mục
     public static void pageDetailCategory(int categoryId) {
         try {
-            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/admin/category/detailCategory.fxml"));
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/View/Admin/Category/detailCategory.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
 
@@ -199,7 +199,7 @@ public class Pages {
     // chuyển qua trang thêm nhân viên .
     public static void pageAddEmployee() {
         try {
-            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/admin/employee/addEmployee.fxml"));
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/View/Admin/employee/addEmployee.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
 
@@ -220,7 +220,7 @@ public class Pages {
     // chuyển qua trang chi tiết nhân viên.
     public static void pageDetailEmployee(int employeeId) {
         try {
-            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/admin/employee/detailEmployee.fxml"));
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/View/Admin/employee/detailEmployee.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
 
@@ -249,7 +249,7 @@ public class Pages {
     // chuyển qua trang thêm vai trò
     public static void pageAddRole() {
         try {
-            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/admin/role/addRole.fxml"));
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/View/Admin/Role/addRole.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
 
@@ -270,7 +270,7 @@ public class Pages {
     // chuyển qua trang chi tiết vai trò
     public static void pageDetailRole(int roleId) {
         try {
-            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/admin/role/detailRole.fxml"));
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/View/Admin/Role/detailRole.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
 
@@ -295,7 +295,7 @@ public class Pages {
     // chuyển qua trang phân quyền .
     public static void pageRolePermission(int roleId) {
         try {
-            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/admin/role/role_permission.fxml"));
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/View/Admin/Role/role_permission.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
 
@@ -321,7 +321,7 @@ public class Pages {
     // chuyển qua trang thêm
     public static void pageAddAccount() {
         try {
-            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/admin/account/addAccount.fxml"));
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/View/Admin/Account/addAccount.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
 
@@ -345,7 +345,7 @@ public class Pages {
     // chuyển qua trang chi tiết
     public static void pageDetailAccount(int accountId) {
         try {
-            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/admin/account/detailAccount.fxml"));
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/View/Admin/Account/detailAccount.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
 
@@ -372,7 +372,7 @@ public class Pages {
     // chuyển qua trang thêm permission .
     public static void pageAddPermission() {
         try {
-            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/admin/permission/addPermission.fxml"));
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/View/Admin/Permission/addPermission.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
 
@@ -392,7 +392,7 @@ public class Pages {
     // chuyển qua trang chi tiết permission .
     public static void pageDetailPermission(int permissionId) {
         try {
-            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/admin/permission/detailPermission.fxml"));
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/View/Admin/Permission/detailPermission.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
 
@@ -437,7 +437,7 @@ public class Pages {
     //// Shopping cart
     public static void pageShoppingCart() throws IOException {
         try {
-            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/client/cart/cart.fxml"));
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/View/Client/Cart/cart.fxml"));
             Pane root = loader.load();
             Stage stage = new Stage();
             Scene scene = new Scene(root);
@@ -456,7 +456,7 @@ public class Pages {
     //// CheckOut
     public static void pageCheckOut() throws IOException {
         try {
-            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/client/checkout/checkout.fxml"));
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/View/Client/Checkout/checkout.fxml"));
             Pane root = loader.load();
             Stage stage = new Stage();
             Scene scene = new Scene(root);

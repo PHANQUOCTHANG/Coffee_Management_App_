@@ -7,12 +7,8 @@ import java.util.Map;
 
 import com.example.javafxapp.Controller.Admin.BaseController;
 import com.example.javafxapp.Controller.Admin.MainScreenController;
-import com.example.javafxapp.Helpper.AlertInfo;
-import com.example.javafxapp.Helpper.Pages;
 import com.example.javafxapp.Helpper.TextNormalizer;
 import com.example.javafxapp.Model.Order;
-import com.example.javafxapp.Model.Product;
-import com.example.javafxapp.Repository.OrderRepository;
 import com.example.javafxapp.Service.OrderService;
 import com.jfoenix.controls.JFXButton;
 
@@ -20,14 +16,12 @@ import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 public class OrderController extends BaseController {
@@ -101,7 +95,7 @@ public class OrderController extends BaseController {
             Order order = orders.get(i);
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource(
-                    "/com/example/javafxapp/view/orders/orderItem.fxml"));
+                        "/com/example/javafxapp/View/Orders/orderItem.fxml"));
                 HBox hbox = loader.load();
 
                 OrderItemController oic = loader.getController();

@@ -1,6 +1,5 @@
 package com.example.javafxapp.Controller.Admin;
 
-import com.example.javafxapp.Controller.Admin.BaseController;
 import com.example.javafxapp.Controller.Admin.Order.OrderDetailController;
 import com.example.javafxapp.Helpper.AlertInfo;
 import com.example.javafxapp.Helpper.Pages;
@@ -152,12 +151,12 @@ public class MainScreenController {
 
     // role .
     @FXML
-    private void handleRole() {
-        System.out.println("Role button clicked");
-        loadCenterContent("/com/example/javafxapp/view/admin/role/role.fxml");
-        // Thêm logic chuyển sang trang vai trò .
-        setActiveButton(btnRole);
-    }
+        private void handleRole() {
+            System.out.println("Role button clicked");
+            loadCenterContent("/com/example/javafxapp/view/admin/role/role.fxml");
+            // Thêm logic chuyển sang trang vai trò .
+            setActiveButton(btnRole);
+        }
 
 
     // permission

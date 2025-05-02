@@ -17,7 +17,7 @@
                 <Button fx:id="backBtn" onAction="#handleBackAction" styleClass="icon-button" style="-fx-background-color: transparent;">
                     <graphic>
                         <ImageView fitHeight="24" fitWidth="24" preserveRatio="true">
-                            <Image url="@../../images/back-icon.jpg" />
+                            <Image url="@../../Images/back-icon.jpg" />
                         </ImageView>
                     </graphic>
                 </Button>
@@ -69,7 +69,7 @@
             <VBox fx:id="promotionContainer" style="-fx-background-color: #FFF8E1; -fx-padding: 10; -fx-background-radius: 5;" visible="false" managed="false">
                 <HBox alignment="CENTER_LEFT" spacing="10">
                     <ImageView fitHeight="24" fitWidth="24" preserveRatio="true">
-                        <Image url="@../../images/cart-icon.jpg" />
+                        <Image url="@../../Images/cart-icon.jpg" />
                     </ImageView>
                     <Label text="Khuyến mãi áp dụng:" style="-fx-font-weight: bold;" />
                     <Label fx:id="promotionLabel" text="Giảm 10% cho đơn hàng trên 200,000 VNĐ" />

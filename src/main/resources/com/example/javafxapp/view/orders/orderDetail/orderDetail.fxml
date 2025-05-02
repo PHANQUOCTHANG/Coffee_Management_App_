@@ -96,7 +96,7 @@
                                  <graphic>
                                     <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                         <image>
-                                            <Image url="@../../images/back-icon.jpg" />
+                                            <Image url="@../../Images/back-icon.jpg" />
                                         </image>
                                     </ImageView>
                                  </graphic>
@@ -128,7 +128,7 @@
                                  <graphic>
                                     <ImageView fitHeight="20.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                                         <image>
-                                            <Image url="@../../images/save.png" />
+                                            <Image url="@../../Images/save.png" />
                                         </image>
                                     </ImageView>
                                  </graphic>
@@ -159,7 +159,7 @@
                                  <children>
                                     <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../images/searchicon.png" />
+                                          <Image url="@../../Images/searchicon.png" />
                                        </image>
                                        <HBox.margin>
                                           <Insets right="10.0" />
@@ -289,7 +289,7 @@
                                              <graphic>
                                                 <ImageView fitHeight="31.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="@../../images/wallet.png" />
+                                                      <Image url="@../../Images/wallet.png" />
                                                    </image>
                                                 </ImageView>
                                              </graphic>

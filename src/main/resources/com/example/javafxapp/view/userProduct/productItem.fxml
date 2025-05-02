@@ -14,7 +14,7 @@
          <children>
             <ImageView fitHeight="273.0" fitWidth="214.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/milkcoffee.png" />
+                  <Image url="@../Images/milkcoffee.png" />
                </image>
             </ImageView>
             <Label prefHeight="41.0" prefWidth="273.0" text="COFFEE MILK">

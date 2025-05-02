@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.awt.Desktop;
@@ -13,12 +12,8 @@ import com.example.javafxapp.Model.OrderDetail;
 import com.example.javafxapp.Service.ProductService;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
-import java.io.FileOutputStream;
-import java.math.BigDecimal;
-import java.util.List;
+import java.util.Date;
 
 public class PDFExporter {
 
@@ -29,7 +24,7 @@ public class PDFExporter {
             document.open();
 
             // Load Vietnamese font
-            InputStream is = PDFExporter.class.getResourceAsStream("/com/example/javafxapp/font/Lora-Italic-VariableFont_wght.ttf");
+            InputStream is = PDFExporter.class.getResourceAsStream("/com/example/javafxapp/Font/Lora-Italic-VariableFont_wght.ttf");
             if (is == null) {
                 throw new IOException("Font not found");
             }

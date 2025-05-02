@@ -10,7 +10,6 @@ import com.example.javafxapp.Model.Category;
 import com.example.javafxapp.Model.Product;
 import com.example.javafxapp.Service.CategoryService;
 import com.example.javafxapp.Service.ProductService;
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 
 import javafx.application.Platform;
@@ -92,7 +91,7 @@ public class ProductOrderDetailController {
                     Product product = products.get(finalI);
                     VBox vbox = null;
                     try {
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/javafxapp/view/orders/OrderDetail/products/product.fxml"));
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/javafxapp/View/Orders/OrderDetail/products/product.fxml"));
                         vbox = loader.load();  // Load FXML và tạo VBox
                         ProductOrderDetailItemController pic = loader.getController();
                         pic.setProduct(product);

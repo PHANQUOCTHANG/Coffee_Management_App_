@@ -48,7 +48,7 @@
                     <Button fx:id="cartBtn" onAction="#handleCart" style="-fx-background-color: transparent;" styleClass="icon-button">
                         <graphic>
                             <ImageView fitHeight="50.0" fitWidth="65.0" preserveRatio="true">
-                                <Image url="@../../images/cart-icon.jpg" />
+                                <Image url="@../../Images/cart-icon.jpg" />
                             </ImageView>
                         </graphic>
                     </Button>
@@ -58,7 +58,7 @@
                 <Button fx:id="settingsBtn" onAction="#handleSetting" style="-fx-background-color: transparent;" styleClass="icon-button">
                     <graphic>
                         <ImageView fitHeight="40.0" fitWidth="40.0" preserveRatio="true">
-                            <Image url="@../../images/settings-icon.png" />
+                            <Image url="@../../Images/settings-icon.png" />
                         </ImageView>
                     </graphic>
                 </Button>

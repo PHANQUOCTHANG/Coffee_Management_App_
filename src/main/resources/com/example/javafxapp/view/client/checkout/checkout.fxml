@@ -17,7 +17,7 @@
                 <Button fx:id="backBtn" onAction="#handleBackToCart" styleClass="icon-button" style="-fx-background-color: transparent;">
                     <graphic>
                         <ImageView fitHeight="24" fitWidth="24" preserveRatio="true">
-                            <Image url="@../../images/back-icon.jpg"/>
+                            <Image url="@../../Images/back-icon.jpg"/>
                         </ImageView>
                     </graphic>
                 </Button>
@@ -143,7 +143,7 @@
                                     <RadioButton fx:id="creditCardRadio" text="Thẻ tín dụng/Ghi nợ"
                                                  toggleGroup="$paymentGroup" onAction="#handleMethodCheckOut"/>
                                     <ImageView fitHeight="24" fitWidth="36" preserveRatio="true">
-                                        <Image url="@../../images/card.jpg"/>
+                                        <Image url="@../../Images/card.jpg"/>
                                     </ImageView>
                                 </HBox>
 
@@ -184,7 +184,7 @@
                                       style="-fx-padding: 10; -fx-border-color: #E0E0E0; -fx-border-radius: 5;">
                                     <RadioButton fx:id="momoRadio" text="Ví MoMo" toggleGroup="$paymentGroup" onAction="#handleMethodCheckOut"/>
                                     <ImageView fitHeight="24" fitWidth="24" preserveRatio="true">
-                                        <Image url="@../../images/momo.jpg"/>
+                                        <Image url="@../../Images/momo.jpg"/>
                                     </ImageView>
                                 </HBox>
 
@@ -194,7 +194,7 @@
                                     <Label text="Quét mã QR để thanh toán qua MoMo" style="-fx-font-weight: bold"/>
 
                                     <ImageView fx:id="momoQrImage" fitHeight="200" fitWidth="200" preserveRatio="true">
-                                        <Image url="@../../images/momo.jpg"/>
+                                        <Image url="@../../Images/momo.jpg"/>
                                     </ImageView>
 
                                     <Text text="Hoặc chuyển khoản đến số điện thoại:" textAlignment="CENTER"/>
