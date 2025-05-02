@@ -9,6 +9,7 @@ import com.example.javafxapp.Model.Product;
 import com.example.javafxapp.Service.CartService;
 import com.example.javafxapp.Service.Cart_ProductService;
 import com.example.javafxapp.Service.ProductService;
+import com.example.javafxapp.Utils.ListProductOrderUser;
 import com.example.javafxapp.Utils.SaveAccountUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -52,9 +53,9 @@ public class ShoppingCartController implements Initializable {
     @FXML
     private Button checkoutBtn , backBtn;
 
-    private CartService cartService; // Assume you have a service to manage cart
+    private CartService cartService;
     private List<HBox> cartItemRows = new ArrayList<>();
-    private Map<Integer, CheckBox> productCheckboxes = new HashMap<>();
+    private Map<Integer, CheckBox> productCheckboxes = new HashMap<>(); // lưu checkBox và sản phẩm đi với checkBox đó .
     private ProductService productService = new ProductService() ;
     private Cart_ProductService cartProductService = new Cart_ProductService() ;
 
@@ -67,7 +68,7 @@ public class ShoppingCartController implements Initializable {
         loadCartItems();
 
         // Update totals
-        updateTotals();
+        updateTotalsAndSelectAll();
 
 //        // Check for promotions
 //        checkForPromotions();
@@ -107,7 +108,7 @@ public class ShoppingCartController implements Initializable {
         // Checkbox
         CheckBox selectBox = new CheckBox();
         selectBox.setSelected(true);
-        selectBox.setOnAction(e -> updateTotals());
+        selectBox.setOnAction(e -> updateTotalsAndSelectAll());
         Product product = productService.findProductByID(item.getProduct_id()) ;
         productCheckboxes.put(product.getProduct_id() , selectBox);
 
@@ -207,18 +208,23 @@ public class ShoppingCartController implements Initializable {
         loadCartItems();
 
        // cập nhật lại giá .
-        updateTotals();
+        updateTotalsAndSelectAll();
     }
 
     private void removeCartItem(Cart_Product item) {
-        // xóa sản phẩm ra khỏi giỏ .
-        cartProductService.delete(item);
+        try {
+            if (!AlertInfo.confirmAlert("Bạn có chắc muốn xóa không ?")) return ;
+            // xóa sản phẩm ra khỏi giỏ .
+            cartProductService.delete(item);
 
-        // load lại các sản phẩm trong giỏ .
-        loadCartItems();
+            // load lại các sản phẩm trong giỏ .
+            loadCartItems();
 
-        // Cập nhật lại tổng tiền .
-        updateTotals();
+            // Cập nhật lại tổng tiền .
+            updateTotalsAndSelectAll();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -229,7 +235,7 @@ public class ShoppingCartController implements Initializable {
             checkbox.setSelected(selectAll);
         }
 
-        updateTotals();
+        updateTotalsAndSelectAll();
     }
 
     @FXML
@@ -253,12 +259,12 @@ public class ShoppingCartController implements Initializable {
                 loadCartItems();
 
                 // cập nhật lại giá .
-                updateTotals();
+                updateTotalsAndSelectAll();
             }
         }
     }
 
-    private void updateTotals() {
+    private void updateTotalsAndSelectAll() {
         double subtotal = 0;
 
         for (Cart_Product item : cartProductService.getAll(SaveAccountUtils.cart_id)) {
@@ -279,6 +285,16 @@ public class ShoppingCartController implements Initializable {
 
         // Update checkout button
         checkoutBtn.setDisable(subtotal <= 0);
+
+        // update checkBox selectAll ;
+        int cnt = 0 ;
+        for (Map.Entry<Integer, CheckBox> entry : productCheckboxes.entrySet()) {
+            if (entry.getValue().isSelected()) {
+                cnt++ ;
+            }
+        }
+        if (cnt == productCheckboxes.size()) selectAllCheckBox.setSelected(true);
+        else selectAllCheckBox.setSelected(false);
     }
 
     private double calculateDiscount(double subtotal) {
@@ -288,95 +304,31 @@ public class ShoppingCartController implements Initializable {
         }
         return 0;
     }
-//
-//    private void checkForPromotions() {
-//        // Check if there are active promotions
-//        List<Promotion> activePromotions = getActivePromotions();
-//
-//        if (!activePromotions.isEmpty()) {
-//            Promotion promotion = activePromotions.get(0);
-//            promotionLabel.setText(promotion.getDescription());
-//            promotionContainer.setVisible(true);
-//            promotionContainer.setManaged(true);
-//        } else {
-//            promotionContainer.setVisible(false);
-//            promotionContainer.setManaged(false);
-//        }
-//    }
-//
-//    private List<Promotion> getActivePromotions() {
-//        // This would connect to your promotions service
-//        // Example mock data
-//        List<Promotion> promotions = new ArrayList<>();
-//        promotions.add(new Promotion("SPRING2023", "Giảm 10% cho đơn hàng trên 200,000 VNĐ"));
-//        return promotions;
-//    }
-//
     @FXML
     private void handleBackAction() {
+        Pages.pageUser();
         Stage stage = (Stage) backBtn.getScene().getWindow() ;
         stage.close();
     }
-//
-//    @FXML
-//    private void handleCheckout() {
-//        // Get selected items
-////        List<Cart> selectedItems = new ArrayList<>();
-////
-////        for (CartItem item : cartService.getCartItems()) {
-////            CheckBox checkbox = productCheckboxes.get(item.getProduct().getId());
-////            if (checkbox != null && checkbox.isSelected()) {
-////                selectedItems.add(item);
-////            }
-////        }
-////
-////        if (!selectedItems.isEmpty()) {
-////            try {
-////                // Load checkout view
-////                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Checkout.fxml"));
-////                Parent root = loader.load();
-////
-////                CheckoutController controller = loader.getController();
-////                controller.setCartItems(selectedItems);
-////
-////                // Show in same window or new window
-////                Scene scene = cartItemsContainer.getScene();
-////                scene.setRoot(root);
-////            } catch (IOException e) {
-////                e.printStackTrace();
-////                showErrorAlert("Không thể mở trang thanh toán");
-////            }
-////        }
-//    }
-//
-////    private void showErrorAlert(String message) {
-////        Alert alert = new Alert(Alert.AlertType.ERROR);
-////        alert.setTitle("Lỗi");
-////        alert.setHeaderText(null);
-////        alert.setContentText(message);
-////        alert.showAndWait();
-////    }
-//
-//    // Model classes for reference
-//    private static class Promotion {
-//        private String code;
-//        private String description;
-//
-//        public Promotion(String code, String description) {
-//            this.code = code;
-//            this.description = description;
-//        }
-//
-//        public String getCode() {
-//            return code;
-//        }
-//
-//        public String getDescription() {
-//            return description;
-//        }
-//    }
     @FXML
     private void handleCheckOut() throws IOException {
+        try {
+            ListProductOrderUser.list = new ArrayList<>() ;
+            for (Map.Entry<Integer, CheckBox> entry : productCheckboxes.entrySet()) {
+                if (entry.getValue().isSelected()) {
+                    Cart_Product cartProduct = cartProductService.getProductInCart(SaveAccountUtils.cart_id , entry.getKey()) ;
+                    ListProductOrderUser.list.add(cartProduct) ; // lưu các sản phẩm người dùng chọn mua để sang trang thanh toán cuôí cùng .
+                }
+            }
+            if (ListProductOrderUser.list.isEmpty()) {
+                AlertInfo.showAlert(Alert.AlertType.ERROR,"Lỗi" , "Vui lòng chọn ít nhất một sản phẩm");
+                return ;
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
         Pages.pageCheckOut();
+        Stage stage = (Stage) checkoutBtn.getScene().getWindow() ;
+        stage.close();
     }
 }

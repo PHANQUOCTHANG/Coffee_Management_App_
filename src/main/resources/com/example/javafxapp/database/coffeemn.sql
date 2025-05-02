@@ -1,23 +1,27 @@
 -- Tạo database
-CREATE DATABASE IF NOT EXISTS coffee_management1 CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE coffee_management1;
+CREATE DATABASE IF NOT EXISTS coffee_management
+    CHARACTER SET utf8mb4
+    COLLATE utf8mb4_unicode_ci;
+USE coffee_management;
+
+-- admin
 
 -- Bảng Role
-CREATE TABLE `Role` (
+CREATE TABLE Role (
     role_id INT AUTO_INCREMENT PRIMARY KEY,
-    role_name VARCHAR(50) NOT NULL UNIQUE,
-    `description` TEXT,
+    role_name VARCHAR(50) CHARACTER SET utf8mb4 NOT NULL UNIQUE,
+    description TEXT CHARACTER SET utf8mb4,
     deleted BOOLEAN DEFAULT FALSE
 );
 
 -- Bảng Permission
 CREATE TABLE Permission (
     permission_id INT AUTO_INCREMENT PRIMARY KEY,
-    permission_name VARCHAR(50) NOT NULL UNIQUE,
+    permission_name VARCHAR(50) CHARACTER SET utf8mb4 NOT NULL UNIQUE,
     deleted BOOLEAN DEFAULT FALSE
 );
 
--- Bảng Role_Permission
+-- Bảng Role_Permission (liên kết nhiều-nhiều)
 CREATE TABLE Role_Permission (
     role_id INT,
     permission_id INT,
@@ -29,8 +33,8 @@ CREATE TABLE Role_Permission (
 -- Bảng Account
 CREATE TABLE Account (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    account_name VARCHAR(50) NOT NULL UNIQUE,
-    `password` VARCHAR(255) NOT NULL,
+    account_name VARCHAR(50) CHARACTER SET utf8mb4 NOT NULL UNIQUE,
+    password VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL,
     role_id INT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -38,7 +42,7 @@ CREATE TABLE Account (
     FOREIGN KEY (role_id) REFERENCES Role(role_id) ON DELETE CASCADE
 );
 
--- Bảng Category (dùng VARCHAR thay cho NVARCHAR vì MySQL không có NVARCHAR)
+-- Bảng Category
 CREATE TABLE Category (
     category_id INT AUTO_INCREMENT PRIMARY KEY,
     category_name VARCHAR(100) CHARACTER SET utf8mb4 NOT NULL,
@@ -49,68 +53,101 @@ CREATE TABLE Category (
 CREATE TABLE Product (
     product_id INT AUTO_INCREMENT PRIMARY KEY,
     product_name VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL,
-    `description` TEXT CHARACTER SET utf8mb4,
-    price DECIMAL(10,2) NOT NULL,
+    description TEXT CHARACTER SET utf8mb4,
+    price DECIMAL(10, 2) NOT NULL,
     category_id INT,
-    imgSrc VARCHAR(255),
+    imgSrc VARCHAR(255) CHARACTER SET utf8mb4,
+    status Boolean DEFAULT FALSE ,
+    outstanding Boolean DEFAULT FALSE ,
     deleted BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (category_id) REFERENCES Category(category_id) ON DELETE SET NULL
 );
 
+-- Bảng Employee
+CREATE TABLE Employee (
+    employee_id INT AUTO_INCREMENT PRIMARY KEY,
+    fullName VARCHAR(200) CHARACTER SET utf8mb4 NOT NULL,
+    phone VARCHAR(20) CHARACTER SET utf8mb4 NOT NULL,
+    deleted BOOLEAN DEFAULT FALSE
+);
+
+-- Bảng Orders
 CREATE TABLE Orders (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT,
     total_amount DECIMAL(10, 2),
-    status ENUM('Pending', 'Processing', 'Completed', 'Cancelled'),
+    status ENUM('Pending', 'Processing', 'Completed', 'Cancelled') DEFAULT 'Pending',
     order_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES Account(id)
 );
 
-create table OrderDetail(
-	order_detail_id int auto_increment primary key,
-    order_id int not null,
-    product_id int not null,
-    quantity int not null,
-    unit_price decimal(10, 2) not null,
-    foreign key (order_id) references Orders(id) on delete cascade,
-    foreign key (product_id) references Product(product_id) on delete cascade
+-- Bảng OrderDetail
+CREATE TABLE OrderDetail (
+    order_detail_id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL,
+    unit_price DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (order_id) REFERENCES Orders(id) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES Product(product_id) ON DELETE CASCADE
 );
 
--- Thêm dữ liệu Category trước (để tránh lỗi khóa ngoại khi chèn Product)
-INSERT INTO Category(category_name)
-VALUES 
-    ('Đồ uống'),
-    ('Đồ ăn vặt');
+-- client
 
--- Thêm dữ liệu vào bảng Role (chỉ một lần)
-INSERT INTO Role (role_name, `description`, deleted) 
-VALUES 
-    ('Admin', 'Quản trị viên hệ thống', FALSE),
-    ('User', 'Người dùng thông thường', FALSE);
+-- Bảng Cart
+CREATE TABLE Cart (
+    cart_id INT AUTO_INCREMENT PRIMARY KEY,
+    account_id INT NOT NULL,
+    deleted BOOLEAN DEFAULT FALSE,
+    FOREIGN KEY (account_id) REFERENCES Account(id) ON DELETE CASCADE
+);
 
--- Thêm dữ liệu vào bảng Product
-INSERT INTO Product (product_name, `description`, price, category_id, imgSrc, deleted) 
-VALUES
-    ('Cà phê sữa', 'Cà phê sữa đá đậm đà', 35000.00, 1, 'https://file.hstatic.net/200000662087/file/cach-pha-ca-phe-muoi-thom-ngon-dung-chuan_64af07ec05bc42828004580f8bddb092.jpg', FALSE),
-    ('Cà phê đen', 'Cà phê đen nguyên chất', 30000.00, 1, 'https://shopbanghe.vn/wp-content/uploads/2022/07/ca-phe-den-5.jpg', FALSE),
-    ('Cà phê đen', 'Cà phê đen nguyên chất', 30000.00, 1, 'https://tse3.mm.bing.net/th?id=OIP.-kwobbU7-_CkAir5ejO4vgHaFy&pid=Api&P=0&h=180', FALSE);
+-- Bảng Cart_Product (nhiều-nhiều giữa Cart và Product)
+CREATE TABLE Cart_Product (
+    cart_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL,
+    deleted BOOLEAN DEFAULT FALSE,
+    PRIMARY KEY (cart_id, product_id),
+    FOREIGN KEY (cart_id) REFERENCES Cart(cart_id) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES Product(product_id) ON DELETE CASCADE
+);
 
-    
-INSERT INTO Account (account_name, `password`, role_id, deleted)
-VALUES 
-    ('admin123', 'adminpass', 1, FALSE),
-    ('user123', 'userpass', 2, FALSE);
-    
-INSERT INTO Orders (user_id, total_amount, status) VALUES
-    (1, 100000.00, 'Pending'),
-    (1, 50000.00, 'Processing'),
-    (1, 75000.00, 'Completed');
-    
-INSERT INTO OrderDetail (order_id, product_id, quantity, unit_price) VALUES 
-	(1, 4, 1, 30000),  
-	(1, 5, 1, 35000),  
-	(1, 6, 1, 25000);
+-- Bảng InformationUser
+CREATE TABLE InformationUser (
+    informationUser_id INT AUTO_INCREMENT PRIMARY KEY,
+    fullName VARCHAR(200) CHARACTER SET utf8mb4 NOT NULL,
+    email VARCHAR(100) CHARACTER SET utf8mb4 NOT NULL,
+    phone VARCHAR(200) CHARACTER SET utf8mb4 NOT NULL,
+    address VARCHAR(500) CHARACTER SET utf8mb4 NOT NULL,
+    account_id INT NOT NULL,
+    deleted BOOLEAN DEFAULT FALSE,
+    FOREIGN KEY (account_id) REFERENCES Account(id) ON DELETE CASCADE
+);
 
+CREATE TABLE OrderUser (
+	orderUser_id INT AUTO_INCREMENT PRIMARY KEY,
+    account_id INT NOT NULL,
+    fullName VARCHAR(200) CHARACTER SET utf8mb4 NOT NULL,
+    phone VARCHAR(200) ,
+    address VARCHAR(500) CHARACTER SET utf8mb4 NOT NULL,
+    note TEXT ,
+    shippingFee DECIMAL(10,2) NOT NULL ,
+    methodPayment VARCHAR(100) ,
+	subPrice DECIMAL(10, 2) NOT NULL ,
+    discount DECIMAL(10,2) NOT NULL ,
+    order_time DATETIME DEFAULT CURRENT_TIMESTAMP ,
+    status ENUM('Pending', 'Processing', 'Completed', 'Cancelled') DEFAULT 'Pending',
+    FOREIGN KEY (account_id) REFERENCES Account(id) ON DELETE CASCADE
+) ;
+
+CREATE TABLE OrderUser_Product(
+	orderUser_id INT NOT NULL ,
+    product_id INT NOT NULL ,
+    quantity INT NOT NULL ,
+    FOREIGN KEY (orderUser_id) REFERENCES OrderUser(orderUser_id) ON DELETE CASCADE ,
+    FOREIGN KEY (product_id) REFERENCES Product(product_id) ON DELETE CASCADE
+) ;
 
 SET SQL_SAFE_UPDATES = 0 ;
 delete from product ;
@@ -125,3 +162,6 @@ SELECT * FROM Permission;
 select * from orders;
 select * from product;
 select * from OrderDetail;
+select * from cart_product ;
+select * from OrderUser ;
+select * from OrderUser_Product ;

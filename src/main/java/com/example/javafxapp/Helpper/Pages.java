@@ -169,8 +169,6 @@ public class Pages {
             AlertInfo.showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể mở trang.");
         }
     }
-
-
     // chuyển qua trang chi tiết damh mục
     public static void pageDetailCategory(int categoryId) {
         try {
@@ -195,6 +193,55 @@ public class Pages {
             AlertInfo.showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể mở trang.");
         }
     }
+
+
+    //// Employee
+    // chuyển qua trang thêm nhân viên .
+    public static void pageAddEmployee() {
+        try {
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/admin/employee/addEmployee.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+
+            Stage stage = new Stage();
+            stage.getIcons().add(new Image(Pages.class.getResourceAsStream("/com/example/javafxapp/view/images/icons.jpg")));
+            stage.setScene(scene);
+            stage.setTitle("Coffee Shop Management");
+            stage.setResizable(true);
+            stage.setMaximized(false);
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            AlertInfo.showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể mở trang.");
+        }
+    }
+
+    // chuyển qua trang chi tiết nhân viên.
+    public static void pageDetailEmployee(int employeeId) {
+        try {
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/admin/employee/detailEmployee.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+
+            // Lấy controller của trang chi tiết và truyền ID sản phẩm vào
+            EmployeeController controller = loader.getController();
+            controller.loadDataDetailEmployee(employeeId);
+
+
+            Stage stage = new Stage();
+            stage.getIcons().add(new Image(Pages.class.getResourceAsStream("/com/example/javafxapp/view/images/icons.jpg")));
+            stage.setScene(scene);
+            stage.setTitle("Coffee Shop Management");
+            stage.setResizable(false);
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            AlertInfo.showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể mở trang.");
+        }
+    }
+
 
 
     //// Role
@@ -406,6 +453,7 @@ public class Pages {
         }
     }
 
+    //// CheckOut
     public static void pageCheckOut() throws IOException {
         try {
             FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/view/client/checkout/checkout.fxml"));

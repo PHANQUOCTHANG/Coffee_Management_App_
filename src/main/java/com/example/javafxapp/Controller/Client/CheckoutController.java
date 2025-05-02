@@ -1,14 +1,14 @@
 package com.example.javafxapp.Controller.Client;
 
 import com.example.javafxapp.Controller.Admin.AuthController;
+import com.example.javafxapp.Helpper.AlertInfo;
+import com.example.javafxapp.Helpper.Pages;
 import com.example.javafxapp.Helpper.UploadImage;
-import com.example.javafxapp.Model.Cart_Product;
-import com.example.javafxapp.Model.InformationUser;
-import com.example.javafxapp.Model.Product;
-import com.example.javafxapp.Service.Cart_ProductService;
-import com.example.javafxapp.Service.InformationUserService;
-import com.example.javafxapp.Service.ProductService;
+import com.example.javafxapp.Model.*;
+import com.example.javafxapp.Service.*;
+import com.example.javafxapp.Utils.ListProductOrderUser;
 import com.example.javafxapp.Utils.SaveAccountUtils;
+import com.example.javafxapp.Validation.ValidationInformationUser;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
@@ -26,6 +26,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -83,17 +84,14 @@ public class CheckoutController implements Initializable {
     private double discount = 0;
     private double shippingFee = 30000; // Mặc định là phí giao hàng tiêu chuẩn
     private NumberFormat currencyFormatter;
-    List<Cart_Product> cartProducts;
     private InformationUserService informationUserService = new InformationUserService();
+    private OrderUserService orderUserService = new OrderUserService() ;
+    private OrderUser_ProductService orderUserProductService = new OrderUser_ProductService() ;
 
-    //    private OrderService orderService;
-//
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Khởi tạo formatter cho tiền tệ Việt Nam
         currencyFormatter = NumberFormat.getNumberInstance(new Locale("vi", "VN"));
-        cartProducts = new ArrayList<>();
-        cartProducts = cartProductService.getAll(SaveAccountUtils.cart_id);
 //        // Khởi tạo service
 //        orderService = new OrderService();
 //
@@ -121,15 +119,17 @@ public class CheckoutController implements Initializable {
 
     }
 
+    // hiển thị các sản phẩm chọn mua ra giao diện .
     private void loadOrderSummary() {
         orderSummaryContainer.getChildren().clear();
 
-        for (Cart_Product cartProduct : cartProducts) {
+        for (Cart_Product cartProduct : ListProductOrderUser.list) {
             HBox itemBox = createOrderItemBox(cartProduct);
             orderSummaryContainer.getChildren().add(itemBox);
         }
     }
 
+    // tạo giao diện cho từng sản phẩm .
     private HBox createOrderItemBox(Cart_Product cartProduct) {
         HBox itemBox = new HBox();
         itemBox.setAlignment(Pos.CENTER_LEFT);
@@ -172,6 +172,7 @@ public class CheckoutController implements Initializable {
         return itemBox;
     }
 
+    // tính tổng tiền .
     private void calculateTotals() {
         // Tính tổng tiền hàng
         subtotal = 0;
@@ -209,114 +210,75 @@ public class CheckoutController implements Initializable {
         stage.close();
     }
 
+    // chuyển về trang giỏ thanh toán .
     @FXML
-    private void handleBackToCart(ActionEvent event) {
+    private void handleBackToCart(ActionEvent event) throws IOException {
         // Quay lại trang giỏ hàng
+        Pages.pageShoppingCart();
         Stage stage = (Stage) backBtn.getScene().getWindow();
         stage.close();
     }
-//
-//    @FXML
-//    private void handlePlaceOrder(ActionEvent event) {
-//        // Kiểm tra dữ liệu đầu vào
-//        if (!validateInputs()) {
-//            return;
-//        }
-//
-//        try {
-//            // Lấy phương thức giao hàng được chọn
-//            String deliveryMethod = standardDeliveryRadio.isSelected() ? "Standard" : "Express";
-//
-//            // Lấy phương thức thanh toán được chọn
-//            String paymentMethod;
-//            if (codRadio.isSelected()) {
-//                paymentMethod = "COD";
-//            } else if (bankTransferRadio.isSelected()) {
-//                paymentMethod = "BankTransfer";
-//            } else if (creditCardRadio.isSelected()) {
-//                paymentMethod = "CreditCard";
-//            } else {
-//                paymentMethod = "MoMo";
-//            }
-//
-//            // Tạo đối tượng Order
-//            Order order = new Order();
-//            order.setUserId(SessionManager.getCurrentUser().getId());
-//            order.setRecipientName(nameField.getText().trim());
-//            order.setRecipientPhone(phoneField.getText().trim());
-//            order.setRecipientEmail(emailField.getText().trim());
-//            order.setShippingAddress(addressField.getText().trim());
-//            order.setNote(noteField.getText().trim());
-//            order.setDeliveryMethod(deliveryMethod);
-//            order.setPaymentMethod(paymentMethod);
-//            order.setSubtotal(subtotal);
-//            order.setShippingFee(shippingFee);
-//            order.setDiscount(discount);
-//            order.setTotalAmount(subtotal - discount + shippingFee);
-//            order.setStatus("Chờ xác nhận");
-//
-//            // Thêm các mục đơn hàng
-//            for (CartItem item : cartItems) {
-//                OrderItem orderItem = new OrderItem();
-//                orderItem.setProductId(item.getProduct().getId());
-//                orderItem.setQuantity(item.getQuantity());
-//                orderItem.setPrice(item.getProduct().getPrice());
-//                order.addOrderItem(orderItem);
-//            }
-//
-//            // Lưu đơn hàng vào cơ sở dữ liệu
-//            boolean success = orderService.saveOrder(order);
-//
-//            if (success) {
-//                // Xóa giỏ hàng sau khi đặt hàng thành công
-//                SessionManager.clearCart();
-//
-//                // Hiển thị thông báo thành công
-//                AlertHelper.showInformation("Đặt hàng thành công",
-//                        "Đơn hàng của bạn đã được đặt thành công!\n" +
-//                                "Mã đơn hàng: " + order.getId() + "\n" +
-//                                "Cảm ơn bạn đã mua sắm tại cửa hàng chúng tôi.");
-//
-//                // Chuyển đến trang xác nhận đơn hàng
-//                SceneManager.loadScene("OrderConfirmation.fxml", order);
-//            } else {
-//                AlertHelper.showError("Lỗi", "Có lỗi xảy ra khi đặt hàng. Vui lòng thử lại.");
-//            }
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            AlertHelper.showError("Lỗi", "Có lỗi xảy ra: " + e.getMessage());
-//        }
-//    }
-//
-//    private boolean validateInputs() {
-//        // Kiểm tra các trường bắt buộc
-//        if (nameField.getText().trim().isEmpty()) {
-//            AlertHelper.showError("Lỗi", "Vui lòng nhập họ và tên người nhận.");
-//            nameField.requestFocus();
-//            return false;
-//        }
-//
-//        if (phoneField.getText().trim().isEmpty()) {
-//            AlertHelper.showError("Lỗi", "Vui lòng nhập số điện thoại liên hệ.");
-//            phoneField.requestFocus();
-//            return false;
-//        }
-//
-//        if (emailField.getText().trim().isEmpty() || !isValidEmail(emailField.getText().trim())) {
-//            AlertHelper.showError("Lỗi", "Vui lòng nhập địa chỉ email hợp lệ.");
-//            emailField.requestFocus();
-//            return false;
-//        }
-//
-//        if (addressField.getText().trim().isEmpty()) {
-//            AlertHelper.showError("Lỗi", "Vui lòng nhập địa chỉ giao hàng.");
-//            addressField.requestFocus();
-//            return false;
-//        }
-//
-//        return true;
-//    }
+
+    // thanh toán .
+    @FXML
+    private void handlePlaceOrder(ActionEvent event) {
+        // Kiểm tra dữ liệu đầu vào
+        if (!validateInputs()) {
+            return ;
+        }
+
+        try {
+            // Lấy phương thức giao hàng được chọn
+            String deliveryMethod = standardDeliveryRadio.isSelected() ? "Standard" : "Express";
+
+            // Lấy phương thức thanh toán được chọn
+            String paymentMethod;
+            if (codRadio.isSelected()) {
+                paymentMethod = "COD";
+            } else if (bankTransferRadio.isSelected()) {
+                paymentMethod = "BankTransfer";
+            } else if (creditCardRadio.isSelected()) {
+                paymentMethod = "CreditCard";
+            } else if (momoRadio.isSelected()) {
+                paymentMethod = "MoMo";
+            }
+            else {
+                AlertInfo.showAlert(Alert.AlertType.ERROR , "Lỗi" , "Chọn phương thức thanh toán");
+                return ;
+            }
+            // lấy thông tin người đặt hàng để giao .
+            String fullName = nameField.getText().trim() ;
+            String phone = phoneField.getText().trim() ;
+            String address = addressField.getText().trim() ;
+            String note = noteField.getText().trim() ;
+            // lưu đơn hàng vừa đặt của khách .
+            OrderUser orderUser = new OrderUser(SaveAccountUtils.account_id , fullName , phone , address , note , shippingFee , paymentMethod , subtotal , discount , "Pending");
+            orderUserService.add(orderUser);
+            // lấy đơn hàng vừa rồi để lấy id của đơn hàng để thêm các sản phẩm của đơn hàng đó .
+            OrderUser orderUserCurrent = orderUserService.getOrderUserCurrent() ;
+            // mua thành công thì sẽ thêm các sản phẩm đó vào đơn hàng và xóa các sản phẩm đã mua trong giỏ thanh toán ;
+            for (Cart_Product cartProduct : ListProductOrderUser.list) {
+                if (orderUserCurrent != null) orderUserProductService.add(new OrderUser_Product(orderUserCurrent.getOrderUser_id() , cartProduct.getProduct_id() , cartProduct.getQuantity()));
+                cartProductService.delete(cartProduct);
+            }
+            // xóa các sản phẩm đã chọn mua từ cart .
+            ListProductOrderUser.list.clear();
+
+            AlertInfo.showAlert(Alert.AlertType.INFORMATION , "Thành công" , "Đặt hàng thành công");
+            Stage stage = (Stage) placeOrderBtn.getScene().getWindow() ;
+            stage.close();
+            Pages.pageUser();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+ }
+
+    private boolean validateInputs () {
+        if (!ValidationInformationUser.checkFullName(nameField.getText().trim())) return false ;
+        if (!ValidationInformationUser.checkPhone(phoneField.getText().trim())) return false ;
+        if (!ValidationInformationUser.checkAddress(addressField.getText().trim())) return false;
+        return true ;
+    }
 
     @FXML
     private void handleMethodShip(Event event) {

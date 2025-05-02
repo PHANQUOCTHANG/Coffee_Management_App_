@@ -122,6 +122,7 @@ public class AuthController{
                SaveAccountUtils.password = password ;
                Account account = accountService.findAccountByName(loginName);
                SaveAccountUtils.account_id = account.getId() ;
+               System.out.println(SaveAccountUtils.account_id);
                SaveAccountUtils.role_id = account.getRoleId() ;
                Role role = roleService.findRoleByID(account.getRoleId()) ;
                System.out.println(role.getRole_name());

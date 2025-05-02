@@ -139,7 +139,7 @@ public class CategoryController {
 
             // Giả sử đây là method bạn thêm vào CategoryService để trả về nhiều kết quả
             List<Category> categories = categoryService.findCategoriesByKeyword(textSearch);
-
+            if (categories == null || categories.isEmpty()) return ;
             int row = 0 , stt = 1 ;
             for (Category category : categories) {
                 JFXCheckBox checkBox = new JFXCheckBox();

@@ -126,6 +126,7 @@ public class MainScreenController {
     @FXML
     private void handleEmployees() {
         System.out.println("Employees button clicked");
+        loadCenterContent("/com/example/javafxapp/view/admin/employee/employee.fxml");
         // Thêm logic chuyển sang trang quản lý nhân viên
         setActiveButton(btnEmployees);
     }

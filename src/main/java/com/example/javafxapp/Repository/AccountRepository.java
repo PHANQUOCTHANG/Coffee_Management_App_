@@ -167,7 +167,7 @@ public class AccountRepository implements JDBCRepository<Account> {
 
     // find role by account_name.
     public Account findByName(String account_name) {
-        String sql = "SELECT * from account where account_name= ? AND deleted = ?" ;
+        String sql = "SELECT * from account where account_name = ? AND deleted = ?" ;
         try(Connection connection = DatabaseConnection.getConnection() ;
             PreparedStatement preparedStatement = connection.prepareStatement(sql)
         ){

@@ -366,7 +366,7 @@ public class ProductController {
             }
 
             List<Product> products = productService.findProductsByKeyword(textSearch);
-
+            if (products == null || products.isEmpty()) return  ;
             int row = 0, stt = 1;
             for (Product product : products) {
                 JFXCheckBox checkBox = new JFXCheckBox();

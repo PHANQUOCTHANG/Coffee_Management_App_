@@ -29,4 +29,8 @@ public class Cart_ProductService {
     public List<Cart_Product> getAll(int cardId){
        return cartProductRepository.getAll(cardId) ;
     }
+    // get product in card .
+    public Cart_Product getProductInCart(int cartId , int productId){
+        return cartProductRepository.getProductInCart(cartId,productId) ;
+    }
 }
