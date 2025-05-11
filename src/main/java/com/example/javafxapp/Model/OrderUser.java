@@ -1,5 +1,7 @@
 package com.example.javafxapp.Model;
 
+import java.time.LocalDateTime;
+
 public class OrderUser {
     private int orderUser_id ;
     private int account_id ;
@@ -11,6 +13,8 @@ public class OrderUser {
     private String methodPayment ;
     private double subPrice ;
     private double discount ;
+    // them thoi gian
+    private LocalDateTime order_time;
     private String status ;
 
     public OrderUser(int account_id, String fullName, String phone, String address, String note, double shippingFee, String methodPayment, double subPrice, double discount , String status) {
@@ -39,6 +43,27 @@ public class OrderUser {
         this.discount = discount;
         this.status = status;
     }
+
+    
+
+    public OrderUser(int orderUser_id, int account_id, String fullName, String phone, String address, String note,
+            double shippingFee, String methodPayment, double subPrice, double discount, LocalDateTime order_time,
+            String status) {
+        this.orderUser_id = orderUser_id;
+        this.account_id = account_id;
+        this.fullName = fullName;
+        this.phone = phone;
+        this.address = address;
+        this.note = note;
+        this.shippingFee = shippingFee;
+        this.methodPayment = methodPayment;
+        this.subPrice = subPrice;
+        this.discount = discount;
+        this.order_time = order_time;
+        this.status = status;
+    }
+
+    
 
     public int getOrderUser_id() {
         return orderUser_id;
@@ -126,5 +151,13 @@ public class OrderUser {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public LocalDateTime getOrder_time() {
+        return order_time;
+    }
+
+    public void setOrder_time(LocalDateTime order_time) {
+        this.order_time = order_time;
     }
 }

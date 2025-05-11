@@ -28,4 +28,8 @@ public class OrderUserService {
     public OrderUser getOrderUserCurrent () {
         return orderUserRepository.getOrderUserCurrent();
     }
+
+    public void delete(int ouId){
+        orderUserRepository.delete(ouId);
+    }
 }

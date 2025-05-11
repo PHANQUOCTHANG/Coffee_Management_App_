@@ -1,121 +1,118 @@
 package com.example.javafxapp.Controller.Admin.Order;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
-import com.example.javafxapp.Model.Category;
+import com.example.javafxapp.Controller.Admin.BaseController;
+import com.example.javafxapp.Helpper.TextNormalizer;
 import com.example.javafxapp.Model.Product;
-import com.example.javafxapp.Service.CategoryService;
 import com.example.javafxapp.Service.ProductService;
+import com.example.javafxapp.Utils.LogUtils;
 import com.jfoenix.controls.JFXComboBox;
-
-import javafx.application.Platform;
-import javafx.concurrent.Task;
-import javafx.event.ActionEvent;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 
-public class ProductOrderDetailController {
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
+public class ProductOrderDetailController extends BaseController {
     @FXML
-    private ScrollPane scroll;
-
+    private GridPane grid1;
     @FXML
     private TextField searchField;
-
     @FXML
-    private JFXComboBox typeComboBox;
+    private JFXComboBox<String> typeComboBox;
 
-    @FXML
-    private Label productCnt;
-
-    @FXML
-    private GridPane grid;
-
-    // list chua toan bo product theo filter
     private List<Product> products = new ArrayList<>();
+    private final ProductService productService = new ProductService();
 
-    ProductService productService = new ProductService();
-    CategoryService categoryService = new CategoryService();
+    @Override
+    protected void initializeComponents() {
+        // Initialize type combo box
+        typeComboBox.setItems(FXCollections.observableArrayList(
+                "All", "Food", "Drink", "Other"));
+        typeComboBox.setValue("All");
 
-    @FXML 
-    private void initialize(){
-        loadData();
+        // Load initial products
+        loadProducts();
     }
 
-    private void loadData(){
-        // load danh sach sp
-        
-        products = productService.getAllProduct();
+    @Override
+    protected void setupEventHandlers() {
+        // Setup search field handler
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filterProducts(newValue);
+        });
 
-        // load list filter (loai sp trong combobox)
-        
-        List<Category> typeList = categoryService.getAllCategory();
-        typeList.add(new Category(0, "Tất cả"));
-        typeComboBox.getItems().addAll(typeList);
-        typeComboBox.setValue(typeList.get(typeList.size() - 1));
-
-        loadPage();
+        // Setup type combo box handler
+        typeComboBox.setOnAction(event -> {
+            filterProducts(searchField.getText());
+        });
     }
 
-    @FXML
-    void filterAction(ActionEvent event) {
-        Category selected = (Category) typeComboBox.getValue();
-        if (selected.getCategory_id() == 0)
-            products = productService.getAllProduct();            
-        else products = productService.getAllByCategoryId(selected.getCategory_id());
-        if (products.isEmpty() || products == null){
-            System.out.println("Khong lay du lieu duoc!");
-        }
-        loadPage();
+    @Override
+    protected void loadData() {
+        loadProducts();
     }
 
-    private void loadPage() {
-        grid.getChildren().clear();
-        ExecutorService executorService = Executors.newFixedThreadPool(4);
-
-        for (int i = 0; i < products.size(); i++) {
-            int finalI = i;
-            Task<Void> task = new Task<>() {
-                @Override
-                protected Void call() throws Exception {
-                    Product product = products.get(finalI);
-                    VBox vbox = null;
-                    try {
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/javafxapp/View/Orders/OrderDetail/products/product.fxml"));
-                        vbox = loader.load();  // Load FXML và tạo VBox
-                        ProductOrderDetailItemController pic = loader.getController();
-                        pic.setProduct(product);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                    // Cập nhật giao diện về thread chính
-                    if (vbox != null) {
-                        final VBox finalVbox = vbox;
-                        Platform.runLater(() -> {
-                            grid.add(finalVbox, finalI % 3 + 1, finalI / 3 + (finalI % 3 > 0 ? 1 : 0));
-                            grid.setMargin(finalVbox, new Insets(3));
-                            grid.setMaxWidth(210);
-                        });
-                    }
-                    return null;
+    private void loadProducts() {
+        try {
+            String selectedType = typeComboBox.getValue();
+            if (selectedType != null) {
+                if (selectedType.equals("All")) {
+                    products = productService.getAllProducts();
+                } else {
+                    products = productService.getProductsByType(selectedType);
                 }
-            };
-
-            executorService.submit(task);
+                loadProductList();
+                LogUtils.logInfo("Loaded " + products.size() + " products");
+            }
+        } catch (Exception e) {
+            LogUtils.logError("Error loading products", e);
+            showError("Lỗi tải dữ liệu", "Không thể tải danh sách sản phẩm. Vui lòng thử lại sau.");
         }
-
-        executorService.shutdown();
     }
 
+    private void filterProducts(String searchText) {
+        try {
+            if (searchText == null || searchText.trim().isEmpty()) {
+                loadProducts();
+                return;
+            }
+
+            String keyword = TextNormalizer.normalize(searchText.trim());
+            List<Product> filtered = products.stream()
+                    .filter(product -> TextNormalizer.normalize(product.getProduct_name()).contains(keyword))
+                    .toList();
+
+            products = filtered;
+            loadProductList();
+            LogUtils.logInfo("Filtered products with keyword: " + keyword);
+        } catch (Exception e) {
+            LogUtils.logError("Error filtering products", e);
+            showError("Lỗi tìm kiếm", "Không thể tìm kiếm sản phẩm. Vui lòng thử lại sau.");
+        }
+    }
+
+    private void loadProductList() {
+        int row = 0;
+        grid1.getChildren().clear();
+        for (Product product : products) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                        "/com/example/javafxapp/view/orders/orderDetail/products/product.fxml"));
+                HBox hbox = loader.load();
+                ProductOrderDetailItemController controller = loader.getController();
+                controller.setProduct(product);
+                controller.setOrderDetailController((OrderDetailController) getParentController().getCenterContent());
+                grid1.add(hbox, 0, row++);
+                grid1.setMargin(hbox, new Insets(5));
+            } catch (IOException e) {
+                LogUtils.logError("Error loading product item", e);
+            }
+        }
+    }
 }

@@ -1,9 +1,11 @@
 package com.example.javafxapp.Controller.Admin;
 
 import com.example.javafxapp.Controller.Admin.Order.OrderDetailController;
+import com.example.javafxapp.Controller.Admin.Order.User.OrderUserDetailController;
 import com.example.javafxapp.Helpper.AlertInfo;
 import com.example.javafxapp.Helpper.Pages;
 import com.example.javafxapp.Model.Order;
+import com.example.javafxapp.Model.OrderUser;
 import com.example.javafxapp.Service.AccountService;
 import com.example.javafxapp.Service.PermissionService;
 import com.example.javafxapp.Service.RolePermissionService;
@@ -25,17 +27,17 @@ public class MainScreenController {
 
     @FXML
     private JFXButton btnOverview, btnProducts, btnCategories, btnEmployees, btnOrders,
-            btnAccounts, btnRole , btnPermission , btnLogOut;
+            btnAccounts, btnRole, btnPermission, btnLogOut;
 
     @FXML
     private StackPane centerPane;
 
     private List<JFXButton> menuButtons;
 
-    private AccountService accountService = new AccountService() ;
-    private RoleService roleService = new RoleService() ;
-    private RolePermissionService rolePermissionService = new RolePermissionService() ;
-    private PermissionService permissionService = new PermissionService() ;
+    private AccountService accountService = new AccountService();
+    private RoleService roleService = new RoleService();
+    private RolePermissionService rolePermissionService = new RolePermissionService();
+    private PermissionService permissionService = new PermissionService();
 
     @FXML
     public void initialize() {
@@ -47,9 +49,9 @@ public class MainScreenController {
         menuButtons.add(btnOrders);
         menuButtons.add(btnAccounts);
         menuButtons.add(btnRole);
-        menuButtons.add(btnPermission) ;
+        menuButtons.add(btnPermission);
         menuButtons.add(btnEmployees);
-        menuButtons.add(btnLogOut) ;
+        menuButtons.add(btnLogOut);
 
         // Mặc định chọn "Tổng Quan"
         setActiveButton(btnOverview);
@@ -64,35 +66,32 @@ public class MainScreenController {
     }
 
     // repair
-    public Object loadCenterContent(String fxmlPath){
+    public Object loadCenterContent(String fxmlPath) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
         Parent p;
         Object controller = null;
         try {
             p = loader.load();
             centerPane.getChildren().setAll(p);
+            centerPane.setUserData(controller);
 
-            // dua controller qua controller con(ordercontroller) cho no biet controll bo la ai 
-            // de nut addorderbtn hoat dong
             controller = loader.getController();
 
-            // if (controller != null && controller.getClass().equals(OrderController.class)){
-            //     OrderController oc = (OrderController) controller;
-            //     oc.setMainScreenController(this);
-            // }
-            if (controller != null && controller instanceof BaseController){
+            if (controller != null && controller instanceof BaseController) {
                 BaseController base = (BaseController) controller;
                 base.setController(this);
             }
 
             centerPane.setMargin(p, new Insets(0));
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return controller;
     }
 
+    public Object getCenterContent() {
+        return centerPane.getUserData();
+    }
 
     // overview .
     @FXML
@@ -120,7 +119,6 @@ public class MainScreenController {
         setActiveButton(btnCategories);
     }
 
-
     // employees .
     @FXML
     private void handleEmployees() {
@@ -134,8 +132,8 @@ public class MainScreenController {
     @FXML
     public void handleOrders() {
         System.out.println("Order Management button clicked");
-        //        loadCenterContent("/com/example/javafxapp/view/admin/order/order.fxml");
-        loadCenterContent("/com/example/javafxapp/view/orders/orders.fxml");      
+        // loadCenterContent("/com/example/javafxapp/view/admin/order/order.fxml");
+        loadCenterContent("/com/example/javafxapp/view/orders/orders.fxml");
         // Thêm logic chuyển sang trang quản lý đơn hàng
         setActiveButton(btnOrders);
     }
@@ -151,13 +149,12 @@ public class MainScreenController {
 
     // role .
     @FXML
-        private void handleRole() {
-            System.out.println("Role button clicked");
-            loadCenterContent("/com/example/javafxapp/view/admin/role/role.fxml");
-            // Thêm logic chuyển sang trang vai trò .
-            setActiveButton(btnRole);
-        }
-
+    private void handleRole() {
+        System.out.println("Role button clicked");
+        loadCenterContent("/com/example/javafxapp/view/admin/role/role.fxml");
+        // Thêm logic chuyển sang trang vai trò .
+        setActiveButton(btnRole);
+    }
 
     // permission
     @FXML
@@ -174,34 +171,34 @@ public class MainScreenController {
         System.out.println("LogOut button clicked");
         // Thêm logic log out .
         if (AlertInfo.confirmAlert("Bạn có chắc muốn đăng xuất")) {
-            Stage stage = (Stage) btnLogOut.getScene().getWindow() ;
+            Stage stage = (Stage) btnLogOut.getScene().getWindow();
             Pages.pageLogin();
             stage.close();
-        };
-//        setActiveButton(btnLogOut);
+        }
+        ;
+        // setActiveButton(btnLogOut);
     }
-
 
     // phân quyền
-    public void setAccount(){
-        List<Integer> permissions = rolePermissionService.getAllRolePermission(SaveAccountUtils.role_id) ;
-        List<String> permissionNames = new ArrayList<>() ;
+    public void setAccount() {
+        List<Integer> permissions = rolePermissionService.getAllRolePermission(SaveAccountUtils.role_id);
+        List<String> permissionNames = new ArrayList<>();
         for (Integer permissionId : permissions) {
-            String permission_name = permissionService.findPermissionByID(permissionId).getPermission_name() ;
-            permissionNames.add(permission_name) ;
+            String permission_name = permissionService.findPermissionByID(permissionId).getPermission_name();
+            permissionNames.add(permission_name);
         }
-        setBtn(permissionNames,"Overview" , btnOverview );
-        setBtn(permissionNames,"Product" , btnProducts);
-        setBtn(permissionNames,"Category" , btnCategories);
-        setBtn(permissionNames , "Employee"  , btnEmployees);
-        setBtn(permissionNames , "Order" , btnOrders) ;
-        setBtn(permissionNames , "Account" , btnAccounts) ;
-        setBtn(permissionNames , "Role" , btnRole);
-        setBtn(permissionNames,"Permission" , btnPermission);
+        setBtn(permissionNames, "Overview", btnOverview);
+        setBtn(permissionNames, "Product", btnProducts);
+        setBtn(permissionNames, "Category", btnCategories);
+        setBtn(permissionNames, "Employee", btnEmployees);
+        setBtn(permissionNames, "Order", btnOrders);
+        setBtn(permissionNames, "Account", btnAccounts);
+        setBtn(permissionNames, "Role", btnRole);
+        setBtn(permissionNames, "Permission", btnPermission);
     }
 
-    public void setBtn(List<String> permissions ,String permission , JFXButton button) {
-        if (!permissions.contains(permission)){
+    public void setBtn(List<String> permissions, String permission, JFXButton button) {
+        if (!permissions.contains(permission)) {
             button.setVisible(false);
             button.setManaged(false);
         }
@@ -209,21 +206,29 @@ public class MainScreenController {
 
     // add order page (in orderController)
     @FXML
-    public void handleAddOrder(){
+    public void handleAddOrder() {
         loadCenterContent("/com/example/javafxapp/view/orders/orderDetail/orderDetail.fxml");
     }
 
     @FXML
-    public void handleEditOrder(Order order){
+    public void handleEditOrder(Order order) {
         OrderDetailController odc = (OrderDetailController) loadCenterContent(
-            "/com/example/javafxapp/view/orders/orderDetail/orderDetail.fxml");
+                "/com/example/javafxapp/view/orders/orderDetail/orderDetail.fxml");
         odc.setOrder(order);
         odc.loadData();
     }
 
     @FXML
-    public void handleOnlineOrder(){
+    public void handleOnlineOrder() {
         loadCenterContent("/com/example/javafxapp/view/orders/orderUser/orderUser.fxml");
+    }
+
+    @FXML
+    public void handleEditOrderUser(OrderUser ou) {
+        OrderUserDetailController oudc = (OrderUserDetailController) loadCenterContent(
+                "/com/example/javafxapp/view/orders/orderDetail/orderDetail.fxml");
+        oudc.setOrderUser(ou);
+        oudc.loadData();
     }
 
 }

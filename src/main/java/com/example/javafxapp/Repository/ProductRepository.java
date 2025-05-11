@@ -263,5 +263,57 @@ public class ProductRepository implements JDBCRepository<Product> {
         return products ;
     }
 
+    public List<Product> getProductsByCategory(String category){
+        String sql = "SELECT * FROM product WHERE category_id = ? AND deleted = ?";
+        List<Product> products = new ArrayList<>();
+        try (Connection connection = DatabaseConnection.getConnection();
+            PreparedStatement pstmt = connection.prepareStatement(sql)){
+            pstmt.setString(1, category);
+            pstmt.setBoolean(2, false);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()){  
+                products.add(new Product(
+                        rs.getInt("product_id") ,
+                        rs.getString("product_name")  ,
+                        rs.getString("description") ,
+                        rs.getDouble("price") ,
+                        rs.getInt("category_id")  ,
+                        rs.getString("imgSrc") ,
+                        rs.getBoolean("status"),
+                        rs.getBoolean("outstanding") ,
+                        rs.getBoolean("deleted")
+                ));
+            }
+        } catch (SQLException e){   
+            e.printStackTrace();
+        }
+        return products;
+    }
 
+    public List<Product> getProductsByType(String type){
+        String sql = "SELECT * FROM product WHERE type = ? AND deleted = ?";
+        List<Product> products = new ArrayList<>();
+        try (Connection connection = DatabaseConnection.getConnection();
+            PreparedStatement pstmt = connection.prepareStatement(sql)){    
+            pstmt.setString(1, type);
+            pstmt.setBoolean(2, false);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()){
+                products.add(new Product(
+                        rs.getInt("product_id") ,
+                        rs.getString("product_name")  ,
+                        rs.getString("description") ,
+                        rs.getDouble("price") ,
+                        rs.getInt("category_id")  ,
+                        rs.getString("imgSrc") ,
+                        rs.getBoolean("status"),
+                        rs.getBoolean("outstanding") ,
+                        rs.getBoolean("deleted")
+                ));
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return products;
+    }
 }

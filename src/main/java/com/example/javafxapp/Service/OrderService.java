@@ -13,6 +13,10 @@ public class OrderService {
         return or.getAll();
     }
 
+    public Order getOrderById(int id){
+        return or.getOrderById(id);
+    }
+
     // tra ve orderId
     public int addOrder(int userId, BigDecimal totalAmount){
         return or.add(userId, totalAmount);

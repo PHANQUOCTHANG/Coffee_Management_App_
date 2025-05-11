@@ -1,0 +1,221 @@
+[ERROR] 2025-05-12 02:13:16 - Error loading order item: 7: 
+/C:/Users/datle/Desktop/code/Java_Fx_App/target/classes/com/example/javafxapp/View/Orders/orderItem.fxml:11
+
+[ERROR] 2025-05-12 02:13:16 - Error loading order item: 6: 
+/C:/Users/datle/Desktop/code/Java_Fx_App/target/classes/com/example/javafxapp/View/Orders/orderItem.fxml:11
+
+[ERROR] 2025-05-12 02:13:16 - Error loading order item: 4: 
+/C:/Users/datle/Desktop/code/Java_Fx_App/target/classes/com/example/javafxapp/View/Orders/orderItem.fxml:11
+
+[ERROR] 2025-05-12 02:13:16 - Error loading order item: 3: 
+/C:/Users/datle/Desktop/code/Java_Fx_App/target/classes/com/example/javafxapp/View/Orders/orderItem.fxml:11
+
+[ERROR] 2025-05-12 02:13:16 - Error loading order item: 2: 
+/C:/Users/datle/Desktop/code/Java_Fx_App/target/classes/com/example/javafxapp/View/Orders/orderItem.fxml:11
+
+[ERROR] 2025-05-12 02:13:16 - Error loading order item: 1: 
+/C:/Users/datle/Desktop/code/Java_Fx_App/target/classes/com/example/javafxapp/View/Orders/orderItem.fxml:11
+
+[INFO] 2025-05-12 02:13:16 - Loaded 6 orders
+[INFO] 2025-05-12 02:13:16 - Initialized OrderController
+[INFO] 2025-05-12 02:13:23 - Initialized OrderDetailController
+[INFO] 2025-05-12 02:13:23 - Navigated to add order
+[ERROR] 2025-05-12 02:18:14 - Error loading order item: 7: 
+/C:/Users/datle/Desktop/code/Java_Fx_App/target/classes/com/example/javafxapp/View/Orders/orderItem.fxml:11
+
+[ERROR] 2025-05-12 02:18:14 - Error loading order item: 6: 
+/C:/Users/datle/Desktop/code/Java_Fx_App/target/classes/com/example/javafxapp/View/Orders/orderItem.fxml:11
+
+[ERROR] 2025-05-12 02:18:14 - Error loading order item: 4: 
+/C:/Users/datle/Desktop/code/Java_Fx_App/target/classes/com/example/javafxapp/View/Orders/orderItem.fxml:11
+
+[ERROR] 2025-05-12 02:18:14 - Error loading order item: 3: 
+/C:/Users/datle/Desktop/code/Java_Fx_App/target/classes/com/example/javafxapp/View/Orders/orderItem.fxml:11
+
+[ERROR] 2025-05-12 02:18:14 - Error loading order item: 2: 
+/C:/Users/datle/Desktop/code/Java_Fx_App/target/classes/com/example/javafxapp/View/Orders/orderItem.fxml:11
+
+[ERROR] 2025-05-12 02:18:14 - Error loading order item: 1: 
+/C:/Users/datle/Desktop/code/Java_Fx_App/target/classes/com/example/javafxapp/View/Orders/orderItem.fxml:11
+
+[INFO] 2025-05-12 02:18:14 - Loaded 6 orders
+[INFO] 2025-05-12 02:18:14 - Initialized OrderController
+[INFO] 2025-05-12 02:18:16 - Initialized OrderDetailController
+[INFO] 2025-05-12 02:18:16 - Navigated to add order
+[ERROR] 2025-05-12 02:19:47 - Error loading order item: 7: Error resolving onAction='#edit', either the event handler is not in the Namespace or there is an error in the script.
+/C:/Users/datle/Desktop/code/Java_Fx_App/target/classes/com/example/javafxapp/View/Orders/orderItem.fxml:75
+
+[ERROR] 2025-05-12 02:19:47 - Error loading order item: 6: Error resolving onAction='#edit', either the event handler is not in the Namespace or there is an error in the script.
+/C:/Users/datle/Desktop/code/Java_Fx_App/target/classes/com/example/javafxapp/View/Orders/orderItem.fxml:75
+
+[ERROR] 2025-05-12 02:19:47 - Error loading order item: 4: Error resolving onAction='#edit', either the event handler is not in the Namespace or there is an error in the script.
+/C:/Users/datle/Desktop/code/Java_Fx_App/target/classes/com/example/javafxapp/View/Orders/orderItem.fxml:75
+
+[ERROR] 2025-05-12 02:19:47 - Error loading order item: 3: Error resolving onAction='#edit', either the event handler is not in the Namespace or there is an error in the script.
+/C:/Users/datle/Desktop/code/Java_Fx_App/target/classes/com/example/javafxapp/View/Orders/orderItem.fxml:75
+
+[ERROR] 2025-05-12 02:19:47 - Error loading order item: 2: Error resolving onAction='#edit', either the event handler is not in the Namespace or there is an error in the script.
+/C:/Users/datle/Desktop/code/Java_Fx_App/target/classes/com/example/javafxapp/View/Orders/orderItem.fxml:75
+
+[ERROR] 2025-05-12 02:19:47 - Error loading order item: 1: Error resolving onAction='#edit', either the event handler is not in the Namespace or there is an error in the script.
+/C:/Users/datle/Desktop/code/Java_Fx_App/target/classes/com/example/javafxapp/View/Orders/orderItem.fxml:75
+
+[INFO] 2025-05-12 02:19:47 - Loaded 6 orders
+[INFO] 2025-05-12 02:19:47 - Initialized OrderController
+[INFO] 2025-05-12 02:19:49 - Initialized OrderDetailController
+[INFO] 2025-05-12 02:19:49 - Navigated to add order
+[ERROR] 2025-05-12 02:21:26 - Error loading order item: 7: Cannot invoke "javafx.scene.control.Label.setText(String)" because "this.idLabel" is null
+[ERROR] 2025-05-12 02:21:26 - Error loading order item: 6: Cannot invoke "javafx.scene.control.Label.setText(String)" because "this.idLabel" is null
+[ERROR] 2025-05-12 02:21:26 - Error loading order item: 4: Cannot invoke "javafx.scene.control.Label.setText(String)" because "this.idLabel" is null
+[ERROR] 2025-05-12 02:21:26 - Error loading order item: 3: Cannot invoke "javafx.scene.control.Label.setText(String)" because "this.idLabel" is null
+[ERROR] 2025-05-12 02:21:26 - Error loading order item: 2: Cannot invoke "javafx.scene.control.Label.setText(String)" because "this.idLabel" is null
+[ERROR] 2025-05-12 02:21:26 - Error loading order item: 1: Cannot invoke "javafx.scene.control.Label.setText(String)" because "this.idLabel" is null
+[INFO] 2025-05-12 02:21:26 - Loaded 6 orders
+[INFO] 2025-05-12 02:21:26 - Initialized OrderController
+[INFO] 2025-05-12 02:21:28 - Initialized OrderDetailController
+[INFO] 2025-05-12 02:21:28 - Navigated to add order
+[INFO] 2025-05-12 02:22:48 - Loaded 6 orders
+[INFO] 2025-05-12 02:22:48 - Initialized OrderController
+[INFO] 2025-05-12 02:22:55 - Initialized OrderDetailController
+[INFO] 2025-05-12 02:22:55 - Navigated to add order
+[INFO] 2025-05-12 02:24:12 - Loaded 6 orders
+[INFO] 2025-05-12 02:24:12 - Initialized OrderController
+[INFO] 2025-05-12 02:24:39 - Initialized OrderDetailController
+[INFO] 2025-05-12 02:24:39 - Navigated to add order
+[ERROR] 2025-05-12 02:26:20 - Error filtering products: Location is not set.
+[ERROR] 2025-05-12 02:26:22 - Lỗi tìm kiếm: Không thể tìm kiếm sản phẩm. Vui lòng thử lại sau.
+[ERROR] 2025-05-12 02:26:27 - Error filtering products: Location is not set.
+[ERROR] 2025-05-12 02:26:28 - Lỗi tìm kiếm: Không thể tìm kiếm sản phẩm. Vui lòng thử lại sau.
+[INFO] 2025-05-12 02:38:30 - Loaded 6 orders
+[INFO] 2025-05-12 02:38:30 - Initialized OrderController
+[ERROR] 2025-05-12 02:38:32 - Error loading order data: Location is not set.
+[ERROR] 2025-05-12 02:38:34 - Lỗi tải dữ liệu: Không thể tải thông tin đơn hàng. Vui lòng thử lại sau.
+[INFO] 2025-05-12 02:38:34 - Initialized OrderDetailController
+[INFO] 2025-05-12 02:38:34 - Navigated to add order
+[INFO] 2025-05-12 02:40:16 - Loaded 6 orders
+[INFO] 2025-05-12 02:40:16 - Initialized OrderController
+[ERROR] 2025-05-12 02:40:18 - Error loading order data: Location is not set.
+[ERROR] 2025-05-12 02:40:19 - Lỗi tải dữ liệu: Không thể tải thông tin đơn hàng. Vui lòng thử lại sau.
+[INFO] 2025-05-12 02:40:19 - Initialized OrderDetailController
+[INFO] 2025-05-12 02:40:19 - Navigated to add order
+[INFO] 2025-05-12 02:40:44 - Loaded 6 orders
+[INFO] 2025-05-12 02:40:44 - Initialized OrderController
+[INFO] 2025-05-12 02:42:53 - Loaded 6 orders
+[INFO] 2025-05-12 02:42:53 - Initialized OrderController
+[ERROR] 2025-05-12 02:42:55 - Error loading product item: Error resolving onAction='#addProduct', either the event handler is not in the Namespace or there is an error in the script.
+/C:/Users/datle/Desktop/code/Java_Fx_App/target/classes/com/example/javafxapp/View/Orders/OrderDetail/products/product.fxml:31
+
+[ERROR] 2025-05-12 02:42:55 - Error loading product item: Error resolving onAction='#addProduct', either the event handler is not in the Namespace or there is an error in the script.
+/C:/Users/datle/Desktop/code/Java_Fx_App/target/classes/com/example/javafxapp/View/Orders/OrderDetail/products/product.fxml:31
+
+[ERROR] 2025-05-12 02:42:55 - Error loading product item: Error resolving onAction='#addProduct', either the event handler is not in the Namespace or there is an error in the script.
+/C:/Users/datle/Desktop/code/Java_Fx_App/target/classes/com/example/javafxapp/View/Orders/OrderDetail/products/product.fxml:31
+
+[ERROR] 2025-05-12 02:42:55 - Error loading product item: Error resolving onAction='#addProduct', either the event handler is not in the Namespace or there is an error in the script.
+/C:/Users/datle/Desktop/code/Java_Fx_App/target/classes/com/example/javafxapp/View/Orders/OrderDetail/products/product.fxml:31
+
+[ERROR] 2025-05-12 02:42:55 - Error loading product item: Error resolving onAction='#addProduct', either the event handler is not in the Namespace or there is an error in the script.
+/C:/Users/datle/Desktop/code/Java_Fx_App/target/classes/com/example/javafxapp/View/Orders/OrderDetail/products/product.fxml:31
+
+[ERROR] 2025-05-12 02:42:55 - Error loading product item: Error resolving onAction='#addProduct', either the event handler is not in the Namespace or there is an error in the script.
+/C:/Users/datle/Desktop/code/Java_Fx_App/target/classes/com/example/javafxapp/View/Orders/OrderDetail/products/product.fxml:31
+
+[ERROR] 2025-05-12 02:42:55 - Error loading product item: Error resolving onAction='#addProduct', either the event handler is not in the Namespace or there is an error in the script.
+/C:/Users/datle/Desktop/code/Java_Fx_App/target/classes/com/example/javafxapp/View/Orders/OrderDetail/products/product.fxml:31
+
+[ERROR] 2025-05-12 02:42:55 - Error loading product item: Error resolving onAction='#addProduct', either the event handler is not in the Namespace or there is an error in the script.
+/C:/Users/datle/Desktop/code/Java_Fx_App/target/classes/com/example/javafxapp/View/Orders/OrderDetail/products/product.fxml:31
+
+[ERROR] 2025-05-12 02:42:55 - Error loading product item: Error resolving onAction='#addProduct', either the event handler is not in the Namespace or there is an error in the script.
+/C:/Users/datle/Desktop/code/Java_Fx_App/target/classes/com/example/javafxapp/View/Orders/OrderDetail/products/product.fxml:31
+
+[ERROR] 2025-05-12 02:42:55 - Error loading product item: Error resolving onAction='#addProduct', either the event handler is not in the Namespace or there is an error in the script.
+/C:/Users/datle/Desktop/code/Java_Fx_App/target/classes/com/example/javafxapp/View/Orders/OrderDetail/products/product.fxml:31
+
+[ERROR] 2025-05-12 02:42:55 - Error loading product item: Error resolving onAction='#addProduct', either the event handler is not in the Namespace or there is an error in the script.
+/C:/Users/datle/Desktop/code/Java_Fx_App/target/classes/com/example/javafxapp/View/Orders/OrderDetail/products/product.fxml:31
+
+[ERROR] 2025-05-12 02:42:55 - Error loading product item: Error resolving onAction='#addProduct', either the event handler is not in the Namespace or there is an error in the script.
+/C:/Users/datle/Desktop/code/Java_Fx_App/target/classes/com/example/javafxapp/View/Orders/OrderDetail/products/product.fxml:31
+
+[ERROR] 2025-05-12 02:42:55 - Error loading product item: Error resolving onAction='#addProduct', either the event handler is not in the Namespace or there is an error in the script.
+/C:/Users/datle/Desktop/code/Java_Fx_App/target/classes/com/example/javafxapp/View/Orders/OrderDetail/products/product.fxml:31
+
+[ERROR] 2025-05-12 02:42:55 - Error loading product item: Error resolving onAction='#addProduct', either the event handler is not in the Namespace or there is an error in the script.
+/C:/Users/datle/Desktop/code/Java_Fx_App/target/classes/com/example/javafxapp/View/Orders/OrderDetail/products/product.fxml:31
+
+[ERROR] 2025-05-12 02:42:55 - Error loading product item: Error resolving onAction='#addProduct', either the event handler is not in the Namespace or there is an error in the script.
+/C:/Users/datle/Desktop/code/Java_Fx_App/target/classes/com/example/javafxapp/View/Orders/OrderDetail/products/product.fxml:31
+
+[ERROR] 2025-05-12 02:42:55 - Error loading product item: Error resolving onAction='#addProduct', either the event handler is not in the Namespace or there is an error in the script.
+/C:/Users/datle/Desktop/code/Java_Fx_App/target/classes/com/example/javafxapp/View/Orders/OrderDetail/products/product.fxml:31
+
+[ERROR] 2025-05-12 02:42:55 - Error loading product item: Error resolving onAction='#addProduct', either the event handler is not in the Namespace or there is an error in the script.
+/C:/Users/datle/Desktop/code/Java_Fx_App/target/classes/com/example/javafxapp/View/Orders/OrderDetail/products/product.fxml:31
+
+[ERROR] 2025-05-12 02:42:55 - Error loading product item: Error resolving onAction='#addProduct', either the event handler is not in the Namespace or there is an error in the script.
+/C:/Users/datle/Desktop/code/Java_Fx_App/target/classes/com/example/javafxapp/View/Orders/OrderDetail/products/product.fxml:31
+
+[ERROR] 2025-05-12 02:42:55 - Error loading product item: Error resolving onAction='#addProduct', either the event handler is not in the Namespace or there is an error in the script.
+/C:/Users/datle/Desktop/code/Java_Fx_App/target/classes/com/example/javafxapp/View/Orders/OrderDetail/products/product.fxml:31
+
+[ERROR] 2025-05-12 02:42:55 - Error loading product item: Error resolving onAction='#addProduct', either the event handler is not in the Namespace or there is an error in the script.
+/C:/Users/datle/Desktop/code/Java_Fx_App/target/classes/com/example/javafxapp/View/Orders/OrderDetail/products/product.fxml:31
+
+[INFO] 2025-05-12 02:42:55 - Initialized OrderDetailController
+[INFO] 2025-05-12 02:42:55 - Navigated to add order
+[INFO] 2025-05-12 02:44:31 - Loaded 6 orders
+[INFO] 2025-05-12 02:44:31 - Initialized OrderController
+[ERROR] 2025-05-12 02:44:33 - Error loading order data: class javafx.scene.layout.VBox cannot be cast to class javafx.scene.layout.HBox (javafx.scene.layout.VBox and javafx.scene.layout.HBox are in module javafx.graphics of loader 'app')
+[ERROR] 2025-05-12 02:44:34 - Lỗi tải dữ liệu: Không thể tải thông tin đơn hàng. Vui lòng thử lại sau.
+[INFO] 2025-05-12 02:44:34 - Initialized OrderDetailController
+[INFO] 2025-05-12 02:44:34 - Navigated to add order
+[INFO] 2025-05-12 02:45:43 - Loaded 6 orders
+[INFO] 2025-05-12 02:45:43 - Initialized OrderController
+[ERROR] 2025-05-12 02:45:44 - Error loading order data: class javafx.scene.layout.VBox cannot be cast to class javafx.scene.layout.HBox (javafx.scene.layout.VBox and javafx.scene.layout.HBox are in module javafx.graphics of loader 'app')
+[ERROR] 2025-05-12 02:45:46 - Lỗi tải dữ liệu: Không thể tải thông tin đơn hàng. Vui lòng thử lại sau.
+[INFO] 2025-05-12 02:45:46 - Initialized OrderDetailController
+[INFO] 2025-05-12 02:45:46 - Navigated to add order
+[INFO] 2025-05-12 02:47:12 - Loaded 6 orders
+[INFO] 2025-05-12 02:47:12 - Initialized OrderController
+[INFO] 2025-05-12 02:47:15 - Initialized OrderDetailController
+[INFO] 2025-05-12 02:47:15 - Navigated to add order
+[ERROR] 2025-05-12 02:48:12 - Error adding product to order: Location is not set.
+[INFO] 2025-05-12 02:58:19 - Loaded 6 orders
+[INFO] 2025-05-12 02:58:19 - Initialized OrderController
+[INFO] 2025-05-12 02:58:21 - Initialized OrderDetailController
+[INFO] 2025-05-12 02:58:21 - Navigated to add order
+[ERROR] 2025-05-12 02:58:25 - Error loading order detail item: Error resolving onAction='#dec', either the event handler is not in the Namespace or there is an error in the script.
+/C:/Users/datle/Desktop/code/Java_Fx_App/target/classes/com/example/javafxapp/View/Orders/OrderDetail/orderDetailItem.fxml:35
+
+[INFO] 2025-05-12 02:58:25 - Added product to order: Cà phê sữa đá
+[INFO] 2025-05-12 02:59:41 - Loaded 6 orders
+[INFO] 2025-05-12 02:59:41 - Initialized OrderController
+[INFO] 2025-05-12 02:59:45 - Searched orders with keyword: ad
+[INFO] 2025-05-12 02:59:47 - Searched orders with keyword: ad
+[INFO] 2025-05-12 02:59:48 - Searched orders with keyword: ad
+[INFO] 2025-05-12 02:59:51 - Loaded 6 orders
+[INFO] 2025-05-12 02:59:53 - Searched orders with keyword: 123
+[INFO] 2025-05-12 02:59:54 - Searched orders with keyword: 12356
+[INFO] 2025-05-12 02:59:56 - Searched orders with keyword: 123
+[INFO] 2025-05-12 03:00:01 - Loaded 6 orders
+[INFO] 2025-05-12 03:00:05 - Searched orders with keyword: 123
+[INFO] 2025-05-12 03:00:07 - Searched orders with keyword: 12354
+[INFO] 2025-05-12 03:00:08 - Searched orders with keyword: 1235
+[INFO] 2025-05-12 03:00:10 - Searched orders with keyword: 123
+[INFO] 2025-05-12 03:00:13 - Searched orders with keyword: 12
+[INFO] 2025-05-12 03:00:16 - Searched orders with keyword: 1
+[INFO] 2025-05-12 03:00:20 - Searched orders with keyword: ad
+[INFO] 2025-05-12 03:00:23 - Loaded 6 orders
+[INFO] 2025-05-12 03:00:25 - Searched orders with keyword: ad
+[INFO] 2025-05-12 03:00:37 - Initialized OrderDetailController
+[INFO] 2025-05-12 03:00:37 - Navigated to add order
+[INFO] 2025-05-12 03:00:46 - Added product to order: Cà phê đen
+[INFO] 2025-05-12 03:00:51 - Added product to order: Trà sữa matcha
+[INFO] 2025-05-12 03:00:55 - Added product to order: Sinh tố bơ
+[INFO] 2025-05-12 03:01:04 - Loaded 7 orders
+[INFO] 2025-05-12 03:01:04 - Initialized OrderController
+[INFO] 2025-05-12 03:01:05 - Initialized OrderDetailController
+[INFO] 2025-05-12 03:01:06 - Viewing order details: 8
+[INFO] 2025-05-12 03:01:11 - Loaded 7 orders
+[INFO] 2025-05-12 03:01:11 - Initialized OrderController

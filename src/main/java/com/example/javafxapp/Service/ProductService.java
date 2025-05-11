@@ -27,7 +27,7 @@ public class ProductService {
     }
 
     // get all product .
-    public List<Product> getAllProduct(){
+    public List<Product> getAllProducts(){
         return productRepository.getAll() ;
     }
 
@@ -64,5 +64,11 @@ public class ProductService {
     // find all product by keyword .
     public List<Product> findProductsByKeyword(String keyword) {
         return productRepository.findAllByKeyword(keyword) ;
+    }
+    public List<Product> getProductsByCategory(String category){
+        return productRepository.getProductsByCategory(category);
+    }
+    public List<Product> getProductsByType(String type){
+        return productRepository.getProductsByType(type);
     }
 }

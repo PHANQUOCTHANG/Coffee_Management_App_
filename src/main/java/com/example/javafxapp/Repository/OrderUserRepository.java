@@ -92,5 +92,17 @@ public class OrderUserRepository {
         return null ;
     }
 
+    public void delete(int ouId){
+        String sql = "delete from OrderUser where id = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql)){
+            
+            stmt.setInt(1, ouId);
+            stmt.executeUpdate();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
 
 }

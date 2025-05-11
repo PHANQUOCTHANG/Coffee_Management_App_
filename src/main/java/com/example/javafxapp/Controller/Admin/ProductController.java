@@ -61,7 +61,7 @@ public class ProductController {
     // load data mặc định khi vào trang .
     public void loadData() {
         grid.getChildren().clear();
-        List<Product> products = productService.getAllProduct(); // Lấy danh sách từ database
+        List<Product> products = productService.getAllProducts(); // Lấy danh sách từ database
 
         if (products == null || products.isEmpty()) {
             System.out.println("Không có dữ liệu từ database!");
@@ -141,7 +141,7 @@ public class ProductController {
         // Xóa hết nút cũ trừ Prev và Next
         boxPage.getChildren().removeIf(node -> node != prevButton && node != nextButton);
         buttons = new ArrayList<>();
-        List<Product> products = productService.getAllProduct();
+        List<Product> products = productService.getAllProducts();
         pages = (products.size() % limitPage == 0) ? products.size() / limitPage : products.size() / limitPage + 1;
         int totalPages = Math.min(numberPage, pages);
         // Thêm nút phân trang từ 1 -> totalPages

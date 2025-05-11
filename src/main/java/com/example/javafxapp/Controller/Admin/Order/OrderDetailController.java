@@ -25,6 +25,7 @@ import com.example.javafxapp.Service.CategoryService;
 import com.example.javafxapp.Service.OrderDetailService;
 import com.example.javafxapp.Service.OrderService;
 import com.example.javafxapp.Service.ProductService;
+import com.example.javafxapp.Utils.LogUtils;
 import com.example.javafxapp.Utils.SaveAccountUtils;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
@@ -72,7 +73,7 @@ public class OrderDetailController extends BaseController {
     private Label userNameLabel;
 
     @FXML
-    private JFXComboBox statusComboBox;
+    private JFXComboBox<String> statusComboBox;
 
     @FXML
     private Label timeLabel;
@@ -84,14 +85,22 @@ public class OrderDetailController extends BaseController {
     private Label idLabel;
 
     @FXML
-    private ScrollPane scroll1;  
+    private ScrollPane scroll1;
 
     private int orderId = -1;
 
-    public OrderDetailController(){};
+    public OrderDetailController() {
+    };
 
     public void setOrderId(int orderId) {
         this.orderId = orderId;
+        loadData();
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+        this.orderId = order.getId();
+        loadData();
     }
 
     private Order order = null;
@@ -101,134 +110,155 @@ public class OrderDetailController extends BaseController {
     // dung cho responsive loadpage
     double containerWidth = -1;
 
-
     @FXML
-    private JFXComboBox typeComboBox;
+    private JFXComboBox<String> typeComboBox;
     // list chua toan bo product theo filter
     private List<Product> products = new ArrayList<>();
     private ObservableList<OrderDetail> orderDetailList = FXCollections.observableArrayList();
 
-    ProductService productService = new ProductService(); 
-    CategoryService categoryService = new CategoryService();
-    OrderDetailService orderDetailService = new OrderDetailService();
-    OrderService orderService = new OrderService();
+    private final ProductService productService = new ProductService();
+    private final CategoryService categoryService = new CategoryService();
+    private final OrderDetailService orderDetailService = new OrderDetailService();
+    private final OrderService orderService = new OrderService();
+    private final AccountService accountService = new AccountService();
 
-    // map tu orderDetail item sang productitem 
+    // map tu orderDetail item sang productitem
     // => xac dinh duoc controller cua tung product de set trang thai nut add
     private Map<Integer, ProductOrderDetailItemController> mp = new HashMap<>();
 
-    @FXML 
-    private void initialize(){
-        userNameLabel.setText("N/A");
-        timeLabel.setText("N/A");
-        idLabel.setText("#...");
+    @Override
+    protected void initializeComponents() {
+        // Initialize status combo box
+        statusComboBox.setItems(FXCollections.observableArrayList(
+                "Pending", "Processing", "Completed", "Cancelled"));
 
-        PauseTransition pause = new PauseTransition(Duration.seconds(0.75));
+        // Initialize type combo box
+        typeComboBox.setItems(FXCollections.observableArrayList(
+                "All", "Food", "Drink", "Other"));
+        typeComboBox.setValue("All");
+    }
 
-        // ham search
+    @Override
+    protected void setupEventHandlers() {
+        // Setup search field handler
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            pause.stop(); // Dừng transition nếu đang chạy
-            pause.setOnFinished(event -> {
-                if (newValue != null) {
-                    String cleaned = newValue.trim().replaceAll("\\s+", " ");
-                    if (cleaned.isEmpty()) {
-                        updateProductDisplay(products);
-                        return;
-                    }
-
-                    String keyword = TextNormalizer.normalize(cleaned);
-
-                    List<Product> filtered = new ArrayList<>();
-                    for (Product product : products) {
-                        if (TextNormalizer.normalize(product.getProduct_name()).contains(keyword)) {
-                            filtered.add(product);
-                        }
-                    }
-
-                    updateProductDisplay(filtered);
-                }
-            });
-            pause.playFromStart(); // Bắt đầu đếm lại 1s sau mỗi lần nhập
-
-            
+            filterProducts(newValue);
         });
 
-        
+        // Setup type combo box handler
+        typeComboBox.setOnAction(event -> {
+            filterProducts(searchField.getText());
+        });
 
-        // chon trang thai
-        List<String> statusList = new ArrayList<>();
-        statusList.add("Đang chờ xử lí");
-        statusList.add("Đang xử lí");
-        statusList.add("Đã xử lí");
-        statusList.add("Đã huỷ");
-
-        statusComboBox.getItems().addAll(statusList);
-        statusComboBox.setValue("Đang chờ xử lí");
-
-        // load list filter (loai sp trong combobox)
-        
-        List<Category> typeList = categoryService.getAllCategory();
-        typeList.add(new Category(0, "Tất cả"));
-        typeComboBox.getItems().addAll(typeList);
-        typeComboBox.setValue(typeList.get(typeList.size() - 1));
-
-        loadData();
+        // Setup status combo box handler
+        statusComboBox.setOnAction(event -> {
+            if (order != null) {
+                order.setStatus(statusComboBox.getValue());
+            }
+        });
     }
 
-    private void updateProductDisplay(List<Product> l){
-        List<Product> p = products;
-        products = l;
-        loadPage();
-        products = p;
+    private void filterProducts(String searchText) {
+        try {
+            String type = typeComboBox.getValue();
+            if (type.equals("All")) {
+                products = productService.getAllProducts();
+            } else {
+                products = productService.getProductsByType(type);
+            }
+            if (searchText != null && !searchText.isEmpty()) {
+                products = products.stream()
+                        .filter(p -> TextNormalizer.normalize(p.getProduct_name())
+                                .contains(TextNormalizer.normalize(searchText)))
+                        .toList();
+            }
+            loadProductList();
+        } catch (Exception e) {
+            LogUtils.logError("Error filtering products", e);
+            showError("Lỗi tìm kiếm", "Không thể tìm kiếm sản phẩm. Vui lòng thử lại sau.");
+        }
     }
 
-    public void setOrder(Order order){
-        this.order = order;
-        orderId = order.getId();
+    private void loadProductList() {
+        int row = 0;
+        grid1.getChildren().clear();
+        for (Product product : products) {
+            try {
+                // Use ClassLoader to load FXML
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getClassLoader()
+                        .getResource("com/example/javafxapp/View/Orders/OrderDetail/products/product.fxml"));
+                VBox vbox = loader.load();
+                ProductOrderDetailItemController controller = loader.getController();
+                controller.setProduct(product);
+                controller.setOrderDetailController(this);
+                mp.put(product.getProduct_id(), controller);
+
+                grid1.add(vbox, 0, row++);
+                grid1.setMargin(vbox, new Insets(5));
+            } catch (IOException e) {
+                LogUtils.logError("Error loading product item", e);
+            }
+        }
     }
 
-    public void loadData(){
-        // load danh sach sp
-        products = productService.getAllProduct();
-        setOrderDetailList();
-        System.out.println("odl size = " + orderDetailList.size());
+    public void loadData() {
+        try {
+            // Load all products first
+            products = productService.getAllProducts();
+            loadProductList();
 
-        
+            if (orderId != -1) {
+                order = orderService.getOrderById(orderId);
+                if (order != null) {
+                    idLabel.setText("#" + order.getId());
+                    statusComboBox.setValue(order.getStatus());
+                    timeLabel.setText(order.getOrderTime().toString());
+                    Account staff = accountService.findAccountByName(order.getStaffName());
+                    userNameLabel.setText(staff != null ? staff.getAccountName() : "Unknown");
 
-        loadPage();
+                    orderDetailList.clear();
+                    orderDetailList.addAll(orderDetailService.getAll(orderId));
+                    loadOrderDetailList();
+                    updateTotalPrice();
+                }
+            }
+        } catch (Exception e) {
+            LogUtils.logError("Error loading order data", e);
+            showError("Lỗi tải dữ liệu", "Không thể tải thông tin đơn hàng. Vui lòng thử lại sau.");
+        }
     }
 
-    private void setOrderDetailList(){
+    private void setOrderDetailList() {
         orderDetailList = FXCollections.observableArrayList(orderDetailService.getAll(orderId));
     }
 
     @FXML
     void filterAction(ActionEvent event) {
-        Category selected = (Category) typeComboBox.getValue();
-        if (selected.getCategory_id() == 0)
-            products = productService.getAllProduct();            
-        else 
-            products = productService.getAllByCategoryId(selected.getCategory_id());
-        if (products.isEmpty() || products == null){
-            System.out.println("Khong lay du lieu duoc!");
+        String selected = typeComboBox.getValue();
+        if (selected.equals("All")) {
+            products = productService.getAllProducts();
+        } else {
+            products = productService.getProductsByCategory(selected);
         }
         loadPage();
     }
 
-    private void loadPage(){
+    private void loadPage() {
         updateTotalPrice();
 
-        ExecutorService executorService = Executors.newFixedThreadPool(10);  // Sử dụng 4 thread để tải dữ liệu
+        ExecutorService executorService = Executors.newFixedThreadPool(10);
 
-        List<VBox> vboxes = new ArrayList<>();  // Dùng để lưu các VBox trước khi thêm vào grid
+        List<VBox> vboxes = new ArrayList<>();
 
         for (int i = 0; i < products.size(); i++) {
             int finalI = i;
             executorService.submit(() -> {
                 Product product = products.get(finalI);
                 try {
+                    // Load product.fxml for the product list
                     FXMLLoader loader = new FXMLLoader(getClass().getResource(
-                            "/com/example/javafxapp/View/Orders/OrderDetail/products/product.fxml"));
+                            "../../../../../resources/com/example/javafxapp/View/Orders/OrderDetail/products/product.fxml"));
                     VBox vbox = loader.load();
 
                     ProductOrderDetailItemController pic = loader.getController();
@@ -236,21 +266,17 @@ public class OrderDetailController extends BaseController {
                     pic.setOrderDetailController(this);
                     mp.put(product.getProduct_id(), pic);
 
-                    // Lưu các VBox vào list, tránh cập nhật giao diện liên tục
                     synchronized (vboxes) {
                         vboxes.add(vbox);
                     }
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    LogUtils.logError("Error loading product item", e);
                 }
             });
         }
 
-        
-
         executorService.shutdown();
         try {
-            // Đợi các thread hoàn thành
             if (!executorService.awaitTermination(60, TimeUnit.SECONDS)) {
                 executorService.shutdownNow();
             }
@@ -258,10 +284,9 @@ public class OrderDetailController extends BaseController {
             executorService.shutdownNow();
         }
 
-        // Sau khi hoàn thành tất cả các thread, cập nhật giao diện trên thread chính
         Platform.runLater(() -> {
             grid1.getChildren().clear();
-            if (containerWidth == -1){
+            if (containerWidth == -1) {
                 for (int i = 0; i < vboxes.size(); i++) {
                     VBox vbox = vboxes.get(i);
                     grid1.add(vbox, i % 3 + 1, i / 3 + 1);
@@ -272,66 +297,64 @@ public class OrderDetailController extends BaseController {
                 int itemWidth = 214;
                 int margin = 8;
                 int numColumns = Math.max(3, (int) ((containerWidth - margin) / (itemWidth + margin * 2)));
-    
+
                 for (int i = 0; i < vboxes.size(); i++) {
                     VBox vbox = vboxes.get(i);
-    
+
                     int col = i % numColumns + 1;
                     int row = i / numColumns + 1;
-    
+
                     grid1.add(vbox, col, row);
                     grid1.setMargin(vbox, new Insets(margin));
                 }
             }
-            
 
+            // Load order details in the cart
             loadOrderDetailList();
             loadTitle();
         });
-        // responsive scroll
+
+        // Responsive scroll
         PauseTransition pause = new PauseTransition(Duration.seconds(0.75));
-        
-        scroll1.widthProperty().addListener((obs, oldVal, newVal) -> { 
-            pause.stop(); // Dừng transition nếu đang chạy
+
+        scroll1.widthProperty().addListener((obs, oldVal, newVal) -> {
+            pause.stop();
             pause.setOnFinished(event -> {
                 Platform.runLater(() -> {
-            
                     grid1.getChildren().clear();
-        
-                    containerWidth = newVal.doubleValue(); // container bao quanh grid1
+
+                    containerWidth = newVal.doubleValue();
                     int itemWidth = 214;
                     int margin = 8;
                     int numColumns = Math.max(3, (int) ((containerWidth - margin) / (itemWidth + margin * 2)));
-        
+
                     for (int i = 0; i < vboxes.size(); i++) {
                         VBox vbox = vboxes.get(i);
-        
+
                         int col = i % numColumns + 1;
                         int row = i / numColumns + 1;
-        
+
                         grid1.add(vbox, col, row);
                         grid1.setMargin(vbox, new Insets(margin));
                     }
-        
+
                     loadOrderDetailList();
                     loadTitle();
                 });
             });
-            pause.playFromStart(); // Bắt đầu đếm lại 1s sau mỗi lần nhập
-            
+            pause.playFromStart();
         });
-        
     }
 
     // load title
-    private void loadTitle(){
-        //load username
+    private void loadTitle() {
+        // load username
         setUserNameLabel();
 
         // load id order
         if (orderId != -1)
             idLabel.setText("#" + orderId);
-        
+
         // load thoi diem tao
         if (order != null)
             timeLabel.setText("" + order.getOrderTime());
@@ -343,7 +366,7 @@ public class OrderDetailController extends BaseController {
             // kiem tra co thay doi list order detail khong, neu co thi hien bang thong bao
             boolean checkChange = orderDetailService.checkChange(orderId, orderDetailList);
             if ((checkChange && AlertInfo.confirmAlert("Bạn có chắc muốn trở về mà không lưu thay đổi?") ||
-                !checkChange)) {
+                    !checkChange)) {
                 msc.handleOrders();
             }
         } catch (RuntimeException e) {
@@ -357,24 +380,24 @@ public class OrderDetailController extends BaseController {
             // kiem tra co thay doi list order detail khong, neu co thi hien bang thong bao
             boolean checkChange = orderDetailService.checkChange(orderId, orderDetailList);
             if ((orderDetailList.size() > 0 &&
-                AlertInfo.confirmAlert("Bạn có chắc muốn lưu thay đổi?") || 
-                !checkChange)) {
-                if (orderDetailList.size() > 0){
+                    AlertInfo.confirmAlert("Bạn có chắc muốn lưu thay đổi?") ||
+                    !checkChange)) {
+                if (orderDetailList.size() > 0) {
                     // neu hoa don chua co trong orders thi tao mot orders moi, neu da co thi update
-                    if (orderId == -1){
+                    if (orderId == -1) {
                         orderId = orderService.addOrder(SaveAccountUtils.account_id, new BigDecimal("" + totalPrice));
-                    }
-                    else orderService.updateOrder(orderId, new BigDecimal("" + totalPrice));
+                    } else
+                        orderService.updateOrder(orderId, new BigDecimal("" + totalPrice));
                     // update order trong database
                     orderDetailService.update(orderId, orderDetailList);
                     // update status
-                    orderService.updateStatus(orderId, order.getStatus());
+                    orderService.updateStatus(orderId, order != null ? order.getStatus() : "Pending");
                     // load ten nguoi tao, cap nhat trang thai order va ngay tao
                     setUserNameLabel();
-                    
+
                     loadData();
-                    AlertInfo.showAlert(Alert.AlertType.INFORMATION, 
-                        "Thành công", "Đã lưu thành công");
+                    AlertInfo.showAlert(Alert.AlertType.INFORMATION,
+                            "Thành công", "Đã lưu thành công");
                 }
             }
         } catch (RuntimeException e) {
@@ -382,24 +405,27 @@ public class OrderDetailController extends BaseController {
         }
     }
 
-    public void updateOrderDetailPrice(int id, int cnt){
-        for (OrderDetail od : orderDetailList)
-            if (od.getProductId() == id){
-                od.setUnitPrice(od.getUnitPrice() / od.getQuantity() * cnt);
-                od.setQuantity(cnt);
+    public void updateOrderDetailPrice(int productId, int newQuantity) {
+        for (OrderDetail od : orderDetailList) {
+            if (od.getProductId() == productId) {
+                double oldPrice = od.getUnitPrice() / od.getQuantity();
+                od.setQuantity(newQuantity);
+                od.setUnitPrice(oldPrice * newQuantity);
+                break;
             }
+        }
+        updateTotalPrice();
     }
 
-    public void updateTotalPrice(){
+    public void updateTotalPrice() {
         totalPrice = 0;
         for (OrderDetail od : orderDetailList)
             totalPrice += od.getUnitPrice();
-        priceLabel.setText(totalPrice + " đ");
+        priceLabel.setText(String.format("%,.0f VNĐ", totalPrice));
     }
 
-
-    public void addOrderDetail(Product product){
-        // add du lieu vo list 
+    public void addOrderDetail(Product product) {
+        // add du lieu vo list
         for (OrderDetail od : orderDetailList)
             if (od.getProductId() == product.getProduct_id())
                 return;
@@ -412,15 +438,16 @@ public class OrderDetailController extends BaseController {
         loadOrderDetailList();
     }
 
-    public void loadOrderDetailList(){
+    public void loadOrderDetailList() {
         int row = 1;
         grid2.getChildren().clear();
-        for (int i = orderDetailList.size() - 1; i >= 0; i--){
+        for (int i = orderDetailList.size() - 1; i >= 0; i--) {
             OrderDetail od = orderDetailList.get(i);
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource(
-                        "/com/example/javafxapp/View/Orders/OrderDetail/orderDetailItem.fxml"
-                ));
+                // Use ClassLoader to load FXML
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getClassLoader()
+                        .getResource("com/example/javafxapp/View/Orders/OrderDetail/orderDetailItem.fxml"));
                 HBox hbox = loader.load();
                 OrderDetailItemController odic = loader.getController();
                 odic.setOrderDetail(od);
@@ -429,55 +456,56 @@ public class OrderDetailController extends BaseController {
                 grid2.add(hbox, 0, row++);
                 grid2.setMargin(hbox, new Insets(5));
             } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }            
+                LogUtils.logError("Error loading order detail item", e);
+            }
         }
     }
 
-    public void removeOrderDetail(int productId){
+    public void removeOrderDetail(int productId) {
         orderDetailList.removeIf(od -> od.getProductId() == productId);
     }
 
-    public ProductOrderDetailItemController getProductItemController(int id){
+    public ProductOrderDetailItemController getProductItemController(int id) {
         return mp.get(id);
     }
 
-    public void setUserNameLabel(){
+    public void setUserNameLabel() {
         AccountService accountService = new AccountService();
         Account account = accountService.findAccountByID(SaveAccountUtils.account_id);
-        if (account != null) 
+        if (account != null)
             userNameLabel.setText(accountService.findAccountByID(SaveAccountUtils.account_id).getAccountName());
     }
 
     @FXML
-    void selectStatus(){
+    void selectStatus() {
         String selectedStatus = (String) statusComboBox.getValue();
-        if (selectedStatus.equals("Đang chờ xử lí"))
+        if (selectedStatus.equals("Pending"))
             order.setStatus("Pending");
-        else if (selectedStatus.equals("Đang xử lí"))
+        else if (selectedStatus.equals("Processing"))
             order.setStatus("Processing");
-        else if (selectedStatus.equals("Đã xử lí"))
+        else if (selectedStatus.equals("Completed"))
             order.setStatus("Completed");
-        else order.setStatus("Cancelled");
+        else
+            order.setStatus("Cancelled");
     }
 
     @FXML
     void mark(ActionEvent event) {
-        statusComboBox.setValue("Đã xử lí");
+        statusComboBox.setValue("Completed");
         order.setStatus("Completed");
     }
 
     @FXML
     void payment(ActionEvent event) {
-        if (orderId != -1){
+        if (orderId != -1) {
             boolean checkChange = orderDetailService.checkChange(orderId, orderDetailList);
-            if (checkChange && AlertInfo.confirmAlert("Bạn muốn in những thay đổi hay in hoá đơn cũ? Chọn Ok để lưu thay đổi."))
+            if (checkChange
+                    && AlertInfo.confirmAlert("Bạn muốn in những thay đổi hay in hoá đơn cũ? Chọn Ok để lưu thay đổi."))
                 saveOrderDetail();
             exportInvoicePDF(orderId, (List<OrderDetail>) orderDetailList);
             order.setStatus("Completed");
-            AlertInfo.showAlert(Alert.AlertType.INFORMATION, 
-                        "Thành công", "File invoice_" + orderId + ".pdf đã được lưu trong file invoices.");
+            AlertInfo.showAlert(Alert.AlertType.INFORMATION,
+                    "Thành công", "File invoice_" + orderId + ".pdf đã được lưu trong file invoices.");
         }
     }
 
@@ -485,7 +513,8 @@ public class OrderDetailController extends BaseController {
         // Thư mục invoices ở cùng cấp với src/
 
         File dir = new File("invoices");
-        if (!dir.exists()) dir.mkdirs();
+        if (!dir.exists())
+            dir.mkdirs();
 
         String fileName = "invoice_" + orderId + ".pdf";
         File file = new File(dir, fileName);
@@ -496,5 +525,4 @@ public class OrderDetailController extends BaseController {
         System.out.println("PDF hóa đơn đã được lưu tại: " + file.getAbsolutePath());
     }
 
-    
 }

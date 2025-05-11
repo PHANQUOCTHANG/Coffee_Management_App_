@@ -155,4 +155,20 @@ public class OrderRepository{
             e.printStackTrace();
         }
     }
+
+    public Order getOrderById(int id){
+        String sql = "select * from Orders where id = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql)){
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()){
+                return new Order(rs.getInt("id"), rs.getInt("user_id"), rs.getString("account_name"), rs.getBigDecimal("total_amount"), rs.getString("status"), rs.getTimestamp("order_time"));
+            }
+            return null;
+        } catch (SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
