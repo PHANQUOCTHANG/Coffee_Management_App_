@@ -513,19 +513,22 @@ public class CoffeeShopController implements Initializable {
     // Tạo card hiển thị thông tin sản phẩm
     private VBox createProductCard(Product product) {
         VBox card = new VBox(20);
-        card.setAlignment(Pos.CENTER);
+        card.setAlignment(Pos.TOP_CENTER);
         card.setStyle("-fx-background-color: white; -fx-padding: 15px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);");
         card.setPrefWidth(300);
+        card.setPrefHeight(420); // Chiều cao đồng nhất cho tất cả thẻ
 
         // Ảnh sản phẩm
         try {
             ImageView productImage = new ImageView(UploadImage.loadImage(product.getImgSrc()));
             productImage.setFitWidth(200);
             productImage.setFitHeight(200);
-            productImage.setPreserveRatio(true);
-            card.getChildren().add(productImage);
+            productImage.setPreserveRatio(false); // Đảm bảo ảnh nằm gọn trong khung
+
+            StackPane imageWrapper = new StackPane(productImage);
+            imageWrapper.setPrefSize(200, 200);
+            card.getChildren().add(imageWrapper);
         } catch (Exception e) {
-            // Nếu không tìm thấy ảnh, hiển thị placeholder
             StackPane imagePlaceholder = new StackPane();
             imagePlaceholder.setPrefSize(200, 200);
             imagePlaceholder.setStyle("-fx-background-color: #f0f0f0;");
@@ -546,6 +549,7 @@ public class CoffeeShopController implements Initializable {
         // Mô tả sản phẩm
         Label descLabel = new Label(product.getDescription());
         descLabel.setWrapText(true);
+        descLabel.setPrefHeight(40); // Chiều cao cố định để các thẻ không lệch nhau
         descLabel.setStyle("-fx-text-fill: #666666; -fx-font-size: 14px;");
 
         // Container cho nút và bộ chọn số lượng
@@ -554,32 +558,27 @@ public class CoffeeShopController implements Initializable {
 
         // Nút thêm vào giỏ hàng
         Button orderBtn = new Button("Thêm vào giỏ");
-        orderBtn.setStyle("-fx-background-color: #5D4037; -fx-text-fill: white;-fx-font-size: 14px;");
+        orderBtn.setStyle("-fx-background-color: #5D4037; -fx-text-fill: white; -fx-font-size: 14px;");
         orderBtn.setPrefWidth(150);
 
         // Bộ chọn số lượng
         HBox quantitySelector = new HBox(0);
         quantitySelector.setStyle("-fx-border-color: #CCCCCC; -fx-border-radius: 3px;");
 
-        // Nút giảm số lượng
         Button decreaseBtn = new Button("-");
         decreaseBtn.setStyle("-fx-background-color: #EEEEEE; -fx-text-fill: #5D4037; -fx-min-width: 30px; -fx-min-height: 30px; -fx-font-weight: bold;");
 
-        // Hiển thị số lượng
         Label quantityLabel = new Label("1");
         quantityLabel.setAlignment(Pos.CENTER);
         quantityLabel.setPrefWidth(40);
         quantityLabel.setPrefHeight(30);
         quantityLabel.setStyle("-fx-alignment: center; -fx-background-color: white; -fx-text-fill: #5D4037; -fx-font-weight: bold;");
 
-        // Nút tăng số lượng
         Button increaseBtn = new Button("+");
         increaseBtn.setStyle("-fx-background-color: #EEEEEE; -fx-text-fill: #5D4037; -fx-min-width: 30px; -fx-min-height: 30px; -fx-font-weight: bold;");
 
-        // Thêm các thành phần vào bộ chọn số lượng
         quantitySelector.getChildren().addAll(decreaseBtn, quantityLabel, increaseBtn);
 
-        // Xử lý sự kiện cho nút giảm
         AtomicInteger quantity = new AtomicInteger(1);
         decreaseBtn.setOnAction(e -> {
             if (quantity.get() > 1) {
@@ -588,7 +587,6 @@ public class CoffeeShopController implements Initializable {
             }
         });
 
-        // Xử lý sự kiện cho nút tăng
         increaseBtn.setOnAction(e -> {
             if (quantity.get() < 100) {
                 quantity.incrementAndGet();
@@ -596,18 +594,18 @@ public class CoffeeShopController implements Initializable {
             }
         });
 
-        // Xử lý sự kiện đặt hàng với số lượng
         orderBtn.setOnAction(e -> {
             handleOrderProduct(product, quantity.get());
         });
 
-        // Thêm nút và bộ chọn số lượng vào container
         orderContainer.getChildren().addAll(orderBtn, quantitySelector);
 
+        // Thêm tất cả thành phần vào card
         card.getChildren().addAll(nameLabel, priceLabel, descLabel, orderContainer);
 
         return card;
     }
+
 
     // Xử lý sự kiện đặt hàng
     private void handleOrderProduct(Product product, int quantity) {

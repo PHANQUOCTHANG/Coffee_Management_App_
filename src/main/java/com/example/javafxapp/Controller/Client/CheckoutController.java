@@ -1,6 +1,5 @@
 package com.example.javafxapp.Controller.Client;
 
-import com.example.javafxapp.Controller.Admin.AuthController;
 import com.example.javafxapp.Helpper.AlertInfo;
 import com.example.javafxapp.Helpper.Pages;
 import com.example.javafxapp.Helpper.UploadImage;
@@ -17,6 +16,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -26,10 +29,11 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.IOException;
+import java.net.URI;
 import java.net.URL;
 import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -57,7 +61,7 @@ public class CheckoutController implements Initializable {
     @FXML
     private RadioButton creditCardRadio;
     @FXML
-    private RadioButton momoRadio;
+    private RadioButton vnPayRadio;
 
     @FXML
     private VBox orderSummaryContainer;
@@ -85,8 +89,8 @@ public class CheckoutController implements Initializable {
     private double shippingFee = 30000; // Mặc định là phí giao hàng tiêu chuẩn
     private NumberFormat currencyFormatter;
     private InformationUserService informationUserService = new InformationUserService();
-    private OrderUserService orderUserService = new OrderUserService() ;
-    private OrderUser_ProductService orderUserProductService = new OrderUser_ProductService() ;
+    private OrderUserService orderUserService = new OrderUserService();
+    private OrderUser_ProductService orderUserProductService = new OrderUser_ProductService();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -96,7 +100,7 @@ public class CheckoutController implements Initializable {
 //        orderService = new OrderService();
 //
         // Lấy thông tin người dùng hiện tại từ session và điền vào form
-        InformationUser informationUser = informationUserService.getInformationUserByAccountId(SaveAccountUtils.account_id) ;
+        InformationUser informationUser = informationUserService.getInformationUserByAccountId(SaveAccountUtils.account_id);
         if (informationUser != null) {
             nameField.setText(informationUser.getFullName());
             phoneField.setText(informationUser.getPhone());
@@ -206,7 +210,7 @@ public class CheckoutController implements Initializable {
     @FXML
     private void handleBackAction() {
         // Quay lại trang trước đó
-        Stage stage = (Stage) backBtn.getScene().getWindow() ;
+        Stage stage = (Stage) backBtn.getScene().getWindow();
         stage.close();
     }
 
@@ -224,7 +228,7 @@ public class CheckoutController implements Initializable {
     private void handlePlaceOrder(ActionEvent event) {
         // Kiểm tra dữ liệu đầu vào
         if (!validateInputs()) {
-            return ;
+            return;
         }
 
         try {
@@ -235,55 +239,68 @@ public class CheckoutController implements Initializable {
             String paymentMethod;
             if (codRadio.isSelected()) {
                 paymentMethod = "COD";
+                VNPayService.checkPayment = true;
             } else if (bankTransferRadio.isSelected()) {
                 paymentMethod = "BankTransfer";
             } else if (creditCardRadio.isSelected()) {
                 paymentMethod = "CreditCard";
-            } else if (momoRadio.isSelected()) {
-                paymentMethod = "MoMo";
+            } else if (vnPayRadio.isSelected()) {
+                paymentMethod = "vnPay";
+                List<OrderUser> orderUsers = orderUserService.getAll();
+                long amount = (long) (subtotal - discount + shippingFee);
+                handlePaymentByVnPay(new VnPayRequest(String.valueOf(100), amount, "Thanh toán đơn hàng"));
+            } else {
+                AlertInfo.showAlert(Alert.AlertType.ERROR, "Lỗi", "Chọn phương thức thanh toán");
+                return;
             }
-            else {
-                AlertInfo.showAlert(Alert.AlertType.ERROR , "Lỗi" , "Chọn phương thức thanh toán");
-                return ;
-            }
+
+//            if (!VNPayService.checkPayment) {
+//                AlertInfo.showAlert(Alert.AlertType.INFORMATION, "Thất bại", "Đặt hàng thất bại");
+//                return ;
+//            }
             // lấy thông tin người đặt hàng để giao .
-            String fullName = nameField.getText().trim() ;
-            String phone = phoneField.getText().trim() ;
-            String address = addressField.getText().trim() ;
-            String note = noteField.getText().trim() ;
+            String fullName = nameField.getText().trim();
+            String phone = phoneField.getText().trim();
+            String address = addressField.getText().trim();
+            String note = noteField.getText().trim();
+
             // lưu đơn hàng vừa đặt của khách .
-            OrderUser orderUser = new OrderUser(SaveAccountUtils.account_id , fullName , phone , address , note , shippingFee , paymentMethod , subtotal , discount , "Pending");
+            OrderUser orderUser = new OrderUser(SaveAccountUtils.account_id, fullName, phone, address, note, shippingFee, paymentMethod, subtotal, discount, "Pending");
             orderUserService.add(orderUser);
+
             // lấy đơn hàng vừa rồi để lấy id của đơn hàng để thêm các sản phẩm của đơn hàng đó .
-            OrderUser orderUserCurrent = orderUserService.getOrderUserCurrent() ;
+            OrderUser orderUserCurrent = orderUserService.getOrderUserCurrent();
+
             // mua thành công thì sẽ thêm các sản phẩm đó vào đơn hàng và xóa các sản phẩm đã mua trong giỏ thanh toán ;
             for (Cart_Product cartProduct : ListProductOrderUser.list) {
-                System.out.println(orderUserCurrent.getOrderUser_id());
-                System.out.println(cartProduct.getProduct_id() );
-                System.out.println(cartProduct.getQuantity());
                 if (orderUserCurrent != null)
                     orderUserProductService.add(new OrderUser_Product(orderUserCurrent.getOrderUser_id(), cartProduct.getProduct_id(), cartProduct.getQuantity()));
                 cartProductService.delete(cartProduct);
             }
+
             // xóa các sản phẩm đã chọn mua từ cart .
             ListProductOrderUser.list.clear();
 
-            AlertInfo.showAlert(Alert.AlertType.INFORMATION , "Thành công" , "Đặt hàng thành công");
-            Stage stage = (Stage) placeOrderBtn.getScene().getWindow() ;
+            // in ra thongo báo .
+            AlertInfo.showAlert(Alert.AlertType.INFORMATION, "Thành công", "Đặt hàng thành công");
+            Stage stage = (Stage) placeOrderBtn.getScene().getWindow();
             stage.close();
             Pages.pageUser();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
- }
-
-    private boolean validateInputs () {
-        if (!ValidationInformationUser.checkFullName(nameField.getText().trim())) return false ;
-        if (!ValidationInformationUser.checkPhone(phoneField.getText().trim())) return false ;
-        if (!ValidationInformationUser.checkAddress(addressField.getText().trim())) return false;
-        return true ;
     }
 
+    // ràng buộc thông tin người đặt hàng .
+    private boolean validateInputs() {
+        if (!ValidationInformationUser.checkFullName(nameField.getText().trim())) return false;
+        if (!ValidationInformationUser.checkPhone(phoneField.getText().trim())) return false;
+        if (!ValidationInformationUser.checkAddress(addressField.getText().trim())) return false;
+        return true;
+    }
+
+    // xử lí sự kiện tick ship vào radio chỉ tick vào 1 ô .
     @FXML
     private void handleMethodShip(Event event) {
         RadioButton clickedButton = (RadioButton) event.getSource();
@@ -299,16 +316,30 @@ public class CheckoutController implements Initializable {
         updateShippingFee();
     }
 
+    // xử lí sự kiện tick phương thức thanh toán vào radio chỉ tick vào 1 ô .
     @FXML
     private void handleMethodCheckOut(Event event) {
         RadioButton clickedButton = (RadioButton) event.getSource();
         codRadio.setSelected(false);
         bankTransferRadio.setSelected(false);
         creditCardRadio.setSelected(false);
-        momoRadio.setSelected(false);
+        vnPayRadio.setSelected(false);
         if (clickedButton.equals(codRadio)) codRadio.setSelected(true);
         else if (clickedButton.equals(bankTransferRadio)) bankTransferRadio.setSelected(true);
         else if (clickedButton.equals(creditCardRadio)) creditCardRadio.setSelected(true);
-        else momoRadio.setSelected(true);
+        else vnPayRadio.setSelected(true);
+    }
+
+    private VNPayService vnPayService = new VNPayService();
+
+    @FXML
+    public void handlePaymentByVnPay(VnPayRequest vnPayRequest) {
+        try {
+            vnPayService.startVNPayResultServer();
+            String paymentUrl = vnPayService.createPaymentUrl(vnPayRequest);
+            Desktop.getDesktop().browse(new URI(paymentUrl));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

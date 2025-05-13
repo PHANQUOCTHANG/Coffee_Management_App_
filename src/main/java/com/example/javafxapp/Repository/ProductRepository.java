@@ -63,6 +63,21 @@ public class ProductRepository implements JDBCRepository<Product> {
         }
     }
 
+    public boolean deleteP(int productId) {
+        String sql = "UPDATE Product set deleted = ? where product_id = ?" ;
+        try(Connection connection = DatabaseConnection.getConnection() ;
+            PreparedStatement pstmt = connection.prepareStatement(sql) ;
+        ) {
+            pstmt.setBoolean(1,true);
+            pstmt.setInt(2,productId);
+            pstmt.executeUpdate() ;
+            return true ;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false ;
+    }
+
     // get all product .
     public List<Product> getAll(){
         String sql = "SELECT * FROM Product where deleted = ?" ;
@@ -262,6 +277,8 @@ public class ProductRepository implements JDBCRepository<Product> {
         }
         return products ;
     }
+
+
 
 
 }

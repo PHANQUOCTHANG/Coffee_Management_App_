@@ -1,0 +1,350 @@
+/* Product Management Styles */
+
+/* ====== Main Containers ====== */
+.root {
+    -fx-font-family: 'Segoe UI', Arial, sans-serif;
+    -fx-background-color: #F7F9FC;
+}
+
+/* ====== Page Title ====== */
+.page-title {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2D3748;
+}
+
+/* ====== Cards ====== */
+.card {
+    -fx-background-color: white;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+}
+
+.section-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2D3748;
+}
+
+.counter-label {
+    -fx-text-fill: #718096;
+    -fx-font-size: 14px;
+}
+
+/* ====== Buttons ====== */
+.primary-button {
+    -fx-background-color: #0051CE;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-padding: 8px 16px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0, 81, 206, 0.3), 5, 0, 0, 2);
+}
+
+.primary-button:hover {
+    -fx-background-color: #0042A8;
+}
+
+.delete-button {
+    -fx-background-color: #E53E3E;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-padding: 8px 16px;
+    -fx-cursor: hand;
+}
+
+.delete-button:hover {
+    -fx-background-color: #C53030;
+}
+
+.search-button {
+    -fx-background-color: #0051CE;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-padding: 8px 16px;
+    -fx-cursor: hand;
+}
+
+.reset-button {
+    -fx-background-color: #EDF2F7;
+    -fx-text-fill: #4A5568;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-padding: 8px 16px;
+    -fx-cursor: hand;
+}
+
+.reset-button:hover {
+    -fx-background-color: #E2E8F0;
+}
+
+.export-button {
+    -fx-background-color: #38A169;
+    -fx-text-fill: white;
+    -fx-font-weight: normal;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-padding: 8px 16px;
+    -fx-cursor: hand;
+}
+
+.export-button:hover {
+    -fx-background-color: #2F855A;
+}
+
+/* Action buttons in table */
+.edit-button {
+    -fx-background-color: #4299E1;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-background-radius: 4px;
+    -fx-padding: 8px 16px;
+    -fx-cursor: hand;
+}
+
+.view-button {
+    -fx-background-color: #38B2AC;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-background-radius: 4px;
+    -fx-padding: 5px 10px;
+    -fx-cursor: hand;
+}
+
+.delete-item-button {
+    -fx-background-color: #E53E3E;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-background-radius: 4px;
+    -fx-padding: 5px 10px;
+    -fx-cursor: hand;
+}
+
+/* ====== Search Box ====== */
+.search-box {
+    -fx-background-color: white;
+    -fx-background-radius: 4px;
+    -fx-border-color: #E2E8F0;
+    -fx-border-radius: 4px;
+    -fx-border-width: 1px;
+}
+
+.search-field {
+    -fx-background-color: transparent;
+    -fx-padding: 0 10px 0 0;
+    -fx-prompt-text-fill: #A0AEC0;
+    -fx-text-fill: #2D3748;
+}
+
+.search-field:focused {
+    -fx-background-color: transparent;
+}
+
+/* ====== Combo Boxes ====== */
+.filter-combo {
+    -fx-background-color: white;
+    -fx-border-color: #E2E8F0;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-prompt-text-fill: #718096;
+}
+
+.filter-combo .arrow-button {
+    -fx-background-color: transparent;
+}
+
+.filter-combo .arrow {
+    -fx-background-color: #718096;
+}
+
+.combo-box-popup .list-view {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 10, 0, 0, 5);
+}
+
+.combo-box-popup .list-view .list-cell {
+    -fx-padding: 8px 12px;
+    -fx-background-color: white;
+    -fx-text-fill: #2D3748;
+}
+
+.combo-box-popup .list-view .list-cell:hover {
+    -fx-background-color: #EDF2F7;
+}
+
+.combo-box-popup .list-view .list-cell:filled:selected {
+    -fx-background-color: #EBF4FF;
+    -fx-text-fill: #2C5282;
+}
+
+/* ====== Table ====== */
+.table-header-bar {
+    -fx-background-color: #F7FAFC;
+    -fx-border-color: #E2E8F0;
+    -fx-border-width: 0 0 1 0;
+}
+
+.product-table {
+    -fx-background-color: transparent;
+    -fx-table-cell-border-color: transparent;
+}
+
+.product-table .column-header-background {
+    -fx-background-color: #F7FAFC;
+    -fx-border-color: #E2E8F0;
+    -fx-border-width: 0 0 1 0;
+}
+
+.product-table .column-header {
+    -fx-background-color: transparent;
+    -fx-padding: 12px 15px;
+    -fx-alignment: center-left;
+}
+
+.product-table .column-header .label {
+    -fx-text-fill: #4A5568;
+    -fx-font-weight: bold;
+}
+
+.product-table .table-row-cell {
+    -fx-background-color: white;
+    -fx-border-color: #EDF2F7;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 5px 0;
+}
+
+.product-table .table-row-cell:odd {
+    -fx-background-color: #FAFAFA;
+}
+
+.product-table .table-row-cell:selected {
+    -fx-background-color: #EBF8FF;
+    -fx-text-fill: #2C5282;
+}
+
+.product-table .table-cell {
+    -fx-padding: 10px 15px;
+    -fx-alignment: center-left;
+    -fx-border-color: transparent;
+    -fx-text-fill: #2D3748;
+}
+
+/* Status indicators */
+.status-active {
+    -fx-background-color: #C6F6D5;
+    -fx-text-fill: #22543D;
+    -fx-padding: 5px 10px;
+    -fx-background-radius: 4px;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+}
+
+.status-inactive {
+    -fx-background-color: #FED7D7;
+    -fx-text-fill: #822727;
+    -fx-padding: 5px 10px;
+    -fx-background-radius: 4px;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+}
+
+.status-out-of-stock {
+    -fx-background-color: #FEF3C7;
+    -fx-text-fill: #92400E;
+    -fx-padding: 5px 10px;
+    -fx-background-radius: 4px;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+/* Featured button styles */
+            .featured-button {
+                -fx-padding: 5px 10px;
+                -fx-background-radius: 5px;
+                -fx-cursor: hand;
+                -fx-font-size: 12px;
+                -fx-text-fill: white;
+                -fx-alignment: center;
+                -fx-content-display: center;
+                -fx-min-width: 80px;
+            }
+            .featured-yes {
+                -fx-background-color: #28a745;
+            }
+            .featured-no {
+                -fx-background-color: #dc3545;
+            }
+            .featured-button:hover {
+                -fx-opacity: 0.8;
+            }
+
+/* ====== Pagination ====== */
+.custom-pagination {
+    -fx-padding: 10px 0;
+}
+
+.custom-pagination .pagination-control .button {
+    -fx-background-color: white;
+    -fx-border-color: #E2E8F0;
+    -fx-background-radius: 4px;
+    -fx-border-radius: 4px;
+}
+
+.custom-pagination .pagination-control .button:hover {
+    -fx-background-color: #EDF2F7;
+}
+
+.custom-pagination .pagination-control .number-button {
+    -fx-background-color: white;
+    -fx-border-color: #E2E8F0;
+    -fx-background-radius: 4px;
+    -fx-border-radius: 4px;
+    -fx-padding: 5px 10px;
+    -fx-font-size: 13px;
+}
+
+.custom-pagination .pagination-control .number-button:selected {
+    -fx-background-color: #0051CE;
+    -fx-text-fill: white;
+    -fx-border-color: #0051CE;
+}
+
+.custom-pagination .pagination-control .page-indicator:selected {
+    -fx-background-color: #0051CE;
+    -fx-text-fill: white;
+}
+
+/* ====== Checkbox ====== */
+.jfx-check-box {
+    -fx-font-size: 14px;
+}
+
+.jfx-check-box:selected .box {
+    -fx-background-color: #0051CE;
+    -fx-border-color: #0051CE;
+}
+
+.jfx-check-box .box {
+    -fx-border-color: #A0AEC0;
+    -fx-border-radius: 3px;
+}
+
+.jfx-check-box:selected .mark {
+    -fx-background-color: white;
+}
+
+/* ====== Tooltip ====== */
+.tooltip {
+    -fx-background-color: #2D3748;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-padding: 8px 12px;
+    -fx-background-radius: 4px;
+}

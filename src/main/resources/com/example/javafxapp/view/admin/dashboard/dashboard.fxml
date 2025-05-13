@@ -22,7 +22,7 @@
             <!-- Header -->
             <HBox styleClass="header">
                 <VBox>
-                    <Label text="Dashboard" styleClass="page-title"/>
+                    <Label text="Tổng quan" styleClass="page-title"/>
                     <Label text="Tổng quan về hoạt động kinh doanh" styleClass="page-subtitle"/>
                 </VBox>
 
@@ -46,11 +46,11 @@
                     <HBox>
                         <VBox HBox.hgrow="ALWAYS">
                             <Label text="Tổng doanh thu" styleClass="stat-title"/>
-                            <Label text="38,500,000 đ" styleClass="stat-value"/>
-                            <HBox alignment="CENTER_LEFT" styleClass="stat-trend-up">
-<!--                                <FontAwesomeIconView glyphName="ARROW_UP" size="12"/>-->
-                                <Label text="12.5% so với tháng trước"/>
-                            </HBox>
+                            <Label text="38,500,000 đ" fx:id="revenueLabel" styleClass="stat-value"/>
+<!--                            <HBox alignment="CENTER_LEFT" styleClass="stat-trend-up">-->
+<!--&lt;!&ndash;                                <FontAwesomeIconView glyphName="ARROW_UP" size="12"/>&ndash;&gt;-->
+<!--                                <Label text="12.5% so với tháng trước"/>-->
+<!--                            </HBox>-->
                         </VBox>
                         <StackPane styleClass="stat-icon-container">
                             <Rectangle styleClass="stat-icon-bg, revenue-bg"/>
@@ -64,11 +64,11 @@
                     <HBox>
                         <VBox HBox.hgrow="ALWAYS">
                             <Label text="Tổng đơn hàng" styleClass="stat-title"/>
-                            <Label text="254" styleClass="stat-value"/>
-                            <HBox alignment="CENTER_LEFT" styleClass="stat-trend-up">
-<!--                                <FontAwesomeIconView glyphName="ARROW_UP" size="12"/>-->
-                                <Label text="8.2% so với tháng trước"/>
-                            </HBox>
+                            <Label text="254" fx:id="countOrder" styleClass="stat-value"/>
+<!--                            <HBox alignment="CENTER_LEFT" styleClass="stat-trend-up">-->
+<!--&lt;!&ndash;                                <FontAwesomeIconView glyphName="ARROW_UP" size="12"/>&ndash;&gt;-->
+<!--                                <Label text="8.2% so với tháng trước"/>-->
+<!--                            </HBox>-->
                         </VBox>
                         <StackPane styleClass="stat-icon-container">
                             <Rectangle styleClass="stat-icon-bg, orders-bg"/>
@@ -83,10 +83,10 @@
                         <VBox HBox.hgrow="ALWAYS">
                             <Label text="Khách hàng mới" styleClass="stat-title"/>
                             <Label text="68" styleClass="stat-value"/>
-                            <HBox alignment="CENTER_LEFT" styleClass="stat-trend-up">
-<!--                                <FontAwesomeIconView glyphName="ARROW_UP" size="12"/>-->
-                                <Label text="5.7% so với tháng trước"/>
-                            </HBox>
+<!--                            <HBox alignment="CENTER_LEFT" styleClass="stat-trend-up">-->
+<!--&lt;!&ndash;                                <FontAwesomeIconView glyphName="ARROW_UP" size="12"/>&ndash;&gt;-->
+<!--                                <Label text="5.7% so với tháng trước"/>-->
+<!--                            </HBox>-->
                         </VBox>
                         <StackPane styleClass="stat-icon-container">
                             <Rectangle styleClass="stat-icon-bg, customers-bg"/>
@@ -101,10 +101,10 @@
                         <VBox HBox.hgrow="ALWAYS">
                             <Label text="Tỷ lệ chuyển đổi" styleClass="stat-title"/>
                             <Label text="24.8%" styleClass="stat-value"/>
-                            <HBox alignment="CENTER_LEFT" styleClass="stat-trend-down">
-<!--                                <FontAwesomeIconView glyphName="ARROW_DOWN" size="12"/>-->
-                                <Label text="2.3% so với tháng trước"/>
-                            </HBox>
+<!--                            <HBox alignment="CENTER_LEFT" styleClass="stat-trend-down">-->
+<!--&lt;!&ndash;                                <FontAwesomeIconView glyphName="ARROW_DOWN" size="12"/>&ndash;&gt;-->
+<!--                                <Label text="2.3% so với tháng trước"/>-->
+<!--                            </HBox>-->
                         </VBox>
                         <StackPane styleClass="stat-icon-container">
                             <Rectangle styleClass="stat-icon-bg, conversion-bg"/>

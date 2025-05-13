@@ -182,16 +182,16 @@
                             <VBox spacing="10">
                                 <HBox alignment="CENTER_LEFT" spacing="10"
                                       style="-fx-padding: 10; -fx-border-color: #E0E0E0; -fx-border-radius: 5;">
-                                    <RadioButton fx:id="momoRadio" text="Ví MoMo" toggleGroup="$paymentGroup" onAction="#handleMethodCheckOut"/>
+                                    <RadioButton fx:id="vnPayRadio" text="VN PAY" toggleGroup="$paymentGroup" onAction="#handleMethodCheckOut"/>
                                     <ImageView fitHeight="24" fitWidth="24" preserveRatio="true">
-                                        <Image url="@../../Images/momo.jpg"/>
+                                        <Image url="@../../Images/vnpay.jpg"/>
                                     </ImageView>
                                 </HBox>
 
-                                <!-- Container cho thanh toán MoMo -->
+                                <!-- Container cho thanh toán VN PAY -->
                                 <VBox fx:id="momoDetailsContainer" spacing="10" visible="false" managed="false"
                                       style="-fx-padding: 10; -fx-background-color: #F5F5F5; -fx-background-radius: 5;" alignment="CENTER">
-                                    <Label text="Quét mã QR để thanh toán qua MoMo" style="-fx-font-weight: bold"/>
+                                    <Label text="Quét mã QR để thanh toán qua VN PAY" style="-fx-font-weight: bold"/>
 
                                     <ImageView fx:id="momoQrImage" fitHeight="200" fitWidth="200" preserveRatio="true">
                                         <Image url="@../../Images/momo.jpg"/>

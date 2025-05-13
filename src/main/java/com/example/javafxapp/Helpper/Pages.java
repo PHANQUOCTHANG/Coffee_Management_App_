@@ -1,6 +1,9 @@
 package com.example.javafxapp.Helpper;
 
 import com.example.javafxapp.Controller.Admin.*;
+import com.example.javafxapp.Controller.Admin.Product.AddProductController;
+import com.example.javafxapp.Controller.Admin.Product.ProductController;
+import com.example.javafxapp.Controller.Admin.Product.UpdateProductController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -9,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 
 public class Pages {
@@ -98,16 +102,13 @@ public class Pages {
     //// Product .
 
     // chuyển qua trang thêm mới sản phẩm .
-    public static void pageAddProduct() {
+    public static void pageAddProduct(ProductController productController) {
         try {
             FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/View/Admin/Product/addProduct.fxml"));
             Parent root = loader.load();
+            AddProductController controller = loader.getController();
+            controller.setProductController(productController);
             Scene scene = new Scene(root);
-
-
-            ProductController controller = loader.getController();
-            controller.loadDataAddProduct();
-
             Stage stage = new Stage();
             stage.getIcons().add(new Image(Pages.class.getResourceAsStream("/com/example/javafxapp/view/images/icons.jpg")));
             stage.setScene(scene);
@@ -123,16 +124,14 @@ public class Pages {
     }
 
     // chuyển qua trang chi tiết sản phẩm
-    public static void pageDetailProduct(int productId) {
+    public static void pageUpdateProduct(int productId , ProductController productController) {
         try {
-            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/View/Admin/Product/detailProduct.fxml"));
+            UpdateProductController.product_id = productId ;
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/View/Admin/Product/updateProduct.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
-
-            // Lấy controller của trang chi tiết và truyền ID sản phẩm vào
-            ProductController controller = loader.getController();
-            controller.loadDataDetailProduct(productId);
-
+            UpdateProductController controller = loader.getController();
+            controller.setProductController(productController);
             Stage stage = new Stage();
             stage.getIcons().add(new Image(Pages.class.getResourceAsStream("/com/example/javafxapp/view/images/icons.jpg")));
             stage.setScene(scene);

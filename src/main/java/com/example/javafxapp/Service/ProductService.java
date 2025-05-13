@@ -25,6 +25,9 @@ public class ProductService {
     public void deleteProduct(int productId) {
         productRepository.delete(productId);
     }
+    public boolean deleteProduct1(int productId) {
+        return productRepository.deleteP(productId);
+    }
 
     // get all product .
     public List<Product> getAllProduct(){
