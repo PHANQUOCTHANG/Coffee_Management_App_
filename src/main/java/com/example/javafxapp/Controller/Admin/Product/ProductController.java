@@ -112,28 +112,34 @@ public class ProductController implements Initializable {
 
     private void setupTableColumns() {
         // Cột checkbox
-        checkBoxList = new ArrayList<>();
+
+        checkBoxColumn.setCellValueFactory(cellData -> cellData.getValue().selectedProperty());
 
         checkBoxColumn.setCellFactory(column -> new TableCell<Product, Boolean>() {
-            private CheckBox checkBox = new CheckBox();
-
-            {
-                checkBox.setAlignment(Pos.CENTER);
-                setAlignment(Pos.CENTER);
-                setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-            }
 
             @Override
             protected void updateItem(Boolean item, boolean empty) {
                 super.updateItem(item, empty);
-                if (empty) {
-                    setGraphic(null);
-                } else {
-                    checkBox.setSelected(false); // hoặc giữ trạng thái cũ
-                    setGraphic(checkBox);
 
-                    checkBoxList.add(checkBox.isSelected()) ;
+                if (empty || getTableRow() == null || getTableRow().getItem() == null) {
+                    setGraphic(null);
+                    return;
                 }
+
+                CheckBox checkBox = new CheckBox();
+                checkBox.setAlignment(Pos.CENTER);
+                setAlignment(Pos.CENTER);
+                setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+
+                Product product = (Product) getTableRow().getItem();
+
+                // Bỏ lắng nghe cũ để tránh lỗi lặp binding
+                checkBox.selectedProperty().unbindBidirectional(product.selectedProperty());
+
+                // Ràng buộc 2 chiều giữa checkbox và dữ liệu trong Product
+                checkBox.selectedProperty().bindBidirectional(product.selectedProperty());
+
+                setGraphic(checkBox);
             }
         });
 
@@ -556,12 +562,12 @@ public class ProductController implements Initializable {
 
     @FXML
     private void checkBoxAll() {
-//        boolean isSelected = checkBoxAll.isSelected();
-//
-//        // Áp dụng cho tất cả sản phẩm trong danh sách đã lọc
-//        for (Product product : filteredList) {
-//            product.setSelected(isSelected);
-//        }
+        boolean isSelected = checkBoxAll.isSelected();
+
+        // Áp dụng cho tất cả sản phẩm trong danh sách đã lọc
+        for (Product product : filteredList) {
+            product.setSelected(isSelected);
+        }
 
         // Cập nhật TableView
         productTable.refresh();
@@ -591,48 +597,31 @@ public class ProductController implements Initializable {
 
     @FXML
     private void deleteAll() {
-//        // Lấy danh sách các sản phẩm đã chọn
-//        List<Product> selectedProducts = filteredList.stream()
-//                .filter(Product::isSelected)
-//                .collect(Collectors.toList());
-//
-//        if (selectedProducts.isEmpty()) {
-//            AlertUtil.showWarning("Cảnh báo", "Vui lòng chọn ít nhất một sản phẩm để xóa");
-//            return;
-//        }
-//
-//        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-//        alert.setTitle("Xác nhận xóa");
-//        alert.setHeaderText("Xóa nhiều sản phẩm");
-//        alert.setContentText("Bạn có chắc chắn muốn xóa " + selectedProducts.size() + " sản phẩm đã chọn?");
-//
-//        Optional<ButtonType> result = alert.showAndWait();
-//        if (result.isPresent() && result.get() == ButtonType.OK) {
-//            try {
-//                int deleteCount = 0;
-//                List<Integer> failedIds = new ArrayList<>();
-//
-//                for (Product product : selectedProducts) {
-//                    try {
-//                        productService.deleteProduct(product.getId());
-//                        deleteCount++;
-//                    } catch (Exception e) {
-//                        failedIds.add(product.getId());
-//                    }
-//                }
-//
-//                if (failedIds.isEmpty()) {
-//                    AlertUtil.showInfo("Thành công", "Đã xóa thành công " + deleteCount + " sản phẩm");
-//                } else {
-//                    AlertUtil.showWarning("Cảnh báo", "Đã xóa " + deleteCount + " sản phẩm, " +
-//                            "nhưng không thể xóa " + failedIds.size() + " sản phẩm");
-//                }
-//
-//                loadProducts();
-//            } catch (Exception e) {
-//                AlertUtil.showError("Lỗi", "Có lỗi xảy ra khi xóa sản phẩm", e.getMessage());
-//            }
-//        }
+        // Lấy danh sách các sản phẩm đã chọn
+        List<Product> selectedProducts = new ArrayList<>() ;
+        for (Product product : filteredList) {
+            if (product.isSelected()) {
+                selectedProducts.add(product) ;
+            }
+        }
+
+        if (selectedProducts.isEmpty()) {
+            AlertInfo.showAlert(Alert.AlertType.ERROR , "Cảnh báo", "Vui lòng chọn ít nhất một sản phẩm để xóa");
+            return;
+        }
+        System.out.println(selectedProducts);
+        if (AlertInfo.confirmAlert("Bạn có chắc muốn xóa không ?")) {
+            try {
+                for (Product product : selectedProducts) {
+                    productService.deleteProduct(product.getProduct_id());
+                }
+                loadProducts();
+                AlertInfo.showAlert(Alert.AlertType.INFORMATION , "Thành công" , "Xóa thành công");
+            }catch(Exception e) {
+                e.printStackTrace() ;
+                AlertInfo.showAlert(Alert.AlertType.ERROR , "Thất bại" , "Xóa thất bại");
+            }
+        }
     }
 
     @FXML

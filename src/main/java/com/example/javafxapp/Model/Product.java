@@ -1,5 +1,9 @@
 package com.example.javafxapp.Model;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.Property;
+import javafx.beans.property.SimpleBooleanProperty;
+
 public class Product {
     private int product_id;
     private String product_name;
@@ -12,6 +16,7 @@ public class Product {
     private boolean outstanding ;
 
     private boolean deleted = false ;
+    private final BooleanProperty selected = new SimpleBooleanProperty(false);
 
 
     public Product() {
@@ -111,6 +116,18 @@ public class Product {
 
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
+    }
+
+    public BooleanProperty selectedProperty() {
+        return selected;
+    }
+
+    public boolean isSelected() {
+        return selected.get();
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected.set(selected);
     }
 
     @Override

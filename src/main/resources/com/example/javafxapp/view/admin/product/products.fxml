@@ -82,10 +82,7 @@
             </HBox>
          </top>
          <center>
-            <VBox spacing="20.0" BorderPane.alignment="CENTER">
-               <padding>
-                  <Insets top="20.0" />
-               </padding>
+            <VBox BorderPane.alignment="CENTER">
                <children>
                   <AnchorPane prefWidth="200.0" styleClass="card">
                      <children>
@@ -239,6 +236,9 @@
                      </VBox.margin>
                   </AnchorPane>
                </children>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
             </VBox>
          </center>
          <bottom>
