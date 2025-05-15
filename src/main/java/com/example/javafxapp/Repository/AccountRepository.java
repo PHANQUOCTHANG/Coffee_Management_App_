@@ -1,5 +1,6 @@
 package com.example.javafxapp.Repository;
 
+import com.example.javafxapp.Model.Category;
 import com.example.javafxapp.Model.Role;
 import com.example.javafxapp.Repository.JDBCRepository;
 import com.example.javafxapp.Utils.PasswordUtils;
@@ -187,5 +188,29 @@ public class AccountRepository implements JDBCRepository<Account> {
             e.printStackTrace();
         }
         return null ;
+    }
+
+    // find all account by keyword .
+    public List<Account> findAllByKeyword(String keyword) {
+        String sql = "SELECT * FROM account WHERE account_name LIKE ? AND deleted = ?";
+        List<Account> accounts = new ArrayList<>();
+        try (Connection connection = DatabaseConnection.getConnection() ;
+             PreparedStatement preparedStatement = connection.prepareStatement(sql) ;
+        ){
+            preparedStatement.setString(1, "%" + keyword + "%");
+            preparedStatement.setBoolean(2, false);
+            ResultSet rs = preparedStatement.executeQuery();
+            while(rs.next()) {
+                accounts.add(new Account(
+                        rs.getInt("id"),
+                        rs.getString("account_name"),
+                        rs.getString("password"),
+                        rs.getInt("role_id")
+                )) ;
+            }
+        }catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return accounts ;
     }
 }

@@ -53,7 +53,7 @@ public class ProductController implements Initializable {
     @FXML private TableColumn<Product, String> priceColumn;
     @FXML private TableColumn<Product, String> statusColumn;
     @FXML private TableColumn<Product, String> featuredColumn;
-    @FXML private TableColumn<Product, Button> actionColumn;
+    @FXML private TableColumn<Product, HBox> actionColumn;
 
     @FXML private JFXCheckBox checkBoxAll;
     @FXML private ComboBox<String> categoryComboBox;
@@ -75,6 +75,7 @@ public class ProductController implements Initializable {
     private static final int ITEMS_PER_PAGE = 10;
     private int totalPages;
 
+    // mặc định sẽ gọi .
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Khởi tạo services
@@ -110,6 +111,7 @@ public class ProductController implements Initializable {
         updateDisplayStatus();
     }
 
+    // khởi tạo các giá trị cho từng cột .
     private void setupTableColumns() {
         // Cột checkbox
 
@@ -281,66 +283,25 @@ public class ProductController implements Initializable {
 
 
         // Cột hành động
-        actionColumn.setCellFactory(createActionButtonCellFactory());
+        actionColumn.setCellValueFactory(cellData -> {
+            Product product = cellData.getValue() ;
+            HBox actionBox = new HBox(10);
+            actionBox.setAlignment(Pos.CENTER);
+
+            JFXButton editButton = new JFXButton("Sửa");
+            editButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white;");
+            editButton.setOnAction(event -> editProduct(product));
+
+            JFXButton deleteButton = new JFXButton("Xóa");
+            deleteButton.setStyle("-fx-background-color: #f44336; -fx-text-fill: white;");
+            deleteButton.setOnAction(event -> deleteProduct(product));
+
+            actionBox.getChildren().addAll(editButton, deleteButton);
+            return new SimpleObjectProperty<>(actionBox);
+        });
     }
 
-    private Callback<TableColumn<Product, Button>, TableCell<Product, Button>> createActionButtonCellFactory() {
-        return new Callback<>() {
-            @Override
-            public TableCell<Product, Button> call(TableColumn<Product, Button> param) {
-                return new TableCell<>() {
-                    private final JFXButton editButton = new JFXButton("");
-                    private final JFXButton deleteButton = new JFXButton("");
-                    private final HBox pane = new HBox(10);
-
-                    {
-                        // Cấu hình nút sửa
-                        ImageView editIcon = new ImageView(UploadImage.loadImage("https://tse2.mm.bing.net/th?id=OIP.fuaJLF-qmrT5gP7eXrRm2wHaHa&pid=Api&P=0&h=180"));
-                        editIcon.setFitHeight(20);
-                        editIcon.setFitWidth(20);
-                        editButton.setGraphic(editIcon);
-                       editButton.getStyleClass().add("edit-button");
-                       editButton.setTooltip(new Tooltip("Sửa sản phẩm"));
-
-                        // Cấu hình nút xóa
-                        ImageView deleteIcon = new ImageView(UploadImage.loadImage("https://tse2.mm.bing.net/th?id=OIP.PAdJmX_PTIvVcmQBSLUPXAHaFj&pid=Api&P=0&h=180"));
-                        deleteIcon.setFitHeight(20);
-                        deleteIcon.setFitWidth(20);
-                        deleteButton.setGraphic(deleteIcon);
-                       deleteButton.getStyleClass().add("delete-button");
-                       deleteButton.setTooltip(new Tooltip("Xóa sản phẩm"));
-
-                       pane.setAlignment(Pos.CENTER);
-                       pane.getChildren().addAll(editButton, deleteButton);
-
-                       // Xử lý sự kiện nút sửa
-                       editButton.setOnAction(event -> {
-                           Product product = getTableView().getItems().get(getIndex());
-                           editProduct(product);
-                       });
-
-                       // Xử lý sự kiện nút xóa
-                       deleteButton.setOnAction(event -> {
-                           Product product = getTableView().getItems().get(getIndex());
-                           deleteProduct(product);
-                       });
-                  }
-
-                    @Override
-                    protected void updateItem(Button item, boolean empty) {
-                        super.updateItem(item, empty);
-
-                        if (empty) {
-                            setGraphic(null);
-                        } else {
-                            setGraphic(pane);
-                        }
-                    }
-                };
-            }
-        };
-    }
-
+    // thiết lập dữ liệu của các thanh lọc .
     private void setupComboBoxes() {
         // Khởi tạo ComboBox danh mục
         categoryComboBox.getItems().add("Tất cả danh mục");
@@ -366,6 +327,8 @@ public class ProductController implements Initializable {
         );
         sortComboBox.setValue("Mặc định");
     }
+
+    // load sản phẩm  .
     public void loadProducts() {
         try {
             productList.clear();
@@ -376,10 +339,11 @@ public class ProductController implements Initializable {
             updateDisplayStatus();
             setupPagination();
         } catch (Exception e) {
-//            AlertUtil.showError("Lỗi", "Không thể tải danh sách sản phẩm", e.getMessage());
+            e.printStackTrace();
         }
     }
 
+    // phân trang .
     private void setupPagination() {
         totalPages = (int) Math.ceil((double) filteredList.size() / ITEMS_PER_PAGE);
         pagination.setPageCount(Math.max(1, totalPages));
@@ -439,6 +403,7 @@ public class ProductController implements Initializable {
         pagination.getStylesheets().add("data:text/css," + css);
     }
 
+    // cập nhật phần tử trang .
     private void updatePageContent(int pageIndex) {
         int fromIndex = pageIndex * ITEMS_PER_PAGE;
         int toIndex = Math.min(fromIndex + ITEMS_PER_PAGE, filteredList.size());
@@ -453,6 +418,7 @@ public class ProductController implements Initializable {
         }
     }
 
+    // hiển thị số sản phẩm đang hiển thị .
     private void updateDisplayStatus() {
         int totalItems = filteredList.size();
         productCountLabel.setText("(" + totalItems + " sản phẩm)");
@@ -469,16 +435,19 @@ public class ProductController implements Initializable {
         }
     }
 
+    // lọc .
     @FXML
     private void filterAction() {
         applyFilters();
     }
 
+    // tìm kiếm .
     @FXML
     private void searchProduct() {
         applyFilters();
     }
 
+    // áp dụng lọc .
     private void applyFilters() {
         String categoryFilter = categoryComboBox.getValue();
         String statusFilter = statusComboBox.getValue();
@@ -522,6 +491,7 @@ public class ProductController implements Initializable {
         updateDisplayStatus();
     }
 
+    // đặt lại lọc .
     @FXML
     private void resetFilters() {
         // Đặt lại các bộ lọc về giá trị mặc định
@@ -534,6 +504,7 @@ public class ProductController implements Initializable {
         loadProducts();
     }
 
+    // sắp xếp .
     @FXML
     private void sortProducts() {
         String sortOption = sortComboBox.getValue();
@@ -560,6 +531,7 @@ public class ProductController implements Initializable {
         }
     }
 
+    // chọn tất cả .
     @FXML
     private void checkBoxAll() {
         boolean isSelected = checkBoxAll.isSelected();
@@ -573,15 +545,18 @@ public class ProductController implements Initializable {
         productTable.refresh();
     }
 
+    // qua trang thêm .
     @FXML
     private void addProduct() {
         Pages.pageAddProduct(this);
     }
 
+    // qua trang sửa .
     private void editProduct(Product product) {
         Pages.pageUpdateProduct(product.getProduct_id() , this);
     }
 
+    // xóa một .
     private void deleteProduct(Product product) {
 
         if (AlertInfo.confirmAlert("Bạn có chắc muốn xóa không?")) {
@@ -595,6 +570,7 @@ public class ProductController implements Initializable {
         }
     }
 
+    // xóa nhiều cùng lúc .
     @FXML
     private void deleteAll() {
         // Lấy danh sách các sản phẩm đã chọn
@@ -624,6 +600,7 @@ public class ProductController implements Initializable {
         }
     }
 
+    // xuất excel .
     @FXML
     private void exportData() {
         try {

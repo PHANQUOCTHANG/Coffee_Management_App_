@@ -28,5 +28,9 @@ module com.example.javafxapp {
     opens com.example.javafxapp.Model to javafx.base;
     exports com.example.javafxapp.Controller.Admin.Product;
     opens com.example.javafxapp.Controller.Admin.Product to javafx.fxml;
+    exports com.example.javafxapp.Controller.Admin.Category;
+    opens com.example.javafxapp.Controller.Admin.Category to javafx.fxml;
+    exports com.example.javafxapp.Controller.Admin.Account;
+    opens com.example.javafxapp.Controller.Admin.Account to javafx.fxml;
 
 }

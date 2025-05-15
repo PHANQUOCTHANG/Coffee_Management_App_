@@ -3,181 +3,144 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXCheckBox?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1250.0" style="-fx-background-color: #F3F4F6;" stylesheets="@../../Styles/productManagement.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxapp.Controller.Admin.CategoryController">
-    <children>
-        <HBox maxHeight="55.0" maxWidth="1245.0" prefHeight="70.0" prefWidth="1095.0">
-            <children>
-                <Label prefHeight="50.0" prefWidth="276.0" style="-fx-font-size: 20px;" text="Danh sách danh mục">
-                    <font>
-                        <Font name="Arial" size="20.0" />
-                    </font>
-                    <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                    </padding>
-                </Label>
-                <HBox alignment="TOP_RIGHT" prefHeight="50.0" prefWidth="769.0">
-                    <children>
-                        <JFXButton contentDisplay="LEFT" onAction="#deleteAll" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #ff0000;" text="Xóa" textFill="WHITE">
-                            <font>
-                                <Font size="14.0" />
-                            </font>
-                            <graphic>
-                                <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@../../Images/bin.png" />
-                                    </image>
-                                </ImageView>
-                            </graphic>
-                        </JFXButton>
-                    </children>
-                </HBox>
-                <JFXButton onAction="#addCategory" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #0051CE;" text="Tạo danh mục" textFill="WHITE">
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                    <graphic>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../../Images/circleplus.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                    <HBox.margin>
-                        <Insets left="10.0" />
-                    </HBox.margin>
-                </JFXButton>
-            </children>
-        </HBox>
-        <VBox maxHeight="1000.0" maxWidth="1245.0" prefHeight="1000.0" prefWidth="1034.0" style="-fx-background-color: #FFFFFF;">
-            <children>
-                <HBox maxHeight="51.0" maxWidth="1245.0" prefHeight="100.0" prefWidth="1245.0" style="-fx-border-color: grey; -fx-border-width: 0 0 2px 0;">
-                    <padding>
-                        <Insets left="20.0" right="20.0" />
-                    </padding>
-                    <children>
-                        <Label prefHeight="100.0" style="-fx-border-color: #2962FF; -fx-border-width: 0 0 2px;" text="Tất cả danh mục ">
-                            <font>
-                                <Font size="26.0" />
-                            </font>
-                            <HBox.margin>
-                                <Insets right="30.0" />
-                            </HBox.margin>
-                            <cursor>
-                                <Cursor fx:constant="HAND" />
-                            </cursor>
-                        </Label>
-                    </children>
-                </HBox>
-                <HBox maxHeight="51.0" maxWidth="1245.0" prefHeight="100.0" prefWidth="200.0">
-                    <padding>
-                        <Insets left="20.0" />
-                    </padding>
-                    <children>
-                        <HBox alignment="CENTER" prefHeight="51.0" prefWidth="646.0" style="-fx-border-color: grey; -fx-border-radius: 10px;">
-                            <children>
-                                <ImageView fitHeight="31.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@../../Images/searchicon.png" />
-                                    </image>
-                                </ImageView>
-                                <TextField fx:id="searchField" onAction="#searchCategory" prefHeight="48.0" prefWidth="602.0" promptText="Tìm kiếm theo tên" style="-fx-border-color: #ffffff;">
-                                    <font>
-                                        <Font size="18.0" />
-                                    </font>
-                                </TextField>
-                            </children>
-                            <HBox.margin>
-                                <Insets left="150.0" right="15.0" />
-                            </HBox.margin>
-                        </HBox>
-                        <JFXButton prefHeight="55.0" prefWidth="130.0" style="-fx-background-color: #0051CE;" text="Tìm kiếm" textFill="WHITE">
-                            <font>
-                                <Font name="System Bold" size="14.0" />
-                            </font>
-                        </JFXButton>
-                    </children>
-                    <VBox.margin>
-                        <Insets top="15.0" />
-                    </VBox.margin>
-                </HBox>
-                <HBox maxHeight="51.0" maxWidth="1245.0" prefHeight="100.0" prefWidth="200.0" style="-fx-border-color: grey; -fx-border-width: 0 0 2px;">
-                    <padding>
-                        <Insets left="20.0" />
-                    </padding>
-                    <VBox.margin>
-                        <Insets top="20.0" />
-                    </VBox.margin>
-                    <children>
-                        <JFXCheckBox fx:id="checkBoxAll" onAction="#checkBoxAll" prefHeight="40.0" prefWidth="50.0" text="STT">
-                            <HBox.margin>
-                                <Insets />
-                            </HBox.margin>
-                            <font>
-                                <Font name="System Bold" size="14.0" />
-                            </font>
-                            <padding>
-                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                            </padding>
-                        </JFXCheckBox>
-                        <HBox alignment="CENTER_LEFT" prefHeight="51.0" prefWidth="1104.0">
-                            <children>
-                                <Label alignment="CENTER" layoutX="945.0" layoutY="17.0" prefHeight="41.0" prefWidth="454.0" text="Tên danh mục ">
-                                    <font>
-                                        <Font name="System Bold" size="20.0" />
-                                    </font>
-                                    <padding>
-                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                    </padding>
-                                </Label>
-                                <Label alignment="CENTER" layoutX="154.0" layoutY="16.0" prefHeight="41.0" prefWidth="374.0" text="Hành động">
-                                    <font>
-                                        <Font name="System Bold" size="20.0" />
-                                    </font>
-                                    <padding>
-                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                    </padding>
-                                </Label>
-                            </children>
-                        </HBox>
-                    </children>
-                </HBox>
-                <ScrollPane fx:id="scroll" maxHeight="709.0" maxWidth="1245.0" minHeight="320.0" prefHeight="709.0" prefWidth="1035.0">
-                    <content>
-                        <GridPane fx:id="grid" prefHeight="23.0" prefWidth="73.0" styleClass="grid-cell">
-                            <columnConstraints>
-                                <ColumnConstraints minWidth="30" prefWidth="50" />  <!-- CheckBox -->
-                                <ColumnConstraints minWidth="210" prefWidth="100" />  <!-- STT -->
-                                <ColumnConstraints minWidth="410" prefWidth="400" /> <!-- Tên -->
-                                <ColumnConstraints minWidth="550" prefWidth="400" /> <!-- Hành động -->
-                            </columnConstraints>
-                        </GridPane>
-                    </content>
-                </ScrollPane>
-                <HBox alignment="CENTER_LEFT" maxHeight="258.0" maxWidth="1245.0" prefHeight="62.0" prefWidth="1035.0" style="-fx-border-color: grey; -fx-border-width: 0 0 2px;">
-                    <padding>
-                        <Insets left="20.0" />
-                    </padding>
-                    <children>
-                        <ComboBox fx:id="showBox" prefHeight="35.0" prefWidth="216.0" />
-                    </children>
-                </HBox>
-            </children>
-        </VBox>
-    </children>
-    <padding>
-        <Insets top="15.0" />
-    </padding>
-</VBox>
+<StackPane prefHeight="600.0" stylesheets="@../../Styles/product.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxapp.Controller.Admin.Category.CategoryController">
+    <BorderPane prefHeight="1200.0" prefWidth="1600.0" style="-fx-background-color: #F7F9FC;">
+        <top>
+            <HBox alignment="CENTER_LEFT" prefHeight="60.0" spacing="10.0" style="-fx-background-color: white; -fx-border-color: #E0E6ED; -fx-border-width: 0 0 1 0;" BorderPane.alignment="CENTER">
+                <children>
+                    <Label prefHeight="50.0" styleClass="page-title" text="Quản lý danh mục">
+                        <font>
+                            <Font name="Arial Bold" size="26.0" />
+                        </font>
+                        <padding>
+                            <Insets left="25.0" right="20.0" />
+                        </padding>
+                    </Label>
+                    <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                        <children>
+                            <JFXButton alignment="CENTER" contentDisplay="LEFT" onAction="#deleteAll" prefHeight="45.0" styleClass="delete-button" text="Xóa đã chọn">
+                                <font>
+                                    <Font name="System Bold" size="14.0" />
+                                </font>
+                                <graphic>
+                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                        <image>
+                                            <Image url="@../../Images/bin.png" />
+                                        </image>
+                                    </ImageView>
+                                </graphic>
+                                <HBox.margin>
+                                    <Insets right="15.0" />
+                                </HBox.margin>
+                            </JFXButton>
+                            <JFXButton alignment="CENTER" contentDisplay="LEFT" onAction="#addCategory" prefHeight="45.0" styleClass="primary-button" text="Thêm danh mục mới">
+                                <font>
+                                    <Font name="System Bold" size="14.0" />
+                                </font>
+                                <graphic>
+                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                        <image>
+                                            <Image url="@../../Images/circleplus.png" />
+                                        </image>
+                                    </ImageView>
+                                </graphic>
+                                <HBox.margin>
+                                    <Insets right="25.0" />
+                                </HBox.margin>
+                            </JFXButton>
+                        </children>
+                        <padding>
+                            <Insets right="10.0" />
+                        </padding>
+                    </HBox>
+                </children>
+            </HBox>
+        </top>
+        <center>
+            <VBox spacing="20" style="-fx-background-color: white; -fx-background-radius: 8px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 2);" BorderPane.alignment="CENTER">
+                <padding>
+                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                </padding>
+                <children>
+                    <!-- Search Section -->
+                    <HBox alignment="CENTER_LEFT" spacing="15">
+                        <children>
+                            <HBox alignment="CENTER" maxWidth="600.0" prefWidth="400.0" style="-fx-background-color: #F8F9FA; -fx-background-radius: 4px; -fx-border-color: #E0E6ED; -fx-border-radius: 4px;" HBox.hgrow="ALWAYS">
+                                <padding>
+                                    <Insets left="10.0" right="10.0" />
+                                </padding>
+                                <children>
+                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                        <image>
+                                            <Image url="@../../Images/searchicon.png" />
+                                        </image>
+                                    </ImageView>
+                                    <TextField fx:id="searchField" onAction="#searchCategory" promptText="Tìm kiếm theo tên danh mục" style="-fx-background-color: transparent; -fx-font-size: 14px;" HBox.hgrow="ALWAYS" />
+                                </children>
+                        <HBox.margin>
+                           <Insets />
+                        </HBox.margin>
+                            </HBox>
+                            <JFXButton onAction="#searchCategory" prefHeight="40.0" prefWidth="120.0" styleClass="primary-button" text="Tìm kiếm">
+                                <font>
+                                    <Font name="System Bold" size="14.0" />
+                                </font>
+                            </JFXButton>
+                        </children>
+                    </HBox>
+
+                    <!-- Table Section -->
+                    <AnchorPane VBox.vgrow="ALWAYS">
+                        <children>
+                            <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <children>
+                                    <AnchorPane styleClass="card" VBox.vgrow="ALWAYS">
+                                        <children>
+                                            <VBox spacing="0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                <children>
+                                                    <HBox alignment="CENTER_LEFT" prefHeight="50.0" styleClass="table-header-bar">
+                                                        <children>
+                                                            <JFXCheckBox fx:id="checkBoxAll" onAction="#checkBoxAll" text="Chọn tất cả">
+                                                                <font>
+                                                                    <Font name="System Bold" size="14.0" />
+                                                                </font>
+                                                                <HBox.margin>
+                                                                    <Insets left="12.0" />
+                                                                </HBox.margin>
+                                                            </JFXCheckBox>
+                                                        </children>
+                                                    </HBox>
+                                                    <TableView fx:id="categoryTable" styleClass="product-table" VBox.vgrow="ALWAYS">
+                                                        <columns>
+                                                            <TableColumn fx:id="checkBoxColumn" maxWidth="60.0" minWidth="50.0" prefWidth="60.0" />
+                                                            <TableColumn fx:id="indexColumn" maxWidth="60.0" minWidth="50.0" prefWidth="60.0" resizable="false" text="STT" />
+                                                            <TableColumn fx:id="nameColumn" maxWidth="500.0" minWidth="250.0" prefWidth="400.0" text="Tên danh mục" />
+                                                            <TableColumn fx:id="actionColumn" maxWidth="180.0" minWidth="150.0" prefWidth="180.0" text="Hành động" />
+                                                        </columns>
+                                                    </TableView>
+                                                </children>
+                                            </VBox>
+                                        </children>
+                                    </AnchorPane>
+                                </children>
+                            </VBox>
+                        </children>
+                    </AnchorPane>
+                </children>
+            </VBox>
+        </center>
+    </BorderPane>
+</StackPane>

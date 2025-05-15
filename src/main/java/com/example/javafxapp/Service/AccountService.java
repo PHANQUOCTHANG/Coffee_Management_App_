@@ -59,4 +59,8 @@ public class AccountService {
     public boolean existsNameAccountOther(int account_id , String accountName){
         return accountRepository.existsNameAccountOther(account_id,accountName) ;
     }
+    // find all account by keyword .
+    public List<Account> findAllByKeyword(String keyword) {
+        return accountRepository.findAllByKeyword(keyword) ;
+    }
 }

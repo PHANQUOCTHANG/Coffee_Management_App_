@@ -7,12 +7,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="300.0" prefWidth="400.0" spacing="20.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxapp.Controller.Admin.Category.AddCategoryController">
+<VBox alignment="CENTER" prefHeight="300.0" prefWidth="400.0" spacing="20.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxapp.Controller.Admin.Category.UpdateCategoryController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
 
-    <Label text="Thêm danh mục mới">
+    <Label text="Cập nhật danh mục">
         <font>
             <Font name="System Bold" size="20.0" />
         </font>
@@ -23,7 +23,7 @@
         <TextField fx:id="categoryNameField" promptText="Nhập tên danh mục" />
     </VBox>
 
-    <JFXButton fx:id="btnAdd" onAction="#addCategory" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="Thêm mới">
+    <JFXButton fx:id="btnUpdate" onAction="#updateCategory" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="Cập nhật">
         <font>
             <Font name="System Bold" size="14.0" />
         </font>

@@ -1,6 +1,12 @@
 package com.example.javafxapp.Helpper;
 
 import com.example.javafxapp.Controller.Admin.*;
+import com.example.javafxapp.Controller.Admin.Account.AccountController;
+import com.example.javafxapp.Controller.Admin.Account.AddAccountController;
+import com.example.javafxapp.Controller.Admin.Account.UpdateAccountController;
+import com.example.javafxapp.Controller.Admin.Category.AddCategoryController;
+import com.example.javafxapp.Controller.Admin.Category.CategoryController;
+import com.example.javafxapp.Controller.Admin.Category.UpdateCategoryController;
 import com.example.javafxapp.Controller.Admin.Product.AddProductController;
 import com.example.javafxapp.Controller.Admin.Product.ProductController;
 import com.example.javafxapp.Controller.Admin.Product.UpdateProductController;
@@ -12,7 +18,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 
 public class Pages {
@@ -130,8 +135,10 @@ public class Pages {
             FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/View/Admin/Product/updateProduct.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
+
             UpdateProductController controller = loader.getController();
             controller.setProductController(productController);
+
             Stage stage = new Stage();
             stage.getIcons().add(new Image(Pages.class.getResourceAsStream("/com/example/javafxapp/view/images/icons.jpg")));
             stage.setScene(scene);
@@ -149,11 +156,14 @@ public class Pages {
     //// Category .
 
     // chuyển qua trang thêm danh mục
-    public static void pageAddCategory() {
+    public static void pageAddCategory(CategoryController categoryController) {
         try {
             FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/View/Admin/Category/addCategory.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
+
+            AddCategoryController controller = loader.getController();
+            controller.setCategoryController(categoryController);
 
             Stage stage = new Stage();
             stage.getIcons().add(new Image(Pages.class.getResourceAsStream("/com/example/javafxapp/view/images/icons.jpg")));
@@ -169,15 +179,15 @@ public class Pages {
         }
     }
     // chuyển qua trang chi tiết damh mục
-    public static void pageDetailCategory(int categoryId) {
+    public static void pageUpdateCategory(int categoryId , CategoryController categoryController) {
         try {
-            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/View/Admin/Category/detailCategory.fxml"));
+            UpdateCategoryController.category_id = categoryId ;
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/View/Admin/Category/updateCategory.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
 
-            // Lấy controller của trang chi tiết và truyền ID sản phẩm vào
-            CategoryController controller = loader.getController();
-            controller.loadDataDetailCategory(categoryId);
+            UpdateCategoryController controller = loader.getController();
+            controller.setCategoryController(categoryController);
 
 
             Stage stage = new Stage();
@@ -318,15 +328,14 @@ public class Pages {
     //// Account .
 
     // chuyển qua trang thêm
-    public static void pageAddAccount() {
+    public static void pageAddAccount(AccountController accountController) {
         try {
             FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/View/Admin/Account/addAccount.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
 
-            // Lấy controller của trang thêm .
-            AccountController controller = loader.getController();
-            controller.loadDataAddAccount();
+            AddAccountController controller = loader.getController();
+            controller.setAccountController(accountController);
 
             Stage stage = new Stage();
             stage.getIcons().add(new Image(Pages.class.getResourceAsStream("/com/example/javafxapp/view/images/icons.jpg")));
@@ -342,15 +351,15 @@ public class Pages {
     }
 
     // chuyển qua trang chi tiết
-    public static void pageDetailAccount(int accountId) {
+    public static void pageUpdateAccount(int accountId , AccountController accountController) {
         try {
-            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/View/Admin/Account/detailAccount.fxml"));
+            UpdateAccountController.account_id = accountId ;
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/View/Admin/Account/updateAccount.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
 
-            // Lấy controller của trang chi tiết và truyền ID sản phẩm vào
-            AccountController controller = loader.getController();
-            controller.loadDataDetailAccount(accountId);
+            UpdateAccountController controller = loader.getController();
+            controller.setAccountController(accountController);
 
 
             Stage stage = new Stage();

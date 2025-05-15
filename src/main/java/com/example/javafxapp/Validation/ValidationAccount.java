@@ -45,7 +45,11 @@ public class ValidationAccount {
     }
 
     // validation check login name , password  , khi cập nhật hoặc tạo account bằng admin .
-    public static boolean accountUtils (String loginName , String password , int account_id) {
+    public static boolean accountUtils (String loginName , String password , String roleName , int account_id) {
+        if (roleName.isEmpty()) {
+            AlertInfo.showAlert(Alert.AlertType.ERROR , "Lỗi" , "Vui lòng chọn vai trò cho tài khoản");
+            return false ;
+        }
         if (!loginNameUtils(loginName) || !passwordUtils(password)) return false ;
         if (accountService.existsNameAccountOther(account_id , loginName)) {
             AlertInfo.showAlert(Alert.AlertType.ERROR , "Lỗi" , "Tên đăng nhập đã tồn tại");
@@ -79,4 +83,13 @@ public class ValidationAccount {
         }
         return true ;
     }
+
+    // login name check exists
+//    public static boolean accountUtils (String loginName , int accountId) {
+//        if (accountService.existsNameAccountOther(accountId,loginName)) {
+//            AlertInfo.showAlert(Alert.AlertType.ERROR , "Lỗi" , "Tên đăng nhập đã tồn tại");
+//            return false ;
+//        }
+//        return true ;
+//    }
 }

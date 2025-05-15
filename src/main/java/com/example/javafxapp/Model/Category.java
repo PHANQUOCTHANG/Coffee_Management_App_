@@ -1,10 +1,14 @@
 package com.example.javafxapp.Model;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+
 public class Category {
 
     private int category_id ;
 
     private String category_name ;
+    private final BooleanProperty selected = new SimpleBooleanProperty(false);
 
     public Category() {
     }
@@ -38,6 +42,17 @@ public class Category {
     @Override
     public String toString() {
         return category_name;
+    }
+    public BooleanProperty selectedProperty() {
+        return selected;
+    }
+
+    public boolean isSelected() {
+        return selected.get();
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected.set(selected);
     }
 
     
