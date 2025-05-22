@@ -1,8 +1,12 @@
 package com.example.javafxapp.Service;
 
 import java.math.BigDecimal;
+import java.sql.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
+import com.example.javafxapp.Config.DatabaseConnection;
 import com.example.javafxapp.Model.Order;
 import com.example.javafxapp.Repository.OrderRepository;
 
@@ -36,5 +40,8 @@ public class OrderService {
 
     public void updateStatus(int orderId, String status){
         or.updateStatus(orderId, status);
+    }
+    public List<Order> getOrdersByDateRange(LocalDate from, LocalDate to) {
+        return or.getOrdersByDateRange(from , to) ;
     }
 }

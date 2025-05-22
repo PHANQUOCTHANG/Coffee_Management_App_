@@ -56,6 +56,7 @@ public class CategoryController implements Initializable {
     private TableColumn<Category, String> nameColumn;
     @FXML
     private TableColumn<Category, HBox> actionColumn;
+    @FXML private Label categoryCountLabel , statusLabel;
 
     private CategoryService categoryService = new CategoryService();
     private ObservableList<Category> categoryList;
@@ -116,15 +117,15 @@ public class CategoryController implements Initializable {
             HBox actionBox = new HBox(10);
             actionBox.setAlignment(Pos.CENTER);
 
-            JFXButton editButton = new JFXButton("Sửa");
-            editButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white;");
-            editButton.setOnAction(event -> editCategory(category));
+            JFXButton updateButton = new JFXButton("Sửa");
+            updateButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-padding : 10px ");
+            updateButton.setOnAction(event -> updateCategory(category));
 
             JFXButton deleteButton = new JFXButton("Xóa");
-            deleteButton.setStyle("-fx-background-color: #f44336; -fx-text-fill: white;");
+            deleteButton.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-padding : 10px");
             deleteButton.setOnAction(event -> deleteCategory(category));
 
-            actionBox.getChildren().addAll(editButton, deleteButton);
+            actionBox.getChildren().addAll(updateButton, deleteButton);
             return new SimpleObjectProperty<>(actionBox);
         });
     }
@@ -136,8 +137,19 @@ public class CategoryController implements Initializable {
             filteredList.clear();
             filteredList.addAll(categoryList);
             categoryTable.setItems(filteredList);
+
+            updateDisplayStatus();
         } catch (Exception e) {
             AlertInfo.showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể tải danh sách danh mục");
+        }
+    }
+    private void updateDisplayStatus() {
+        int totalAccounts = filteredList.size();
+        categoryCountLabel.setText("Tổng số tài khoản: " + totalAccounts);
+
+        // Cập nhật thêm trạng thái nếu cần
+        if (statusLabel != null) {
+            statusLabel.setText(totalAccounts > 0 ? "Đã tải " + totalAccounts + " tài khoản" : "Không có tài khoản nào");
         }
     }
 
@@ -156,7 +168,7 @@ public class CategoryController implements Initializable {
         Pages.pageAddCategory(this);
     }
 
-    private void editCategory(Category category) {
+    private void updateCategory(Category category) {
         Pages.pageUpdateCategory(category.getCategory_id(), this);
     }
 
@@ -226,11 +238,8 @@ public class CategoryController implements Initializable {
 
         filteredList.addAll(list);
 
-//        // Áp dụng sắp xếp nếu có
-//        sortProducts();
-//
-//        // Cập nhật trạng thái hiển thị
-//        updateDisplayStatus();
+        // Cập nhật trạng thái hiển thị
+        updateDisplayStatus();
     }
 
 }

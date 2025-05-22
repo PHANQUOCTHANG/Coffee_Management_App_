@@ -32,5 +32,11 @@ module com.example.javafxapp {
     opens com.example.javafxapp.Controller.Admin.Category to javafx.fxml;
     exports com.example.javafxapp.Controller.Admin.Account;
     opens com.example.javafxapp.Controller.Admin.Account to javafx.fxml;
+    exports com.example.javafxapp.Controller.Admin.Permissison;
+    opens com.example.javafxapp.Controller.Admin.Permissison to javafx.fxml;
+    exports com.example.javafxapp.Controller.Admin.Role;
+    opens com.example.javafxapp.Controller.Admin.Role to javafx.fxml;
+    exports com.example.javafxapp.Controller.Admin.Employee;
+    opens com.example.javafxapp.Controller.Admin.Employee to javafx.fxml;
 
 }

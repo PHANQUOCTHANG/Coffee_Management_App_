@@ -43,7 +43,7 @@ public class EmployeeService {
         return employeeRepository.findByName(employeeName) ;
     }
     // find all employee by keyword .
-    public List<Employee> findAllByKeyword(String keyword) {
+    public List<Employee> findEmployeeByKeyword(String keyword) {
         return employeeRepository.findAllByKeyword(keyword) ;
     }
 }

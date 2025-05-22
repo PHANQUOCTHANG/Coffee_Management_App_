@@ -1,11 +1,15 @@
 package com.example.javafxapp.Model;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+
 public class Permission {
 
     private int permission_id ;
 
     private String permission_name ;
     private boolean deleted = false ;
+    private final BooleanProperty selected = new SimpleBooleanProperty(false);
 
 
 
@@ -42,5 +46,16 @@ public class Permission {
 
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
+    }
+    public BooleanProperty selectedProperty() {
+        return selected;
+    }
+
+    public boolean isSelected() {
+        return selected.get();
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected.set(selected);
     }
 }

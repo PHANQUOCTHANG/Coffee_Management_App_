@@ -13,7 +13,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="1600.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="809.0" prefWidth="1582.0" stylesheets="@../../Styles/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxapp.Controller.Admin.MainScreenController">
     <top>
-        <HBox maxWidth="1900.0" prefHeight="60.0" prefWidth="1900.0" style="-fx-background-color: #ffffff; -fx-border-color: gray; -fx-border-width: 0 0 2px;" BorderPane.alignment="CENTER_LEFT">
+        <HBox maxWidth="1900.0" prefHeight="60.0" prefWidth="1600.0" style="-fx-background-color: #ffffff; -fx-border-color: gray; -fx-border-width: 0 0 2px;" BorderPane.alignment="CENTER_LEFT">
             <padding>
                 <Insets left="15.0" />
             </padding>
@@ -37,138 +37,199 @@
         </HBox>
     </top>
     <left>
-        <VBox prefHeight="723.0" prefWidth="307.0" style="-fx-background-color: #1A2235; -fx-border-color: gray; -fx-border-width: 0 2px;" BorderPane.alignment="CENTER">
+        <VBox prefHeight="723.0" prefWidth="280.0" style="-fx-background-color: linear-gradient(to bottom, #1e2c5a, #193a7a); -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);" BorderPane.alignment="CENTER">
             <children>
-                <JFXButton fx:id="btnOverview" alignment="TOP_LEFT" layoutX="12.0" layoutY="25.0" onAction="#handleOverview" prefHeight="83.0" prefWidth="304.0" style="-fx-border-color: gray; -fx-border-width: 2px 0 2px;" text="  Overview" textFill="WHITE">
+                <JFXButton fx:id="btnOverview" alignment="CENTER_LEFT" onAction="#handleOverview" prefHeight="40.0" prefWidth="280.0" text="Tổng quan" textFill="WHITE">
                     <graphic>
-                        <ImageView fitHeight="40.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../../Images/dashboard1.png" />
                             </image>
                         </ImageView>
                     </graphic>
                     <font>
-                        <Font name="System Bold" size="18.0" />
+                        <Font size="16.0" />
                     </font>
-               <padding>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-               </padding>
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                    </padding>
                 </JFXButton>
-                <JFXButton fx:id="btnProducts" alignment="TOP_LEFT" onAction="#handleProducts" prefHeight="83.0" prefWidth="304.0" style="-fx-border-color: gray; -fx-border-width: 2px 0 2px;" text="  Products" textFill="WHITE">
+                <JFXButton fx:id="btnProducts" alignment="CENTER_LEFT" onAction="#handleProducts" prefHeight="40.0" prefWidth="280.0" text="Sản phẩm" textFill="WHITE">
                     <graphic>
-                        <ImageView fitHeight="40.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../../Images/icons8-product-64.png" />
                             </image>
                         </ImageView>
                     </graphic>
                     <font>
-                        <Font name="System Bold" size="18.0" />
+                        <Font size="16.0" />
                     </font>
-               <padding>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-               </padding>
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                    </padding>
                 </JFXButton>
-                <JFXButton fx:id="btnCategories" alignment="TOP_LEFT" layoutX="12.0" layoutY="135.0" onAction="#handleCategories" prefHeight="83.0" prefWidth="304.0" style="-fx-border-color: gray; -fx-border-width: 2px 0 2px;" text="  Product Categories" textFill="WHITE">
+                <JFXButton fx:id="btnCategories" alignment="CENTER_LEFT" onAction="#handleCategories" prefHeight="40.0" prefWidth="280.0" text="Danh mục sản phẩm" textFill="WHITE">
                     <graphic>
-                        <ImageView fitHeight="40.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../../Images/icons8-category-64.png" />
                             </image>
                         </ImageView>
                     </graphic>
                     <font>
-                        <Font name="System Bold" size="18.0" />
+                        <Font size="16.0" />
                     </font>
-               <padding>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-               </padding>
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                    </padding>
                 </JFXButton>
-                <JFXButton fx:id="btnEmployees" alignment="TOP_LEFT" layoutX="12.0" layoutY="25.0" onAction="#handleEmployees" prefHeight="83.0" prefWidth="305.0" style="-fx-border-color: gray; -fx-border-width: 2px 0 2px;" text="  Employees" textFill="WHITE">
+                <JFXButton fx:id="btnEmployees" alignment="CENTER_LEFT" onAction="#handleEmployees" prefHeight="40.0" prefWidth="280.0" text="Nhân viên" textFill="WHITE">
                     <graphic>
-                        <ImageView fitHeight="40.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../../Images/icons8-employees-48.png" />
                             </image>
                         </ImageView>
                     </graphic>
                     <font>
-                        <Font name="System Bold" size="18.0" />
+                        <Font size="16.0" />
                     </font>
-               <padding>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-               </padding>
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                    </padding>
                 </JFXButton>
-                <JFXButton fx:id="btnOrders" alignment="TOP_LEFT" layoutX="12.0" layoutY="135.0" onAction="#handleOrders" prefHeight="83.0" prefWidth="303.0" style="-fx-border-color: gray; -fx-border-width: 2px 0 2px;" text="  Order Management" textFill="WHITE">
+                <JFXButton fx:id="btnOrders" alignment="CENTER_LEFT" onAction="#handleOrders" prefHeight="40.0" prefWidth="280.0" text="Quản lí đơn hàng " textFill="WHITE">
                     <graphic>
-                        <ImageView fitHeight="40.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../../Images/icons8-order-64.png" />
                             </image>
                         </ImageView>
                     </graphic>
                     <font>
-                        <Font name="System Bold" size="18.0" />
+                        <Font size="16.0" />
                     </font>
-               <padding>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-               </padding>
-                </JFXButton>
-                <JFXButton fx:id="btnAccounts" alignment="TOP_LEFT" layoutX="12.0" layoutY="245.0" onAction="#handleAccounts" prefHeight="40.0" prefWidth="303.0" style="-fx-border-color: gray; -fx-border-width: 2px 0 2px;" text="  Account Management" textFill="WHITE">
-                    <graphic>
-                        <ImageView fitHeight="40.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../../Images/icons8-account-64.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                    </padding>
                     <font>
-                        <Font name="System Bold" size="18.0" />
-                    </font>
-               <padding>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-               </padding>
-                </JFXButton>
-                <JFXButton fx:id="btnRole" alignment="TOP_LEFT" layoutX="12.0" layoutY="300.0" onAction="#handleRole" prefHeight="83.0" prefWidth="306.0" style="-fx-border-color: gray; -fx-border-width: 2px 0 2px;" text="  Role" textFill="WHITE">
-                    <graphic>
-                        <ImageView fitHeight="40.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../../Images/icon-role.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                    <font>
-                        <Font name="System Bold" size="18.0" />
-                    </font>
-               <padding>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-               </padding>
-                </JFXButton>
-                <JFXButton fx:id="btnPermission" alignment="TOP_LEFT" layoutX="12.0" layoutY="300.0" onAction="#handlePermission" prefHeight="83.0" prefWidth="306.0" style="-fx-border-color: gray; -fx-border-width: 2px 0 2px;" text="Permission" textFill="WHITE">
-                    <graphic>
-                        <ImageView fitHeight="40.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../../Images/icon-role.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                    <font>
-                        <Font name="System Bold" size="18.0" />
+                        <Font size="16.0" />
                     </font>
                     <padding>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                     </padding>
                 </JFXButton>
-                <JFXButton fx:id="btnLogOut" alignment="TOP_LEFT" layoutX="12.0" layoutY="300.0" onAction="#handleLogOut" prefHeight="83.0" prefWidth="306.0" style="-fx-border-color: gray; -fx-border-width: 2px 0 2px;" text="  Log Out" textFill="WHITE">
+                <JFXButton fx:id="btnRevenue" alignment="CENTER_LEFT" onAction="#handleRevenue" prefHeight="40.0" prefWidth="280.0" text="Doanh thu" textFill="WHITE">
                     <graphic>
-                        <ImageView fitHeight="40.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../Images/icon-revenue-1.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                    </padding>
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                    </padding>
+                </JFXButton>
+                <JFXButton fx:id="btnPermissions" alignment="CENTER_LEFT" onAction="#handlePermissions" prefHeight="40.0" prefWidth="280.0" text="Phân quyền" textFill="WHITE">
+                    <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../Images/icon-role.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                    </padding>
+                </JFXButton>
+                <VBox fx:id="permissionsSubMenu" managed="false" prefHeight="80.0" prefWidth="250.0" style="-fx-background-color: #193a7a;" visible="false">
+                    <children>
+                        <JFXButton fx:id="btnAccounts" alignment="CENTER_LEFT" onAction="#handleAccounts" prefHeight="40.0" prefWidth="280.0" text="Tài khoản" textFill="WHITE">
+                            <graphic>
+                                <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../Images/icons8-account-64.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                            <padding>
+                                <Insets bottom="15.0" left="40.0" right="20.0" top="15.0" />
+                            </padding>
+                        </JFXButton>
+                        <JFXButton fx:id="btnRole" alignment="CENTER_LEFT" onAction="#handleRole" prefHeight="40.0" prefWidth="280.0" text="Vai trò" textFill="WHITE">
+                            <graphic>
+                                <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../Images/icon-role.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                            <padding>
+                                <Insets bottom="15.0" left="40.0" right="20.0" top="15.0" />
+                            </padding>
+                        </JFXButton>
+                        <JFXButton fx:id="btnPermission" alignment="CENTER_LEFT" onAction="#handlePermission" prefHeight="40.0" prefWidth="280.0" text="Quyền" textFill="WHITE">
+                            <graphic>
+                                <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../Images/icon-role.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                            <padding>
+                                <Insets bottom="15.0" left="40.0" right="20.0" top="15.0" />
+                            </padding>
+                        </JFXButton>
+                    </children>
+                </VBox>
+                <JFXButton fx:id="btnSetting" alignment="CENTER_LEFT" onAction="#handleSetting" prefHeight="40.0" prefWidth="280.0" text="Cài đặt" textFill="WHITE">
+                    <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../Images/icon-setting-25.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                    </padding>
+                </JFXButton>
+                <JFXButton fx:id="btnLogOut" alignment="CENTER_LEFT" onAction="#handleLogOut" prefHeight="40.0" prefWidth="280.0" text="Đăng xuất" textFill="WHITE">
+                    <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../../Images/icons8-log-out-48.png" />
                             </image>
                         </ImageView>
                     </graphic>
                     <font>
-                        <Font name="System Bold" size="18.0" />
+                        <Font size="16.0" />
                     </font>
                     <padding>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
@@ -180,9 +241,9 @@
     <center>
         <StackPane fx:id="centerPane">
             <fx:include source="../Dashboard/dashboard.fxml" />
-         <padding>
-            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-         </padding>
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            </padding>
         </StackPane>
     </center>
 </BorderPane>

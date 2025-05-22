@@ -1,9 +1,13 @@
 package com.example.javafxapp.Model;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+
 public class Role {
     private int role_id;
     private String role_name;
     private String description;
+    private final BooleanProperty selected = new SimpleBooleanProperty(false);
 
     public Role(String role_name, String description) {
         this.role_name = role_name;
@@ -38,5 +42,16 @@ public class Role {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+    public BooleanProperty selectedProperty() {
+        return selected;
+    }
+
+    public boolean isSelected() {
+        return selected.get();
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected.set(selected);
     }
 }

@@ -40,4 +40,8 @@ public class PermissionService {
     public Permission findPermissionByName(String permissionName) {
         return permissionRepositoty.findByName(permissionName) ;
     }
+    // find all permisson by keyword .
+    public List<Permission> findAllByKeyword(String keyword) {
+        return permissionRepositoty.findAllByKeyword(keyword) ;
+    }
 }

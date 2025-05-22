@@ -126,5 +126,29 @@ public class RoleRepository implements JDBCRepository<Role> {
         }
         return null ;
     }
+
+    // find role by keyword.
+    public List<Role> findRolesByKeyword(String keyword) {
+        String sql = "SELECT * from role where role_name = ? AND deleted = ?" ;
+        List<Role> roles = new ArrayList<>() ;
+        try(Connection connection = DatabaseConnection.getConnection() ;
+            PreparedStatement preparedStatement = connection.prepareStatement(sql)
+        ){
+            preparedStatement.setString(1,"%" + keyword + "%");
+            preparedStatement.setBoolean(2,false);
+            ResultSet rs = preparedStatement.executeQuery() ;
+            if (rs.next()) {
+                roles.add( new Role(
+                        rs.getInt("role_id") ,
+                        rs.getString("role_name") ,
+                        rs.getString("description")
+                )) ;
+            }
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return null ;
+    }
 }
 

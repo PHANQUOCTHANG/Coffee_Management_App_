@@ -9,31 +9,29 @@
 
 <VBox alignment="CENTER" prefHeight="300.0" prefWidth="400.0" spacing="20.0" style="-fx-background-color: white;"
       xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.example.javafxapp.Controller.Admin.Employee.AddEmployeeController">
-
+      fx:controller="com.example.javafxapp.Controller.Admin.Permissison.UpdatePermissionController">
     <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+        <Insets top="20.0" right="20.0" bottom="20.0" left="20.0"/>
     </padding>
 
-    <Label text="Thêm nhân viên mới">
+    <!-- Tiêu đề -->
+    <Label text="Cập nhật quyền">
         <font>
             <Font name="System Bold" size="20.0"/>
         </font>
     </Label>
 
-    <VBox spacing="10.0" prefWidth="360.0">
-        <Label text="Tên nhân viên:"/>
-        <TextField fx:id="employeeNameField" promptText="Nhập tên nhân viên"/>
-
-        <Label text="Số điện thoại:"/>
-        <TextField fx:id="phoneField" promptText="Nhập số điện thoại"/>
+    <!-- Nhập tên quyền -->
+    <VBox spacing="10.0" alignment="CENTER_LEFT">
+        <Label text="Tên quyền:" />
+        <TextField fx:id="permissionNameField" promptText="Nhập tên quyền"/>
     </VBox>
 
-    <JFXButton fx:id="btnAdd" onAction="#addEmployee" prefHeight="40.0" prefWidth="120.0"
-               style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="Thêm mới">
+    <!-- Nút cập nhật -->
+    <JFXButton fx:id="btnUpdate" onAction="#updatePermission" prefHeight="40.0" prefWidth="120.0"
+               style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="Cập nhật">
         <font>
             <Font name="System Bold" size="14.0"/>
         </font>
     </JFXButton>
-
 </VBox>

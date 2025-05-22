@@ -10,13 +10,13 @@
 
 <VBox alignment="CENTER" prefHeight="350.0" prefWidth="500.0" spacing="20.0" style="-fx-background-color: white;"
       xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.example.javafxapp.Controller.Admin.Role.AddRoleController">
+      fx:controller="com.example.javafxapp.Controller.Admin.Role.UpdateRoleController">
     <padding>
         <Insets top="20.0" right="20.0" bottom="20.0" left="20.0"/>
     </padding>
 
     <!-- Tiêu đề -->
-    <Label text="Thêm vai trò mới">
+    <Label text="Cập nhật vai trò">
         <font>
             <Font name="System Bold" size="20.0"/>
         </font>
@@ -30,9 +30,9 @@
         <TextArea fx:id="descriptionField" promptText="Nhập mô tả" prefRowCount="4"/>
     </VBox>
 
-    <!-- Nút thêm -->
-    <JFXButton fx:id="btnAdd" onAction="#addRole" prefHeight="40.0" prefWidth="120.0"
-               style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="Thêm mới">
+    <!-- Nút cập nhật -->
+    <JFXButton fx:id="btnUpdate" onAction="#updateRole" prefHeight="40.0" prefWidth="120.0"
+               style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="Cập nhật">
         <font>
             <Font name="System Bold" size="14.0"/>
         </font>

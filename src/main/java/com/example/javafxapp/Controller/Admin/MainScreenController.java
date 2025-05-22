@@ -15,8 +15,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +26,11 @@ import java.util.List;
 public class MainScreenController {
 
     @FXML
-    private JFXButton btnOverview, btnProducts, btnCategories, btnEmployees, btnOrders,
-            btnAccounts, btnRole , btnPermission , btnLogOut;
+    private VBox permissionsSubMenu ;
+
+    @FXML
+    private JFXButton btnOverview, btnProducts, btnCategories, btnEmployees, btnOrders, btnRevenue ,
+            btnAccounts, btnRole , btnPermission , btnSetting , btnLogOut;
 
     @FXML
     private StackPane centerPane;
@@ -45,10 +50,12 @@ public class MainScreenController {
         menuButtons.add(btnProducts);
         menuButtons.add(btnCategories);
         menuButtons.add(btnOrders);
+        menuButtons.add(btnRevenue) ;
         menuButtons.add(btnAccounts);
         menuButtons.add(btnRole);
         menuButtons.add(btnPermission) ;
         menuButtons.add(btnEmployees);
+        menuButtons.add(btnSetting) ;
         menuButtons.add(btnLogOut) ;
 
         // Mặc định chọn "Tổng Quan"
@@ -141,6 +148,15 @@ public class MainScreenController {
         setActiveButton(btnOrders);
     }
 
+    // revenue .
+    @FXML
+    public void handleRevenue() {
+        System.out.println("Revenue button clicked");
+        loadCenterContent("/com/example/javafxapp/view/admin/revenue/revenue.fxml");
+        // Thêm logic chuyển sang trang doanh thu .
+        setActiveButton(btnRevenue);
+    }
+
     // account .
     @FXML
     private void handleAccounts() {
@@ -152,13 +168,12 @@ public class MainScreenController {
 
     // role .
     @FXML
-        private void handleRole() {
+    private void handleRole() {
             System.out.println("Role button clicked");
             loadCenterContent("/com/example/javafxapp/view/admin/role/role.fxml");
             // Thêm logic chuyển sang trang vai trò .
             setActiveButton(btnRole);
         }
-
 
     // permission
     @FXML
@@ -167,6 +182,14 @@ public class MainScreenController {
         loadCenterContent("/com/example/javafxapp/view/admin/permission/permission.fxml");
         // Thêm logic chuyển sang trang phân quyền
         setActiveButton(btnPermission);
+    }
+
+    @FXML
+    private void handleSetting() {
+        System.out.println("Setting button clicked");
+        loadCenterContent("/com/example/javafxapp/view/admin/setting/setting.fxml");
+        // Thêm logic chuyển sang trang cài đặt .
+        setActiveButton(btnSetting);
     }
 
     // log out .
@@ -178,8 +201,7 @@ public class MainScreenController {
             Stage stage = (Stage) btnLogOut.getScene().getWindow() ;
             Pages.pageLogin();
             stage.close();
-        };
-//        setActiveButton(btnLogOut);
+        }
     }
 
 
@@ -191,7 +213,6 @@ public class MainScreenController {
             String permission_name = permissionService.findPermissionByID(permissionId).getPermission_name() ;
             permissionNames.add(permission_name) ;
         }
-        setBtn(permissionNames,"Overview" , btnOverview );
         setBtn(permissionNames,"Product" , btnProducts);
         setBtn(permissionNames,"Category" , btnCategories);
         setBtn(permissionNames , "Employee"  , btnEmployees);
@@ -207,6 +228,7 @@ public class MainScreenController {
             button.setManaged(false);
         }
     }
+
 
     // add order page (in orderController)
     @FXML
@@ -225,6 +247,13 @@ public class MainScreenController {
     @FXML
     public void handleOnlineOrder(){
         loadCenterContent("/com/example/javafxapp/view/orders/orderUser/orderUser.fxml");
+    }
+
+    @FXML
+    void handlePermissions() {
+        // Toggle the submenu visibility
+        permissionsSubMenu.setVisible(!permissionsSubMenu.isVisible());
+        permissionsSubMenu.setManaged(!permissionsSubMenu.isManaged());
     }
 
 }

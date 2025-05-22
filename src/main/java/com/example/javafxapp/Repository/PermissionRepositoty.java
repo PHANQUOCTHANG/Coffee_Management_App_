@@ -118,4 +118,28 @@ public class PermissionRepositoty implements JDBCRepository<Permission>{
         return null ;
     }
 
+    // find all permisson by keyword .
+    public List<Permission> findAllByKeyword(String keyword) {
+        String sql = "SELECT * from Permission where permission_name like ? AND deleted = ?" ;
+        List<Permission> permissions = new ArrayList<>() ;
+        try(Connection connection = DatabaseConnection.getConnection() ;
+            PreparedStatement preparedStatement = connection.prepareStatement(sql)
+        ){
+            preparedStatement.setString(1,"%" + keyword + "%");
+            preparedStatement.setBoolean(2,false);
+            ResultSet rs = preparedStatement.executeQuery() ;
+            if (rs.next()) {
+                permissions.add (new Permission(
+                        rs.getInt("permission_id") ,
+                        rs.getString("permission_name") ,
+                        rs.getBoolean("deleted")
+                )) ;
+            }
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return null ;
+    }
+
 }

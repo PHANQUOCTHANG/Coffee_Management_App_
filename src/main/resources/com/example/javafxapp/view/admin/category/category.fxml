@@ -105,40 +105,60 @@
                     <!-- Table Section -->
                     <AnchorPane VBox.vgrow="ALWAYS">
                         <children>
-                            <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <VBox spacing="15.0" styleClass="card"
+                                  AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
+                                  VBox.vgrow="ALWAYS">
                                 <children>
-                                    <AnchorPane styleClass="card" VBox.vgrow="ALWAYS">
+                                    <HBox alignment="CENTER_LEFT">
                                         <children>
-                                            <VBox spacing="0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                <children>
-                                                    <HBox alignment="CENTER_LEFT" prefHeight="50.0" styleClass="table-header-bar">
-                                                        <children>
-                                                            <JFXCheckBox fx:id="checkBoxAll" onAction="#checkBoxAll" text="Chọn tất cả">
-                                                                <font>
-                                                                    <Font name="System Bold" size="14.0" />
-                                                                </font>
-                                                                <HBox.margin>
-                                                                    <Insets left="12.0" />
-                                                                </HBox.margin>
-                                                            </JFXCheckBox>
-                                                        </children>
-                                                    </HBox>
-                                                    <TableView fx:id="categoryTable" styleClass="product-table" VBox.vgrow="ALWAYS">
-                                                        <columns>
-                                                            <TableColumn fx:id="checkBoxColumn" maxWidth="60.0" minWidth="50.0" prefWidth="60.0" />
-                                                            <TableColumn fx:id="indexColumn" maxWidth="60.0" minWidth="50.0" prefWidth="60.0" resizable="false" text="STT" />
-                                                            <TableColumn fx:id="nameColumn" maxWidth="500.0" minWidth="250.0" prefWidth="400.0" text="Tên danh mục" />
-                                                            <TableColumn fx:id="actionColumn" maxWidth="180.0" minWidth="150.0" prefWidth="180.0" text="Hành động" />
-                                                        </columns>
-                                                    </TableView>
-                                                </children>
-                                            </VBox>
+                                            <Label styleClass="section-title" text="Tất cả danh mục sản phẩm">
+                                                <font>
+                                                    <Font name="System Bold" size="18.0"/>
+                                                </font>
+                                            </Label>
+                                            <Label fx:id="categoryCountLabel" styleClass="counter-label"
+                                                   text="(0 danh mục)">
+                                                <HBox.margin>
+                                                    <Insets left="10.0"/>
+                                                </HBox.margin>
+                                                <font>
+                                                    <Font size="14.0"/>
+                                                </font>
+                                            </Label>
                                         </children>
-                                    </AnchorPane>
+                                    </HBox>
+
+                                    <VBox spacing="0" VBox.vgrow="ALWAYS">
+                                        <children>
+                                            <HBox alignment="CENTER_LEFT" prefHeight="50.0" styleClass="table-header-bar">
+                                                <children>
+                                                    <JFXCheckBox fx:id="checkBoxAll" onAction="#checkBoxAll" text="Chọn tất cả">
+                                                        <font>
+                                                            <Font name="System Bold" size="14.0"/>
+                                                        </font>
+                                                        <HBox.margin>
+                                                            <Insets left="12.0"/>
+                                                        </HBox.margin>
+                                                    </JFXCheckBox>
+                                                </children>
+                                            </HBox>
+
+                                            <TableView fx:id="categoryTable" styleClass="product-table" VBox.vgrow="ALWAYS">
+                                                <columns>
+                                                    <TableColumn fx:id="checkBoxColumn" maxWidth="60.0" minWidth="50.0" prefWidth="60.0" />
+                                                    <TableColumn fx:id="indexColumn" maxWidth="60.0" minWidth="50.0" prefWidth="60.0" resizable="false" text="STT" />
+                                                    <TableColumn fx:id="nameColumn" maxWidth="500.0" minWidth="250.0" prefWidth="400.0" text="Tên danh mục" />
+                                                    <TableColumn fx:id="actionColumn" maxWidth="180.0" minWidth="150.0" prefWidth="180.0" text="Hành động" />
+                                                </columns>
+                                            </TableView>
+                                        </children>
+                                    </VBox>
                                 </children>
                             </VBox>
                         </children>
                     </AnchorPane>
+
                 </children>
             </VBox>
         </center>

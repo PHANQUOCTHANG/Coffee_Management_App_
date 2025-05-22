@@ -43,4 +43,8 @@ public class RoleService {
     public Role findRoleByName(String role_name) {
         return roleRepository.findByName(role_name) ;
     }
+    // find role by keyword.
+    public List<Role> findRolesByKeyword(String keyword) {
+        return roleRepository.findRolesByKeyword(keyword) ;
+    }
 }

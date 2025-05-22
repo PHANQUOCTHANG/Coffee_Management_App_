@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" prefHeight="350.0" prefWidth="450.0" spacing="20.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxapp.Controller.Admin.Employee.UpdateEmployeeController">
+    <padding>
+        <Insets top="20.0" right="20.0" bottom="20.0" left="20.0"/>
+    </padding>
+
+    <Label text="Cập nhật nhân viên">
+        <font>
+            <Font name="System Bold" size="20.0" />
+        </font>
+    </Label>
+
+    <VBox spacing="10.0" prefWidth="400.0">
+        <Label text="Tên nhân viên:" />
+        <TextField fx:id="employeeNameField" promptText="Nhập tên nhân viên" />
+    </VBox>
+
+    <VBox spacing="10.0" prefWidth="400.0">
+        <Label text="Số điện thoại:" />
+        <TextField fx:id="employeePhoneField" promptText="Nhập số điện thoại" />
+    </VBox>
+
+    <JFXButton fx:id="btnUpdate" onAction="#updateEmployee" prefHeight="40.0" prefWidth="120.0"
+               style="-fx-background-color: #2979FF; -fx-text-fill: white;" text="Cập nhật">
+        <font>
+            <Font name="System Bold" size="14.0" />
+        </font>
+    </JFXButton>
+</VBox>

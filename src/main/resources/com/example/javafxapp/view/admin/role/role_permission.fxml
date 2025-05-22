@@ -1,26 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.layout.Region?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.paint.Color?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
 
-<?import javafx.scene.control.Button?>
-<StackPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="com.example.javafxapp.Controller.Admin.RoleController"
-           prefWidth="1280.0" prefHeight="800.0">
+<StackPane prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxapp.Controller.Admin.Role.RolePermissionController">
     <VBox style="-fx-background-color: #F9FAFB;">
         <children>
-            <Button fx:id="btnId"></Button>
+            <Button fx:id="btnId" />
             <!-- Header -->
             <HBox alignment="CENTER_LEFT" prefHeight="80.0" style="-fx-background-color: white;">
                 <effect>
@@ -31,7 +22,7 @@
                     </DropShadow>
                 </effect>
                 <children>
-                    <Label text="Phân quyền người dùng" style="-fx-text-fill: #111827;">
+                    <Label style="-fx-text-fill: #111827;" text="Phân quyền">
                         <font>
                             <Font name="Segoe UI Bold" size="28.0" />
                         </font>
@@ -49,7 +40,7 @@
             <!-- Main Content -->
             <VBox spacing="20.0" VBox.vgrow="ALWAYS">
                 <padding>
-                    <Insets left="30.0" right="30.0" top="25.0" bottom="25.0" />
+                    <Insets bottom="25.0" left="30.0" right="30.0" top="25.0" />
                 </padding>
                 <children>
                     <!-- Role Selection Panel (can be added if needed) -->
@@ -58,12 +49,12 @@
                             <Insets bottom="15.0" left="20.0" right="20.0" top="15.0" />
                         </padding>
                         <children>
-                            <Label text="Vai trò đang chỉnh sửa:" style="-fx-text-fill: #1E40AF;">
+                            <Label style="-fx-text-fill: #1E40AF;" text="Vai trò đang chỉnh sửa:">
                                 <font>
                                     <Font name="Segoe UI" size="16.0" />
                                 </font>
                             </Label>
-                            <Label fx:id="lblCurrentRole" text="Quản trị viên" style="-fx-text-fill: #1E40AF;">
+                            <Label fx:id="lblCurrentRole" style="-fx-text-fill: #1E40AF;" text="Quản trị viên">
                                 <font>
                                     <Font name="Segoe UI Bold" size="16.0" />
                                 </font>
@@ -87,13 +78,13 @@
                                 <Insets bottom="15.0" left="20.0" right="20.0" top="15.0" />
                             </padding>
                             <children>
-                                <Label text="Quyền hạn" style="-fx-text-fill: #111827;">
+                                <Label style="-fx-text-fill: #111827;" text="Quyền hạn">
                                     <font>
                                         <Font name="Segoe UI Bold" size="18.0" />
                                     </font>
                                 </Label>
                                 <Region HBox.hgrow="ALWAYS" />
-                                <CheckBox fx:id="checkboxSelectAll" text="Chọn tất cả" onAction="#selectAll">
+                                <CheckBox fx:id="checkboxSelectAll" onAction="#selectAll" text="Chọn tất cả">
                                     <font>
                                         <Font name="Segoe UI" size="14.0" />
                                     </font>
@@ -104,8 +95,7 @@
                         <Separator />
 
                         <!-- Permissions ScrollPane -->
-                        <ScrollPane fx:id="scroll" fitToWidth="true" VBox.vgrow="ALWAYS"
-                                    style="-fx-background-color: transparent; -fx-background: transparent;">
+                        <ScrollPane fx:id="scroll" fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent;" VBox.vgrow="ALWAYS">
                             <content>
                                 <VBox fx:id="checkboxContainer" spacing="15.0">
                                     <padding>
@@ -125,9 +115,7 @@
                     <Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />
                 </padding>
                 <children>
-                    <JFXButton fx:id="btnCancel" onAction="#handleCancel"
-                               style="-fx-background-color: #F3F4F6; -fx-text-fill: #374151; -fx-background-radius: 6;"
-                               text="Hủy">
+                    <JFXButton fx:id="btnCancel" onAction="#handleCancel" style="-fx-background-color: #F3F4F6; -fx-text-fill: #374151; -fx-background-radius: 6;" text="Hủy">
                         <font>
                             <Font name="Segoe UI Bold" size="14.0" />
                         </font>
@@ -138,10 +126,7 @@
                             <Insets right="15.0" />
                         </HBox.margin>
                     </JFXButton>
-                    <JFXButton fx:id="btnSavePermission"
-                               onAction="#handleSavePermissions"
-                               style="-fx-background-color: #059669; -fx-text-fill: white; -fx-background-radius: 6;"
-                               text="Lưu thay đổi">
+                    <JFXButton fx:id="btnSavePermission" onAction="#handleSavePermissions" style="-fx-background-color: #059669; -fx-text-fill: white; -fx-background-radius: 6;" text="Lưu thay đổi">
                         <font>
                             <Font name="Segoe UI Bold" size="14.0" />
                         </font>

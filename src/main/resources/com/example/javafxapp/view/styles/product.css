@@ -193,6 +193,7 @@
 .product-table {
     -fx-background-color: transparent;
     -fx-table-cell-border-color: transparent;
+     -fx-font-size: 15px;
 }
 
 .product-table .column-header-background {
@@ -239,7 +240,7 @@
 .status-active {
     -fx-background-color: #C6F6D5;
     -fx-text-fill: #22543D;
-    -fx-padding: 5px 10px;
+    -fx-padding : 10px ;
     -fx-background-radius: 4px;
     -fx-font-size: 12px;
     -fx-font-weight: bold;
@@ -249,7 +250,7 @@
 .status-inactive {
     -fx-background-color: #FED7D7;
     -fx-text-fill: #822727;
-    -fx-padding: 5px 10px;
+    -fx-padding : 10px ;
     -fx-background-radius: 4px;
     -fx-font-size: 12px;
     -fx-font-weight: bold;
@@ -266,7 +267,7 @@
 }
 /* Featured button styles */
             .featured-button {
-                -fx-padding: 5px 10px;
+                -fx-padding : 10px;
                 -fx-background-radius: 5px;
                 -fx-cursor: hand;
                 -fx-font-size: 12px;

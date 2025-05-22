@@ -288,15 +288,15 @@ public class ProductController implements Initializable {
             HBox actionBox = new HBox(10);
             actionBox.setAlignment(Pos.CENTER);
 
-            JFXButton editButton = new JFXButton("Sửa");
-            editButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white;");
-            editButton.setOnAction(event -> editProduct(product));
+            JFXButton updateButton = new JFXButton("Sửa");
+            updateButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-padding : 10px ");
+            updateButton.setOnAction(event -> updateProduct(product));
 
             JFXButton deleteButton = new JFXButton("Xóa");
-            deleteButton.setStyle("-fx-background-color: #f44336; -fx-text-fill: white;");
+            deleteButton.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-padding : 10px");
             deleteButton.setOnAction(event -> deleteProduct(product));
 
-            actionBox.getChildren().addAll(editButton, deleteButton);
+            actionBox.getChildren().addAll(updateButton, deleteButton);
             return new SimpleObjectProperty<>(actionBox);
         });
     }
@@ -552,7 +552,7 @@ public class ProductController implements Initializable {
     }
 
     // qua trang sửa .
-    private void editProduct(Product product) {
+    private void updateProduct(Product product) {
         Pages.pageUpdateProduct(product.getProduct_id() , this);
     }
 

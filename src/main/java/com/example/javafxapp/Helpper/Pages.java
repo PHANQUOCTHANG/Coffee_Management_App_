@@ -7,9 +7,19 @@ import com.example.javafxapp.Controller.Admin.Account.UpdateAccountController;
 import com.example.javafxapp.Controller.Admin.Category.AddCategoryController;
 import com.example.javafxapp.Controller.Admin.Category.CategoryController;
 import com.example.javafxapp.Controller.Admin.Category.UpdateCategoryController;
+import com.example.javafxapp.Controller.Admin.Employee.AddEmployeeController;
+import com.example.javafxapp.Controller.Admin.Employee.EmployeeController ;
+import com.example.javafxapp.Controller.Admin.Employee.UpdateEmployeeController;
+import com.example.javafxapp.Controller.Admin.Permissison.AddPermissionController;
+import com.example.javafxapp.Controller.Admin.Permissison.PermissionController;
+import com.example.javafxapp.Controller.Admin.Permissison.UpdatePermissionController;
 import com.example.javafxapp.Controller.Admin.Product.AddProductController;
 import com.example.javafxapp.Controller.Admin.Product.ProductController;
 import com.example.javafxapp.Controller.Admin.Product.UpdateProductController;
+import com.example.javafxapp.Controller.Admin.Role.AddRoleController;
+import com.example.javafxapp.Controller.Admin.Role.RoleController;
+import com.example.javafxapp.Controller.Admin.Role.RolePermissionController;
+import com.example.javafxapp.Controller.Admin.Role.UpdateRoleController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -178,6 +188,7 @@ public class Pages {
             AlertInfo.showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể mở trang.");
         }
     }
+
     // chuyển qua trang chi tiết damh mục
     public static void pageUpdateCategory(int categoryId , CategoryController categoryController) {
         try {
@@ -206,11 +217,14 @@ public class Pages {
 
     //// Employee
     // chuyển qua trang thêm nhân viên .
-    public static void pageAddEmployee() {
+    public static void pageAddEmployee(EmployeeController employeeController) {
         try {
             FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/View/Admin/employee/addEmployee.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
+
+            AddEmployeeController addEmployeeController = loader.getController() ;
+            addEmployeeController.setEmployeeController(employeeController) ;
 
             Stage stage = new Stage();
             stage.getIcons().add(new Image(Pages.class.getResourceAsStream("/com/example/javafxapp/view/images/icons.jpg")));
@@ -227,15 +241,15 @@ public class Pages {
     }
 
     // chuyển qua trang chi tiết nhân viên.
-    public static void pageDetailEmployee(int employeeId) {
+    public static void pageUpdateEmployee(int employeeId , EmployeeController employeeController) {
         try {
-            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/View/Admin/employee/detailEmployee.fxml"));
+            UpdateEmployeeController.employee_id = employeeId ;
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/View/Admin/Employee/updateEmployee.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
 
-            // Lấy controller của trang chi tiết và truyền ID sản phẩm vào
-            EmployeeController controller = loader.getController();
-            controller.loadDataDetailEmployee(employeeId);
+            UpdateEmployeeController updateEmployeeController = loader.getController() ;
+            updateEmployeeController.setEmployeeController(employeeController) ;
 
 
             Stage stage = new Stage();
@@ -256,12 +270,14 @@ public class Pages {
     //// Role
 
     // chuyển qua trang thêm vai trò
-    public static void pageAddRole() {
+    public static void pageAddRole(RoleController roleController) {
         try {
             FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/View/Admin/Role/addRole.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
 
+            AddRoleController addRoleController = loader.getController() ;
+            addRoleController.setRoleController(roleController);
 
             Stage stage = new Stage();
             stage.getIcons().add(new Image(Pages.class.getResourceAsStream("/com/example/javafxapp/view/images/icons.jpg")));
@@ -277,15 +293,15 @@ public class Pages {
     }
 
     // chuyển qua trang chi tiết vai trò
-    public static void pageDetailRole(int roleId) {
+    public static void pageUpdateRole(int roleId , RoleController roleController) {
         try {
-            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/View/Admin/Role/detailRole.fxml"));
+            UpdateRoleController.role_id = roleId ;
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/View/Admin/Role/updateRole.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
 
-            // Lấy controller của trang chi tiết và truyền ID sản phẩm vào
-            RoleController controller = loader.getController();
-            controller.loadDataDetailRole(roleId);
+            UpdateRoleController updateRoleController = loader.getController() ;
+            updateRoleController.setRoleController(roleController);
 
 
             Stage stage = new Stage();
@@ -302,15 +318,15 @@ public class Pages {
     }
 
     // chuyển qua trang phân quyền .
-    public static void pageRolePermission(int roleId) {
+    public static void pageRolePermission(int roleId , RoleController roleController) {
         try {
+            RolePermissionController.role_id = roleId ;
             FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/View/Admin/Role/role_permission.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
 
-            RoleController controller = loader.getController();
-            controller.loadDataRolePermission(roleId);
-
+            RolePermissionController rolePermissionController = loader.getController() ;
+            rolePermissionController.setRoleController(roleController) ;
 
             Stage stage = new Stage();
             stage.getIcons().add(new Image(Pages.class.getResourceAsStream("/com/example/javafxapp/view/images/icons.jpg")));
@@ -378,11 +394,14 @@ public class Pages {
 
     //// Permission .
     // chuyển qua trang thêm permission .
-    public static void pageAddPermission() {
+    public static void pageAddPermission(PermissionController permissionController) {
         try {
             FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/View/Admin/Permission/addPermission.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
+
+            AddPermissionController addPermissionController = loader.getController() ;
+            addPermissionController.setPermissionController(permissionController);
 
             Stage stage = new Stage();
             stage.getIcons().add(new Image(Pages.class.getResourceAsStream("/com/example/javafxapp/view/images/icons.jpg")));
@@ -398,16 +417,15 @@ public class Pages {
     }
 
     // chuyển qua trang chi tiết permission .
-    public static void pageDetailPermission(int permissionId) {
+    public static void pageUpdatePermission(int permissionId ,PermissionController permissionController) {
         try {
-            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/View/Admin/Permission/detailPermission.fxml"));
+            UpdatePermissionController.permission_id = permissionId ;
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/View/Admin/Permission/updatePermission.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
 
-            // Lấy controller của trang chi tiết và truyền ID sản phẩm vào
-            PermissionController controller = loader.getController();
-            controller.loadDataDetailPermission(permissionId);
-
+            UpdatePermissionController updatePermissionController = loader.getController() ;
+            updatePermissionController.setPermissionController(permissionController);
 
             Stage stage = new Stage();
             stage.getIcons().add(new Image(Pages.class.getResourceAsStream("/com/example/javafxapp/view/images/icons.jpg")));
@@ -442,6 +460,8 @@ public class Pages {
         }
         return null;
     }
+
+
     //// Shopping cart
     public static void pageShoppingCart() throws IOException {
         try {

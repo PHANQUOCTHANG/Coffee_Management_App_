@@ -1,11 +1,8 @@
 package com.example.javafxapp.Repository;
 
 import java.math.BigDecimal;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -154,5 +151,40 @@ public class OrderRepository{
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<Order> getOrdersByDateRange(LocalDate from, LocalDate to) {
+        List<Order> orders = new ArrayList<>();
+        String sql = """
+                SELECT * FROM orders
+                WHERE DATE(order_time) BETWEEN ? AND ?
+                ORDER BY order_time DESC
+                """;
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setDate(1, Date.valueOf(from));
+            stmt.setDate(2, Date.valueOf(to));
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                int userId = rs.getInt("user_id");
+                String staffName = rs.getString("staff_name");
+                BigDecimal totalAmount = rs.getBigDecimal("total_amount");
+                String status = rs.getString("status");
+                Timestamp orderTime = rs.getTimestamp("order_time");
+
+                Order order = new Order(id, userId, staffName, totalAmount, status, orderTime);
+                orders.add(order);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Tùy bạn xử lý: throw RuntimeException, log hoặc show alert
+        }
+
+        return orders;
     }
 }

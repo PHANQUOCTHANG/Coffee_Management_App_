@@ -114,11 +114,11 @@ public class AccountController implements Initializable {
             actionBox.setAlignment(Pos.CENTER);
 
             JFXButton editButton = new JFXButton("Sửa");
-            editButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white;");
+            editButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-padding : 10px ");
             editButton.setOnAction(event -> updateAccount(account));
 
             JFXButton deleteButton = new JFXButton("Xóa");
-            deleteButton.setStyle("-fx-background-color: #f44336; -fx-text-fill: white;");
+            deleteButton.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-padding : 10px");
             deleteButton.setOnAction(event -> deleteAccount(account));
 
             actionBox.getChildren().addAll(editButton, deleteButton);
