@@ -1,543 +1,719 @@
 package com.example.javafxapp.Controller.Admin;
 
+import com.example.javafxapp.Helpper.AlertInfo;
+import com.example.javafxapp.Model.Order;
+import com.example.javafxapp.Model.OrderDetail;
+import com.example.javafxapp.Model.Product;
+import com.example.javafxapp.Model.Statistic;
+import com.example.javafxapp.Service.OrderDetailService;
+import com.example.javafxapp.Service.OrderService;
+import com.example.javafxapp.Service.ProductService;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.Button;
+import org.apache.poi.ss.usermodel.Cell;
+import javafx.scene.control.Label;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.net.URL;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
-
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import com.example.javafxapp.Model.*;
-import com.example.javafxapp.Service.*;
+import java.awt.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
+import java.util.List;
 
-public class RevenueController implements Initializable {
+/**
+ * Controller quản lý các chức năng liên quan đến doanh thu và thống kê cho Admin.
+ * Bao gồm các tab: Tổng quan, Chi tiết đơn hàng và Thống kê.
+ */
+public class RevenueController {
 
-    // Labels
-    @FXML private Label lblCurrentDate;
-    @FXML private Label lblTotalRevenue;
-    @FXML private Label lblTotalOrders;
-    @FXML private Label lblAverageOrder;
-    @FXML private Label lblTopSelling;
-    @FXML private Label lblOrderCount;
-    @FXML private Label lblStatisticTitle;
+    // Các thành phần FXML được inject từ file FXML tương ứng
 
-    // ComboBoxes
-    @FXML private ComboBox<String> cboTimeRange;
-    @FXML private ComboBox<String> cboStatisticType;
-    @FXML private ComboBox<String> cboStatisticPeriod;
+    @FXML private Label lblCurrentDate; // Nhãn hiển thị ngày hiện tại
 
-    // DatePickers
-    @FXML private DatePicker dateFrom;
-    @FXML private DatePicker dateTo;
-    @FXML private DatePicker dateOrderFrom;
-    @FXML private DatePicker dateOrderTo;
-    @FXML private DatePicker dateStatisticFrom;
-    @FXML private DatePicker dateStatisticTo;
+    // Tab Tổng quan (Overview)
+    @FXML private ComboBox<String> cboTimeRange; // ComboBox chọn khoảng thời gian (Hôm nay, Tuần này, Tháng này, Tùy chỉnh)
+    @FXML private DatePicker dateFrom; // DatePicker chọn ngày bắt đầu cho khoảng thời gian tùy chỉnh
+    @FXML private DatePicker dateTo; // DatePicker chọn ngày kết thúc cho khoảng thời gian tùy chỉnh
+    @FXML private Button btnApplyFilter; // Nút áp dụng bộ lọc thời gian
+    @FXML private Label lblTotalRevenue; // Nhãn hiển thị tổng doanh thu
+    @FXML private Label lblTotalOrders; // Nhãn hiển thị tổng số đơn hàng
+    @FXML private Label lblAverageOrder; // Nhãn hiển thị giá trị trung bình mỗi đơn hàng
+    @FXML private Label lblTopSelling; // Nhãn hiển thị sản phẩm bán chạy nhất
+    @FXML private BarChart<String, Number> chartRevenue; // Biểu đồ cột hiển thị doanh thu theo thời gian
+    @FXML private PieChart chartProductDistribution; // Biểu đồ tròn hiển thị tỷ lệ phân phối sản phẩm
+    @FXML private Button btnExportOverview; // Nút xuất báo cáo tổng quan ra file CSV
 
-    // Buttons
-    @FXML private Button btnApplyFilter;
-    @FXML private Button btnSearchOrders;
-    @FXML private Button btnGenerateStatistic;
-    @FXML private Button btnExportOverview;
-    @FXML private Button btnExportOrderDetail;
-    @FXML private Button btnExportStatistic;
+    // Tab Chi tiết đơn hàng (Order Details)
+    @FXML private DatePicker dateOrderFrom; // DatePicker chọn ngày bắt đầu để lọc đơn hàng
+    @FXML private DatePicker dateOrderTo; // DatePicker chọn ngày kết thúc để lọc đơn hàng
+    @FXML private Button btnSearchOrders; // Nút tìm kiếm đơn hàng theo khoảng ngày đã chọn
+    @FXML private TableView<Order> tblOrders; // Bảng hiển thị danh sách chi tiết các đơn hàng
+    @FXML private TableColumn<Order, String> colOrderId; // Cột Mã đơn hàng
+    @FXML private TableColumn<Order, String> colOrderDate; // Cột Ngày đặt hàng
+    @FXML private TableColumn<Order, String> colOrderTime; // Cột Giờ đặt hàng
+    @FXML private TableColumn<Order, String> colItems; // Cột danh sách các sản phẩm trong đơn
+    @FXML private TableColumn<Order, String> colQuantity; // Cột tổng số lượng sản phẩm trong đơn
+    @FXML private TableColumn<Order, String> colTotal; // Cột Tổng tiền của đơn hàng
+    @FXML private TableColumn<Order, String> colPaymentMethod; // Cột Phương thức thanh toán
+    @FXML private Label lblOrderCount; // Nhãn hiển thị tổng số đơn hàng được tìm thấy
+    @FXML private Button btnExportOrderDetail; // Nút xuất báo cáo chi tiết đơn hàng ra file CSV
 
-    // Charts
-    @FXML private BarChart<String, Number> chartRevenue;
-    @FXML private PieChart chartProductDistribution;
-    @FXML private BarChart<String, Number> chartStatistic;
+    // Tab Thống kê (Statistics)
+    @FXML private ComboBox<String> cboStatisticType; // ComboBox chọn loại thống kê (Doanh thu, Số lượng đơn)
+    @FXML private ComboBox<String> cboStatisticPeriod; // ComboBox chọn chu kỳ thống kê (Hôm nay, Tuần này, Tháng này, Tùy chỉnh)
+    @FXML private DatePicker dateStatisticFrom; // DatePicker chọn ngày bắt đầu cho thống kê tùy chỉnh
+    @FXML private DatePicker dateStatisticTo; // DatePicker chọn ngày kết thúc cho thống kê tùy chỉnh
+    @FXML private Button btnGenerateStatistic; // Nút tạo báo cáo thống kê
+    @FXML private Label lblStatisticTitle; // Nhãn hiển thị tiêu đề của bảng và biểu đồ thống kê
+    @FXML private TableView<Statistic> tblStatistic; // Bảng hiển thị dữ liệu thống kê
+    @FXML private TableColumn<Statistic, String> colStatPeriod; // Cột Chu kỳ/Thời gian thống kê
+    @FXML private TableColumn<Statistic, String> colStatOrderCount; // Cột Số lượng đơn hàng trong thống kê
+    @FXML private TableColumn<Statistic, String> colStatRevenue; // Cột Doanh thu trong thống kê
+    @FXML private TableColumn<Statistic, String> colStatAverage; // Cột Giá trị trung bình/đơn trong thống kê
+    @FXML private TableColumn<Statistic, String> colStatTopProduct; // Cột Sản phẩm bán chạy nhất trong thống kê
+    @FXML private BarChart<String, Number> chartStatistic; // Biểu đồ cột hiển thị dữ liệu thống kê
+    @FXML private Button btnExportStatistic; // Nút xuất báo cáo thống kê ra file CSV
 
-    // TableViews
-    @FXML private TableView<Order> tblOrders;
-    @FXML private TableView<StatisticData> tblStatistic;
+    // Khởi tạo các đối tượng Service để tương tác với tầng dữ liệu
+    private OrderDetailService orderDetailService = new OrderDetailService();
+    private ProductService productService = new ProductService();
+    private OrderService orderService = new OrderService();
 
-    // TableColumns for Orders
-    @FXML private TableColumn<Order, String> colOrderId;
-    @FXML private TableColumn<Order, String> colOrderDate;
-    @FXML private TableColumn<Order, String> colOrderTime;
-    @FXML private TableColumn<Order, String> colItems;
-    @FXML private TableColumn<Order, Integer> colQuantity;
-    @FXML private TableColumn<Order, String> colTotal;
-    @FXML private TableColumn<Order, String> colPaymentMethod;
+    /**
+     * Phương thức này được tự động gọi sau khi các thành phần FXML đã được inject.
+     * Dùng để khởi tạo các giá trị ban đầu, thiết lập listener và tải dữ liệu mặc định.
+     */
+    @FXML
+    public void initialize() {
+        // Hiển thị ngày hiện tại
+        lblCurrentDate.setText(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 
-    // TableColumns for Statistics
-    @FXML private TableColumn<StatisticData, String> colStatPeriod;
-    @FXML private TableColumn<StatisticData, Integer> colStatOrderCount;
-    @FXML private TableColumn<StatisticData, String> colStatRevenue;
-    @FXML private TableColumn<StatisticData, String> colStatAverage;
-    @FXML private TableColumn<StatisticData, String> colStatTopProduct;
+        // Thiết lập giá trị mặc định cho các DatePicker là ngày hiện tại
+        dateFrom.setValue(LocalDate.now());
+        dateTo.setValue(LocalDate.now());
+        dateOrderFrom.setValue(LocalDate.now());
+        dateOrderTo.setValue(LocalDate.now());
+        dateStatisticFrom.setValue(LocalDate.now());
+        dateStatisticTo.setValue(LocalDate.now());
 
-    // Services
-    private OrderService orderService;
-    private ProductService productService;
-//    private StatisticService statisticService;
+        // Khởi tạo các mục lựa chọn cho ComboBoxes
+        cboTimeRange.setItems(FXCollections.observableArrayList("Hôm nay", "Tuần này", "Tháng này", "Tùy chỉnh"));
+        cboStatisticType.setItems(FXCollections.observableArrayList("Doanh thu", "Số lượng đơn"));
+        cboStatisticPeriod.setItems(FXCollections.observableArrayList("Hôm nay", "Tuần này", "Tháng này", "Tùy chỉnh"));
 
-    // Data lists
-    private ObservableList<Order> allOrders = FXCollections.observableArrayList(); ;
-    private ObservableList<Order> filteredOrders = FXCollections.observableArrayList();;
-    private ObservableList<StatisticData> statisticDataList;
+        // Khởi tạo các cột cho TableView tblOrders (Chi tiết đơn hàng)
+        colOrderId.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getId())));
+        colOrderDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getOrderTime().toLocalDateTime().toLocalDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
+        colOrderTime.setCellValueFactory(cellData ->  new SimpleStringProperty(cellData.getValue().getOrderTime().toLocalDateTime().toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm"))));
 
-    // Formatters
-    private NumberFormat currencyFormatter;
-    private DateTimeFormatter dateFormatter;
-    private DateTimeFormatter timeFormatter;
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Initialize services
-        orderService = new OrderService();
-        productService = new ProductService();
-//        statisticService = new StatisticService();
-
-        // Initialize formatters
-        currencyFormatter = new DecimalFormat("#,###.## VND");
-        dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-
-        // Set current date
-        lblCurrentDate.setText(LocalDate.now().format(dateFormatter));
-
-        // Initialize comboboxes
-        initializeComboBoxes();
-
-        // Initialize table columns
-        initializeTableColumns();
-
-        // Load initial data
-        loadInitialData();
-    }
-
-    private void initializeComboBoxes() {
-        // Time range options
-        ObservableList<String> timeRangeOptions = FXCollections.observableArrayList(
-                "Hôm nay",
-                "Hôm qua",
-                "7 ngày qua",
-                "30 ngày qua",
-                "Tháng này",
-                "Tháng trước",
-                "Tùy chỉnh"
-        );
-        cboTimeRange.setItems(timeRangeOptions);
-        cboTimeRange.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
-            updateDateRangeBasedOnSelection(newVal);
+        // Cột "Sản phẩm": Lấy danh sách tên sản phẩm từ chi tiết đơn hàng
+        colItems.setCellValueFactory(cellData -> {
+            List<OrderDetail> orderDetails = orderDetailService.getAll(cellData.getValue().getId());
+            List<String> products = new ArrayList<>();
+            for (OrderDetail orderDetail : orderDetails) {
+                Product product = productService.findProductByID(orderDetail.getProductId());
+                products.add(product.getProduct_name());
+            }
+            String productString = String.join(", ", products); // Nối tên các sản phẩm bằng dấu phẩy
+            return new SimpleStringProperty(productString);
         });
 
-        // Statistic type options
-        ObservableList<String> statisticTypeOptions = FXCollections.observableArrayList(
-                "Doanh thu",
-                "Số lượng đơn hàng",
-                "Sản phẩm bán chạy"
-        );
-        cboStatisticType.setItems(statisticTypeOptions);
+        // Cột "Số lượng": Tính tổng số lượng các mặt hàng trong đơn
+        colQuantity.setCellValueFactory(cellData -> {
+            List<OrderDetail> orderDetails = orderDetailService.getAll(cellData.getValue().getId());
+            int quantity = 0;
+            for (OrderDetail orderDetail : orderDetails) {
+                quantity += orderDetail.getQuantity();
+            }
+            return new SimpleStringProperty(String.valueOf(quantity));
+        });
 
-        // Statistic period options
-        ObservableList<String> statisticPeriodOptions = FXCollections.observableArrayList(
-                "Theo ngày",
-                "Theo tuần",
-                "Theo tháng",
-                "Theo quý",
-                "Theo năm"
-        );
-        cboStatisticPeriod.setItems(statisticPeriodOptions);
+        colTotal.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getTotalAmount())));
+        colPaymentMethod.setCellValueFactory(cellData -> new SimpleStringProperty("Tiền Mặt")); // Giả định phương thức thanh toán là Tiền Mặt (TM)
 
-        // Set default selections
-        cboTimeRange.getSelectionModel().select("7 ngày qua");
-        cboStatisticType.getSelectionModel().select("Doanh thu");
-        cboStatisticPeriod.getSelectionModel().select("Theo ngày");
+        // Khởi tạo các cột cho TableView tblStatistic (Thống kê)
+        colStatPeriod.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPeriod()));
+        colStatOrderCount.setCellValueFactory(cellData ->new SimpleStringProperty(cellData.getValue().getOrderCount()));
+        colStatRevenue.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getRevenue()));
+        colStatAverage.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAverage()));
+        colStatTopProduct.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTopProduct()));
+
+        // Thêm listener cho ComboBox cboTimeRange (Tab Tổng quan)
+        // Khi người dùng thay đổi lựa chọn, cập nhật DatePicker tương ứng
+        cboTimeRange.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            updateDatePickers(newValue, dateFrom, dateTo);
+        });
+
+        // Thêm listener cho ComboBox cboStatisticPeriod (Tab Thống kê)
+        // Khi người dùng thay đổi lựa chọn, cập nhật DatePicker tương ứng
+        cboStatisticPeriod.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            updateDatePickers(newValue, dateStatisticFrom, dateStatisticTo);
+        });
+
+        // Tải dữ liệu ban đầu cho các tab
+        loadOverviewData(); // Tải dữ liệu cho tab Tổng quan
+        loadOrderData();    // Tải dữ liệu cho tab Chi tiết đơn hàng
+        loadStatisticData();// Tải dữ liệu cho tab Thống kê
     }
 
-    private void initializeTableColumns() {
-        // Initialize order table columns
-        colOrderId.setCellValueFactory(new PropertyValueFactory<>("orderId"));
-        colOrderDate.setCellValueFactory(new PropertyValueFactory<>("orderDate"));
-        colOrderTime.setCellValueFactory(new PropertyValueFactory<>("orderTime"));
-        colItems.setCellValueFactory(new PropertyValueFactory<>("items"));
-        colQuantity.setCellValueFactory(new PropertyValueFactory<>("totalQuantity"));
-        colTotal.setCellValueFactory(new PropertyValueFactory<>("formattedTotal"));
-        colPaymentMethod.setCellValueFactory(new PropertyValueFactory<>("paymentMethod"));
-
-        // Initialize statistic table columns
-        colStatPeriod.setCellValueFactory(new PropertyValueFactory<>("period"));
-        colStatOrderCount.setCellValueFactory(new PropertyValueFactory<>("orderCount"));
-        colStatRevenue.setCellValueFactory(new PropertyValueFactory<>("formattedRevenue"));
-        colStatAverage.setCellValueFactory(new PropertyValueFactory<>("formattedAverage"));
-        colStatTopProduct.setCellValueFactory(new PropertyValueFactory<>("topProduct"));
-    }
-
-    private void loadInitialData() {
-        // Apply the default filter (7 days)
-        updateDateRangeBasedOnSelection("7 ngày qua");
-
-        // Load orders data
-        List<Order> orders = orderService.getAllOrder() ;
-        allOrders.addAll(orders) ;
-
-        // Apply filter
-        handleApplyFilter(null);
-
-        // Load initial statistics
-        handleGenerateStatistic(null);
-    }
-
-    private void updateDateRangeBasedOnSelection(String selection) {
-        LocalDate endDate = LocalDate.now();
-        LocalDate startDate;
-
-        switch (selection) {
+    /**
+     * Cập nhật giá trị và trạng thái (enable/disable) của các DatePicker
+     * dựa trên khoảng thời gian được chọn từ ComboBox.
+     * @param timeRange Khoảng thời gian được chọn (ví dụ: "Hôm nay", "Tuần này").
+     * @param dateFrom DatePicker cho ngày bắt đầu.
+     * @param dateTo DatePicker cho ngày kết thúc.
+     */
+    private void updateDatePickers(String timeRange, DatePicker dateFrom, DatePicker dateTo) {
+        LocalDate today = LocalDate.now(); // Lấy ngày hiện tại
+        switch (timeRange) {
             case "Hôm nay":
-                startDate = endDate;
+                dateFrom.setValue(today);
+                dateTo.setValue(today);
+                dateFrom.setDisable(true); // Vô hiệu hóa lựa chọn ngày
+                dateTo.setDisable(true);
                 break;
-            case "Hôm qua":
-                startDate = endDate.minusDays(1);
-                endDate = startDate;
-                break;
-            case "7 ngày qua":
-                startDate = endDate.minusDays(6);
-                break;
-            case "30 ngày qua":
-                startDate = endDate.minusDays(29);
+            case "Tuần này":
+                LocalDate startOfWeek = today.with(java.time.temporal.TemporalAdjusters.previousOrSame(java.time.DayOfWeek.MONDAY)); // Ngày đầu tuần (Thứ 2)
+                dateFrom.setValue(startOfWeek);
+                dateTo.setValue(today);
+                dateFrom.setDisable(true);
+                dateTo.setDisable(true);
                 break;
             case "Tháng này":
-                startDate = endDate.withDayOfMonth(1);
-                break;
-            case "Tháng trước":
-                startDate = endDate.minusMonths(1).withDayOfMonth(1);
-                endDate = endDate.withDayOfMonth(1).minusDays(1);
+                LocalDate startOfMonth = today.withDayOfMonth(1); // Ngày đầu tháng
+                dateFrom.setValue(startOfMonth);
+                dateTo.setValue(today);
+                dateFrom.setDisable(true);
+                dateTo.setDisable(true);
                 break;
             case "Tùy chỉnh":
-                // Don't change dates, let user select
-                return;
-            default:
-                startDate = endDate.minusDays(6);
+                dateFrom.setValue(null); // Cho phép người dùng chọn ngày
+                dateTo.setValue(null);
+                dateFrom.setDisable(false); // Kích hoạt lựa chọn ngày
+                dateTo.setDisable(false);
+                break;
+            default: // Mặc định (hoặc nếu timeRange là null)
+                dateFrom.setValue(null);
+                dateTo.setValue(null);
+                dateFrom.setDisable(false);
+                dateTo.setDisable(false);
                 break;
         }
-
-        dateFrom.setValue(startDate);
-        dateTo.setValue(endDate);
     }
 
+    /**
+     * Xử lý sự kiện khi nhấn nút "Áp dụng" (btnApplyFilter) trên tab Tổng quan.
+     * Tải lại dữ liệu tổng quan dựa trên khoảng thời gian đã chọn.
+     * @param event Sự kiện ActionEvent.
+     */
     @FXML
     private void handleApplyFilter(ActionEvent event) {
-        LocalDate startDate = dateFrom.getValue();
-        LocalDate endDate = dateTo.getValue();
+        // String timeRange = cboTimeRange.getValue(); // Giá trị này không được sử dụng trực tiếp ở đây, vì dateFrom/To đã được cập nhật bởi listener
+        LocalDate fromDate = dateFrom.getValue();
+        LocalDate toDate = dateTo.getValue();
 
-        if (startDate == null || endDate == null) {
-            showAlert("Lỗi", "Vui lòng chọn khoảng thời gian hợp lệ");
+        // Kiểm tra tính hợp lệ của khoảng ngày: ngày kết thúc không được trước ngày bắt đầu
+        if (fromDate != null && toDate != null && toDate.isBefore(fromDate)) {
+            AlertInfo.showAlert(Alert.AlertType.ERROR, "Lỗi", "Ngày kết thúc phải lớn hơn hoặc bằng ngày bắt đầu!");
             return;
         }
-
-        // Filter orders within the date range
-        List<Order> orders = orderService.getOrdersByDateRange(startDate, endDate);
-        filteredOrders.addAll(orders) ;
-
-        // Update dashboard metrics
-        updateDashboardMetrics();
-
-        // Update charts
-        updateRevenueChart();
-        updateProductDistributionChart();
+        loadOverviewData(); // Tải lại dữ liệu tổng quan với bộ lọc mới
     }
 
+    /**
+     * Xử lý sự kiện khi nhấn nút "Tìm kiếm" (btnSearchOrders) trên tab Chi tiết đơn hàng.
+     * Hiển thị danh sách đơn hàng trong khoảng ngày đã chọn.
+     * @param event Sự kiện ActionEvent.
+     */
     @FXML
     private void handleSearchOrders(ActionEvent event) {
-        LocalDate startDate = dateOrderFrom.getValue();
-        LocalDate endDate = dateOrderTo.getValue();
+        LocalDate fromDate = dateOrderFrom.getValue();
+        LocalDate toDate = dateOrderTo.getValue();
 
-        if (startDate == null || endDate == null) {
-            showAlert("Lỗi", "Vui lòng chọn khoảng thời gian hợp lệ");
+        // Kiểm tra tính hợp lệ của khoảng ngày
+        if (fromDate != null && toDate != null && toDate.isBefore(fromDate)) {
+            AlertInfo.showAlert(Alert.AlertType.ERROR, "Lỗi", "Ngày kết thúc phải lớn hơn hoặc bằng ngày bắt đầu!");
             return;
         }
-
-        // Filter orders for the table
-//        ObservableList<Order> tableOrders = orderService.filterOrdersByDateRange(allOrders, startDate, endDate);
-//        tblOrders.setItems(tableOrders);
-
-        // Update count label
-//        lblOrderCount.setText("Tổng số đơn: " + tableOrders.size());
+        // Lấy danh sách đơn hàng từ service dựa trên khoảng ngày
+        ObservableList<Order> orders = FXCollections.observableArrayList(
+                orderService.getOrdersByDateRange(fromDate, toDate)
+        );
+        tblOrders.setItems(orders); // Cập nhật bảng hiển thị đơn hàng
+        lblOrderCount.setText("Tổng số đơn: " + orders.size()); // Cập nhật số lượng đơn hàng
     }
 
+    /**
+     * Xử lý sự kiện khi nhấn nút "Tạo báo cáo" (btnGenerateStatistic) trên tab Thống kê.
+     * Tạo và hiển thị dữ liệu thống kê (bảng và biểu đồ).
+     * @param event Sự kiện ActionEvent.
+     */
     @FXML
     private void handleGenerateStatistic(ActionEvent event) {
-        String statisticType = cboStatisticType.getValue();
-        String periodType = cboStatisticPeriod.getValue();
-        LocalDate startDate = dateStatisticFrom.getValue();
-        LocalDate endDate = dateStatisticTo.getValue();
+        String statType = cboStatisticType.getValue(); // Loại thống kê (Doanh thu/Số lượng đơn)
+        String period = cboStatisticPeriod.getValue(); // Chu kỳ thống kê (Hôm nay, Tuần này,...)
+        LocalDate fromDate = dateStatisticFrom.getValue();
+        LocalDate toDate = dateStatisticTo.getValue();
 
-        if (statisticType == null || periodType == null || startDate == null || endDate == null) {
-            showAlert("Lỗi", "Vui lòng chọn đầy đủ thông tin cho báo cáo");
+        // Kiểm tra người dùng đã chọn đủ thông tin chưa
+        if (statType == null || period == null) {
+            AlertInfo.showAlert(Alert.AlertType.ERROR, "Lỗi", "Vui lòng chọn đầy đủ thông tin để tạo báo cáo");
             return;
         }
 
-        // Set statistic title
-        lblStatisticTitle.setText("Thống kê " + statisticType.toLowerCase() + " " + periodType.toLowerCase());
+        // Kiểm tra tính hợp lệ của khoảng ngày (nếu là "Tùy chỉnh")
+        if (fromDate != null && toDate != null && toDate.isBefore(fromDate)) {
+            AlertInfo.showAlert(Alert.AlertType.ERROR, "Lỏi", "Ngày kết thúc phải lớn hơn hoặc bằng ngày bắt đầu!");
+            return;
+        }
 
-        // Generate statistic data
-//        statisticDataList = statisticService.generateStatistics(
-//                allOrders,
-//                statisticType,
-//                periodType,
-//                startDate,
-//                endDate
-//        );
+        // Cập nhật tiêu đề cho phần thống kê
+        lblStatisticTitle.setText("Thống kê " + statType.toLowerCase() + " " + period.toLowerCase());
 
-        // Update statistic table
-        tblStatistic.setItems(statisticDataList);
+        // Lấy dữ liệu thống kê
+        ObservableList<Statistic> stats = FXCollections.observableArrayList(
+                statisticList() // Gọi phương thức để tạo danh sách thống kê
+        );
+        tblStatistic.setItems(stats); // Cập nhật bảng thống kê
 
-        // Update statistic chart
-        updateStatisticChart(statisticType);
+        // Cập nhật biểu đồ thống kê
+        updateStatisticChart(statType, period, fromDate, toDate);
     }
 
+    /**
+     * Xử lý sự kiện xuất báo cáo tổng quan ra file CSV.
+     * @param event Sự kiện ActionEvent.
+     */
     @FXML
     private void handleExportOverview(ActionEvent event) {
-        try {
-            // Create workbook and sheet
-            Workbook workbook = new XSSFWorkbook();
-            Sheet sheet = workbook.createSheet("Tổng quan doanh thu");
-
-            // Create header row
-            createHeaderRow(sheet, new String[]{
-                    "Thời gian", "Tổng doanh thu", "Số đơn hàng", "Trung bình mỗi đơn", "Sản phẩm bán chạy"
-            });
-
-            // Create data row
-            Row dataRow = sheet.createRow(1);
-            dataRow.createCell(0).setCellValue(dateFrom.getValue().format(dateFormatter) + " - " +
-                    dateTo.getValue().format(dateFormatter));
-            dataRow.createCell(1).setCellValue(lblTotalRevenue.getText());
-            dataRow.createCell(2).setCellValue(lblTotalOrders.getText());
-            dataRow.createCell(3).setCellValue(lblAverageOrder.getText());
-            dataRow.createCell(4).setCellValue(lblTopSelling.getText());
-
-            // Export workbook
-            exportWorkbook(workbook, "Báo_cáo_tổng_quan");
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            showAlert("Lỗi", "Không thể xuất báo cáo: " + e.getMessage());
-        }
+        String fileName = "overview_report_" + UUID.randomUUID().toString() + ".xlsx";
+        exportToExcel(fileName, getOverviewData());
     }
 
+    /**
+     * Xử lý sự kiện xuất báo cáo chi tiết đơn hàng ra file CSV.
+     * @param event Sự kiện ActionEvent.
+     */
     @FXML
     private void handleExportOrderDetail(ActionEvent event) {
-//        try {
-//            // Get orders from table
-//            ObservableList<Order> orders = tblOrders.getItems();
-//
-//            if (orders.isEmpty()) {
-//                showAlert("Thông báo", "Không có dữ liệu để xuất báo cáo");
-//                return;
-//            }
-//
-//            // Create workbook and sheet
-//            Workbook workbook = new XSSFWorkbook();
-//            Sheet sheet = workbook.createSheet("Chi tiết đơn hàng");
-//
-//            // Create header row
-//            createHeaderRow(sheet, new String[]{
-//                    "Mã đơn", "Ngày đặt", "Giờ đặt", "Sản phẩm", "Số lượng", "Tổng tiền", "Phương thức thanh toán"
-//            });
-//
-//            // Create data rows
-//            int rowNum = 1;
-//            for (Order order : orders) {
-//                Row row = sheet.createRow(rowNum++);
-//                row.createCell(0).setCellValue(order.getOrderId());
-//                row.createCell(1).setCellValue(order.getOrderDate());
-//                row.createCell(2).setCellValue(order.getOrderTime());
-//                row.createCell(3).setCellValue(order.getItems());
-//                row.createCell(4).setCellValue(order.getTotalQuantity());
-//                row.createCell(5).setCellValue(order.getFormattedTotal());
-//                row.createCell(6).setCellValue(order.getPaymentMethod());
-//            }
-//
-//            // Export workbook
-//            exportWorkbook(workbook, "Báo_cáo_chi_tiết_đơn_hàng");
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            showAlert("Lỗi", "Không thể xuất báo cáo: " + e.getMessage());
-//        }
+        String fileName = "order_detail_report_" + UUID.randomUUID().toString() + ".xlsx";
+        exportToExcel(fileName, getOrderDetailData());
     }
 
+    /**
+     * Xử lý sự kiện xuất báo cáo thống kê ra file CSV.
+     * @param event Sự kiện ActionEvent.
+     */
     @FXML
     private void handleExportStatistic(ActionEvent event) {
-//        try {
-//            // Get statistic data from table
-//            ObservableList<StatisticData> statistics = tblStatistic.getItems();
-//
-//            if (statistics.isEmpty()) {
-//                showAlert("Thông báo", "Không có dữ liệu để xuất báo cáo");
-//                return;
-//            }
-//
-//            // Create workbook and sheet
-//            Workbook workbook = new XSSFWorkbook();
-//            Sheet sheet = workbook.createSheet(lblStatisticTitle.getText());
-//
-//            // Create header row
-//            createHeaderRow(sheet, new String[]{
-//                    "Thời gian", "Số đơn hàng", "Doanh thu", "Trung bình/đơn", "Sản phẩm bán chạy"
-//            });
-//
-//            // Create data rows
-//            int rowNum = 1;
-//            for (StatisticData stat : statistics) {
-//                Row row = sheet.createRow(rowNum++);
-//                row.createCell(0).setCellValue(stat.getPeriod());
-//                row.createCell(1).setCellValue(stat.getOrderCount());
-//                row.createCell(2).setCellValue(stat.getFormattedRevenue());
-//                row.createCell(3).setCellValue(stat.getFormattedAverage());
-//                row.createCell(4).setCellValue(stat.getTopProduct());
-//            }
-//
-//            // Export workbook
-//            exportWorkbook(workbook, "Báo_cáo_thống_kê");
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            showAlert("Lỗi", "Không thể xuất báo cáo: " + e.getMessage());
-//        }
+        String fileName = "statistic_report_" + UUID.randomUUID().toString() + ".xlsx";
+        exportToExcel(fileName, getStatisticData());
     }
 
-    private void updateDashboardMetrics() {
-        // Calculate total revenue
-//        double totalRevenue = filteredOrders.stream()
-//                .mapToDouble(Order::getTotal)
-//                .sum();
-//
-//        // Calculate average order value
-//        double averageOrder = filteredOrders.isEmpty() ? 0 : totalRevenue / filteredOrders.size();
-//
-//        // Get top selling product
-//        String topProduct = productService.getTopSellingProduct(filteredOrders);
-//
-//        // Update labels
-//        lblTotalRevenue.setText(currencyFormatter.format(totalRevenue));
-//        lblTotalOrders.setText(String.valueOf(filteredOrders.size()));
-//        lblAverageOrder.setText(currencyFormatter.format(averageOrder));
-//        lblTopSelling.setText(topProduct != null ? topProduct : "Chưa có");
+    /**
+     * Tải và hiển thị dữ liệu cho tab Tổng quan.
+     * Bao gồm tổng doanh thu, tổng đơn hàng, trung bình đơn, sản phẩm bán chạy nhất
+     * và cập nhật các biểu đồ liên quan.
+     */
+    private void loadOverviewData() {
+        // Lấy danh sách đơn hàng dựa trên khoảng ngày đã chọn trên tab Tổng quan (dateFrom, dateTo)
+        List<Order> orders = orderService.getOrdersByDateRange(dateFrom.getValue(), dateTo.getValue());
+        double totalMount = 0; // Tổng doanh thu
+        String productBestSeller = "Không có"; // Tên sản phẩm bán chạy nhất
+        int quantityProductBestSeller = 0; // Số lượng bán của sản phẩm bán chạy nhất
+        int orderCount = 0; // Tổng số đơn hàng
+        HashMap<Integer, Integer> hashMap = new HashMap<Integer, Integer>(); // Dùng để đếm số lượng bán của mỗi sản phẩm
+
+        for (Order order : orders) {
+            List<OrderDetail> orderDetails = orderDetailService.getAll(order.getId());
+            for (OrderDetail orderDetail : orderDetails) {
+                Product product = productService.findProductByID(orderDetail.getProductId());
+                totalMount += product.getPrice() * orderDetail.getQuantity(); // Cộng dồn doanh thu
+
+                // Cập nhật số lượng bán của sản phẩm
+                if (hashMap.containsKey(orderDetail.getProductId())) {
+                    int quantity = hashMap.get(orderDetail.getProductId());
+                    hashMap.put(orderDetail.getProductId(), quantity + orderDetail.getQuantity());
+                } else {
+                    hashMap.put(orderDetail.getProductId(), orderDetail.getQuantity());
+                }
+
+                // Kiểm tra và cập nhật sản phẩm bán chạy nhất
+                if (quantityProductBestSeller < hashMap.get(orderDetail.getProductId())) {
+                    quantityProductBestSeller = hashMap.get(orderDetail.getProductId());
+                    productBestSeller = product.getProduct_name();
+                }
+            }
+            orderCount++; // Tăng số lượng đơn hàng
+        }
+
+        // Hiển thị các thông tin đã tính toán
+        lblTotalRevenue.setText(String.valueOf(totalMount) + " VND");
+        lblTotalOrders.setText(String.valueOf(orderCount));
+        if (orderCount > 0) {
+            lblAverageOrder.setText(String.valueOf(totalMount / orderCount) + " VND");
+        } else {
+            lblAverageOrder.setText("0 VND"); // Tránh chia cho 0
+        }
+        lblTopSelling.setText(productBestSeller);
+
+        // Cập nhật các biểu đồ trên tab Tổng quan
+        updateRevenueChart(dateFrom.getValue(), dateTo.getValue());
+        updateProductDistributionChart(dateFrom.getValue(), dateTo.getValue());
     }
 
-    private void updateRevenueChart() {
-//        chartRevenue.getData().clear();
-//
-//        XYChart.Series<String, Number> series = new XYChart.Series<>();
-//        series.setName("Doanh thu");
-//
-//        // Group orders by date and calculate revenue
-//        Map<String, Double> revenueByDate = new LinkedHashMap<>();
-//
-//        // Sort orders by date
-//        filteredOrders.sort(Comparator.comparing(Order::getOrderDateTime));
-//
-//        // Group by date
-//        for (Order order : filteredOrders) {
-//            String date = order.getOrderDate();
-//            revenueByDate.put(date, revenueByDate.getOrDefault(date, 0.0) + order.getTotal());
-//        }
-//
-//        // Add data points
-//        for (Map.Entry<String, Double> entry : revenueByDate.entrySet()) {
-//            series.getData().add(new XYChart.Data<>(entry.getKey(), entry.getValue()));
-//        }
-//
-//        chartRevenue.getData().add(series);
+    /**
+     * Tải và hiển thị dữ liệu cho tab Chi tiết đơn hàng.
+     * Dữ liệu được lấy dựa trên khoảng ngày dateOrderFrom và dateOrderTo.
+     */
+    private void loadOrderData() {
+        ObservableList<Order> orders = FXCollections.observableArrayList(
+                orderService.getOrdersByDateRange(dateOrderFrom.getValue(), dateOrderTo.getValue())
+        );
+        tblOrders.setItems(orders);
+        lblOrderCount.setText("Tổng số đơn: " + orders.size());
     }
 
-    private void updateProductDistributionChart() {
-//        chartProductDistribution.getData().clear();
-//
-//        // Get product distribution data
-//        Map<String, Integer> productDistribution = productService.getProductCategoryDistribution(filteredOrders);
-//
-//        // Add data points
-//        for (Map.Entry<String, Integer> entry : productDistribution.entrySet()) {
-//            PieChart.Data slice = new PieChart.Data(entry.getKey(), entry.getValue());
-//            chartProductDistribution.getData().add(slice);
-//        }
+    /**
+     * Tạo danh sách các đối tượng Statistic dựa trên khoảng ngày đã chọn (dateStatisticFrom, dateStatisticTo).
+     * Lưu ý: Logic hiện tại tạo một mục Statistic cho MỖI ĐƠN HÀNG trong ngày, thay vì một mục tổng hợp cho cả ngày.
+     * Điều này có thể không phải là hành vi mong muốn cho thống kê theo ngày.
+     * @return Danh sách các đối tượng Statistic.
+     */
+    private List<Statistic> statisticList() {
+        List<Statistic> statisticList = new ArrayList<>();
+        // Lặp qua từng ngày trong khoảng thời gian thống kê
+        for (LocalDate date = dateStatisticFrom.getValue(); !date.isAfter(dateStatisticTo.getValue()); date = date.plusDays(1)) {
+            List<Order> orders = orderService.getOrdersByDateRange(date, date); // Lấy đơn hàng cho ngày 'date'
+            // HashMap này nên được khai báo ngoài vòng lặp orders nếu muốn tìm sản phẩm bán chạy nhất CỦA NGÀY
+            // HashMap<Integer, Integer> dailyProductSales = new HashMap<>();
+
+            for (Order order : orders) { // Lặp qua từng đơn hàng trong ngày
+                // Các biến này đang được tính cho TỪNG ĐƠN HÀNG, không phải tổng hợp cho NGÀY
+                HashMap<Integer, Integer> hashMap = new HashMap<Integer, Integer>(); // Đếm sản phẩm cho đơn hàng hiện tại
+                List<OrderDetail> orderDetails = orderDetailService.getAll(order.getId());
+                double totalMountForThisOrder = 0; // Doanh thu của đơn hàng này
+                String productBestSellerForThisOrder = "Không có"; // SP bán chạy trong đơn hàng này
+                int quantityProductBestSellerForThisOrder = 0; // Số lượng SP bán chạy trong đơn hàng này
+                // int orderCountForThisStatisticEntry = 0; // Biến này sẽ luôn là 1 nếu thống kê theo từng đơn
+
+                for (OrderDetail orderDetail : orderDetails) {
+                    Product product = productService.findProductByID(orderDetail.getProductId());
+                    totalMountForThisOrder += product.getPrice() * orderDetail.getQuantity();
+
+                    // Tính sản phẩm bán chạy nhất CHO ĐƠN HÀNG NÀY
+                    if (hashMap.containsKey(orderDetail.getProductId())) {
+                        int quantity = hashMap.get(orderDetail.getProductId());
+                        hashMap.put(orderDetail.getProductId(), quantity + orderDetail.getQuantity());
+                    } else {
+                        hashMap.put(orderDetail.getProductId(), orderDetail.getQuantity());
+                    }
+                    if (quantityProductBestSellerForThisOrder < hashMap.get(orderDetail.getProductId())) {
+                        quantityProductBestSellerForThisOrder = hashMap.get(orderDetail.getProductId());
+                        productBestSellerForThisOrder = product.getProduct_name();
+                    }
+                }
+                // orderCountForThisStatisticEntry++; // Sẽ là 1
+
+                // Thêm một mục Statistic cho đơn hàng hiện tại.
+                // Nếu muốn thống kê theo ngày, cần tổng hợp thông tin từ tất cả các 'order' trong ngày 'date'
+                // và chỉ add một lần sau vòng lặp 'for (Order order : orders)'.
+                // Hiện tại, cột "Số lượng đơn" sẽ là 1 cho mỗi dòng này.
+                statisticList.add(new Statistic(
+                        date.format(DateTimeFormatter.ofPattern("dd/MM")), // Ngày
+                        "1", // Số lượng đơn (đang là 1 vì tính cho từng đơn)
+                        String.valueOf(totalMountForThisOrder) + " VND", // Doanh thu của đơn này
+                        String.valueOf(totalMountForThisOrder) + " VND", // Trung bình (doanh thu/1)
+                        productBestSellerForThisOrder // Sản phẩm bán chạy của đơn này
+                ));
+            }
+        }
+        return statisticList;
     }
 
-    private void updateStatisticChart(String statisticType) {
-//        chartStatistic.getData().clear();
-//
-//        XYChart.Series<String, Number> series = new XYChart.Series<>();
-//        series.setName(statisticType);
-//
-//        // Add data points based on statistic type
-//        for (StatisticData stat : statisticDataList) {
-//            Number value;
-//
-//            switch (statisticType) {
-//                case "Doanh thu":
-//                    value = stat.getRevenue();
-//                    break;
-//                case "Số lượng đơn hàng":
-//                    value = stat.getOrderCount();
-//                    break;
-//                default:
-//                    value = stat.getRevenue(); // Default to revenue
-//                    break;
-//            }
-//
-//            series.getData().add(new XYChart.Data<>(stat.getPeriod(), value));
-//        }
-//
-//        chartStatistic.getData().add(series);
+
+    /**
+     * Tải và hiển thị dữ liệu ban đầu cho tab Thống kê.
+     * Mặc định hiển thị thống kê doanh thu theo ngày.
+     */
+    private void loadStatisticData() {
+        // Sử dụng dateStatisticFrom và dateStatisticTo mặc định (ngày hiện tại) khi gọi statisticList() lần đầu
+        ObservableList<Statistic> stats = FXCollections.observableArrayList(statisticList());
+        tblStatistic.setItems(stats);
+        // Cập nhật biểu đồ thống kê với giá trị mặc định (Doanh thu, Theo ngày, và khoảng ngày hiện tại từ datepicker)
+        updateStatisticChart("Doanh thu", cboStatisticPeriod.getValue() != null ? cboStatisticPeriod.getValue() : "Hôm nay", dateStatisticFrom.getValue(), dateStatisticTo.getValue());
     }
 
-    private void createHeaderRow(Sheet sheet, String[] headers) {
-        Row headerRow = sheet.createRow(0);
-        for (int i = 0; i < headers.length; i++) {
-            headerRow.createCell(i).setCellValue(headers[i]);
+    /**
+     * Cập nhật biểu đồ doanh thu (chartRevenue) trên tab Tổng quan.
+     * Biểu đồ hiển thị doanh thu theo từng ngày trong khoảng thời gian đã chọn.
+     * @param fromDate Ngày bắt đầu.
+     * @param toDate Ngày kết thúc.
+     */
+    private void updateRevenueChart(LocalDate fromDate, LocalDate toDate) {
+        chartRevenue.getData().clear(); // Xóa dữ liệu cũ
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        series.setName("Doanh thu"); // Tên của dãy dữ liệu
+
+        if (fromDate != null && toDate != null) {
+            // Lặp qua từng ngày trong khoảng thời gian
+            for (LocalDate date = fromDate; !date.isAfter(toDate); date = date.plusDays(1)) {
+                double totalMountPerDay = 0; // Tổng doanh thu của ngày hiện tại
+                List<Order> orders = orderService.getOrdersByDateRange(date, date); // Lấy đơn hàng trong ngày
+                for (Order order : orders) {
+                    List<OrderDetail> orderDetails = orderDetailService.getAll(order.getId());
+                    for (OrderDetail orderDetail : orderDetails) {
+                        Product product = productService.findProductByID(orderDetail.getProductId());
+                        totalMountPerDay += product.getPrice() * orderDetail.getQuantity();
+                    }
+                }
+                // Thêm dữ liệu (ngày, doanh thu ngày đó) vào series
+                series.getData().add(new XYChart.Data<>(date.format(DateTimeFormatter.ofPattern("dd/MM")), totalMountPerDay));
+            }
+        }
+        chartRevenue.getData().add(series); // Thêm series vào biểu đồ
+    }
+
+    /**
+     * Cập nhật biểu đồ phân phối sản phẩm (chartProductDistribution) trên tab Tổng quan.
+     * Biểu đồ tròn hiển thị tỷ lệ số lượng bán của các sản phẩm.
+     * @param fromDate Ngày bắt đầu.
+     * @param toDate Ngày kết thúc.
+     */
+    private void updateProductDistributionChart(LocalDate fromDate, LocalDate toDate) {
+        chartProductDistribution.getData().clear(); // Xóa dữ liệu cũ
+        HashMap<Integer, Integer> productSalesCount = new HashMap<>(); // Đếm số lượng bán của mỗi sản phẩm
+        List<Order> orders = orderService.getOrdersByDateRange(fromDate, toDate);
+
+        for (Order order : orders) {
+            for (OrderDetail orderDetail : orderDetailService.getAll(order.getId())) {
+                // Tăng số lượng bán cho sản phẩm tương ứng
+                productSalesCount.put(orderDetail.getProductId(),
+                        productSalesCount.getOrDefault(orderDetail.getProductId(), 0) + orderDetail.getQuantity());
+            }
+        }
+
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+        for (Map.Entry<Integer, Integer> entry : productSalesCount.entrySet()) {
+            // Thêm dữ liệu (tên sản phẩm, số lượng bán) vào danh sách cho biểu đồ tròn
+            pieChartData.add(new PieChart.Data(productService.findProductByID(entry.getKey()).getProduct_name(), entry.getValue()));
+        }
+        chartProductDistribution.setData(pieChartData); // Cập nhật dữ liệu cho biểu đồ
+    }
+
+    /**
+     * Cập nhật biểu đồ thống kê (chartStatistic) trên tab Thống kê.
+     * Biểu đồ hiển thị doanh thu hoặc số lượng đơn hàng theo từng ngày.
+     * @param statType Loại thống kê ("Doanh thu" hoặc "Số lượng đơn").
+     * @param period Chu kỳ (không dùng trực tiếp trong logic vẽ biểu đồ này, nhưng có thể dùng để định dạng trục X nếu phức tạp hơn).
+     * @param fromDate Ngày bắt đầu.
+     * @param toDate Ngày kết thúc.
+     */
+    private void updateStatisticChart(String statType, String period, LocalDate fromDate, LocalDate toDate) {
+        chartStatistic.getData().clear(); // Xóa dữ liệu cũ
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        series.setName(statType); // Tên series là loại thống kê
+
+        int maxY = 0; // Dùng để xác định giới hạn trên của trục Y cho "Số lượng đơn"
+
+        if (fromDate != null && toDate != null) {
+            // Lặp qua từng ngày trong khoảng thời gian
+            for (LocalDate date = fromDate; !date.isAfter(toDate); date = date.plusDays(1)) {
+                double totalAmountPerDay = 0; // Tổng doanh thu của ngày
+                int orderCountPerDay = 0; // Tổng số đơn của ngày
+
+                List<Order> orders = orderService.getOrdersByDateRange(date, date);
+                for (Order order : orders) {
+                    orderCountPerDay++; // Tăng số lượng đơn
+                    List<OrderDetail> orderDetails = orderDetailService.getAll(order.getId());
+                    for (OrderDetail orderDetail : orderDetails) {
+                        Product product = productService.findProductByID(orderDetail.getProductId());
+                        totalAmountPerDay += product.getPrice() * orderDetail.getQuantity(); // Tính tổng doanh thu
+                    }
+                }
+
+                String xValue = date.format(DateTimeFormatter.ofPattern("dd/MM")); // Giá trị cho trục X (ngày)
+
+                if ("Doanh thu".equalsIgnoreCase(statType)) {
+                    series.getData().add(new XYChart.Data<>(xValue, totalAmountPerDay));
+                } else { // "Số lượng đơn"
+                    series.getData().add(new XYChart.Data<>(xValue, orderCountPerDay));
+                    maxY = Math.max(maxY, orderCountPerDay); // Tìm số lượng đơn lớn nhất để điều chỉnh trục Y
+                }
+            }
+        }
+
+        chartStatistic.getData().add(series); // Thêm series vào biểu đồ
+
+        // Điều chỉnh trục Y (NumberAxis) tùy theo loại thống kê
+        if (!"Doanh thu".equalsIgnoreCase(statType)) { // Nếu là "Số lượng đơn"
+            if (chartStatistic.getYAxis() instanceof NumberAxis yAxis) {
+                yAxis.setAutoRanging(false); // Tắt tự động điều chỉnh khoảng
+                yAxis.setLowerBound(0); // Giới hạn dưới là 0
+                yAxis.setTickUnit(1); // Đơn vị mỗi vạch chia là 1
+                yAxis.setUpperBound(maxY + 1); // Giới hạn trên (lớn hơn maxY một chút)
+
+                // Định dạng nhãn trên trục Y để hiển thị số nguyên
+                yAxis.setTickLabelFormatter(new NumberAxis.DefaultFormatter(yAxis) {
+                    @Override
+                    public String toString(Number object) {
+                        return String.format("%d", object.intValue());
+                    }
+                });
+                yAxis.setLabel("Số lượng đơn"); // Đặt tên cho trục Y
+            }
+        } else { // Nếu là "Doanh thu"
+            if (chartStatistic.getYAxis() instanceof NumberAxis yAxis) {
+                yAxis.setAutoRanging(true); // Bật lại tự động điều chỉnh khoảng
+                yAxis.setTickLabelFormatter(null); // Xóa formatter cũ (nếu có)
+                yAxis.setLabel("VNĐ"); // Đặt tên cho trục Y
+            }
         }
     }
 
-    private void exportWorkbook(Workbook workbook, String fileName) throws Exception {
-        // Show file chooser dialog
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Lưu báo cáo Excel");
-        fileChooser.getExtensionFilters().add(
-                new FileChooser.ExtensionFilter("Excel Files", "*.xlsx")
-        );
-        fileChooser.setInitialFileName(fileName + ".xlsx");
 
-        File file = fileChooser.showSaveDialog(new Stage());
+    /**
+     * Chuẩn bị dữ liệu tổng quan dưới dạng danh sách các chuỗi để xuất ra file CSV.
+     * @return Danh sách các chuỗi, mỗi chuỗi là một dòng trong file CSV.
+     */
+    private List<String> getOverviewData() {
+        List<String> data = new ArrayList<>();
+        data.add("Tổng doanh thu,Số lượng đơn,Trung bình mỗi đơn,Top bán chạy"); // Dòng tiêu đề
+        data.add(String.format("%s,%s,%s,%s",
+                lblTotalRevenue.getText().replace(" VND", ""), // Loại bỏ " VND" để dễ xử lý hơn nếu đọc lại
+                lblTotalOrders.getText(),
+                lblAverageOrder.getText().replace(" VND", ""),
+                lblTopSelling.getText()));
+        return data;
+    }
 
-        if (file != null) {
-            // Write to file
-            try (FileOutputStream outputStream = new FileOutputStream(file)) {
-                workbook.write(outputStream);
+    /**
+     * Chuẩn bị dữ liệu chi tiết đơn hàng từ bảng tblOrders dưới dạng danh sách các chuỗi để xuất ra file CSV.
+     * @return Danh sách các chuỗi, mỗi chuỗi là một dòng trong file CSV.
+     */
+    private List<String> getOrderDetailData() {
+        List<String> data = new ArrayList<>();
+        data.add("Mã đơn,Ngày đặt,Giờ đặt,Sản phẩm,Số lượng,Tổng tiền,Phương thức TT"); // Dòng tiêu đề
+        System.out.println("Số lượng đơn hàng trong bảng để xuất: " + tblOrders.getItems().size()); // Ghi log kiểm tra
+        for (Order order : tblOrders.getItems()) {
+            List<OrderDetail> orderDetails = orderDetailService.getAll(order.getId());
+            List<String> products = new ArrayList<>();
+            int quantity = 0;
+            for (OrderDetail orderDetail : orderDetails) {
+                Product product = productService.findProductByID(orderDetail.getProductId());
+                products.add(product.getProduct_name().replace(",", ";")); // Thay dấu phẩy trong tên SP để tránh lỗi CSV
+                quantity += orderDetail.getQuantity();
+            }
+            String productString = String.join("; ", products); // Dùng dấu chấm phẩy để ngăn cách sản phẩm
+
+            data.add(String.format("%s,%s,%s,\"%s\",%s,%s,%s", // Đặt tên sản phẩm trong dấu nháy kép nếu có thể chứa dấu phẩy
+                    order.getId(),
+                    order.getOrderTime().toLocalDateTime().toLocalDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+                    order.getOrderTime().toLocalDateTime().toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")),
+                    productString,
+                    String.valueOf(quantity),
+                    String.valueOf(order.getTotalAmount()), // Đảm bảo là chuỗi
+                    "Tiền mặt")); // Phương thức thanh toán
+        }
+        return data;
+    }
+
+    /**
+     * Chuẩn bị dữ liệu thống kê từ bảng tblStatistic dưới dạng danh sách các chuỗi để xuất ra file CSV.
+     * @return Danh sách các chuỗi, mỗi chuỗi là một dòng trong file CSV.
+     */
+    private List<String> getStatisticData() {
+        List<String> data = new ArrayList<>();
+        data.add("Thời gian,Số đơn hàng,Doanh thu,Trung bình/đơn,Sản phẩm bán chạy"); // Dòng tiêu đề
+        for (Statistic stat : tblStatistic.getItems()) {
+            data.add(String.format("%s,%s,%s,%s,\"%s\"", // Đặt sản phẩm bán chạy trong dấu nháy kép
+                    stat.getPeriod(),
+                    stat.getOrderCount().replace(" VND", ""),
+                    stat.getRevenue().replace(" VND", ""),
+                    stat.getAverage().replace(" VND", ""),
+                    stat.getTopProduct().replace(",",";"))); // Thay dấu phẩy trong tên SP
+        }
+        return data;
+    }
+
+    private void exportToExcel(String fileName, List<String> data) {
+        Workbook workbook = new XSSFWorkbook();
+        Sheet sheet = workbook.createSheet("Báo cáo");
+
+        // Tạo style căn giữa
+        CellStyle centerStyle = workbook.createCellStyle();
+        centerStyle.setAlignment(HorizontalAlignment.CENTER);
+
+       // Tạo style cho dòng tiêu đề (căn giữa + in đậm)
+        CellStyle headerStyle = workbook.createCellStyle();
+        headerStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        Font headerFont = workbook.createFont();
+        headerFont.setBold(true);
+        headerStyle.setFont(headerFont);
+
+        for (int i = 0; i < data.size(); i++) {
+            Row row = sheet.createRow(i);
+            String[] cells = data.get(i).split(","); // Tách dữ liệu theo dấu phẩy
+            for (int j = 0; j < cells.length; j++) {
+                Cell cell = row.createCell(j);
+                cell.setCellValue(cells[j]);
+                // Áp dụng style: nếu là dòng đầu thì dùng style tiêu đề
+                if (i == 0) {
+                    cell.setCellStyle(headerStyle);
+                } else {
+                    cell.setCellStyle(centerStyle);
+                }
+            }
+        }
+
+        // Auto resize cột
+        if (!data.isEmpty()) {
+            int columnCount = data.get(0).split(",").length;
+            for (int i = 0; i < columnCount; i++) {
+                sheet.autoSizeColumn(i);
+            }
+        }
+
+        // Tạo thư mục nếu chưa tồn tại
+        String path = "C:\\Users\\Quoc Thang\\OneDrive\\Documents\\Export_CoffeeManagement";
+        File dir = new File(path);
+        if (!dir.exists()) dir.mkdirs();
+
+        File file = new File(dir, fileName);
+
+        try (FileOutputStream out = new FileOutputStream(file)) {
+            workbook.write(out);
+            workbook.close();
+
+            // Thông báo thành công
+            AlertInfo.showAlert(Alert.AlertType.INFORMATION,"Thành công" , "Xuất Excel thành công");
+
+            // Mở file
+            if (Desktop.isDesktopSupported()) {
+                Desktop.getDesktop().open(file);
             }
 
-            showAlert("Thành công", "Xuất báo cáo thành công!");
+        } catch (IOException e) {
+            AlertInfo.showAlert(Alert.AlertType.ERROR,"Lỗi" , "Không xuất Excel được");
         }
     }
 
-    private void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
+
 }

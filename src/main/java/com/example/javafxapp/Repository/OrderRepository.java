@@ -171,12 +171,12 @@ public class OrderRepository{
             while (rs.next()) {
                 int id = rs.getInt("id");
                 int userId = rs.getInt("user_id");
-                String staffName = rs.getString("staff_name");
+//                String staffName = rs.getString("staff_name");
                 BigDecimal totalAmount = rs.getBigDecimal("total_amount");
                 String status = rs.getString("status");
                 Timestamp orderTime = rs.getTimestamp("order_time");
 
-                Order order = new Order(id, userId, staffName, totalAmount, status, orderTime);
+                Order order = new Order(id, userId, "staffName", totalAmount, status, orderTime);
                 orders.add(order);
             }
 

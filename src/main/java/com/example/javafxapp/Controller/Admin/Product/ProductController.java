@@ -607,6 +607,7 @@ public class ProductController implements Initializable {
             ExcelExporter exporter = new ExcelExporter();
             String filePath = exporter.exportProductsToExcel(filteredList);
 
+
             AlertInfo.showAlert(Alert.AlertType.INFORMATION, "Thành công", 
                 "Đã xuất dữ liệu sản phẩm thành công.\nĐường dẫn: " + filePath);
         } catch (Exception e) {
