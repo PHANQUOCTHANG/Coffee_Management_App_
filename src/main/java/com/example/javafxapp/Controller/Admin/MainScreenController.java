@@ -4,6 +4,7 @@ import com.example.javafxapp.Controller.Admin.Order.OrderDetailController;
 import com.example.javafxapp.Helpper.AlertInfo;
 import com.example.javafxapp.Helpper.Pages;
 import com.example.javafxapp.Model.Order;
+import com.example.javafxapp.Model.Permission;
 import com.example.javafxapp.Service.AccountService;
 import com.example.javafxapp.Service.PermissionService;
 import com.example.javafxapp.Service.RolePermissionService;
@@ -29,7 +30,7 @@ public class MainScreenController {
     private VBox permissionsSubMenu ;
 
     @FXML
-    private JFXButton btnOverview, btnProducts, btnCategories, btnEmployees, btnOrders, btnRevenue ,
+    private JFXButton btnOverview, btnProducts, btnCategories, btnEmployees, btnOrders, btnRevenue , btnRolePermission ,
             btnAccounts, btnRole , btnPermission , btnSetting , btnLogOut;
 
     @FXML
@@ -57,6 +58,7 @@ public class MainScreenController {
         menuButtons.add(btnEmployees);
         menuButtons.add(btnSetting) ;
         menuButtons.add(btnLogOut) ;
+//        menuButtons.add(btnRolePermission) ;
 
         // Mặc định chọn "Tổng Quan"
         setActiveButton(btnOverview);
@@ -80,7 +82,7 @@ public class MainScreenController {
             p = loader.load();
             centerPane.getChildren().setAll(p);
 
-            // dua controller qua controller con(ordercontroller) cho no biet controll bo la ai 
+            // dua controller qua controller con(ordercontroller) cho no biet controll bo la ai
             // de nut addorderbtn hoat dong
             controller = loader.getController();
 
@@ -143,9 +145,16 @@ public class MainScreenController {
     public void handleOrders() {
         System.out.println("Order Management button clicked");
         //        loadCenterContent("/com/example/javafxapp/view/admin/order/order.fxml");
-        loadCenterContent("/com/example/javafxapp/view/orders/orders.fxml");      
+        loadCenterContent("/com/example/javafxapp/view/orders/orders.fxml");
         // Thêm logic chuyển sang trang quản lý đơn hàng
         setActiveButton(btnOrders);
+    }
+
+    // role permission .
+    @FXML
+    public void handleRolePermissions() {
+        permissionsSubMenu.setVisible(!permissionsSubMenu.isVisible());
+        permissionsSubMenu.setManaged(!permissionsSubMenu.isManaged());
     }
 
     // revenue .
@@ -210,16 +219,18 @@ public class MainScreenController {
         List<Integer> permissions = rolePermissionService.getAllRolePermission(SaveAccountUtils.role_id) ;
         List<String> permissionNames = new ArrayList<>() ;
         for (Integer permissionId : permissions) {
-            String permission_name = permissionService.findPermissionByID(permissionId).getPermission_name() ;
-            permissionNames.add(permission_name) ;
+            Permission permission = permissionService.findPermissionByID(permissionId);
+            if (permission != null) permissionNames.add(permission.getPermission_name());
         }
         setBtn(permissionNames,"Product" , btnProducts);
         setBtn(permissionNames,"Category" , btnCategories);
         setBtn(permissionNames , "Employee"  , btnEmployees);
         setBtn(permissionNames , "Order" , btnOrders) ;
-        setBtn(permissionNames , "Account" , btnAccounts) ;
-        setBtn(permissionNames , "Role" , btnRole);
-        setBtn(permissionNames,"Permission" , btnPermission);
+        setBtn(permissionNames , "Revenue" , btnRevenue);
+        setBtn(permissionNames , "RolePermission" , btnRolePermission);
+//        setBtn(permissionNames , "Account" , btnAccounts) ;
+//        setBtn(permissionNames , "Role" , btnRole);
+//        setBtn(permissionNames,"Permission" , btnPermission);
     }
 
     public void setBtn(List<String> permissions ,String permission , JFXButton button) {
@@ -247,13 +258,6 @@ public class MainScreenController {
     @FXML
     public void handleOnlineOrder(){
         loadCenterContent("/com/example/javafxapp/view/orders/orderUser/orderUser.fxml");
-    }
-
-    @FXML
-    void handlePermissions() {
-        // Toggle the submenu visibility
-        permissionsSubMenu.setVisible(!permissionsSubMenu.isVisible());
-        permissionsSubMenu.setManaged(!permissionsSubMenu.isManaged());
     }
 
 }

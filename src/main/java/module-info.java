@@ -16,6 +16,7 @@ module com.example.javafxapp {
     requires org.json;
     requires jdk.httpserver;
     requires org.apache.poi.ooxml;
+    requires Java.WebSocket;
 
     opens com.example.javafxapp to javafx.fxml;
     exports com.example.javafxapp;

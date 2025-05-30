@@ -29,6 +29,12 @@ public class AuthController{
     private PasswordField passWordField ;
 
     @FXML
+    private TextField textPasswordField;
+
+    @FXML
+    private CheckBox showPasswordCheckBox;
+
+    @FXML
     private TextField signUpLoginNameField ;
 
     @FXML
@@ -46,6 +52,9 @@ public class AuthController{
     @FXML
     private Label statusLabel ;
 
+    @FXML
+    private CheckBox agreeTermsCheckBox;
+
     private boolean isLoginVisible = true; // Biến kiểm tra trạng thái
     private AuthService authService = new AuthService() ;
     private AccountService accountService = new AccountService() ;
@@ -61,6 +70,9 @@ public class AuthController{
         authContainer.widthProperty().addListener((obs, oldVal, newVal) -> {
             signUpPane.setTranslateX(newVal.doubleValue());
         });
+
+        // lưu mật khẩu và TextField để khi cần thì hiện lên .
+        textPasswordField.textProperty().bindBidirectional(passWordField.textProperty());
     }
 
     // chuyển qua giao diện sign up .
@@ -128,15 +140,16 @@ public class AuthController{
                SaveAccountUtils.role_id = account.getRoleId() ;
                Role role = roleService.findRoleByID(account.getRoleId()) ;
                System.out.println(role.getRole_name());
-               if (role.getRole_name().equals("Customer")) {
-                   if (cartSevice.checkAccountHaveCart(account.getId()) == null) {
-                       Cart cart = new Cart(account.getId()) ;
-                       cartSevice.add(cart);
-                   }
-                   SaveAccountUtils.cart_id = cartSevice.checkAccountHaveCart(account.getId()) ; // id giỏ hàng của tài khoản .
-                   Pages.pageUser() ;
-               }
-               else Pages.pagesMainScreen();
+//               if (role.getRole_name().equals("Customer")) {
+//                   if (cartSevice.checkAccountHaveCart(account.getId()) == null) {
+//                       Cart cart = new Cart(account.getId()) ;
+//                       cartSevice.add(cart);
+//                   }
+//                   SaveAccountUtils.cart_id = cartSevice.checkAccountHaveCart(account.getId()) ; // id giỏ hàng của tài khoản .
+//                   Pages.pageUser() ;
+//               }
+//               else Pages.pagesMainScreen();
+               Pages.pagesMainScreen();
                Stage stage = (Stage) loginNameField.getScene().getWindow() ;
                stage.close();
                AlertInfo.showAlert(Alert.AlertType.INFORMATION , "Thành công" , "Đăng nhập thành công");
@@ -144,7 +157,7 @@ public class AuthController{
                AlertInfo.showAlert(Alert.AlertType.ERROR, "Lỗi", "Tên đăng nhập hoặc mật khẩu không đúng.");
            }
        }catch(Exception e) {
-
+           System.out.println(e.getMessage());
        }
     }
 
@@ -152,6 +165,7 @@ public class AuthController{
     @FXML
     public void signUp() {
         try {
+            if (!agreeTermsCheckBox.isSelected()) AlertInfo.showAlert(Alert.AlertType.ERROR, "Lỗi" , "Vui lòng đồng ý với điều khoản.");
             String loginName = signUpLoginNameField.getText().trim();
             String password = signUpPassWordField.getText().trim();
             String confirmPassword = confirmPassWordField.getText().trim();
@@ -174,9 +188,23 @@ public class AuthController{
         catch(Exception e) {
 
         }
+    }
 
-
-
+    @FXML
+    private void togglePasswordVisibility() {
+        if (showPasswordCheckBox.isSelected()) {
+            // Hiển thị mật khẩu dưới dạng text
+            textPasswordField.setVisible(true);
+            textPasswordField.setManaged(true);
+            passWordField.setVisible(false);
+            passWordField.setManaged(false);
+        } else {
+            // Ẩn mật khẩu (hiển thị dưới dạng dots)
+            textPasswordField.setVisible(false);
+            textPasswordField.setManaged(true);
+            passWordField.setVisible(true);
+            passWordField.setManaged(true);
+        }
     }
 
 

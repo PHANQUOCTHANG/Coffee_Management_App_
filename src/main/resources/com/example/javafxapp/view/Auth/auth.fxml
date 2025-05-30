@@ -11,204 +11,246 @@
 <StackPane xmlns="http://javafx.com/javafx"
            xmlns:fx="http://javafx.com/fxml"
            fx:controller="com.example.javafxapp.Controller.Admin.AuthController"
-           fx:id = "authContainer"
-           prefHeight="400.0" prefWidth="600.0">
-    <BorderPane fx:id="loginPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="612.0" prefWidth="1109.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1"
-                >
+           fx:id = "authContainer">
+    <BorderPane fx:id="loginPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" >
         <left>
-            <VBox alignment="CENTER" prefHeight="612.0" prefWidth="367.0" style="-fx-background-color: #4EB1E6;" BorderPane.alignment="CENTER">
+            <VBox alignment="BOTTOM_CENTER" prefHeight="700.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                 <children>
-                    <VBox alignment="CENTER" prefHeight="248.0" prefWidth="240.0">
+                    <ImageView fitHeight="700.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="false">
+                        <image>
+                            <Image url="@../Images/coffee-logo.jpg" />
+                        </image>
+                    </ImageView>
+                    <JFXButton fx:id="btnSignup" onAction="#showSignUp" prefHeight="62.0" prefWidth="280.0" style="-fx-background-color: rgba(255,255,255,0.95); -fx-background-radius: 30px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 2);" text="SIGN UP" translateY="-80.0">
+                        <font>
+                            <Font name="System Bold" size="20.0" />
+                        </font>
+                    </JFXButton>
+                </children>
+            </VBox>
+        </left>
+        <right>
+            <VBox alignment="CENTER" prefHeight="700.0" prefWidth="600.0" style="-fx-background-color: #f8f9fa;" BorderPane.alignment="CENTER">
+                <children>
+                    <VBox alignment="CENTER" maxWidth="450.0" prefWidth="450.0" spacing="25.0">
+                        <VBox.margin>
+                            <Insets left="50.0" right="50.0" />
+                        </VBox.margin>
                         <children>
-                            <Label alignment="CENTER" prefHeight="83.0" prefWidth="240.0" text="Sign Up" textFill="WHITE">
+                            <Label alignment="CENTER" prefWidth="400.0" text="Welcome Back!" textFill="#2c3e50">
                                 <font>
                                     <Font name="System Bold" size="36.0" />
                                 </font>
+                                <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                </VBox.margin>
                             </Label>
-                            <Label prefHeight="35.0" prefWidth="251.0" text="Enter your personal info and create" textFill="WHITE">
-                                <font>
-                                    <Font size="16.0" />
-                                </font>
-                            </Label>
-                            <Label alignment="TOP_CENTER" prefHeight="68.0" prefWidth="240.0" text="new account to connect us" textFill="#f8f8f8">
-                                <font>
-                                    <Font size="16.0" />
-                                </font>
-                            </Label>
-                            <JFXButton onAction="#showSignUp" prefHeight="62.0" prefWidth="250.0" style="-fx-background-color: #ffffff; -fx-background-radius: 30px;" text="SIGN UP">
+
+                            <VBox spacing="20.0">
+                                <children>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="400.0" style="-fx-background-color: white; -fx-background-radius: 15px; -fx-border-radius: 15px; -fx-border-width: 1px; -fx-border-color: #e0e0e0; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1);">
+                                        <children>
+                                            <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../Images/iconLoginName.jpg" />
+                                                </image>
+                                                <HBox.margin>
+                                                    <Insets left="20.0" right="15.0" />
+                                                </HBox.margin>
+                                            </ImageView>
+                                            <TextField fx:id="loginNameField" prefHeight="60.0" prefWidth="320.0" promptText="Enter your username" style="-fx-background-color: transparent; -fx-border-color: transparent;">
+                                                <font>
+                                                    <Font size="16.0" />
+                                                </font>
+                                            </TextField>
+                                        </children>
+                                    </HBox>
+
+                                    <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="400.0" style="-fx-background-color: white; -fx-background-radius: 15px; -fx-border-radius: 15px; -fx-border-width: 1px; -fx-border-color: #e0e0e0; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1);">
+                                        <children>
+                                            <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../Images/iconPassword2.jpg" />
+                                                </image>
+                                                <HBox.margin>
+                                                    <Insets left="20.0" right="15.0" />
+                                                </HBox.margin>
+                                            </ImageView>
+                                            <PasswordField fx:id="passWordField" prefHeight="60.0" prefWidth="320.0" promptText="Enter your password" style="-fx-background-color: transparent; -fx-border-color: transparent;">
+                                                <font>
+                                                    <Font size="16.0" />
+                                                </font>
+                                            </PasswordField>
+                                            <TextField fx:id="textPasswordField" prefHeight="60.0" prefWidth="320.0" promptText="Enter your password" style="-fx-background-color: transparent; -fx-border-color: transparent;" visible="false" managed="false">
+                                                <font>
+                                                    <Font size="16.0" />
+                                                </font>
+                                            </TextField>
+
+
+
+                                        </children>
+                                    </HBox>
+                                </children>
+                            </VBox>
+
+                            <HBox alignment="CENTER_LEFT" prefWidth="400.0">
+                                <children>
+                                    <CheckBox fx:id="showPasswordCheckBox" onAction="#togglePasswordVisibility" text="Show Password" textFill="#7f8c8d">
+                                        <font>
+                                            <Font size="14.0" />
+                                        </font>
+                                    </CheckBox>
+                                </children>
+                                <VBox.margin>
+                                    <Insets top="5.0" />
+                                </VBox.margin>
+                            </HBox>
+
+                            <JFXButton onAction="#Login" prefHeight="65.0" prefWidth="400.0" style="-fx-background-color: linear-gradient(to right, #667eea, #764ba2); -fx-background-radius: 15px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 3);" text="SIGN IN" textFill="WHITE">
                                 <font>
                                     <Font name="System Bold" size="18.0" />
                                 </font>
+                                <VBox.margin>
+                                    <Insets top="25.0" />
+                                </VBox.margin>
                             </JFXButton>
                         </children>
                     </VBox>
                 </children>
             </VBox>
-        </left>
-        <center>
-            <VBox alignment="CENTER" prefHeight="612.0" prefWidth="743.0" BorderPane.alignment="CENTER">
-                <children>
-                    <VBox alignment="CENTER" prefHeight="376.0" prefWidth="742.0">
-                        <VBox.margin>
-                            <Insets bottom="125.0" top="125.0" />
-                        </VBox.margin>
-                        <children>
-                            <Label alignment="CENTER" prefHeight="68.0" prefWidth="442.0" text="Sign in to App" textFill="#3ac6ac">
-                                <font>
-                                    <Font name="System Bold" size="32.0" />
-                                </font>
-                                <VBox.margin>
-                                    <Insets bottom="20.0" />
-                                </VBox.margin>
-                            </Label>
-                            <HBox alignment="CENTER" maxWidth="410.0" prefHeight="50.0" prefWidth="402.0" style="-fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-width: 2px; -fx-border-color: grey;">
-                                <children>
-                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                                        <image>
-                                            <Image url="@../Images/iconLoginName.jpg" />
-                                        </image>
-                                    </ImageView>
-                                    <TextField fx:id="loginNameField" prefHeight="50.0" prefWidth="352.0" promptText="Login name" style="-fx-background-color: #ffffff;">
-                                        <font>
-                                            <Font size="18.0" />
-                                        </font>
-                                    </TextField>
-                                </children>
-                                <VBox.margin>
-                                    <Insets bottom="15.0" />
-                                </VBox.margin>
-                            </HBox>
-                            <HBox alignment="CENTER" layoutX="180.0" layoutY="127.0" maxWidth="410.0" prefHeight="50.0" prefWidth="402.0" style="-fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-width: 2px; -fx-border-color: grey;">
-                                <children>
-                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                                        <image>
-                                            <Image url="@../Images/iconPassword2.jpg" />
-                                        </image>
-                                    </ImageView>
-                                    <PasswordField fx:id="passWordField" prefHeight="50.0" prefWidth="355.0" promptText="Password" style="-fx-background-color: white;">
-                                        <font>
-                                            <Font size="18.0" />
-                                        </font>
-                                    </PasswordField>
-                                </children>
-                            </HBox>
-                            <JFXButton onAction="#Login" prefHeight="62.0" prefWidth="250.0" style="-fx-background-color: #07A479; -fx-background-radius: 30px;" styleClass="left-btn" text="SIGN IN" textFill="WHITE">
-                                <font>
-                                    <Font name="System Bold" size="18.0" />
-                                </font>
-                                <VBox.margin>
-                                    <Insets top="20.0" />
-                                </VBox.margin>
-                            </JFXButton>
-                        </children>
-                    </VBox>
-                </children>
-                <BorderPane.margin>
-                    <Insets />
-                </BorderPane.margin>
-            </VBox>
-        </center>
+        </right>
     </BorderPane>
 
-    <BorderPane fx:id="signUpPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="612.0" prefWidth="1109.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <BorderPane fx:id="signUpPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0">
         <left>
-            <VBox alignment="CENTER" prefHeight="612.0" prefWidth="367.0" styleClass="left-signup" stylesheets="@../Styles/signup.css" BorderPane.alignment="CENTER">
+            <VBox alignment="BOTTOM_CENTER" prefHeight="700.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                 <children>
-                    <VBox alignment="CENTER" prefHeight="248.0" prefWidth="240.0">
-                        <children>
-                            <Label alignment="CENTER" prefHeight="83.0" prefWidth="240.0" text="Welcome Back!" textFill="WHITE">
-                                <font>
-                                    <Font name="System Bold" size="32.0" />
-                                </font>
-                            </Label>
-                            <Label prefHeight="35.0" prefWidth="240.0" text="To keep connected with us please" textFill="WHITE">
-                                <font>
-                                    <Font size="16.0" />
-                                </font>
-                            </Label>
-                            <Label alignment="TOP_CENTER" prefHeight="68.0" prefWidth="240.0" text="login with your personal info" textFill="#f8f8f8">
-                                <font>
-                                    <Font size="16.0" />
-                                </font>
-                            </Label>
-                            <JFXButton onAction="#showLogin" prefHeight="62.0" prefWidth="250.0" styleClass="left-btn" stylesheets="@../Styles/signup.css" text="SIGN IN" textFill="WHITE">
-                                <font>
-                                    <Font name="System Bold" size="18.0" />
-                                </font>
-                            </JFXButton>
-                        </children>
-                    </VBox>
+                    <ImageView fitHeight="700.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="false">
+                        <image>
+                            <Image url="@../Images/coffee-logo.jpg" />
+                        </image>
+                    </ImageView>
+                    <JFXButton fx:id="btnLogin" onAction="#showLogin" prefHeight="62.0" prefWidth="280.0" style="-fx-background-color: rgba(255,255,255,0.95); -fx-background-radius: 30px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 2);" text="SIGN IN" translateY="-80.0">
+                        <font>
+                            <Font name="System Bold" size="20.0" />
+                        </font>
+                    </JFXButton>
                 </children>
             </VBox>
         </left>
-        <center>
-            <VBox alignment="CENTER" prefHeight="612.0" prefWidth="743.0" BorderPane.alignment="CENTER">
+        <right>
+            <VBox alignment="CENTER" prefHeight="700.0" prefWidth="600.0" style="-fx-background-color: #f8f9fa;" BorderPane.alignment="CENTER">
                 <children>
-                    <VBox alignment="CENTER" prefHeight="376.0" prefWidth="742.0">
+                    <VBox alignment="CENTER" maxWidth="450.0" prefWidth="450.0" spacing="20.0">
                         <VBox.margin>
-                            <Insets bottom="125.0" top="125.0" />
+                            <Insets left="50.0" right="50.0" />
                         </VBox.margin>
                         <children>
-                            <Label alignment="CENTER" prefHeight="68.0" prefWidth="442.0" text="Create Account" textFill="#1c987b">
+                            <Label alignment="CENTER" prefWidth="400.0" text="Create Account" textFill="#2c3e50">
                                 <font>
-                                    <Font name="System Bold" size="32.0" />
+                                    <Font name="System Bold" size="36.0" />
                                 </font>
                                 <VBox.margin>
-                                    <Insets bottom="20.0" />
+                                    <Insets bottom="10.0" />
                                 </VBox.margin>
                             </Label>
-                            <HBox alignment="CENTER" prefHeight="50.0" prefWidth="402.0">
-                                <VBox.margin>
-                                    <Insets bottom="15.0" />
-                                </VBox.margin>
+
+                            <VBox spacing="18.0">
                                 <children>
-                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                                        <image>
-                                            <Image url="@../Images/usericon.png" />
-                                        </image>
-                                    </ImageView>
-                                    <TextField fx:id="signUpLoginNameField" prefHeight="50.0" prefWidth="356.0" promptText="Login Name" style="-fx-background-color: #E7F6F1;">
-                                        <font>
-                                            <Font size="18.0" />
-                                        </font>
-                                    </TextField>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="400.0" style="-fx-background-color: white; -fx-background-radius: 15px; -fx-border-radius: 15px; -fx-border-width: 1px; -fx-border-color: #e0e0e0; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1);">
+                                        <children>
+                                            <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../Images/usericon.png" />
+                                                </image>
+                                                <HBox.margin>
+                                                    <Insets left="20.0" right="15.0" />
+                                                </HBox.margin>
+                                            </ImageView>
+                                            <TextField fx:id="signUpLoginNameField" prefHeight="60.0" prefWidth="320.0" promptText="Enter your username" style="-fx-background-color: transparent; -fx-border-color: transparent;">
+                                                <font>
+                                                    <Font size="16.0" />
+                                                </font>
+                                            </TextField>
+                                        </children>
+                                    </HBox>
+
+                                    <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="400.0" style="-fx-background-color: white; -fx-background-radius: 15px; -fx-border-radius: 15px; -fx-border-width: 1px; -fx-border-color: #e0e0e0; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1);">
+                                        <children>
+                                            <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../Images/passwordicon.png" />
+                                                </image>
+                                                <HBox.margin>
+                                                    <Insets left="20.0" right="15.0" />
+                                                </HBox.margin>
+                                            </ImageView>
+                                            <PasswordField fx:id="signUpPassWordField" prefHeight="60.0" prefWidth="320.0" promptText="Enter your password" style="-fx-background-color: transparent; -fx-border-color: transparent;">
+                                                <font>
+                                                    <Font size="16.0" />
+                                                </font>
+                                            </PasswordField>
+                                            <TextField fx:id="textSignUpPasswordField" prefHeight="60.0" prefWidth="320.0" promptText="Enter your password" style="-fx-background-color: transparent; -fx-border-color: transparent;" visible="false">
+                                                <font>
+                                                    <Font size="16.0" />
+                                                </font>
+                                            </TextField>
+                                        </children>
+                                    </HBox>
+
+                                    <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="400.0" style="-fx-background-color: white; -fx-background-radius: 15px; -fx-border-radius: 15px; -fx-border-width: 1px; -fx-border-color: #e0e0e0; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1);">
+                                        <children>
+                                            <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../Images/passwordicon.png" />
+                                                </image>
+                                                <HBox.margin>
+                                                    <Insets left="20.0" right="15.0" />
+                                                </HBox.margin>
+                                            </ImageView>
+                                            <PasswordField fx:id="confirmPassWordField" prefHeight="60.0" prefWidth="320.0" promptText="Confirm your password" style="-fx-background-color: transparent; -fx-border-color: transparent;">
+                                                <font>
+                                                    <Font size="16.0" />
+                                                </font>
+                                            </PasswordField>
+                                            <TextField fx:id="textConfirmPasswordField" prefHeight="60.0" prefWidth="320.0" promptText="Confirm your password" style="-fx-background-color: transparent; -fx-border-color: transparent;" visible="false">
+                                                <font>
+                                                    <Font size="16.0" />
+                                                </font>
+                                            </TextField>
+                                        </children>
+                                    </HBox>
                                 </children>
-                            </HBox>
-                            <HBox alignment="CENTER" prefHeight="40.0" prefWidth="743.0">
+                            </VBox>
+
+                            <!--                  <HBox alignment="CENTER_LEFT" prefWidth="400.0">-->
+                            <!--                     <children>-->
+                            <!--                        <CheckBox fx:id="showPasswordCheckBox" onAction="#togglePasswordVisibility" text="Show Password" textFill="#7f8c8d">-->
+                            <!--                           <font>-->
+                            <!--                              <Font size="14.0" />-->
+                            <!--                           </font>-->
+                            <!--                        </CheckBox>-->
+                            <!--                     </children>-->
+                            <!--                     <VBox.margin>-->
+                            <!--                        <Insets top="5.0" />-->
+                            <!--                     </VBox.margin>-->
+                            <!--                  </HBox>-->
+
+                            <HBox alignment="CENTER_LEFT" prefWidth="400.0">
                                 <children>
-                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                                        <image>
-                                            <Image url="@../Images/passwordicon.png" />
-                                        </image>
-                                    </ImageView>
-                                    <PasswordField fx:id="signUpPassWordField" prefHeight="50.0" prefWidth="355.0" promptText="Password" style="-fx-background-color: #E7F6F1;">
+                                    <CheckBox fx:id="agreeTermsCheckBox" text="I agree to the Terms and Conditions" textFill="#7f8c8d">
                                         <font>
-                                            <Font size="18.0" />
+                                            <Font size="14.0" />
                                         </font>
-                                    </PasswordField>
+                                    </CheckBox>
                                 </children>
                                 <VBox.margin>
-                                    <Insets bottom="15.0" />
+                                    <Insets top="5.0" />
                                 </VBox.margin>
                             </HBox>
-                            <HBox alignment="CENTER" prefHeight="40.0" prefWidth="743.0">
-                                <children>
-                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                                        <image>
-                                            <Image url="@../Images/passwordicon.png" />
-                                        </image>
-                                    </ImageView>
-                                    <PasswordField fx:id="confirmPassWordField" prefHeight="50.0" prefWidth="355.0" promptText="Confirm Password" style="-fx-background-color: #E7F6F1;">
-                                        <font>
-                                            <Font size="18.0" />
-                                        </font>
-                                    </PasswordField>
-                                </children>
-                                <VBox.margin>
-                                    <Insets bottom="15.0" />
-                                </VBox.margin>
-                            </HBox>
-                            <JFXButton onAction="#signUp" prefHeight="62.0" prefWidth="250.0" style="-fx-background-color: #07A479; -fx-background-radius: 30px;" styleClass="left-btn" stylesheets="@../Styles/signup.css" text="SIGN UP" textFill="WHITE">
+
+                            <JFXButton onAction="#signUp" prefHeight="65.0" prefWidth="400.0" style="-fx-background-color: linear-gradient(to right, #667eea, #764ba2); -fx-background-radius: 15px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 3);" text="CREATE ACCOUNT" textFill="WHITE">
                                 <font>
                                     <Font name="System Bold" size="18.0" />
                                 </font>
@@ -216,23 +258,11 @@
                                     <Insets top="20.0" />
                                 </VBox.margin>
                             </JFXButton>
-                            <Label fx:id="statusLabel" text="" textFill="red">
-                                <font>
-                                    <Font size="16.0" />
-                                </font>
-                                <VBox.margin>
-                                    <Insets top="10.0" />
-                                </VBox.margin>
-                            </Label>
-
                         </children>
                     </VBox>
                 </children>
-                <BorderPane.margin>
-                    <Insets />
-                </BorderPane.margin>
             </VBox>
-        </center>
+        </right>
     </BorderPane>
 
 </StackPane>

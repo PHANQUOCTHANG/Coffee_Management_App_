@@ -97,14 +97,17 @@ public class RoleController implements Initializable {
             JFXButton deleteBtn = new JFXButton("Xóa");
             deleteBtn.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-padding : 10px");
             deleteBtn.setOnAction(e -> deleteRole(r));
-            if ("Admin".equalsIgnoreCase(r.getRole_name())) {
-                deleteBtn.setVisible(false);
-                deleteBtn.setManaged(false);
-            }
 
             JFXButton rolePermissionBtn = new JFXButton("Phân quyền") ;
             rolePermissionBtn.setStyle("-fx-background-color: #4299E1; -fx-text-fill: white; -fx-padding : 10px");
             rolePermissionBtn.setOnAction(e -> rolePermission(r));
+
+            if ("Admin".equalsIgnoreCase(r.getRole_name())) {
+                deleteBtn.setVisible(false);
+                deleteBtn.setManaged(false);
+                rolePermissionBtn.setVisible(false);
+                rolePermissionBtn.setManaged(false);
+            }
 
             box.getChildren().addAll(updateBtn ,  deleteBtn , rolePermissionBtn) ;
             return new SimpleObjectProperty<>(box);
