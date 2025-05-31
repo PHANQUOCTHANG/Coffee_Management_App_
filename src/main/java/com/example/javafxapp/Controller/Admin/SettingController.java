@@ -1,226 +1,332 @@
 package com.example.javafxapp.Controller.Admin;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
+import com.example.javafxapp.Helpper.AlertInfo;
+import com.example.javafxapp.Model.Account;
+import com.example.javafxapp.Service.AccountService;
+import com.example.javafxapp.Utils.SaveAccountUtils;
+import com.example.javafxapp.Validation.ValidationAccount;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-
+import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class SettingController implements Initializable {
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
 
+    // Cài đặt chung
+    @FXML private ComboBox<String> languageComboBox;
+    @FXML private ToggleButton themeToggle;
+
+
+    // Cài đặt thông báo
+    @FXML private CheckBox pushNotificationCheckBox;
+    @FXML private CheckBox emailNotificationCheckBox;
+    @FXML private CheckBox soundEffectsCheckBox;
+
+    // Cài đặt quyền riêng tư và bảo mật
+    @FXML private ComboBox<String> autoLockComboBox;
+    @FXML private CheckBox analyticsCheckBox;
+
+    // Cài đặt hiệu suất
+    @FXML private ComboBox<String> performanceModeComboBox;
+    @FXML private Slider cacheSizeSlider;
+    @FXML private Label cacheSizeLabel;
+
+    // Nút hành động
+    @FXML private Button resetButton;
+    @FXML private Button cancelButton;
+    @FXML private Button saveButton;
+
+    @FXML private TextField accountNameTextField;
+    @FXML private Button changeAccountNameButton;
+    @FXML private TextField currentPasswordField;
+    @FXML private TextField newPasswordField;
+    @FXML private TextField confirmPasswordField;
+
+    private SettingsData originalSettings;
+    private SettingsData currentSettings;
+
+    private AccountService accountService = new AccountService() ;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        setupInitialValues();
+        setupEventHandlers();
+        loadSettings();
     }
 
-//    @FXML
-//    private TextField currentUsernameField;
-//
-//    @FXML
-//    private TextField newUsernameField;
-//
-//    @FXML
-//    private Button saveUsernameButton;
-//
-//    @FXML
-//    private PasswordField currentPasswordField;
-//
-//    @FXML
-//    private PasswordField newPasswordField;
-//
-//    @FXML
-//    private PasswordField confirmPasswordField;
-//
-//    @FXML
-//    private Button savePasswordButton;
-//
-//    @FXML
-//    private ComboBox<String> languageComboBox;
-//
-//    @FXML
-//    private Button saveLanguageButton;
-//
-//    @FXML
-//    private Button cancelButton;
-//
-//    private String currentUsername;
-//    private String currentPassword;
-//    private String currentLanguage;
-//
-//    @Override
-//    public void initialize(URL url, ResourceBundle resourceBundle) {
-//        // Khởi tạo danh sách ngôn ngữ
-//        ObservableList<String> languages = FXCollections.observableArrayList(
-//                "Tiếng Việt",
-//                "English",
-//                "中文 (Chinese)",
-//                "日本語 (Japanese)",
-//                "한국어 (Korean)"
-//        );
-//        languageComboBox.setItems(languages);
-//
-//        // Lấy thông tin người dùng hiện tại từ database hoặc cài đặt
-//        loadUserSettings();
-//    }
-//
-//    /**
-//     * Phương thức để tải thông tin người dùng hiện tại
-//     * Trong ứng dụng thực tế, bạn sẽ lấy dữ liệu từ cơ sở dữ liệu hoặc từ file cài đặt
-//     */
-//    private void loadUserSettings() {
-//        // Code này sẽ được thay thế bằng việc truy vấn database hoặc đọc file cấu hình
-//        currentUsername = "admin"; // Giả sử username hiện tại
-//        currentPassword = "password123"; // Giả sử password hiện tại
-//        currentLanguage = "Tiếng Việt"; // Giả sử ngôn ngữ hiện tại
-//
-//        // Đặt ngôn ngữ hiện tại vào ComboBox
-//        languageComboBox.setValue(currentLanguage);
-//    }
-//
-//    @FXML
-//    void handleSaveUsername(ActionEvent event) {
-//        String enteredCurrentUsername = currentUsernameField.getText().trim();
-//        String newUsername = newUsernameField.getText().trim();
-//
-//        if (enteredCurrentUsername.isEmpty() || newUsername.isEmpty()) {
-//            showAlert(Alert.AlertType.ERROR, "Lỗi nhập liệu", "Vui lòng điền đầy đủ thông tin");
-//            return;
-//        }
-//
-//        if (!enteredCurrentUsername.equals(currentUsername)) {
-//            showAlert(Alert.AlertType.ERROR, "Lỗi xác thực", "Tên đăng nhập hiện tại không chính xác");
-//            return;
-//        }
-//
-//        if (newUsername.length() < 5) {
-//            showAlert(Alert.AlertType.ERROR, "Lỗi nhập liệu", "Tên đăng nhập mới phải có ít nhất 5 ký tự");
-//            return;
-//        }
-//
-//        // Lưu tên đăng nhập mới vào cơ sở dữ liệu hoặc file cấu hình
-//        saveNewUsername(newUsername);
-//
-//        showAlert(Alert.AlertType.INFORMATION, "Thành công", "Tên đăng nhập đã được thay đổi thành công");
-//
-//        // Cập nhật thông tin hiện tại
-//        currentUsername = newUsername;
-//
-//        // Xóa nội dung trường nhập liệu
-//        currentUsernameField.clear();
-//        newUsernameField.clear();
-//    }
-//
-//    @FXML
-//    void handleSavePassword(ActionEvent event) {
-//        String enteredCurrentPassword = currentPasswordField.getText();
-//        String newPassword = newPasswordField.getText();
-//        String confirmPassword = confirmPasswordField.getText();
-//
-//        if (enteredCurrentPassword.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty()) {
-//            showAlert(Alert.AlertType.ERROR, "Lỗi nhập liệu", "Vui lòng điền đầy đủ thông tin");
-//            return;
-//        }
-//
-//        if (!enteredCurrentPassword.equals(currentPassword)) {
-//            showAlert(Alert.AlertType.ERROR, "Lỗi xác thực", "Mật khẩu hiện tại không chính xác");
-//            return;
-//        }
-//
-//        if (newPassword.length() < 8) {
-//            showAlert(Alert.AlertType.ERROR, "Lỗi nhập liệu", "Mật khẩu mới phải có ít nhất 8 ký tự");
-//            return;
-//        }
-//
-//        if (!newPassword.equals(confirmPassword)) {
-//            showAlert(Alert.AlertType.ERROR, "Lỗi nhập liệu", "Mật khẩu xác nhận không khớp");
-//            return;
-//        }
-//
-//        // Lưu mật khẩu mới vào cơ sở dữ liệu hoặc file cấu hình
-//        saveNewPassword(newPassword);
-//
-//        showAlert(Alert.AlertType.INFORMATION, "Thành công", "Mật khẩu đã được thay đổi thành công");
-//
-//        // Cập nhật thông tin hiện tại
-//        currentPassword = newPassword;
-//
-//        // Xóa nội dung trường nhập liệu
-//        currentPasswordField.clear();
-//        newPasswordField.clear();
-//        confirmPasswordField.clear();
-//    }
-//
-//    @FXML
-//    void handleSaveLanguage(ActionEvent event) {
-//        String selectedLanguage = languageComboBox.getValue();
-//
-//        if (selectedLanguage == null || selectedLanguage.isEmpty()) {
-//            showAlert(Alert.AlertType.ERROR, "Lỗi nhập liệu", "Vui lòng chọn ngôn ngữ");
-//            return;
-//        }
-//
-//        // Lưu ngôn ngữ mới vào cơ sở dữ liệu hoặc file cấu hình
-//        saveNewLanguage(selectedLanguage);
-//
-//        showAlert(Alert.AlertType.INFORMATION, "Thành công", "Ngôn ngữ đã được thay đổi thành công");
-//
-//        // Cập nhật thông tin hiện tại
-//        currentLanguage = selectedLanguage;
-//    }
-//
-//    @FXML
-//    void handleCancel(ActionEvent event) {
-//        // Đóng cửa sổ cài đặt
-//        Stage stage = (Stage) cancelButton.getScene().getWindow();
-//        stage.close();
-//    }
-//
-//    /**
-//     * Phương thức lưu tên đăng nhập mới
-//     * Trong ứng dụng thực tế, bạn sẽ lưu dữ liệu vào cơ sở dữ liệu hoặc file cấu hình
-//     */
-//    private void saveNewUsername(String newUsername) {
-//        // Code này sẽ được thay thế bằng việc cập nhật database hoặc file cấu hình
-//        System.out.println("Đã lưu tên đăng nhập mới: " + newUsername);
-//    }
-//
-//    /**
-//     * Phương thức lưu mật khẩu mới
-//     * Trong ứng dụng thực tế, bạn sẽ lưu dữ liệu vào cơ sở dữ liệu hoặc file cấu hình
-//     */
-//    private void saveNewPassword(String newPassword) {
-//        // Code này sẽ được thay thế bằng việc cập nhật database hoặc file cấu hình
-//        System.out.println("Đã lưu mật khẩu mới");
-//    }
-//
-//    /**
-//     * Phương thức lưu ngôn ngữ mới
-//     * Trong ứng dụng thực tế, bạn sẽ lưu dữ liệu vào cơ sở dữ liệu hoặc file cấu hình
-//     */
-//    private void saveNewLanguage(String newLanguage) {
-//        // Code này sẽ được thay thế bằng việc cập nhật database hoặc file cấu hình
-//        System.out.println("Đã lưu ngôn ngữ mới: " + newLanguage);
-//
-//        // Trong ứng dụng thực tế, bạn sẽ cần load lại các ResourceBundle để thay đổi ngôn ngữ
-//        // Ví dụ: ResourceBundle.getBundle("messages", new Locale("vi", "VN"));
-//    }
-//
-//    /**
-//     * Phương thức hiển thị thông báo
-//     */
-//    private void showAlert(Alert.AlertType alertType, String title, String content) {
-//        Alert alert = new Alert(alertType);
-//        alert.setTitle(title);
-//        alert.setHeaderText(null);
-//        alert.setContentText(content);
-//        alert.showAndWait();
-//    }
+    private void setupInitialValues() {
+        languageComboBox.getItems().addAll("Tiếng Việt", "Tiếng Anh");
+        languageComboBox.setValue("Tiếng Việt");
+
+        autoLockComboBox.getItems().addAll("5 phút", "15 phút", "30 phút", "Không bao giờ");
+        autoLockComboBox.setValue("15 phút");
+
+        performanceModeComboBox.getItems().addAll("Hiệu suất cao", "Tiết kiệm pin", "Cân bằng");
+        performanceModeComboBox.setValue("Cân bằng");
+
+        themeToggle.setSelected(false);
+        themeToggle.setText("Chế độ Sáng");
+
+        pushNotificationCheckBox.setSelected(true);
+        emailNotificationCheckBox.setSelected(false);
+        soundEffectsCheckBox.setSelected(true);
+        analyticsCheckBox.setSelected(false);
+
+        cacheSizeSlider.setValue(512.0);
+        updateCacheSizeLabel(512.0);
+
+        accountNameTextField.setText(SaveAccountUtils.loginName) ;
+    }
+
+    private void setupEventHandlers() {
+        themeToggle.setOnAction(e -> {
+            if (themeToggle.isSelected()) {
+                themeToggle.setText("Chế độ Tối");
+                themeToggle.setStyle("-fx-background-color: #34495e; -fx-text-fill: white; -fx-background-radius: 20px; -fx-padding: 8px 16px;");
+            } else {
+                themeToggle.setText("Chế độ Sáng");
+                themeToggle.setStyle("-fx-background-color: #ecf0f1; -fx-text-fill: #2c3e50; -fx-background-radius: 20px; -fx-padding: 8px 16px;");
+            }
+        });
+
+        cacheSizeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            updateCacheSizeLabel(newValue.doubleValue());
+        });
+
+        languageComboBox.setOnAction(e -> {
+            String selectedLanguage = languageComboBox.getValue();
+            showInfoAlert("Đã thay đổi ngôn ngữ", "Ngôn ngữ đã chuyển sang: " + selectedLanguage + "\nKhởi động lại ứng dụng để áp dụng thay đổi.");
+        });
+
+        performanceModeComboBox.setOnAction(e -> {
+            String mode = performanceModeComboBox.getValue();
+            updatePerformanceMode(mode);
+        });
+    }
+
+    private void updateCacheSizeLabel(double value) {
+        int cacheSize = (int) value;
+        if (cacheSize >= 1024) {
+            double gb = cacheSize / 1024.0;
+            cacheSizeLabel.setText(String.format("%.1f GB", gb));
+        } else {
+            cacheSizeLabel.setText(cacheSize + " MB");
+        }
+    }
+
+    private void updatePerformanceMode(String mode) {
+        switch (mode) {
+            case "Hiệu suất cao":
+                cacheSizeSlider.setValue(1024.0);
+                break;
+            case "Tiết kiệm pin":
+                cacheSizeSlider.setValue(256.0);
+                break;
+            case "Cân bằng":
+            default:
+                cacheSizeSlider.setValue(512.0);
+                break;
+        }
+    }
+
+    @FXML
+    private void handleSave() {
+        try {
+            currentSettings = collectCurrentSettings();
+            if (validateSettings(currentSettings)) {
+                saveSettingsToStorage(currentSettings);
+                originalSettings = currentSettings.copy();
+                showSuccessAlert("Đã lưu cài đặt", "Cài đặt đã được lưu thành công!");
+            }
+        } catch (Exception e) {
+            showErrorAlert("Lỗi lưu", "Không thể lưu cài đặt: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    private void handleCancel() {
+        if (originalSettings != null) {
+            restoreSettings(originalSettings);
+            showInfoAlert("Đã hủy thay đổi", "Mọi thay đổi đã được hoàn tác.");
+        }
+    }
+
+    @FXML
+    private void handleReset() {
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Khôi phục cài đặt");
+        alert.setHeaderText("Khôi phục về mặc định");
+        alert.setContentText("Bạn có chắc chắn muốn khôi phục tất cả cài đặt về giá trị mặc định không?");
+
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                resetToDefaults();
+                showInfoAlert("Đã khôi phục", "Tất cả cài đặt đã được khôi phục về mặc định.");
+            }
+        });
+    }
+
+    private SettingsData collectCurrentSettings() {
+        SettingsData settings = new SettingsData();
+        settings.language = languageComboBox.getValue();
+        settings.darkMode = themeToggle.isSelected();
+        settings.pushNotifications = pushNotificationCheckBox.isSelected();
+        settings.emailNotifications = emailNotificationCheckBox.isSelected();
+        settings.soundEffects = soundEffectsCheckBox.isSelected();
+        settings.autoLockTime = autoLockComboBox.getValue();
+        settings.analytics = analyticsCheckBox.isSelected();
+        settings.performanceMode = performanceModeComboBox.getValue();
+        settings.cacheSize = (int) cacheSizeSlider.getValue();
+        return settings;
+    }
+
+    private boolean validateSettings(SettingsData settings) {
+        if (settings.cacheSize < 128 || settings.cacheSize > 2048) {
+            showErrorAlert("Lỗi xác thực", "Dung lượng bộ nhớ đệm phải nằm trong khoảng từ 128 MB đến 2 GB.");
+            return false;
+        }
+        return true;
+    }
+
+    private void saveSettingsToStorage(SettingsData settings) {
+        System.out.println("Đang lưu cài đặt: " + settings.toString());
+    }
+
+    private void loadSettings() {
+        originalSettings = collectCurrentSettings();
+    }
+
+    private void restoreSettings(SettingsData settings) {
+        languageComboBox.setValue(settings.language);
+        themeToggle.setSelected(settings.darkMode);
+        pushNotificationCheckBox.setSelected(settings.pushNotifications);
+        emailNotificationCheckBox.setSelected(settings.emailNotifications);
+        soundEffectsCheckBox.setSelected(settings.soundEffects);
+        autoLockComboBox.setValue(settings.autoLockTime);
+        analyticsCheckBox.setSelected(settings.analytics);
+        performanceModeComboBox.setValue(settings.performanceMode);
+        cacheSizeSlider.setValue(settings.cacheSize);
+    }
+
+    private void resetToDefaults() {
+        languageComboBox.setValue("Tiếng Việt");
+        themeToggle.setSelected(false);
+        pushNotificationCheckBox.setSelected(true);
+        emailNotificationCheckBox.setSelected(false);
+        soundEffectsCheckBox.setSelected(true);
+        autoLockComboBox.setValue("15 phút");
+        analyticsCheckBox.setSelected(false);
+        performanceModeComboBox.setValue("Cân bằng");
+        cacheSizeSlider.setValue(512.0);
+    }
+
+    // Cảnh báo
+    private void showSuccessAlert(String title, String message) {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    private void showErrorAlert(String title, String message) {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    private void showInfoAlert(String title, String message) {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    public static class SettingsData {
+        public String language = "Tiếng Việt";
+        public boolean darkMode = false;
+        public boolean autoStart = false;
+        public boolean pushNotifications = true;
+        public boolean emailNotifications = false;
+        public boolean soundEffects = true;
+        public String autoLockTime = "15 phút";
+        public boolean analytics = false;
+        public String performanceMode = "Cân bằng";
+        public int cacheSize = 512;
+
+        public SettingsData copy() {
+            SettingsData copy = new SettingsData();
+            copy.language = this.language;
+            copy.darkMode = this.darkMode;
+            copy.autoStart = this.autoStart;
+            copy.pushNotifications = this.pushNotifications;
+            copy.emailNotifications = this.emailNotifications;
+            copy.soundEffects = this.soundEffects;
+            copy.autoLockTime = this.autoLockTime;
+            copy.analytics = this.analytics;
+            copy.performanceMode = this.performanceMode;
+            copy.cacheSize = this.cacheSize;
+            return copy;
+        }
+
+        @Override
+        public String toString() {
+            return "SettingsData{" +
+                    "language='" + language + '\'' +
+                    ", darkMode=" + darkMode +
+                    ", autoStart=" + autoStart +
+                    ", pushNotifications=" + pushNotifications +
+                    ", emailNotifications=" + emailNotifications +
+                    ", soundEffects=" + soundEffects +
+                    ", autoLockTime='" + autoLockTime + '\'' +
+                    ", analytics=" + analytics +
+                    ", performanceMode='" + performanceMode + '\'' +
+                    ", cacheSize=" + cacheSize +
+                    '}';
+        }
+    }
+
+    // thay đổi tên tài khoản .
+    @FXML public void handleChangeAccountName(){
+        try {
+            String accountName = accountNameTextField.getText().trim() ;
+            if (!ValidationAccount.loginNameUtils(accountName , SaveAccountUtils.account_id)) return ;
+            if (accountName.equals(SaveAccountUtils.loginName)) return ;
+            accountService.updateAccount(new Account(SaveAccountUtils.account_id , accountName , SaveAccountUtils.password , SaveAccountUtils.role_id));
+            AlertInfo.showAlert(AlertType.INFORMATION , "Thành công" , "Cập nhật thành công");
+            SaveAccountUtils.loginName = accountName;
+            accountNameTextField.setText(accountName);
+        }catch (Exception e){
+            AlertInfo.showAlert(AlertType.ERROR , "Lỗi" ,  e.getMessage());
+        }
+    }
+
+    // thay đổi mật khẩu .
+    @FXML public void handleChangePassword(){
+        try {
+            String currentPassword = currentPasswordField.getText().trim() ;
+            String newPassword = newPasswordField.getText().trim() ;
+            String confirmPassword = confirmPasswordField.getText().trim() ;
+            if (!ValidationAccount.passwordUtils(currentPassword) || !ValidationAccount.passwordUtils(newPassword) || !ValidationAccount.passwordUtils(confirmPassword)) return ;
+            if (!confirmPassword.equals(newPassword)) {
+                AlertInfo.showAlert(AlertType.ERROR , "lỗi" , "Mật khẩu xác nhận không trùng khớp");
+                return ;
+            }
+            accountService.updateAccount(new Account(SaveAccountUtils.account_id , SaveAccountUtils.loginName , newPassword , SaveAccountUtils.role_id));
+            AlertInfo.showAlert(AlertType.INFORMATION , "Thành công" , "Cập nhật thành công");
+            SaveAccountUtils.password = newPassword;
+            currentPasswordField.clear();
+            newPasswordField.clear();
+            confirmPasswordField.clear();
+        }catch (Exception e){
+            AlertInfo.showAlert(AlertType.ERROR , "Lỗi" ,  e.getMessage());
+        }
+    }
 }

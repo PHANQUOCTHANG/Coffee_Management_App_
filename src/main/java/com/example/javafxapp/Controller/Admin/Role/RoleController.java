@@ -58,19 +58,14 @@ public class RoleController implements Initializable {
                 }
                 Role r = getTableRow().getItem();
 
-                // Nếu là Admin, không hiển thị checkbox
-                if ("Admin".equalsIgnoreCase(r.getRole_name())) {
-                    setGraphic(null); // không đặt graphic => không hiển thị checkbox
-                } else {
-                    JFXCheckBox cb = new JFXCheckBox();
-                    cb.setAlignment(Pos.CENTER);
-                    cb.selectedProperty().unbindBidirectional(r.selectedProperty());
-                    cb.selectedProperty().bindBidirectional(r.selectedProperty());
+                JFXCheckBox cb = new JFXCheckBox();
+                cb.setAlignment(Pos.CENTER);
+                cb.selectedProperty().unbindBidirectional(r.selectedProperty());
+                cb.selectedProperty().bindBidirectional(r.selectedProperty());
 
-                    setAlignment(Pos.CENTER);
-                    setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-                    setGraphic(cb);
-                }
+                setAlignment(Pos.CENTER);
+                setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+                setGraphic(cb);
             }
         });
 
@@ -102,13 +97,6 @@ public class RoleController implements Initializable {
             rolePermissionBtn.setStyle("-fx-background-color: #4299E1; -fx-text-fill: white; -fx-padding : 10px");
             rolePermissionBtn.setOnAction(e -> rolePermission(r));
 
-            if ("Admin".equalsIgnoreCase(r.getRole_name())) {
-                deleteBtn.setVisible(false);
-                deleteBtn.setManaged(false);
-                rolePermissionBtn.setVisible(false);
-                rolePermissionBtn.setManaged(false);
-            }
-
             box.getChildren().addAll(updateBtn ,  deleteBtn , rolePermissionBtn) ;
             return new SimpleObjectProperty<>(box);
         });
@@ -119,7 +107,9 @@ public class RoleController implements Initializable {
             roleList.clear();
             roleList.addAll(roleService.getAllRole());
             filteredList.clear();
-            filteredList.addAll(roleList);
+            for (Role role : roleList) {
+                if (!role.getRole_name().equalsIgnoreCase("Admin")) {filteredList.add(role);}
+            }
             roleTable.setItems(filteredList);
             updateDisplayStatus();
         } catch (Exception e) {

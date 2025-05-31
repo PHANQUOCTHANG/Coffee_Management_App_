@@ -741,7 +741,7 @@ public class CoffeeShopController implements Initializable {
     @FXML
     private void handleChangeLoginName() {
         String newLoginName = newLoginNameField.getText().trim();
-        if (!ValidationAccount.loginNameUtils(newLoginName) || !ValidationAccount.passwordUtils(confirmPasswordForLoginName.getText().trim()))
+        if (!ValidationAccount.loginNameUtils(newLoginName , SaveAccountUtils.account_id) || !ValidationAccount.passwordUtils(confirmPasswordForLoginName.getText().trim()))
             return;
         if (!authService.Login(SaveAccountUtils.loginName, confirmPasswordForLoginName.getText().trim())) {
             AlertInfo.showAlert(Alert.AlertType.ERROR, "Lỗi", "Mật khẩu không đúng");

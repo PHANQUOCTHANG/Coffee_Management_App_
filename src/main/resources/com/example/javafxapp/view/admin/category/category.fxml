@@ -19,7 +19,7 @@
 <StackPane prefHeight="600.0" stylesheets="@../../Styles/product.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxapp.Controller.Admin.Category.CategoryController">
     <BorderPane prefHeight="1200.0" prefWidth="1600.0" style="-fx-background-color: #F7F9FC;">
         <top>
-            <HBox alignment="CENTER_LEFT" prefHeight="60.0" spacing="10.0" style="-fx-background-color: white; -fx-border-color: #E0E6ED; -fx-border-width: 0 0 1 0;" BorderPane.alignment="CENTER">
+            <HBox alignment="CENTER_LEFT" prefHeight="60.0" spacing="10.0" style="-fx-background-color: linear-gradient(to bottom, #5C4033, #3C2F2F); -fx-border-color: #E0E6ED; -fx-border-width: 0 0 1 0;" BorderPane.alignment="CENTER">
                 <children>
                     <Label prefHeight="50.0" styleClass="page-title" text="Quản lý danh mục">
                         <font>

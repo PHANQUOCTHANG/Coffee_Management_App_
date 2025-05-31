@@ -11,8 +11,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.controlsfx.control.spreadsheet.Grid;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -21,7 +24,7 @@ import java.util.ResourceBundle;
 
 public class RolePermissionController implements Initializable {
     @FXML
-    private VBox checkboxContainer;
+    private GridPane checkboxContainer;
     @FXML
     private CheckBox checkboxSelectAll;
     @FXML
@@ -49,7 +52,7 @@ public class RolePermissionController implements Initializable {
     public void loadDataRolePermission(int roleId) {
         List<Permission> permissions = permissionService.getAllPermission();
         List<Integer> role_permission = rolePermissionService.getAllRolePermission(roleId);
-        int cnt = 0;
+        int cnt = 0 , row = 0 , col = 0 ;
         for (Permission permission : permissions) {
             CheckBox cb = new CheckBox(permission.getPermission_name());
             cb.setStyle("-fx-font-size: 16; -fx-text-fill: #374151; -fx-padding: 20 20 20 20;");
@@ -58,7 +61,13 @@ public class RolePermissionController implements Initializable {
                 cnt++;
             }
             checkBoxPermissions.add(cb);
-            checkboxContainer.getChildren().add(cb);
+            checkboxContainer.add(cb , col , row);
+
+            col++;
+            if (col >= 6) { // 6 checkbox mỗi dòng
+                col = 0;
+                row++;
+            }
         }
         if (cnt == permissions.size()) checkboxSelectAll.setSelected(true);
     }

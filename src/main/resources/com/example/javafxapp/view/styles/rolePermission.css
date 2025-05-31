@@ -1,0 +1,143 @@
+/* General styles */
+.root {
+    -fx-font-family: "System";
+}
+
+/* Modal container */
+.modal-container {
+    -fx-background-color: transparent;
+}
+
+/* Modal content */
+.modal-content {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 12;
+    -fx-border-color: #D4A017;
+    -fx-border-radius: 12;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0.3, 0, 3);
+    -fx-max-width: 800;
+    -fx-max-height: 600;
+}
+
+/* Modal header */
+.modal-header {
+    -fx-background-color: linear-gradient(to right, #5C4033, #3C2F2F);
+    -fx-background-radius: 12 12 0 0;
+    -fx-border-color: #3e2723;
+    -fx-border-width: 0 0 3 0;
+}
+
+/* Modal title */
+.modal-title {
+    -fx-text-fill: #FFFFFF;
+    -fx-font-weight: bold;
+}
+
+/* Close button */
+.close-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #E57373;
+    -fx-cursor: hand;
+    -fx-transition: all 0.3s ease-in-out;
+}
+
+.close-button:hover {
+    -fx-background-color: rgba(229, 115, 115, 0.2);
+    -fx-scale-x: 1.2;
+    -fx-scale-y: 1.2;
+}
+
+.close-button:pressed {
+    -fx-background-color: rgba(229, 115, 115, 0.4);
+}
+
+/* Tab buttons */
+.tab-button {
+    -fx-background-color: #F5ECE3;
+    -fx-background-radius: 8;
+    -fx-text-fill: #3C2F2F;
+    -fx-cursor: hand;
+    -fx-transition: all 0.3s ease-in-out;
+}
+
+.tab-button:hover {
+    -fx-background-color: #D4A017;
+    -fx-text-fill: #FFFFFF;
+}
+
+.tab-button:pressed {
+    -fx-background-color: #B8860B;
+}
+
+.tab-button:selected {
+    -fx-background-color: #5C4033;
+    -fx-text-fill: #FFFFFF;
+}
+
+/* Permission group (TitledPane) */
+.permission-group {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #3C2F2F;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+}
+
+.permission-group .title {
+    -fx-background-color: #F5ECE3;
+    -fx-background-radius: 8;
+    -fx-border-color: #D4A017;
+    -fx-border-radius: 8;
+    -fx-border-width: 1;
+}
+
+.permission-group:expanded .title {
+    -fx-background-color: #D4A017;
+    -fx-text-fill: #FFFFFF;
+}
+
+/* Toggle checkbox */
+.toggle-checkbox {
+    -fx-text-fill: #3C2F2F;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
+
+/* Buttons */
+.cancel-button {
+    -fx-background-color: #E57373;
+    -fx-background-radius: 8;
+    -fx-text-fill: #FFFFFF;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0.3, 0, 2);
+    -fx-transition: all 0.3s ease-in-out;
+}
+
+.cancel-button:hover {
+    -fx-background-color: #FF8A80;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.cancel-button:pressed {
+    -fx-background-color: #D32F2F;
+}
+
+.save-button {
+    -fx-background-color: #4CAF50;
+    -fx-background-radius: 8;
+    -fx-text-fill: #FFFFFF;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0.3, 0, 2);
+    -fx-transition: all 0.3s ease-in-out;
+}
+
+.save-button:hover {
+    -fx-background-color: #66BB6A;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.save-button:pressed {
+    -fx-background-color: #388E3C;
+}

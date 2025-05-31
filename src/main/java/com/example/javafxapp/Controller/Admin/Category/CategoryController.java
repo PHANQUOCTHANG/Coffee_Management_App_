@@ -145,7 +145,7 @@ public class CategoryController implements Initializable {
     }
     private void updateDisplayStatus() {
         int totalAccounts = filteredList.size();
-        categoryCountLabel.setText("Tổng số tài khoản: " + totalAccounts);
+        categoryCountLabel.setText("Tổng số danh mục: " + totalAccounts);
 
         // Cập nhật thêm trạng thái nếu cần
         if (statusLabel != null) {

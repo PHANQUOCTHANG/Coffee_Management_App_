@@ -715,5 +715,18 @@ public class RevenueController {
         }
     }
 
+    @FXML
+    private void switchToOverview() {
+//        selectTab(btnTabOverview, overviewPane);
+    }
 
+    @FXML
+    private void switchToOrders() {
+//        selectTab(btnTabOrders, ordersPane);
+    }
+
+    @FXML
+    private void switchToStatistics() {
+//        selectTab(btnTabStatistics, statisticsPane);
+    }
 }

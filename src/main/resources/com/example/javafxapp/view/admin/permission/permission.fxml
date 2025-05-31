@@ -17,7 +17,7 @@
         <!-- Header -->
         <top>
             <HBox alignment="CENTER_LEFT" prefHeight="60.0" spacing="10.0"
-                  style="-fx-background-color: white; -fx-border-color: #E0E6ED; -fx-border-width: 0 0 1 0;"
+                  style="-fx-background-color: linear-gradient(to bottom, #5C4033, #3C2F2F); -fx-border-color: #E0E6ED; -fx-border-width: 0 0 1 0;"
                   BorderPane.alignment="CENTER">
                 <children>
                     <Label text="Quản lý quyền" styleClass="page-title">

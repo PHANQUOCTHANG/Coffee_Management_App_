@@ -349,3 +349,234 @@
     -fx-padding: 8px 12px;
     -fx-background-radius: 4px;
 }
+
+/* General styles */
+.root {
+    -fx-font-family: "System";
+}
+
+/* BorderPane background */
+BorderPane {
+    -fx-background-color: #F5ECE3;
+}
+
+/* Header styles */
+HBox#top {
+    -fx-background-color: linear-gradient(to bottom, #5C4033, #3C2F2F);
+    -fx-border-color: #3e2723;
+    -fx-border-width: 0 0 3px;
+}
+
+/* Page title */
+.page-title {
+    -fx-text-fill: #FFFFFF;
+    -fx-font-weight: bold;
+}
+
+/* Card styles */
+.card {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0.3, 0, 2);
+}
+
+/* Section title */
+.section-title {
+    -fx-text-fill: #3C2F2F;
+    -fx-font-weight: bold;
+}
+
+/* Counter label */
+.counter-label {
+    -fx-text-fill: #3C2F2F;
+}
+
+/* Filter combo box */
+.filter-combo {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 8;
+    -fx-border-color: #D4A017;
+    -fx-border-radius: 8;
+    -fx-border-width: 1;
+    -fx-text-fill: #3C2F2F;
+    -fx-prompt-text-fill: #3C2F2F;
+    -fx-font-size: 14px;
+}
+
+.filter-combo:hover {
+    -fx-background-color: #F5ECE3;
+}
+
+/* Search box */
+.search-box {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 8;
+    -fx-border-color: #D4A017;
+    -fx-border-radius: 8;
+    -fx-border-width: 1;
+}
+
+/* Search field */
+.search-field {
+    -fx-background-color: transparent;
+    -fx-text-fill: #3C2F2F;
+    -fx-prompt-text-fill: #3C2F2F;
+    -fx-font-size: 14px;
+}
+
+/* Buttons */
+.primary-button {
+    -fx-background-color: #D4A017;
+    -fx-background-radius: 8;
+    -fx-text-fill: #FFFFFF;
+    -fx-cursor: hand;
+    -fx-transition: all 0.3s ease-in-out;
+}
+
+.primary-button:hover {
+    -fx-background-color: #E8B923;
+}
+
+.primary-button:pressed {
+    -fx-background-color: #B8860B;
+}
+
+.delete-button {
+    -fx-background-color: #E57373;
+    -fx-background-radius: 8;
+    -fx-text-fill: #FFFFFF;
+    -fx-cursor: hand;
+    -fx-transition: all 0.3s ease-in-out;
+}
+
+.delete-button:hover {
+    -fx-background-color: #FF8A80;
+}
+
+.delete-button:pressed {
+    -fx-background-color: #D32F2F;
+}
+
+.search-button {
+    -fx-background-color: #5C4033;
+    -fx-background-radius: 8;
+    -fx-text-fill: #FFFFFF;
+    -fx-cursor: hand;
+    -fx-transition: all 0.3s ease-in-out;
+}
+
+.search-button:hover {
+    -fx-background-color: #6F4E37;
+}
+
+.search-button:pressed {
+    -fx-background-color: #3C2F2F;
+}
+
+.reset-button {
+    -fx-background-color: #F5ECE3;
+    -fx-background-radius: 8;
+    -fx-text-fill: #3C2F2F;
+    -fx-border-color: #D4A017;
+    -fx-border-radius: 8;
+    -fx-border-width: 1;
+    -fx-cursor: hand;
+    -fx-transition: all 0.3s ease-in-out;
+}
+
+.reset-button:hover {
+    -fx-background-color: #FFFFFF;
+}
+
+.reset-button:pressed {
+    -fx-background-color: #D4A017;
+    -fx-text-fill: #FFFFFF;
+}
+
+.export-button {
+    -fx-background-color: #4CAF50;
+    -fx-background-radius: 8;
+    -fx-text-fill: #FFFFFF;
+    -fx-cursor: hand;
+    -fx-transition: all 0.3s ease-in-out;
+}
+
+.export-button:hover {
+    -fx-background-color: #66BB6A;
+}
+
+.export-button:pressed {
+    -fx-background-color: #388E3C;
+}
+
+/* Table header bar */
+.table-header-bar {
+    -fx-background-color: #F5ECE3;
+    -fx-background-radius: 8 8 0 0;
+}
+
+/* Table styles */
+.product-table {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 8;
+    -fx-border-color: #D4A017;
+    -fx-border-radius: 8;
+    -fx-border-width: 1;
+}
+
+.product-table .column-header {
+    -fx-background-color: #F5ECE3;
+    -fx-text-fill: #3C2F2F;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+}
+
+.product-table .table-row-cell {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #3C2F2F;
+    -fx-font-size: 14px;
+}
+
+.product-table .table-row-cell:odd {
+    -fx-background-color: #F5ECE3;
+}
+
+.product-table .table-row-cell:hover {
+    -fx-background-color: #E8B923;
+    -fx-text-fill: #FFFFFF;
+}
+
+/* Pagination controls */
+.pagination-controls {
+    -fx-background-color: #F5ECE3;
+    -fx-text-fill: #3C2F2F;
+}
+
+.pagination-controls .page {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 8;
+    -fx-text-fill: #3C2F2F;
+    -fx-cursor: hand;
+}
+
+.pagination-controls .page:hover {
+    -fx-background-color: #D4A017;
+    -fx-text-fill: #FFFFFF;
+}
+
+.pagination-controls .page:selected {
+    -fx-background-color: #5C4033;
+    -fx-text-fill: #FFFFFF;
+}
+
+/* Bottom bar */
+HBox#bottom {
+    -fx-background-color: linear-gradient(to top, #5C4033, #3C2F2F);
+    -fx-border-color: #3e2723;
+    -fx-border-width: 3 0 0 0;
+}
+
+/* Status label */
+#statusLabel {
+    -fx-text-fill: #F5ECE3;
+}

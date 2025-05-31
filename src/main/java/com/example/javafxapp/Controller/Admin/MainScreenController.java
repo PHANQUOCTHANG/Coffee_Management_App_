@@ -15,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -28,6 +29,8 @@ public class MainScreenController {
 
     @FXML
     private VBox permissionsSubMenu ;
+    @FXML
+    private Label adminPanel ;
 
     @FXML
     private JFXButton btnOverview, btnProducts, btnCategories, btnEmployees, btnOrders, btnRevenue , btnRolePermission ,
@@ -45,6 +48,7 @@ public class MainScreenController {
 
     @FXML
     public void initialize() {
+        adminPanel.setText(SaveAccountUtils.loginName) ;
         // Danh sách các nút trong menu
         menuButtons = new ArrayList<>();
         menuButtons.add(btnOverview);

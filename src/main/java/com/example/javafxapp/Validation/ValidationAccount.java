@@ -28,7 +28,7 @@ public class ValidationAccount {
 
     // validation check login name , password  , khi đăng kí .
     public static boolean signUpUtils (String loginName , String password , String confirmPassword) {
-        if (!loginNameUtils(loginName) || !passwordUtils(password)) return false ;
+        if (!loginNameUtils(loginName , 0) || !passwordUtils(password)) return false ;
         if (confirmPassword.length() < 6) {
             AlertInfo.showAlert(Alert.AlertType.ERROR , "Lỗi" , "Mật khẩu xác nhận ít nhất 6 kí tự");
             return false ;
@@ -37,7 +37,7 @@ public class ValidationAccount {
             AlertInfo.showAlert(Alert.AlertType.WARNING, "Lỗi", "Mật khẩu xác nhận không khớp.");
             return false ;
         }
-        if (accountService.existsNameAccount(loginName)) {
+        if (accountService.existsNameAccountOther(0 , loginName)) {
             AlertInfo.showAlert(Alert.AlertType.ERROR , "Lỗi" , "Tên đăng nhập đã tồn tại");
             return false ;
         }
@@ -50,22 +50,23 @@ public class ValidationAccount {
             AlertInfo.showAlert(Alert.AlertType.ERROR , "Lỗi" , "Vui lòng chọn vai trò cho tài khoản");
             return false ;
         }
-        if (!loginNameUtils(loginName) || !passwordUtils(password)) return false ;
-        if (accountService.existsNameAccountOther(account_id , loginName)) {
-            AlertInfo.showAlert(Alert.AlertType.ERROR , "Lỗi" , "Tên đăng nhập đã tồn tại");
-            return false ;
-        }
+        if (!loginNameUtils(loginName , account_id) || !passwordUtils(password)) return false ;
+
         return true ;
     }
 
     // check login name
-    public static boolean loginNameUtils (String loginName) {
+    public static boolean loginNameUtils (String loginName, int account_id) {
         if (loginName.isEmpty()) {
             AlertInfo.showAlert(Alert.AlertType.ERROR, "Lỗi", "Vui lòng nhập đầy đủ thông tin.");
             return false ;
         }
         if (loginName.length() < 8) {
             AlertInfo.showAlert(Alert.AlertType.ERROR , "Lỗi" , "Tên đặng nhập ít nhất 8 kí tự");
+            return false ;
+        }
+        if (accountService.existsNameAccountOther(account_id , loginName)) {
+            AlertInfo.showAlert(Alert.AlertType.ERROR , "Lỗi" , "Tên đăng nhập đã tồn tại");
             return false ;
         }
         return true ;

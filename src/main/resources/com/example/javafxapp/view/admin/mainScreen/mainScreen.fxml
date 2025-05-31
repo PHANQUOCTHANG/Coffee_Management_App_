@@ -1,245 +1,390 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="1600.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="809.0" prefWidth="1582.0" stylesheets="@../../Styles/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxapp.Controller.Admin.MainScreenController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="809.0" prefWidth="1582.0" stylesheets="@../../Styles/style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxapp.Controller.Admin.MainScreenController">
     <top>
-        <HBox maxWidth="1900.0" prefHeight="60.0" prefWidth="1600.0" style="-fx-background-color: #ffffff; -fx-border-color: gray; -fx-border-width: 0 0 2px;" BorderPane.alignment="CENTER_LEFT">
+        <HBox fx:id="header" alignment="CENTER_LEFT" maxWidth="-Infinity" prefHeight="80.0" prefWidth="1900.0" spacing="15.0" style="-fx-background-color: linear-gradient(to bottom, #5C4033, #3C2F2F); -fx-border-color: #3e2723; -fx-border-width: 0 0 3px;">
             <padding>
-                <Insets left="15.0" />
+                <Insets bottom="10.0" left="25.0" right="25.0" top="10.0" />
             </padding>
             <children>
-                <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../../Images/CoffeeShopLogo.png" />
-                    </image>
-                </ImageView>
-                <Label prefHeight="100.0" prefWidth="89.0" text="COFFEE">
-                    <font>
-                        <Font name="System Bold" size="24.0" />
-                    </font>
-                </Label>
-                <Label layoutX="125.0" layoutY="10.0" prefHeight="100.0" prefWidth="180.0" text="MANAGEMENT" textFill="#f89500">
-                    <font>
-                        <Font name="System Bold" size="24.0" />
-                    </font>
-                </Label>
+                <!-- Logo Container -->
+                <StackPane prefHeight="60.0" prefWidth="60.0" style="-fx-background-color: rgba(255,255,255,0.15); -fx-background-radius: 30;">
+                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, rgba(255,255,255,0.8), 2, 0.5, 0, 0);">
+                        <image>
+                            <Image url="@../../Images/CoffeeShopLogo.png" />
+                        </image>
+                    </ImageView>
+                </StackPane>
+
+                <!-- Brand Name Container -->
+                <VBox alignment="CENTER_LEFT" spacing="3.0">
+                    <children>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                            <children>
+                                <Label text="COFFEE" textFill="#FFFFFF">
+                                    <font>
+                                        <Font name="System Bold" size="28.0" />
+                                    </font>
+                                </Label>
+                                <Label text="MANAGEMENT" textFill="#D4A017">
+                                    <font>
+                                        <Font name="System Bold" size="28.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </HBox>
+                        <Label text="Professional Coffee Shop Solutions" textFill="#F5ECE3">
+                            <font>
+                                <Font name="System Italic" size="12.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </VBox>
+
+                <!-- Spacer -->
+                <Region HBox.hgrow="ALWAYS" />
+
+                <!-- Status Indicator -->
+                <HBox alignment="CENTER_RIGHT" spacing="8.0">
+                    <children>
+                        <Circle styleClass="status-circle" radius="4.0" />
+                        <Label text="System Online" textFill="#E8F5E8">
+                            <font>
+                                <Font name="System" size="11.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
             </children>
         </HBox>
     </top>
     <left>
-        <VBox prefHeight="723.0" prefWidth="280.0" style="-fx-background-color: linear-gradient(to bottom, #1e2c5a, #193a7a); -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);" BorderPane.alignment="CENTER">
+        <VBox fx:id="sidebar" prefHeight="723.0" prefWidth="280.0" spacing="5.0" style="-fx-background-color: linear-gradient(to bottom, #3C2F2F, #2A1D1D); -fx-border-color: #4a2c17; -fx-border-width: 0 1px 0 0; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 15, 0.3, 3, 0);">
+            <padding>
+                <Insets bottom="20.0" top="20.0" />
+            </padding>
             <children>
-                <JFXButton fx:id="btnOverview" alignment="CENTER_LEFT" onAction="#handleOverview" prefHeight="40.0" prefWidth="280.0" text="Tổng quan" textFill="WHITE">
-                    <graphic>
-                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../../Images/dashboard1.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                    <font>
-                        <Font size="16.0" />
-                    </font>
+                <!-- Header Section -->
+                <VBox alignment="CENTER" spacing="10.0">
                     <padding>
-                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                        <Insets bottom="25.0" />
                     </padding>
-                </JFXButton>
-                <JFXButton fx:id="btnProducts" alignment="CENTER_LEFT" onAction="#handleProducts" prefHeight="40.0" prefWidth="280.0" text="Sản phẩm" textFill="WHITE">
-                    <graphic>
-                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../../Images/icons8-product-64.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                    <font>
-                        <Font size="16.0" />
-                    </font>
-                    <padding>
-                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                    </padding>
-                </JFXButton>
-                <JFXButton fx:id="btnCategories" alignment="CENTER_LEFT" onAction="#handleCategories" prefHeight="40.0" prefWidth="280.0" text="Danh mục sản phẩm" textFill="WHITE">
-                    <graphic>
-                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../../Images/icons8-category-64.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                    <font>
-                        <Font size="16.0" />
-                    </font>
-                    <padding>
-                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                    </padding>
-                </JFXButton>
-                <JFXButton fx:id="btnEmployees" alignment="CENTER_LEFT" onAction="#handleEmployees" prefHeight="40.0" prefWidth="280.0" text="Nhân viên" textFill="WHITE">
-                    <graphic>
-                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../../Images/icons8-employees-48.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                    <font>
-                        <Font size="16.0" />
-                    </font>
-                    <padding>
-                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                    </padding>
-                </JFXButton>
-                <JFXButton fx:id="btnOrders" alignment="CENTER_LEFT" onAction="#handleOrders" prefHeight="40.0" prefWidth="280.0" text="Quản lí đơn hàng " textFill="WHITE">
-                    <graphic>
-                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../../Images/icons8-order-64.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                    <font>
-                        <Font size="16.0" />
-                    </font>
-                    <padding>
-                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                    </padding>
-                    <font>
-                        <Font size="16.0" />
-                    </font>
-                    <padding>
-                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                    </padding>
-                </JFXButton>
-                <JFXButton fx:id="btnRevenue" alignment="CENTER_LEFT" onAction="#handleRevenue" prefHeight="40.0" prefWidth="280.0" text="Doanh thu" textFill="WHITE">
-                    <graphic>
-                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../../Images/icon-revenue-1.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                    <font>
-                        <Font size="16.0" />
-                    </font>
-                    <padding>
-                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                    </padding>
-                    <font>
-                        <Font size="16.0" />
-                    </font>
-                    <padding>
-                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                    </padding>
-                </JFXButton>
-                <JFXButton fx:id="btnRolePermission" alignment="CENTER_LEFT" onAction="#handleRolePermissions" prefHeight="40.0" prefWidth="280.0" text="Phân quyền" textFill="WHITE">
-                    <graphic>
-                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../../Images/icon-role.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                    <font>
-                        <Font size="16.0" />
-                    </font>
-                    <padding>
-                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                    </padding>
-                </JFXButton>
-                <VBox fx:id="permissionsSubMenu" managed="false" prefHeight="80.0" prefWidth="250.0" style="-fx-background-color: #193a7a;" visible="false">
                     <children>
-                        <JFXButton fx:id="btnAccounts" alignment="CENTER_LEFT" onAction="#handleAccounts" prefHeight="40.0" prefWidth="280.0" text="Tài khoản" textFill="WHITE">
+                        <Circle fill="#8b4513" radius="25.0" stroke="#D4A017" strokeWidth="2.0" />
+                        <Label fx:id="adminPanel" textAlignment="CENTER" textFill="#D4A017">
+                            <font>
+                                <Font name="System Bold" size="12.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </VBox>
+
+                <!-- Main Navigation -->
+                <VBox spacing="5.0">
+                    <children>
+                        <!-- Overview Button -->
+                        <JFXButton fx:id="btnOverview" alignment="CENTER_LEFT" onAction="#handleOverview" prefHeight="50.0" prefWidth="280.0" styleClass="sidebar-button" text="Tổng quan" textFill="#F5ECE3">
                             <graphic>
-                                <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@../../Images/icons8-account-64.png" />
-                                    </image>
-                                </ImageView>
+                                <HBox alignment="CENTER_LEFT" spacing="12.0">
+                                    <children>
+                                        <StackPane prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #8b4513; -fx-background-radius: 6;">
+                                            <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, rgba(255,255,255,0.8), 2, 0.5, 0, 0);">
+                                                <image>
+                                                    <Image url="@../../Images/dashboard1.png" />
+                                                </image>
+                                            </ImageView>
+                                        </StackPane>
+                                    </children>
+                                </HBox>
                             </graphic>
                             <font>
-                                <Font size="14.0" />
+                                <Font name="System" size="15.0" />
                             </font>
                             <padding>
-                                <Insets bottom="15.0" left="40.0" right="20.0" top="15.0" />
+                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                             </padding>
                         </JFXButton>
-                        <JFXButton fx:id="btnRole" alignment="CENTER_LEFT" onAction="#handleRole" prefHeight="40.0" prefWidth="280.0" text="Vai trò" textFill="WHITE">
+
+                        <!-- Products Button -->
+                        <JFXButton fx:id="btnProducts" alignment="CENTER_LEFT" onAction="#handleProducts" prefHeight="50.0" prefWidth="280.0" styleClass="sidebar-button" text="Sản phẩm" textFill="#F5ECE3">
                             <graphic>
-                                <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@../../Images/icon-role.png" />
-                                    </image>
-                                </ImageView>
+                                <HBox alignment="CENTER_LEFT" spacing="12.0">
+                                    <children>
+                                        <StackPane prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #a0522d; -fx-background-radius: 6;">
+                                            <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, rgba(255,255,255,0.8), 2, 0.5, 0, 0);">
+                                                <image>
+                                                    <Image url="@../../Images/icons8-product-64.png" />
+                                                </image>
+                                            </ImageView>
+                                        </StackPane>
+                                    </children>
+                                </HBox>
                             </graphic>
                             <font>
-                                <Font size="14.0" />
+                                <Font name="System" size="15.0" />
                             </font>
                             <padding>
-                                <Insets bottom="15.0" left="40.0" right="20.0" top="15.0" />
+                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                             </padding>
                         </JFXButton>
-                        <JFXButton fx:id="btnPermission" alignment="CENTER_LEFT" onAction="#handlePermission" prefHeight="40.0" prefWidth="280.0" text="Quyền" textFill="WHITE">
+
+                        <!-- Categories Button -->
+                        <JFXButton fx:id="btnCategories" alignment="CENTER_LEFT" onAction="#handleCategories" prefHeight="50.0" prefWidth="280.0" styleClass="sidebar-button" text="Danh mục sản phẩm" textFill="#F5ECE3">
                             <graphic>
-                                <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@../../Images/icon-role.png" />
-                                    </image>
-                                </ImageView>
+                                <HBox alignment="CENTER_LEFT" spacing="12.0">
+                                    <children>
+                                        <StackPane prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #cd853f; -fx-background-radius: 6;">
+                                            <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, rgba(255,255,255,0.8), 2, 0.5, 0, 0);">
+                                                <image>
+                                                    <Image url="@../../Images/icons8-category-64.png" />
+                                                </image>
+                                            </ImageView>
+                                        </StackPane>
+                                    </children>
+                                </HBox>
                             </graphic>
                             <font>
-                                <Font size="14.0" />
+                                <Font name="System" size="15.0" />
                             </font>
                             <padding>
-                                <Insets bottom="15.0" left="40.0" right="20.0" top="15.0" />
+                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                            </padding>
+                        </JFXButton>
+
+                        <!-- Employees Button -->
+                        <JFXButton fx:id="btnEmployees" alignment="CENTER_LEFT" onAction="#handleEmployees" prefHeight="50.0" prefWidth="280.0" styleClass="sidebar-button" text="Nhân viên" textFill="#F5ECE3">
+                            <graphic>
+                                <HBox alignment="CENTER_LEFT" spacing="12.0">
+                                    <children>
+                                        <StackPane prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #d2691e; -fx-background-radius: 6;">
+                                            <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, rgba(255,255,255,0.8), 2, 0.5, 0, 0);">
+                                                <image>
+                                                    <Image url="@../../Images/icons8-employees-48.png" />
+                                                </image>
+                                            </ImageView>
+                                        </StackPane>
+                                    </children>
+                                </HBox>
+                            </graphic>
+                            <font>
+                                <Font name="System" size="15.0" />
+                            </font>
+                            <padding>
+                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                            </padding>
+                        </JFXButton>
+
+                        <!-- Orders Button -->
+                        <JFXButton fx:id="btnOrders" alignment="CENTER_LEFT" onAction="#handleOrders" prefHeight="50.0" prefWidth="280.0" styleClass="sidebar-button" text="Quản lý đơn hàng" textFill="#F5ECE3">
+                            <graphic>
+                                <HBox alignment="CENTER_LEFT" spacing="12.0">
+                                    <children>
+                                        <StackPane prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #b8860b; -fx-background-radius: 6;">
+                                            <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, rgba(255,255,255,0.8), 2, 0.5, 0, 0);">
+                                                <image>
+                                                    <Image url="@../../Images/icons8-order-64.png" />
+                                                </image>
+                                            </ImageView>
+                                        </StackPane>
+                                    </children>
+                                </HBox>
+                            </graphic>
+                            <font>
+                                <Font name="System" size="15.0" />
+                            </font>
+                            <padding>
+                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                            </padding>
+                        </JFXButton>
+
+                        <!-- Revenue Button -->
+                        <JFXButton fx:id="btnRevenue" alignment="CENTER_LEFT" onAction="#handleRevenue" prefHeight="50.0" prefWidth="280.0" styleClass="sidebar-button" text="Doanh thu" textFill="#F5ECE3">
+                            <graphic>
+                                <HBox alignment="CENTER_LEFT" spacing="12.0">
+                                    <children>
+                                        <StackPane prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #daa520; -fx-background-radius: 6;">
+                                            <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, rgba(255,255,255,0.8), 2, 0.5, 0, 0);">
+                                                <image>
+                                                    <Image url="@../../Images/icon-revenue-1.png" />
+                                                </image>
+                                            </ImageView>
+                                        </StackPane>
+                                    </children>
+                                </HBox>
+                            </graphic>
+                            <font>
+                                <Font name="System" size="15.0" />
+                            </font>
+                            <padding>
+                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                            </padding>
+                        </JFXButton>
+
+                        <!-- Role Permission Button -->
+                        <JFXButton fx:id="btnRolePermission" alignment="CENTER_LEFT" onAction="#handleRolePermissions" prefHeight="50.0" prefWidth="280.0" styleClass="sidebar-button" text="Phân quyền" textFill="#F5ECE3">
+                            <graphic>
+                                <HBox alignment="CENTER_LEFT" spacing="12.0">
+                                    <children>
+                                        <StackPane prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #9370db; -fx-background-radius: 6;">
+                                            <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, rgba(255,255,255,0.8), 2, 0.5, 0, 0);">
+                                                <image>
+                                                    <Image url="@../../Images/icon-role.png" />
+                                                </image>
+                                            </ImageView>
+                                        </StackPane>
+                                    </children>
+                                </HBox>
+                            </graphic>
+                            <font>
+                                <Font name="System" size="15.0" />
+                            </font>
+                            <padding>
+                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                            </padding>
+                        </JFXButton>
+
+                        <!-- Sub Menu -->
+                        <VBox fx:id="permissionsSubMenu" managed="false" style="-fx-background-color: #1A0F08; -fx-background-radius: 8; -fx-border-color: #4a2c17; -fx-border-radius: 8; -fx-border-width: 1;" visible="false">
+                            <padding>
+                                <Insets bottom="5.0" top="5.0" />
+                            </padding>
+                            <children>
+                                <JFXButton fx:id="btnAccounts" alignment="CENTER_LEFT" onAction="#handleAccounts" prefHeight="45.0" prefWidth="280.0" styleClass="sidebar-sub-button" text="Tài khoản" textFill="#C8C8C8">
+                                    <graphic>
+                                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                            <children>
+                                                <Region prefWidth="15.0" />
+                                                <Circle fill="#D4A017" radius="3.0" />
+                                                <ImageView fitHeight="14.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, rgba(255,255,255,0.8), 2, 0.5, 0, 0);">
+                                                    <image>
+                                                        <Image url="@../../Images/icons8-account-64.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </children>
+                                        </HBox>
+                                    </graphic>
+                                    <font>
+                                        <Font size="13.0" />
+                                    </font>
+                                    <padding>
+                                        <Insets bottom="8.0" left="20.0" right="20.0" top="8.0" />
+                                    </padding>
+                                </JFXButton>
+
+                                <JFXButton fx:id="btnRole" alignment="CENTER_LEFT" onAction="#handleRole" prefHeight="45.0" prefWidth="280.0" styleClass="sidebar-sub-button" text="Vai trò" textFill="#C8C8C8">
+                                    <graphic>
+                                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                            <children>
+                                                <Region prefWidth="15.0" />
+                                                <Circle fill="#D4A017" radius="3.0" />
+                                                <ImageView fitHeight="14.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, rgba(255,255,255,0.8), 2, 0.5, 0, 0);">
+                                                    <image>
+                                                        <Image url="@../../Images/icon-role.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </children>
+                                        </HBox>
+                                    </graphic>
+                                    <font>
+                                        <Font size="13.0" />
+                                    </font>
+                                    <padding>
+                                        <Insets bottom="8.0" left="20.0" right="20.0" top="8.0" />
+                                    </padding>
+                                </JFXButton>
+
+                                <JFXButton fx:id="btnPermission" alignment="CENTER_LEFT" onAction="#handlePermission" prefHeight="45.0" prefWidth="280.0" styleClass="sidebar-sub-button" text="Quyền" textFill="#C8C8C8">
+                                    <graphic>
+                                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                            <children>
+                                                <Region prefWidth="15.0" />
+                                                <Circle fill="#D4A017" radius="3.0" />
+                                                <ImageView fitHeight="14.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, rgba(255,255,255,0.8), 2, 0.5, 0, 0);">
+                                                    <image>
+                                                        <Image url="@../../Images/icon-role.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </children>
+                                        </HBox>
+                                    </graphic>
+                                    <font>
+                                        <Font size="13.0" />
+                                    </font>
+                                    <padding>
+                                        <Insets bottom="8.0" left="20.0" right="20.0" top="8.0" />
+                                    </padding>
+                                </JFXButton>
+                            </children>
+                        </VBox>
+                    </children>
+                </VBox>
+
+                <!-- Spacer -->
+                <Region VBox.vgrow="ALWAYS" />
+
+                <!-- Bottom Section -->
+                <VBox spacing="5.0">
+                    <children>
+                        <!-- Settings Button -->
+                        <JFXButton fx:id="btnSetting" alignment="CENTER_LEFT" onAction="#handleSetting" prefHeight="50.0" prefWidth="280.0" styleClass="sidebar-button" text="Cài đặt" textFill="#F5ECE3">
+                            <graphic>
+                                <HBox alignment="CENTER_LEFT" spacing="12.0">
+                                    <children>
+                                        <StackPane prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #696969; -fx-background-radius: 6;">
+                                            <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, rgba(255,255,255,0.8), 2, 0.5, 0, 0);">
+                                                <image>
+                                                    <Image url="@../../Images/icon-setting-25.png" />
+                                                </image>
+                                            </ImageView>
+                                        </StackPane>
+                                    </children>
+                                </HBox>
+                            </graphic>
+                            <font>
+                                <Font name="System" size="15.0" />
+                            </font>
+                            <padding>
+                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                            </padding>
+                        </JFXButton>
+
+                        <!-- Logout Button -->
+                        <JFXButton fx:id="btnLogOut" alignment="CENTER_LEFT" onAction="#handleLogOut" prefHeight="50.0" prefWidth="280.0" styleClass="sidebar-button" text="Đăng xuất" textFill="#E57373">
+                            <graphic>
+                                <HBox alignment="CENTER_LEFT" spacing="12.0">
+                                    <children>
+                                        <StackPane prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #E57373; -fx-background-radius: 6;">
+                                            <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, rgba(255,255,255,0.8), 2, 0.5, 0, 0);">
+                                                <image>
+                                                    <Image url="@../../Images/icons8-log-out-48.png" />
+                                                </image>
+                                            </ImageView>
+                                        </StackPane>
+                                    </children>
+                                </HBox>
+                            </graphic>
+                            <font>
+                                <Font name="System" size="15.0" />
+                            </font>
+                            <padding>
+                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                             </padding>
                         </JFXButton>
                     </children>
                 </VBox>
-                <JFXButton fx:id="btnSetting" alignment="CENTER_LEFT" onAction="#handleSetting" prefHeight="40.0" prefWidth="280.0" text="Cài đặt" textFill="WHITE">
-                    <graphic>
-                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../../Images/icon-setting-25.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                    <font>
-                        <Font size="16.0" />
-                    </font>
-                    <padding>
-                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                    </padding>
-                </JFXButton>
-                <JFXButton fx:id="btnLogOut" alignment="CENTER_LEFT" onAction="#handleLogOut" prefHeight="40.0" prefWidth="280.0" text="Đăng xuất" textFill="WHITE">
-                    <graphic>
-                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../../Images/icons8-log-out-48.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                    <font>
-                        <Font size="16.0" />
-                    </font>
-                    <padding>
-                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                    </padding>
-                </JFXButton>
             </children>
         </VBox>
     </left>
     <center>
-        <StackPane fx:id="centerPane">
+        <StackPane fx:id="centerPane" style="-fx-background-color: #F5ECE3; -fx-background-radius: 10;">
             <fx:include source="../Dashboard/dashboard.fxml" />
             <padding>
                 <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

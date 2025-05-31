@@ -4,138 +4,150 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<StackPane prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxapp.Controller.Admin.Role.RolePermissionController">
-    <VBox style="-fx-background-color: #F9FAFB;">
-        <children>
-            <Button fx:id="btnId" />
-            <!-- Header -->
-            <HBox alignment="CENTER_LEFT" prefHeight="80.0" style="-fx-background-color: white;">
-                <effect>
-                    <DropShadow>
-                        <color>
-                            <Color opacity="0.1" />
-                        </color>
-                    </DropShadow>
-                </effect>
-                <children>
-                    <Label style="-fx-text-fill: #111827;" text="Phân quyền">
-                        <font>
-                            <Font name="Segoe UI Bold" size="28.0" />
-                        </font>
-                        <HBox.margin>
-                            <Insets left="30.0" />
-                        </HBox.margin>
-                    </Label>
-                    <Region HBox.hgrow="ALWAYS" />
-                </children>
-                <padding>
-                    <Insets bottom="10.0" top="10.0" />
-                </padding>
-            </HBox>
+<VBox prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"  stylesheets="@../../Styles/rolePermission.css" fx:controller="com.example.javafxapp.Controller.Admin.Role.RolePermissionController">
+    <children>
+        <!-- Header -->
+        <HBox alignment="CENTER_LEFT" prefHeight="100.0" style="-fx-background-color: linear-gradient(to right, #6B21A8, #3B82F6); -fx-border-color: transparent; -fx-border-width: 0;">
+            <effect>
+                <DropShadow blurType="GAUSSIAN" color="#00000015" radius="12" spread="0.2" />
+            </effect>
+            <children>
+                <Label style="-fx-text-fill: #FFFFFF;" text="Phân Quyền Hệ Thống">
+                    <font>
+                        <Font name="Poppins Bold" size="32.0" />
+                    </font>
+                    <HBox.margin>
+                        <Insets left="30.0" />
+                    </HBox.margin>
+                </Label>
+                <Region HBox.hgrow="ALWAYS" />
+                <Label fx:id="lblCurrentDate" style="-fx-text-fill: #FFFFFF;" text="30/05/2025">
+                    <font>
+                        <Font name="Poppins Medium" size="16.0" />
+                    </font>
+                    <HBox.margin>
+                        <Insets right="30.0" />
+                    </HBox.margin>
+                </Label>
+            </children>
+            <padding>
+                <Insets bottom="20.0" top="20.0" />
+            </padding>
+        </HBox>
 
-            <!-- Main Content -->
-            <VBox spacing="20.0" VBox.vgrow="ALWAYS">
-                <padding>
-                    <Insets bottom="25.0" left="30.0" right="30.0" top="25.0" />
-                </padding>
-                <children>
-                    <!-- Role Selection Panel (can be added if needed) -->
-                    <HBox alignment="CENTER_LEFT" spacing="15.0" style="-fx-background-color: #EFF6FF; -fx-background-radius: 8; -fx-border-color: #BFDBFE; -fx-border-radius: 8;">
+        <!-- Main Content -->
+        <VBox spacing="30.0" VBox.vgrow="ALWAYS">
+            <padding>
+                <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+            </padding>
+            <children>
+                <!-- Role Selection Panel -->
+                <HBox alignment="CENTER_LEFT" spacing="20.0" style="-fx-background-color: #F5F3FF; -fx-background-radius: 14; -fx-border-color: linear-gradient(to right, #6B21A8, #3B82F6); -fx-border-radius: 14; -fx-border-width: 1.5;">
+                    <padding>
+                        <Insets bottom="20.0" left="25.0" right="25.0" top="20.0" />
+                    </padding>
+                    <children>
+                        <Label style="-fx-text-fill: #1F2937;" text="Vai trò đang chỉnh sửa:">
+                            <font>
+                                <Font name="Poppins Medium" size="16.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="lblCurrentRole" style="-fx-text-fill: #6B21A8; -fx-background-color: #EDE9FE; -fx-background-radius: 6; -fx-padding: 6 12 6 12;" text="Quản trị viên">
+                            <font>
+                                <Font name="Poppins Bold" size="16.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
+
+                <!-- Permission Management Card -->
+                <VBox style="-fx-background-color: #FFFFFF; -fx-background-radius: 14; -fx-border-color: #E5E7EB; -fx-border-radius: 14; -fx-border-width: 1;">
+                    <effect>
+                        <DropShadow blurType="GAUSSIAN" color="#00000010" radius="10" spread="0.2" />
+                    </effect>
+
+                    <!-- Card Header -->
+                    <HBox alignment="CENTER_LEFT" style="-fx-background-color: linear-gradient(to right, #F5F3FF, #DBEAFE); -fx-background-radius: 14 14 0 0;">
                         <padding>
-                            <Insets bottom="15.0" left="20.0" right="20.0" top="15.0" />
+                            <Insets bottom="20.0" left="25.0" right="25.0" top="20.0" />
                         </padding>
                         <children>
-                            <Label style="-fx-text-fill: #1E40AF;" text="Vai trò đang chỉnh sửa:">
+                            <Label style="-fx-text-fill: #1F2937;" text="Quản lý quyền hạn">
                                 <font>
-                                    <Font name="Segoe UI" size="16.0" />
+                                    <Font name="Poppins Bold" size="22.0" />
                                 </font>
                             </Label>
-                            <Label fx:id="lblCurrentRole" style="-fx-text-fill: #1E40AF;" text="Quản trị viên">
+                            <Region HBox.hgrow="ALWAYS" />
+                            <CheckBox fx:id="checkboxSelectAll" onAction="#selectAll" styleClass="custom-checkbox" text="Chọn tất cả">
                                 <font>
-                                    <Font name="Segoe UI Bold" size="16.0" />
+                                    <Font name="Poppins Medium" size="14.0" />
                                 </font>
-                            </Label>
+                            </CheckBox>
                         </children>
                     </HBox>
 
-                    <!-- Permission Management Card -->
-                    <VBox style="-fx-background-color: white; -fx-background-radius: 8; -fx-border-radius: 8;">
-                        <effect>
-                            <DropShadow>
-                                <color>
-                                    <Color opacity="0.05" />
-                                </color>
-                            </DropShadow>
-                        </effect>
+                    <Separator style="-fx-background-color: linear-gradient(to right, #6B21A8, #3B82F6);" />
 
-                        <!-- Card Header -->
-                        <HBox alignment="CENTER_LEFT" style="-fx-background-color: #F3F4F6; -fx-background-radius: 8 8 0 0;">
-                            <padding>
-                                <Insets bottom="15.0" left="20.0" right="20.0" top="15.0" />
-                            </padding>
-                            <children>
-                                <Label style="-fx-text-fill: #111827;" text="Quyền hạn">
-                                    <font>
-                                        <Font name="Segoe UI Bold" size="18.0" />
-                                    </font>
-                                </Label>
-                                <Region HBox.hgrow="ALWAYS" />
-                                <CheckBox fx:id="checkboxSelectAll" onAction="#selectAll" text="Chọn tất cả">
-                                    <font>
-                                        <Font name="Segoe UI" size="14.0" />
-                                    </font>
-                                </CheckBox>
-                            </children>
-                        </HBox>
+                    <!-- Permissions GridPane inside ScrollPane -->
+                    <ScrollPane fx:id="scroll" fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent;" VBox.vgrow="ALWAYS">
+                        <content>
+                            <GridPane fx:id="checkboxContainer" hgap="30.0" vgap="20.0" alignment="TOP_LEFT">
+                                <padding>
+                                    <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                                </padding>
+                                <!-- Checkboxes will be added dynamically via Java code -->
+                            </GridPane>
+                        </content>
+                    </ScrollPane>
+                </VBox>
+            </children>
+        </VBox>
 
-                        <Separator />
-
-                        <!-- Permissions ScrollPane -->
-                        <ScrollPane fx:id="scroll" fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent;" VBox.vgrow="ALWAYS">
-                            <content>
-                                <VBox fx:id="checkboxContainer" spacing="15.0">
-                                    <padding>
-                                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                                    </padding>
-                                    <!-- Checkbox groups will be added here via Java code -->
-                                </VBox>
-                            </content>
-                        </ScrollPane>
-                    </VBox>
-                </children>
-            </VBox>
-
-            <!-- Footer with Save Button -->
-            <HBox alignment="CENTER_RIGHT" style="-fx-background-color: white; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 0 0;">
-                <padding>
-                    <Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />
-                </padding>
-                <children>
-                    <JFXButton fx:id="btnCancel" onAction="#handleCancel" style="-fx-background-color: #F3F4F6; -fx-text-fill: #374151; -fx-background-radius: 6;" text="Hủy">
-                        <font>
-                            <Font name="Segoe UI Bold" size="14.0" />
-                        </font>
-                        <padding>
-                            <Insets bottom="12.0" left="25.0" right="25.0" top="12.0" />
-                        </padding>
-                        <HBox.margin>
-                            <Insets right="15.0" />
-                        </HBox.margin>
-                    </JFXButton>
-                    <JFXButton fx:id="btnSavePermission" onAction="#handleSavePermissions" style="-fx-background-color: #059669; -fx-text-fill: white; -fx-background-radius: 6;" text="Lưu thay đổi">
-                        <font>
-                            <Font name="Segoe UI Bold" size="14.0" />
-                        </font>
-                        <padding>
-                            <Insets bottom="12.0" left="25.0" right="25.0" top="12.0" />
-                        </padding>
-                    </JFXButton>
-                </children>
-            </HBox>
-        </children>
-    </VBox>
-</StackPane>
+        <!-- Footer with Buttons -->
+        <HBox alignment="CENTER_RIGHT" style="-fx-background-color: #FFFFFF; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 0 0;">
+            <padding>
+                <Insets bottom="30.0" left="40.0" right="40.0" top="30.0" />
+            </padding>
+            <children>
+                <JFXButton fx:id="btnCancel" onAction="#handleCancel" style="-fx-background-color: #F3F4F6; -fx-text-fill: #374151; -fx-background-radius: 10; -fx-cursor: hand;" styleClass="button-hover" text="Hủy">
+                    <font>
+                        <Font name="Poppins Bold" size="14.0" />
+                    </font>
+                    <padding>
+                        <Insets bottom="14.0" left="30.0" right="30.0" top="14.0" />
+                    </padding>
+                    <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0">
+                            <image>
+                                <Image url="@../../Images/icon-cancel.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <HBox.margin>
+                        <Insets right="20.0" />
+                    </HBox.margin>
+                </JFXButton>
+                <JFXButton fx:id="btnSavePermission" onAction="#handleSavePermissions" style="-fx-background-color: linear-gradient(to right, #6B21A8, #3B82F6); -fx-text-fill: #FFFFFF; -fx-background-radius: 10; -fx-cursor: hand;" styleClass="button-hover" text="Lưu thay đổi">
+                    <font>
+                        <Font name="Poppins Bold" size="14.0" />
+                    </font>
+                    <padding>
+                        <Insets bottom="14.0" left="30.0" right="30.0" top="14.0" />
+                    </padding>
+                    <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0">
+                            <image>
+                                <Image url="@../../Images/icon-save.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </JFXButton>
+            </children>
+        </HBox>
+    </children>
+</VBox>
