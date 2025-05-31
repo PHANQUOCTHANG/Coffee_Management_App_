@@ -101,7 +101,7 @@
                                 </children>
                             </HBox>
                             <JFXButton onAction="#searchPermission" prefHeight="40.0" prefWidth="120.0"
-                                       styleClass="primary-button" text="Tìm kiếm">
+                                       styleClass="search-button" text="Tìm kiếm">
                                 <font>
                                     <Font name="System Bold" size="14.0"/>
                                 </font>

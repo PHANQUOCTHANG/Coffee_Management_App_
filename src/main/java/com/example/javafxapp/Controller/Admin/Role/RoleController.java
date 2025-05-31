@@ -86,7 +86,7 @@ public class RoleController implements Initializable {
             box.setAlignment(Pos.CENTER);
 
             JFXButton updateBtn = new JFXButton("Sửa");
-            updateBtn.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-padding : 10px ");
+            updateBtn.setStyle("-fx-background-color:#2196F3; -fx-text-fill: white; -fx-padding : 10px ");
             updateBtn.setOnAction(e -> updateRole(r));
 
             JFXButton deleteBtn = new JFXButton("Xóa");

@@ -33,7 +33,7 @@
 
 /* ====== Buttons ====== */
 .primary-button {
-    -fx-background-color: #0051CE;
+    -fx-background-color: #4CAF50;
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-border-radius: 4px;
@@ -44,11 +44,11 @@
 }
 
 .primary-button:hover {
-    -fx-background-color: #0042A8;
+    -fx-background-color: #27ae60 ;
 }
 
 .delete-button {
-    -fx-background-color: #E53E3E;
+    -fx-background-color: #e74c3c;
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-border-radius: 4px;
@@ -58,17 +58,7 @@
 }
 
 .delete-button:hover {
-    -fx-background-color: #C53030;
-}
-
-.search-button {
-    -fx-background-color: #0051CE;
-    -fx-text-fill: white;
-    -fx-font-weight: bold;
-    -fx-border-radius: 4px;
-    -fx-background-radius: 4px;
-    -fx-padding: 8px 16px;
-    -fx-cursor: hand;
+    -fx-background-color: #ff4d4d;
 }
 
 .reset-button {
@@ -426,7 +416,7 @@ HBox#top {
 
 /* Buttons */
 .primary-button {
-    -fx-background-color: #D4A017;
+    -fx-background-color: #4CAF50;
     -fx-background-radius: 8;
     -fx-text-fill: #FFFFFF;
     -fx-cursor: hand;
@@ -434,15 +424,15 @@ HBox#top {
 }
 
 .primary-button:hover {
-    -fx-background-color: #E8B923;
+    -fx-background-color: #27ae60;
 }
 
 .primary-button:pressed {
-    -fx-background-color: #B8860B;
+    -fx-background-color: #2ecc71;
 }
 
 .delete-button {
-    -fx-background-color: #E57373;
+    -fx-background-color: #e74c3c;
     -fx-background-radius: 8;
     -fx-text-fill: #FFFFFF;
     -fx-cursor: hand;
@@ -450,17 +440,20 @@ HBox#top {
 }
 
 .delete-button:hover {
-    -fx-background-color: #FF8A80;
+    -fx-background-color: #ff4d4d;
 }
 
 .delete-button:pressed {
-    -fx-background-color: #D32F2F;
+    -fx-background-color: #c0392b;
 }
 
 .search-button {
     -fx-background-color: #5C4033;
-    -fx-background-radius: 8;
     -fx-text-fill: #FFFFFF;
+    -fx-font-weight: bold;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 8;
+    -fx-padding: 8px 16px;
     -fx-cursor: hand;
     -fx-transition: all 0.3s ease-in-out;
 }

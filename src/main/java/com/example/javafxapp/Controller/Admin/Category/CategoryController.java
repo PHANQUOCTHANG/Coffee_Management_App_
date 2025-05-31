@@ -118,7 +118,7 @@ public class CategoryController implements Initializable {
             actionBox.setAlignment(Pos.CENTER);
 
             JFXButton updateButton = new JFXButton("Sửa");
-            updateButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-padding : 10px ");
+            updateButton.setStyle("-fx-background-color: #2196F3; -fx-text-fill: white; -fx-padding : 10px ");
             updateButton.setOnAction(event -> updateCategory(category));
 
             JFXButton deleteButton = new JFXButton("Xóa");

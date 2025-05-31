@@ -82,7 +82,7 @@
                                     <TextField fx:id="searchField" onAction="#searchEmployee" promptText="Tìm kiếm theo tên nhân viên" style="-fx-background-color: transparent; -fx-font-size: 14px;" HBox.hgrow="ALWAYS" />
                                 </children>
                             </HBox>
-                            <JFXButton onAction="#searchEmployee" prefHeight="40.0" prefWidth="120.0" styleClass="primary-button" text="Tìm kiếm">
+                            <JFXButton onAction="#searchEmployee" prefHeight="40.0" prefWidth="120.0" styleClass="search-button" text="Tìm kiếm">
                                 <font>
                                     <Font name="System Bold" size="14.0" />
                                 </font>
