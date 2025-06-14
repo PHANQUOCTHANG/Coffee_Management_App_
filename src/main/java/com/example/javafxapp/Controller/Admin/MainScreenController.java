@@ -149,8 +149,9 @@ public class MainScreenController {
     public void handleOrders() {
         System.out.println("Order Management button clicked");
         //        loadCenterContent("/com/example/javafxapp/view/admin/order/order.fxml");
-        loadCenterContent("/com/example/javafxapp/view/orders/orders.fxml");
-        // Thêm logic chuyển sang trang quản lý đơn hàng
+        // loadCenterContent("/com/example/javafxapp/view/orders/orders.fxml");
+        // // Thêm logic chuyển sang trang quản lý đơn hàng
+        handleAddOrder();
         setActiveButton(btnOrders);
     }
 

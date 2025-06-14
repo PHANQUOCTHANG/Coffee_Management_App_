@@ -167,11 +167,11 @@ public class ProductController implements Initializable {
                     imageView.setImage(image);
                 } else {
                     // Hình ảnh mặc định nếu không tìm thấy
-                    imageView.setImage(new Image(getClass().getResourceAsStream("/Images/product-placeholder.png")));
+                    imageView.setImage(new Image(new File("Images/product-placeholder.png").toURI().toString()));
                 }
             } else {
                 // Hình ảnh mặc định nếu không có
-                imageView.setImage(new Image(getClass().getResourceAsStream("/Images/product-placeholder.png")));
+                imageView.setImage(new Image(new File("Images/product-placeholder.png").toURI().toString()));
             }
 
             // Cấu hình hiển thị hình ảnh

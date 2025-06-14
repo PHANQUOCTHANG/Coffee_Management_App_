@@ -149,6 +149,22 @@ CREATE TABLE OrderUser_Product(
     FOREIGN KEY (product_id) REFERENCES Product(product_id) ON DELETE CASCADE
 ) ;
 
+------- UPDATE ----------
+alter table Orders
+add column payment_method varchar(100) character set utf8mb4 default 'Cash' after status;
+-- after update
+--  CREATE TABLE Orders (
+--     id INT AUTO_INCREMENT PRIMARY KEY,
+--     user_id INT,
+--     total_amount DECIMAL(10, 2),
+--     status ENUM('Pending', 'Processing', 'Completed', 'Cancelled') DEFAULT 'Pending',
+--     [payment_method VARCHAR(100) CHARACTER SET utf8mb4 DEFAULT 'Cash',]
+--     order_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     FOREIGN KEY (user_id) REFERENCES Account(id)
+-- );
+
+------------------------
+
 SET SQL_SAFE_UPDATES = 0 ;
 delete from product ;
 

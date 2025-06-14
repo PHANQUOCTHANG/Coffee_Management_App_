@@ -1,224 +1,564 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextArea?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1250.0" style="-fx-background-color: #F3F4F6;" stylesheets="@../Styles/productManagement.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxapp.Controller.Admin.Order.OrderController">
-    <children>
-        <HBox alignment="CENTER_LEFT" maxHeight="55.0" maxWidth="1245.0" prefHeight="70.0" prefWidth="1095.0">
-            <children>
-                <Label prefHeight="50.0" prefWidth="276.0" style="-fx-font-size: 20px;" text="Danh sách hoá đơn">
-                    <font>
-                        <Font name="Arial" size="20.0" />
-                    </font>
-                    <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                    </padding>
-                </Label>
-            <JFXButton contentDisplay="RIGHT" onAction="#goToOnline" prefHeight="43.0" prefWidth="216.0" style="-fx-background-color: #bfbfbf; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 3); -fx-background-radius: 8px;" text="Xem danh sách trực tuyến">
-               <font>
-                  <Font size="14.0" />
-               </font>
-               <graphic>
-                  <ImageView fitHeight="33.0" fitWidth="27.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../Images/back-icon.jpg" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <effect>
-                  <DropShadow />
-               </effect>
-            </JFXButton>
-                <HBox alignment="TOP_RIGHT" prefHeight="50.0" prefWidth="551.0" />
-                  <JFXButton onAction="#addOrder" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #0051CE;" text="Tạo hoá đơn" textFill="WHITE">
-                      <font>
-                          <Font size="14.0" />
-                      </font>
-                      <graphic>
-                          <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                              <image>
-                                  <Image url="@../Images/circleplus.png" />
-                              </image>
-                          </ImageView>
-                      </graphic>
-                      <HBox.margin>
-                          <Insets left="10.0" />
-                      </HBox.margin>
-                  </JFXButton>
-            </children>
-        </HBox>
-        <VBox maxHeight="1000.0" maxWidth="1245.0" prefHeight="1000.0" prefWidth="1034.0" style="-fx-background-color: #FFFFFF;">
-            <children>
-                <HBox alignment="CENTER_LEFT" maxHeight="51.0" maxWidth="1245.0" prefHeight="100.0" prefWidth="200.0">
-                    <padding>
-                        <Insets left="20.0" />
-                    </padding>
-                    <children>
-                        <HBox alignment="CENTER" prefHeight="43.0" prefWidth="444.0" style="-fx-border-color: grey; -fx-border-radius: 10px;">
-                            <children>
-                                <ImageView fitHeight="31.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@../Images/searchicon.png" />
-                                    </image>
-                                </ImageView>
-                                <TextField fx:id="searchField" prefHeight="41.0" prefWidth="459.0" promptText="Tìm kiếm theo tên" style="-fx-border-color: #ffffff;">
-                                    <font>
-                                        <Font size="18.0" />
-                                    </font>
-                                </TextField>
-                            </children>
-                            <HBox.margin>
-                                <Insets right="15.0" />
-                            </HBox.margin>
-                        </HBox>
-                  <Region prefHeight="43.0" prefWidth="418.0" />
-                  <Label prefHeight="21.0" prefWidth="159.0" text="Lọc theo trạng thái:" textFill="#070707">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                        <ComboBox fx:id="statusComboBox" onAction="#filterAction" prefHeight="42.0" prefWidth="149.0">
-                     <HBox.margin>
-                        <Insets right="20.0" />
-                     </HBox.margin></ComboBox>
-                    </children>
-                    <VBox.margin>
-                        <Insets top="15.0" />
-                    </VBox.margin>
-                </HBox>
-                <HBox maxHeight="51.0" maxWidth="1245.0" prefHeight="100.0" prefWidth="200.0" style="-fx-border-color: grey; -fx-border-width: 0 0 2px;">
-                    <padding>
-                        <Insets left="20.0" right="20.0" />
-                    </padding>
-                    <VBox.margin>
-                        <Insets top="20.0" />
-                    </VBox.margin>
-                </HBox>
-            <HBox alignment="CENTER_LEFT" maxWidth="1247.0" minHeight="55.0" minWidth="1200.0" prefHeight="55.0" prefWidth="1247.0">
+<AnchorPane fx:id="rootPane" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxapp.Controller.Admin.Order.OrderController">
+   <children>
+      <VBox alignment="TOP_CENTER" layoutX="2.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: linear-gradient(to bottom, #f8fafc, #e2e8f0);" stylesheets="@../Styles/productManagement.css">
+          <children>
+              <!-- Header Section -->
+              <HBox alignment="CENTER_LEFT" maxHeight="80.0" maxWidth="1260.0" prefHeight="80.0" prefWidth="1260.0" style="-fx-background-color: white; -fx-background-radius: 12px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 12, 0, 0, 2);">
+                  <children>
+                      <Label prefHeight="50.0" prefWidth="300.0" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #1e293b;" text="Danh sách hoá đơn">
+                          <font>
+                              <Font name="System Bold" size="24.0" />
+                          </font>
+                          <padding>
+                              <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+                          </padding>
+                      </Label>
+                      
+                      <JFXButton contentDisplay="RIGHT" onAction="#goToOnline" prefHeight="45.0" prefWidth="229.0" style="-fx-background-color: linear-gradient(to right, #64748b, #475569); -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 8, 0, 0, 2); -fx-background-radius: 10px; -fx-text-fill: white;" text="Xem danh sách trực tuyến">
+                         <font>
+                            <Font name="System Bold" size="14.0" />
+                         </font>
+                         <graphic>
+                            <ImageView fitHeight="20.0" fitWidth="20.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+                               <image>
+                                  <Image url="@../Images/back-icon.jpg" />
+                               </image>
+                            </ImageView>
+                         </graphic>
+                         <HBox.margin>
+                            <Insets left="10.0" />
+                         </HBox.margin>
+                      </JFXButton>
+                      
+                      <HBox alignment="TOP_RIGHT" prefHeight="50.0" prefWidth="580.0" />
+                      
+                      <JFXButton onAction="#addOrder" prefHeight="45.0" prefWidth="160.0" style="-fx-background-color: linear-gradient(to right, #3b82f6, #1d4ed8); -fx-background-radius: 10px; -fx-effect: dropshadow(gaussian, rgba(59,130,246,0.3), 8, 0, 0, 2);" text="Tạo hoá đơn" textFill="WHITE">
+                          <font>
+                              <Font name="System Bold" size="14.0" />
+                          </font>
+                          <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                  <image>
+                                      <Image url="@../Images/circleplus.png" />
+                                  </image>
+                              </ImageView>
+                          </graphic>
+                          <HBox.margin>
+                              <Insets right="20.0" />
+                          </HBox.margin>
+                      </JFXButton>
+                  </children>
+                  <VBox.margin>
+                      <Insets bottom="20.0" left="10.0" right="10.0" top="10.0" />
+                  </VBox.margin>
+              </HBox>
+              
+              <!-- Main Content Container -->
+              <VBox maxHeight="1000.0" maxWidth="1260.0" prefHeight="1000.0" prefWidth="1260.0" style="-fx-background-color: white; -fx-background-radius: 12px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 12, 0, 0, 2);">
+                  <children>
+                      <!-- Search and Filter Section -->
+                      <HBox alignment="CENTER_LEFT" maxHeight="70.0" maxWidth="1260.0" prefHeight="70.0" prefWidth="1260.0" style="-fx-background-color: #f8fafc; -fx-background-radius: 12px 12px 0 0;">
+                          <padding>
+                              <Insets bottom="15.0" left="25.0" right="25.0" top="15.0" />
+                          </padding>
+                          <children>
+                              <HBox alignment="CENTER" prefHeight="45.0" prefWidth="400.0" style="-fx-background-color: white; -fx-background-radius: 25px; -fx-border-color: #e2e8f0; -fx-border-radius: 25px; -fx-border-width: 1.5px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0, 0, 1);">
+                                  <padding>
+                                      <Insets left="20.0" right="20.0" />
+                                  </padding>
+                                  <children>
+                                      <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                          <image>
+                                              <Image url="@../images/searchicon.png" />
+                                          </image>
+                                          <HBox.margin>
+                                              <Insets right="12.0" />
+                                          </HBox.margin>
+                                      </ImageView>
+                                      <TextField fx:id="searchField" prefHeight="45.0" promptText="Tìm kiếm theo tên sản phẩm..." style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-prompt-text-fill: #94a3b8;" HBox.hgrow="ALWAYS">
+                                          <font>
+                                              <Font size="14.0" />
+                                          </font>
+                                      </TextField>
+                                  </children>
+                              </HBox>
+                              
+                              <JFXButton onAction="#filt" prefHeight="45.0" prefWidth="90.0" style="-fx-background-color: linear-gradient(to right, #6366f1, #4f46e5); -fx-background-radius: 10px; -fx-text-fill: white; -fx-effect: dropshadow(gaussian, rgba(99,102,241,0.25), 6, 0, 0, 2);" text="Lọc">
+                                  <HBox.margin>
+                                      <Insets left="15.0" />
+                                  </HBox.margin>
+                                  <graphic>
+                                      <ImageView fitHeight="18.0" fitWidth="18.0" onDragDetected="#filt" pickOnBounds="true" preserveRatio="true">
+                                          <image>
+                                              <Image url="@../images/filter.png" />
+                                          </image>
+                                      </ImageView>
+                                  </graphic>
+                                  <font>
+                                      <Font name="System Bold" size="12.0" />
+                                  </font>
+                              </JFXButton>
+                          </children>
+                      </HBox>
+                      
+                      <!-- Table Header -->
+                      <HBox alignment="CENTER_LEFT" maxWidth="1260.0" minHeight="60.0" minWidth="1200.0" prefHeight="60.0" prefWidth="1260.0" style="-fx-background-color: #f1f5f9; -fx-border-color: #e2e8f0; -fx-border-width: 0 0 2px 0;">
+                        <children>
+                            <!-- Checkbox ID -->
+                            <JFXCheckBox fx:id="idCheckBox" onAction="#handleTickAll" prefHeight="41.0" prefWidth="60.0" style="-fx-text-fill: #1e293b; -fx-font-weight: bold;" text="ID">
+                                <font>
+                                    <Font name="System Bold" size="16.0" />
+                                </font>
+                                <HBox.margin>
+                                    <Insets left="10.0" right="5.0" />
+                                </HBox.margin>
+                            </JFXCheckBox>
+                            
+                            <!-- StackPane contenant les headers et la barre d'actions -->
+                            <StackPane>
+                                <children>
+                                    <!-- Headers normaux -->
+                                    <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="1175.0">
+                                        <children>
+                                            <!-- Tên người tạo -->
+                                            <VBox alignment="CENTER_LEFT" maxWidth="200.0" minWidth="200.0" prefWidth="200.0">
+                                                <children>
+                                                    <Label alignment="CENTER_LEFT" style="-fx-text-fill: #1e293b; -fx-font-weight: bold;" text="Tên người tạo">
+                                                        <font>
+                                                            <Font name="System Bold" size="16.0" />
+                                                        </font>
+                                                    </Label>
+                                                </children>
+                                                <padding>
+                                                    <Insets left="10.0" right="10.0" />
+                                                </padding>
+                                            </VBox>
+
+                                            <!-- Separator -->
+                                            <Separator orientation="VERTICAL" prefHeight="45.0" style="-fx-background-color: #ecf0f1;" />
+
+                                            <!-- Hình thức thanh toán -->
+                                            <VBox alignment="CENTER" maxWidth="250.0" minWidth="250.0" prefWidth="250.0">
+                                                <children>
+                                                    <Label alignment="CENTER_LEFT" style="-fx-text-fill: #1e293b; -fx-font-weight: bold;" text="Hình thức thanh toán">
+                                                        <font>
+                                                            <Font name="System Bold" size="16.0" />
+                                                        </font>
+                                                    </Label>
+                                                </children>
+                                                <padding>
+                                                    <Insets left="15.0" right="10.0" />
+                                                </padding>
+                                            </VBox>
+
+                                            <!-- Separator -->
+                                            <Separator orientation="VERTICAL" prefHeight="45.0" style="-fx-background-color: #ecf0f1;" />
+
+                                            <!-- Tổng giá -->
+                                            <VBox alignment="CENTER" maxWidth="175.0" minWidth="175.0" prefWidth="175.0">
+                                                <children>
+                                                    <Label alignment="CENTER" style="-fx-text-fill: #1e293b; -fx-font-weight: bold;" text="Tổng giá">
+                                                        <font>
+                                                            <Font name="System Bold" size="16.0" />
+                                                        </font>
+                                                    </Label>
+                                                </children>
+                                                <padding>
+                                                    <Insets left="10.0" right="10.0" />
+                                                </padding>
+                                            </VBox>
+
+                                            <!-- Separator -->
+                                            <Separator orientation="VERTICAL" prefHeight="45.0" style="-fx-background-color: #ecf0f1;" />
+
+                                            <!-- Trạng thái -->
+                                            <VBox alignment="CENTER" maxWidth="200.0" minWidth="200.0" prefWidth="200.0">
+                                                <children>
+                                                    <Label style="-fx-text-fill: #1e293b; -fx-font-weight: bold;" text="Trạng thái">
+                                                        <font>
+                                                            <Font name="System Bold" size="16.0" />
+                                                        </font>
+                                                    </Label>
+                                                </children>
+                                                <padding>
+                                                    <Insets left="10.0" right="10.0" />
+                                                </padding>
+                                            </VBox>
+
+                                            <!-- Separator -->
+                                            <Separator orientation="VERTICAL" prefHeight="45.0" style="-fx-background-color: #ecf0f1;" />
+
+                                            <!-- Thời gian tạo -->
+                                            <VBox alignment="CENTER_LEFT" maxWidth="200.0" minWidth="200.0" prefWidth="200.0">
+                                                <children>
+                                                    <Label alignment="CENTER_LEFT" style="-fx-text-fill: #1e293b; -fx-font-weight: bold;" text="Thời gian tạo">
+                                                        <font>
+                                                            <Font name="System Bold" size="16.0" />
+                                                        </font>
+                                                    </Label>
+                                                </children>
+                                                <padding>
+                                                    <Insets left="15.0" right="10.0" />
+                                                </padding>
+                                            </VBox>
+
+                                            <!-- Separator -->
+                                            <Separator orientation="VERTICAL" prefHeight="45.0" style="-fx-background-color: #ecf0f1;" />
+
+                                            <!-- Hành động -->
+                                            <VBox alignment="CENTER" maxWidth="130.0" minWidth="130.0" prefWidth="130.0">
+                                                <children>
+                                                    <Label alignment="CENTER" style="-fx-text-fill: #1e293b; -fx-font-weight: bold;" text="Hành động">
+                                                        <font>
+                                                            <Font name="System Bold" size="16.0" />
+                                                        </font>
+                                                    </Label>
+                                                </children>
+                                                <padding>
+                                                    <Insets left="10.0" right="15.0" />
+                                                </padding>
+                                            </VBox>
+                                        </children>
+                                    </HBox>
+                                    
+                                    <!-- Selected Items Actions Bar -->
+                                    <HBox fx:id="hboxHandleTicked" alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="1175.0" style="-fx-background-color: linear-gradient(to right, #ecfdf5, #f0fdf4); -fx-background-radius: 8px; -fx-border-color: #10b981; -fx-border-radius: 8px; -fx-border-width: 1px;">
+                                        <children>
+                                            <Label style="-fx-text-fill: #059669; -fx-font-weight: 500;" text="Đã chọn ">
+                                                <font>
+                                                    <Font name="System Bold" size="14.0" />
+                                                </font>
+                                            </Label>
+                                            <Label fx:id="cntTickedLabel" style="-fx-text-fill: #047857; -fx-font-weight: bold;" text="0">
+                                                <HBox.margin>
+                                                    <Insets left="5.0" />
+                                                </HBox.margin>
+                                                <font>
+                                                    <Font name="System Bold" size="16.0" />
+                                                </font>
+                                            </Label>
+                                            <Label style="-fx-text-fill: #059669; -fx-font-weight: 500;" text=" hoá đơn">
+                                                <HBox.margin>
+                                                    <Insets left="5.0" />
+                                                </HBox.margin>
+                                                <font>
+                                                    <Font name="System Bold" size="14.0" />
+                                                </font>
+                                            </Label>
+                                            <JFXButton onAction="#deleteTicked" prefHeight="40.0" prefWidth="90.0" style="-fx-background-color: linear-gradient(to right, #ef4444, #dc2626); -fx-background-radius: 8px; -fx-text-fill: white; -fx-effect: dropshadow(gaussian, rgba(239,68,68,0.25), 6, 0, 0, 2);" text="Xoá">
+                                                <font>
+                                                    <Font name="System Bold" size="12.0" />
+                                                </font>
+                                                <graphic>
+                                                    <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                                        <image>
+                                                            <Image url="@../images/bin.png" />
+                                                        </image>
+                                                    </ImageView>
+                                                </graphic>
+                                                <HBox.margin>
+                                                    <Insets left="15.0" />
+                                                </HBox.margin>
+                                            </JFXButton>
+                                            <JFXButton onAction="#cancelTicked" prefHeight="40.0" prefWidth="90.0" style="-fx-background-color: linear-gradient(to right, #9ca3af, #6b7280); -fx-background-radius: 8px; -fx-text-fill: white; -fx-effect: dropshadow(gaussian, rgba(156,163,175,0.25), 6, 0, 0, 2);" text="Huỷ">
+                                                <font>
+                                                    <Font name="System Bold" size="12.0" />
+                                                </font>
+                                                <HBox.margin>
+                                                    <Insets left="10.0" />
+                                                </HBox.margin>
+                                            </JFXButton>
+                                        </children>
+                                        <padding>
+                                            <Insets left="25.0" />
+                                        </padding>
+                                        <StackPane.margin>
+                                            <Insets right="10.0" />
+                                        </StackPane.margin>
+                                    </HBox>
+                                </children>
+                                <HBox.margin>
+                                    <Insets />
+                                </HBox.margin>
+                            </StackPane>
+                        </children>
+                      </HBox>
+                      
+                      <!-- Table Content -->
+                      <ScrollPane fx:id="scroll" maxHeight="500.0" maxWidth="1260.0" minHeight="320.0" prefHeight="500.0" prefWidth="1260.0" style="-fx-background: white; -fx-background-color: transparent;">
+                          <content>
+                              <GridPane fx:id="grid" prefHeight="23.0" prefWidth="73.0" style="-fx-background-color: white;" styleClass="grid-cell">
+                                  <columnConstraints>
+                                      <ColumnConstraints minWidth="150" prefWidth="150" />
+                                  </columnConstraints>
+                              </GridPane>
+                          </content>
+                      </ScrollPane>
+                      
+                      <!-- Footer Pagination -->
+                      <HBox alignment="CENTER" maxHeight="70.0" maxWidth="1260.0" prefHeight="70.0" prefWidth="1260.0" style="-fx-background-color: #f8fafc; -fx-border-color: #e2e8f0; -fx-border-width: 2px 0 0 0; -fx-background-radius: 0 0 12px 12px;">
+                          <padding>
+                              <Insets left="20.0" right="20.0" />
+                          </padding>
+                          <children>
+                              <JFXButton fx:id="prevBtn" onAction="#prevPage" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: linear-gradient(to right, #8b5cf6, #7c3aed); -fx-background-radius: 8px; -fx-text-fill: white; -fx-effect: dropshadow(gaussian, rgba(139,92,246,0.25), 6, 0, 0, 2);" text="‹">
+                                  <font>
+                                      <Font name="System Bold" size="18.0" />
+                                  </font>
+                              </JFXButton>
+                              
+                              <HBox alignment="CENTER" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 8px; -fx-border-color: #e2e8f0; -fx-border-radius: 8px; -fx-border-width: 1px;">
+                                  <HBox.margin>
+                                      <Insets left="15.0" right="15.0" />
+                                  </HBox.margin>
+                                  <children>
+                                      <Label style="-fx-text-fill: #64748b; -fx-font-weight: 500;" text="Trang ">
+                                          <font>
+                                              <Font name="System Bold" size="14.0" />
+                                          </font>
+                                      </Label>
+                                      <Label fx:id="firstPage" style="-fx-text-fill: #1e293b; -fx-font-weight: bold;" text="1">
+                                          <font>
+                                              <Font name="System Bold" size="14.0" />
+                                          </font>
+                                      </Label>
+                                      <Label style="-fx-text-fill: #64748b; -fx-font-weight: 500;" text=" / ">
+                                          <font>
+                                              <Font name="System Bold" size="14.0" />
+                                          </font>
+                                      </Label>
+                                      <Label fx:id="lastPage" style="-fx-text-fill: #1e293b; -fx-font-weight: bold;" text="10">
+                                          <font>
+                                              <Font name="System Bold" size="14.0" />
+                                          </font>
+                                      </Label>
+                                  </children>
+                              </HBox>
+                              
+                              <JFXButton fx:id="nextBtn" onAction="#nextPage" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: linear-gradient(to right, #8b5cf6, #7c3aed); -fx-background-radius: 8px; -fx-text-fill: white; -fx-effect: dropshadow(gaussian, rgba(139,92,246,0.25), 6, 0, 0, 2);" text="›">
+                                  <font>
+                                      <Font name="System Bold" size="18.0" />
+                                  </font>
+                              </JFXButton>
+                          </children>
+                      </HBox>
+                  </children>
+              </VBox>
+          </children>
+          <padding>
+              <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
+          </padding>
+      </VBox>
+      <VBox fx:id="vboxFilter" layoutX="550.0" layoutY="120.0" prefWidth="374.0" style="-fx-background-color: #BFBFBF; -fx-background-radius: 10px;">
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+         <children>
+            <VBox prefHeight="200.0" style="-fx-background-color: white; -fx-background-radius: 10px;">
                <children>
-                  <Label alignment="CENTER" maxWidth="180.0" minWidth="50.0" prefHeight="41.0" prefWidth="50.0" text="ID ">
+                  <Label text="Điều kiện lọc:">
                      <font>
-                        <Font size="16.0" />
+                        <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
-                  <Label alignment="CENTER" maxWidth="210.0" minWidth="200.0" prefHeight="41.0" prefWidth="198.0" text="Tên người tạo">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </Label>
-                  <Label alignment="CENTER" layoutX="945.0" layoutY="17.0" maxWidth="250.0" minWidth="250.0" prefHeight="41.0" prefWidth="199.0" text="Loại">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </Label>
-                  <Label alignment="CENTER" layoutX="796.0" layoutY="17.0" maxWidth="175.0" minWidth="175.0" prefHeight="37.0" prefWidth="210.0" text="Tổng giá">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </Label>
-                  <HBox alignment="CENTER" maxWidth="200.0" minWidth="200.0" prefHeight="100.0" prefWidth="200.0">
+                  <HBox alignment="CENTER_LEFT" prefHeight="41.0">
                      <children>
-                        <HBox alignment="CENTER" minWidth="150.0" prefHeight="100.0" prefWidth="200.0">
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/role2.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="20.0" prefWidth="66.0" text="Vai trò:">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <HBox alignment="CENTER_RIGHT" prefHeight="38.0" prefWidth="237.0">
                            <children>
-                              <Label text="Trạng thái">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Label>
+                              <JFXComboBox fx:id="roleCheck" prefHeight="25.0" prefWidth="67.0">
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </JFXComboBox>
+                              <JFXComboBox fx:id="roleComboBox" prefHeight="25.0" prefWidth="159.0">
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </JFXComboBox>
                            </children>
                         </HBox>
                      </children>
-                     <padding>
-                        <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-                     </padding>
                   </HBox>
-                  <Label alignment="CENTER" layoutX="673.0" layoutY="10.0" maxWidth="200.0" minWidth="200.0" prefHeight="41.0" prefWidth="225.0" text="Thời gian tạo">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </Label>
-                  <Label alignment="CENTER" layoutX="920.0" layoutY="17.0" maxWidth="170.0" minWidth="170.0" prefHeight="41.0" prefWidth="225.0" text="Hành động">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </Label>
-               </children>
-            </HBox>
-                <ScrollPane fx:id="scroll" maxHeight="709.0" maxWidth="1245.0" minHeight="320.0" prefHeight="709.0" prefWidth="1035.0">
-                    <content>
-                        <GridPane fx:id="grid" prefHeight="23.0" prefWidth="73.0" styleClass="grid-cell">
-                            <columnConstraints>
-                                <ColumnConstraints minWidth="150" prefWidth="150" /> <!-- Hành động -->
-                            </columnConstraints>
-                        </GridPane>
-                    </content>
-                </ScrollPane>
-                <HBox alignment="CENTER_LEFT" maxHeight="258.0" maxWidth="1245.0" prefHeight="23.0" prefWidth="1245.0" style="-fx-border-color: grey; -fx-border-width: 0 0 2px;">
-                    <padding>
-                        <Insets left="20.0" />
-                    </padding>
-               <children>
-                  <HBox prefHeight="100.0" prefWidth="200.0" />
-               </children>
-                </HBox>
-                <HBox alignment="CENTER" maxHeight="51.0" maxWidth="1245.0" prefHeight="100.0" prefWidth="1245.0" style="-fx-border-color: grey; -fx-border-width: 0 0 2px 0;">
-                    <padding>
-                        <Insets left="20.0" right="20.0" />
-                    </padding>
-               <children>
-                  <JFXButton fx:id="prevBtn" onAction="#prevPage" style="-fx-background-color: #945E43;" text="&lt;" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </JFXButton>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="86.0" prefHeight="41.0" prefWidth="268.0">
                      <children>
-                        <Label prefHeight="37.0" prefWidth="54.0" text="Page" textFill="#945e43" />
-                        <Label fx:id="firstPage" layoutX="10.0" layoutY="10.0" prefHeight="37.0" prefWidth="54.0" text="Page" textFill="#945e43" />
-                        <Label layoutX="64.0" layoutY="10.0" prefHeight="37.0" prefWidth="54.0" text="of" textFill="#945e43" />
-                        <Label fx:id="lastPage" layoutX="118.0" layoutY="10.0" prefHeight="37.0" prefWidth="54.0" text="Page" textFill="#945e43" />
+                        <ImageView fitHeight="30.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/price.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="20.0" prefWidth="66.0" text="Tổng giá:">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <HBox alignment="CENTER_RIGHT" prefHeight="38.0" prefWidth="237.0">
+                           <children>
+                              <JFXTextArea fx:id="fromPrice" maxHeight="25.0" prefHeight="39.0" prefWidth="100.0" />
+                              <Label alignment="CENTER" prefHeight="32.0" prefWidth="35.0" text="  -  ">
+                                 <font>
+                                    <Font name="System Bold" size="22.0" />
+                                 </font>
+                              </Label>
+                              <JFXTextArea fx:id="toPrice" layoutX="147.0" layoutY="10.0" maxHeight="25.0" prefHeight="39.0" prefWidth="100.0" />
+                           </children>
+                        </HBox>
                      </children>
                   </HBox>
-                  <JFXButton fx:id="nextBtn" layoutX="619.0" layoutY="10.0" onAction="#nextPage" style="-fx-background-color: #945E43;" text="&gt;" textFill="WHITE">
+                  <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="45.0" prefHeight="41.0" prefWidth="268.0">
+                     <children>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/loading.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="20.0" prefWidth="66.0" text="Trạng thái:">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <HBox alignment="CENTER_RIGHT" prefHeight="38.0" prefWidth="237.0">
+                           <children>
+                              <JFXComboBox fx:id="statusCheck" prefHeight="25.0" prefWidth="67.0">
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </JFXComboBox>
+                              <HBox fx:id="statusComboBox" alignment="CENTER_LEFT" maxHeight="35.0" prefHeight="100.0" prefWidth="177.0" style="-fx-border-color: grey; -fx-border-radius: 10px;">
+                                 <HBox.margin>
+                                    <Insets left="5.0" top="5.0" />
+                                 </HBox.margin>
+                                 <children>
+                                    <HBox fx:id="selectedStatusesHBox" prefHeight="100.0" prefWidth="200.0" />
+                                    <ImageView fitHeight="12.0" fitWidth="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/arrow-down.png" />
+                                       </image>
+                                       <HBox.margin>
+                                          <Insets right="5.0" />
+                                       </HBox.margin>
+                                    </ImageView>
+                                 </children>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </HBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="127.0" prefHeight="41.0" prefWidth="268.0">
+                     <children>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/time.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="20.0" prefWidth="66.0" text="Thời gian:">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <HBox alignment="CENTER_RIGHT" prefHeight="38.0" prefWidth="237.0">
+                           <children>
+                              <DatePicker fx:id="fromDate" prefHeight="25.0" prefWidth="100.0" />
+                              <Label alignment="CENTER" prefHeight="32.0" prefWidth="35.0" text="  -  ">
+                                 <font>
+                                    <Font name="System Bold" size="22.0" />
+                                 </font>
+                              </Label>
+                              <DatePicker fx:id="toDate" layoutX="147.0" layoutY="17.0" prefHeight="25.0" prefWidth="100.0" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </VBox>
+            <HBox prefWidth="354.0">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+               <children>
+                  <JFXButton onAction="#applyFilt" prefHeight="45.0" prefWidth="170.0" style="-fx-background-color: linear-gradient(to right, #6366f1, #4f46e5); -fx-background-radius: 10px; -fx-text-fill: white; -fx-effect: dropshadow(gaussian, rgba(99,102,241,0.25), 6, 0, 0, 2);" text="Áp dụng ">
+                     <graphic>
+                        <ImageView fitHeight="18.0" fitWidth="18.0" onDragDetected="#filt" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/save.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                      <font>
-                        <Font name="System Bold" size="14.0" />
+                        <Font name="System Bold" size="12.0" />
                      </font>
                   </JFXButton>
+                  <JFXButton layoutX="10.0" layoutY="10.0" onAction="#resetFilt" prefHeight="45.0" prefWidth="176.0" style="-fx-background-color: linear-gradient(to right, #9ca3af, #6b7280); -fx-background-radius: 10px; -fx-text-fill: white; -fx-effect: dropshadow(gaussian, rgba(99,102,241,0.25), 6, 0, 0, 2);" text="Lấy lại mặc định">
+                     <graphic>
+                        <ImageView fitHeight="18.0" fitWidth="18.0" onDragDetected="#filt" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/refresh.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </JFXButton>
                </children>
-                </HBox>
-            </children>
-        </VBox>
-    </children>
-    <padding>
-        <Insets top="15.0" />
-    </padding>
-</VBox>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

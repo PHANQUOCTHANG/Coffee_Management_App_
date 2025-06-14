@@ -3,6 +3,8 @@ module com.example.javafxapp {
     requires javafx.fxml;
     requires java.sql;
     requires javafx.graphics;
+    requires javafx.media;
+    requires javafx.web;
 
     requires com.dlsc.formsfx;
     requires com.jfoenix;
@@ -12,32 +14,46 @@ module com.example.javafxapp {
     requires itextpdf;
     requires java.desktop;
     requires com.google.gson;
-    requires javafx.web;
     requires org.json;
     requires jdk.httpserver;
     requires org.apache.poi.ooxml;
     requires Java.WebSocket;
 
-    opens com.example.javafxapp to javafx.fxml;
+    opens com.example.javafxapp to javafx.fxml, javafx.graphics;
+
     exports com.example.javafxapp;
     exports com.example.javafxapp.Controller.Admin;
     exports com.example.javafxapp.Controller.Admin.Order to javafx.fxml;
+
     opens com.example.javafxapp.Controller.Admin to javafx.fxml;
+
     exports com.example.javafxapp.Controller.Client;
+
     opens com.example.javafxapp.Controller.Client to javafx.fxml;
     opens com.example.javafxapp.Controller.Admin.Order to javafx.fxml;
     opens com.example.javafxapp.Model to javafx.base;
-    exports com.example.javafxapp.Controller.Admin.Product;
-    opens com.example.javafxapp.Controller.Admin.Product to javafx.fxml;
-    exports com.example.javafxapp.Controller.Admin.Category;
-    opens com.example.javafxapp.Controller.Admin.Category to javafx.fxml;
-    exports com.example.javafxapp.Controller.Admin.Account;
-    opens com.example.javafxapp.Controller.Admin.Account to javafx.fxml;
-    exports com.example.javafxapp.Controller.Admin.Permissison;
-    opens com.example.javafxapp.Controller.Admin.Permissison to javafx.fxml;
-    exports com.example.javafxapp.Controller.Admin.Role;
-    opens com.example.javafxapp.Controller.Admin.Role to javafx.fxml;
-    exports com.example.javafxapp.Controller.Admin.Employee;
-    opens com.example.javafxapp.Controller.Admin.Employee to javafx.fxml;
 
+    exports com.example.javafxapp.Controller.Admin.Product;
+
+    opens com.example.javafxapp.Controller.Admin.Product to javafx.fxml;
+
+    exports com.example.javafxapp.Controller.Admin.Category;
+
+    opens com.example.javafxapp.Controller.Admin.Category to javafx.fxml;
+
+    exports com.example.javafxapp.Controller.Admin.Account;
+
+    opens com.example.javafxapp.Controller.Admin.Account to javafx.fxml;
+
+    exports com.example.javafxapp.Controller.Admin.Permissison;
+
+    opens com.example.javafxapp.Controller.Admin.Permissison to javafx.fxml;
+
+    exports com.example.javafxapp.Controller.Admin.Role;
+
+    opens com.example.javafxapp.Controller.Admin.Role to javafx.fxml;
+
+    exports com.example.javafxapp.Controller.Admin.Employee;
+
+    opens com.example.javafxapp.Controller.Admin.Employee to javafx.fxml;
 }

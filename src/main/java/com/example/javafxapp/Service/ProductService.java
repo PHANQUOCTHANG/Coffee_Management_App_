@@ -68,4 +68,8 @@ public class ProductService {
     public List<Product> findProductsByKeyword(String keyword) {
         return productRepository.findAllByKeyword(keyword) ;
     }
+
+    public List<Product> getActiveProducts(){
+        return productRepository.getActiveProducts();
+    }
 }

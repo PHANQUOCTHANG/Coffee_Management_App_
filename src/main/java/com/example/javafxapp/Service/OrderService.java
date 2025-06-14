@@ -44,4 +44,16 @@ public class OrderService {
     public List<Order> getOrdersByDateRange(LocalDate from, LocalDate to) {
         return or.getOrdersByDateRange(from , to) ;
     }
+
+    public Order findOrderById(int id){
+        return or.findOrderById(id);
+    }
+
+    public List<Order> getOrder(String roleCheckStr, String roleStr, String fromPriceStr, String toPriceStr, String statusCheckStr, List<String> selectedStatuses, LocalDate fromDateStr, LocalDate toDateStr) {
+        return or.getOrder(roleCheckStr, roleStr, fromPriceStr, toPriceStr, statusCheckStr, selectedStatuses, fromDateStr, toDateStr);
+    }
+
+    public boolean updateOrderPayment(int orderId, String paymentMethod) {
+        return or.updateOrderPayment(orderId, paymentMethod);
+    }
 }

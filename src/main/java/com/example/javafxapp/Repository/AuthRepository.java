@@ -10,15 +10,16 @@ public class AuthRepository {
 
     // check account login .
     public boolean login(String account_name, String password) {
-        String sql = "SELECT * FROM Account WHERE account_name = ?";
+        String sql = "SELECT * FROM Account WHERE account_name = ? AND deleted = ?";
 
         try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, account_name);
+            stmt.setBoolean(2, false);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                String passwordCheck = rs.getString("password") ;
-                return PasswordUtils.checkPassword(password,passwordCheck) ;
+                String passwordCheck = rs.getString("password");
+                return PasswordUtils.checkPassword(password, passwordCheck);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -26,17 +27,18 @@ public class AuthRepository {
         return false;
     }
 
-    public int getId(String userName){
-        String sql = "SELECT id FROM Account WHERE account_name = ?";
+    public int getId(String userName) {
+        String sql = "SELECT id FROM Account WHERE account_name = ? AND deleted = ?";
 
         try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, userName);
+            stmt.setBoolean(2, false);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 return rs.getInt("id");
-            }else {
-                throw new RuntimeException() ;
+            } else {
+                throw new RuntimeException();
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -44,21 +46,21 @@ public class AuthRepository {
         return 0;
     }
 
-    public String getRole(int id){
+    public String getRole(int id) {
         String sql = "SELECT r.role_name " +
-                    "from Account a " +
-                    "left join Role r " +
-                    "on r.role_id = a.role_id " +
-                    "where a.id = ?";
+                "from Account a " +
+                "left join Role r " +
+                "on r.role_id = a.role_id " +
+                "where a.id = ?";
 
         try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 return rs.getString("role_name");
-            }else {
-                throw new RuntimeException() ;
+            } else {
+                throw new RuntimeException();
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -66,17 +68,16 @@ public class AuthRepository {
         return "";
     }
 
-
     // sign up
-    public int signUp (Account account) {
+    public int signUp(Account account) {
         String sql = "INSERT INTO Account (account_name, password, role_id) VALUES (?, ?, ?)";
         int generatedId = -1;
 
         try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             pstmt.setString(1, account.getAccountName());
-            pstmt.setString(2, PasswordUtils.hashPassword( account.getPassword()));
+            pstmt.setString(2, PasswordUtils.hashPassword(account.getPassword()));
             pstmt.setInt(3, account.getRoleId());
             pstmt.executeUpdate();
 
