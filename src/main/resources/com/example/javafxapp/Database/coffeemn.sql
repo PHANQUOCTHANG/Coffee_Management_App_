@@ -149,6 +149,15 @@ CREATE TABLE OrderUser_Product(
     FOREIGN KEY (product_id) REFERENCES Product(product_id) ON DELETE CASCADE
 ) ;
 
+-- Bảng Member
+CREATE TABLE Member (
+        member_id INT AUTO_INCREMENT PRIMARY KEY,
+        member_phone VARCHAR(100) CHARACTER SET utf8mb4 NOT NULL,
+        point INT DEFAULT 0 ,
+        deleted BOOLEAN DEFAULT FALSE
+);
+
+
 SET SQL_SAFE_UPDATES = 0 ;
 delete from product ;
 

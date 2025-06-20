@@ -10,6 +10,9 @@ import com.example.javafxapp.Controller.Admin.Category.UpdateCategoryController;
 import com.example.javafxapp.Controller.Admin.Employee.AddEmployeeController;
 import com.example.javafxapp.Controller.Admin.Employee.EmployeeController ;
 import com.example.javafxapp.Controller.Admin.Employee.UpdateEmployeeController;
+import com.example.javafxapp.Controller.Admin.Member.AddMemberController;
+import com.example.javafxapp.Controller.Admin.Member.MemberController;
+import com.example.javafxapp.Controller.Admin.Member.UpdateMemberController;
 import com.example.javafxapp.Controller.Admin.Permissison.AddPermissionController;
 import com.example.javafxapp.Controller.Admin.Permissison.PermissionController;
 import com.example.javafxapp.Controller.Admin.Permissison.UpdatePermissionController;
@@ -426,6 +429,54 @@ public class Pages {
 
             UpdatePermissionController updatePermissionController = loader.getController() ;
             updatePermissionController.setPermissionController(permissionController);
+
+            Stage stage = new Stage();
+            stage.getIcons().add(new Image(Pages.class.getResourceAsStream("/com/example/javafxapp/view/images/icons.jpg")));
+            stage.setScene(scene);
+            stage.setTitle("Coffee Shop Management");
+            stage.setResizable(false);
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            AlertInfo.showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể mở trang.");
+        }
+    }
+
+    // Member
+    // chuyển qua trang thêm permission .
+    public static void pageAddMember(MemberController memberController) {
+        try {
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/View/Admin/Member/addMember.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+
+            AddMemberController addMemberController = loader.getController() ;
+            addMemberController.setMemberController(memberController);
+
+            Stage stage = new Stage();
+            stage.getIcons().add(new Image(Pages.class.getResourceAsStream("/com/example/javafxapp/view/images/icons.jpg")));
+            stage.setScene(scene);
+            stage.setTitle("Coffee Shop Management");
+            stage.setResizable(false);
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            AlertInfo.showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể mở trang.");
+        }
+    }
+
+    // chuyển qua trang chi tiết permission .
+    public static void pageUpdateMember(int memberId ,MemberController memberController) {
+        try {
+            UpdateMemberController.member_id = memberId ;
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/View/Admin/Member/updateMember.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+
+           UpdateMemberController updateMemberController = loader.getController() ;
+           updateMemberController.setMemberController(memberController);
 
             Stage stage = new Stage();
             stage.getIcons().add(new Image(Pages.class.getResourceAsStream("/com/example/javafxapp/view/images/icons.jpg")));

@@ -39,5 +39,8 @@ module com.example.javafxapp {
     opens com.example.javafxapp.Controller.Admin.Role to javafx.fxml;
     exports com.example.javafxapp.Controller.Admin.Employee;
     opens com.example.javafxapp.Controller.Admin.Employee to javafx.fxml;
+    exports com.example.javafxapp.Controller.Admin.Member;
+    opens com.example.javafxapp.Controller.Admin.Member to javafx.fxml;
+
 
 }

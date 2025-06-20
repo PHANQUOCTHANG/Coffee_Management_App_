@@ -43,6 +43,7 @@ public class Category {
     public String toString() {
         return category_name;
     }
+
     public BooleanProperty selectedProperty() {
         return selected;
     }

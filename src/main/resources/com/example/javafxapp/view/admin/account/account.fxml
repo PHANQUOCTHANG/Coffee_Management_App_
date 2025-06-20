@@ -116,10 +116,18 @@
                             </HBox>
 
                             <JFXButton onAction="#searchAccount" prefHeight="40.0" prefWidth="120.0"
-                                       styleClass="primary-button" text="Tìm kiếm">
+                                       styleClass="search-button" text="Tìm kiếm">
                                 <font>
                                     <Font name="System Bold" size="14.0"/>
                                 </font>
+                            </JFXButton>
+                            <JFXButton fx:id="resetButton" onAction="#handleReset" prefHeight="42.0" styleClass="reset-button" text="Đặt lại">
+                                <font>
+                                    <Font size="14.0" />
+                                </font>
+                                <HBox.margin>
+                                    <Insets left="5.0" />
+                                </HBox.margin>
                             </JFXButton>
                         </children>
                     </HBox>

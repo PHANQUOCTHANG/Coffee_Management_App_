@@ -1,0 +1,587 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+
+<HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="800.0" prefWidth="1400.0" style="-fx-background-color: linear-gradient(135deg, #8B9A6B 0%, #6B7A4B 100%);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" >
+    <children>
+        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: white; -fx-background-radius: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 20, 0, 0, 5);" HBox.hgrow="ALWAYS">
+            <children>
+                <HBox alignment="CENTER_LEFT" prefHeight="80.0" style="-fx-background-color: white; -fx-background-radius: 20 20 0 0;">
+                    <padding>
+                        <Insets bottom="10.0" left="30.0" right="30.0" top="20.0" />
+                    </padding>
+                    <children>
+                        <HBox alignment="CENTER_LEFT" spacing="15">
+                            <children>
+                                <VBox alignment="CENTER_LEFT" spacing="2">
+                                    <children>
+                                        <HBox alignment="CENTER_LEFT" spacing="8">
+                                            <children>
+                                                <Circle fill="#4A7C59" radius="8.0" />
+                                                <Label style="-fx-text-fill: #2D5016;" text="GREEN">
+                                                    <font>
+                                                        <Font name="System Bold" size="16.0" />
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER_LEFT" spacing="8">
+                                            <children>
+                                                <Circle fill="#4A7C59" radius="8.0" />
+                                                <Label style="-fx-text-fill: #2D5016;" text="GROUNDS">
+                                                    <font>
+                                                        <Font name="System Bold" size="16.0" />
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </HBox>
+                                        <Label style="-fx-text-fill: #2D5016;" text="COFFEE">
+                                            <font>
+                                                <Font name="System Bold" size="16.0" />
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </VBox>
+                                <VBox alignment="CENTER_LEFT">
+                                    <children>
+                                        <Label style="-fx-text-fill: #666;" text="Thursday, 23 June">
+                                            <font>
+                                                <Font size="14.0" />
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+
+                        <Region HBox.hgrow="ALWAYS" />
+
+                        <HBox alignment="CENTER" prefWidth="400.0" style="-fx-background-color: #f5f5f5; -fx-background-radius: 25;">
+                            <padding>
+                                <Insets left="20.0" right="20.0" />
+                            </padding>
+                            <children>
+                                <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../Images/bin.png" />
+                                    </image>
+                                </ImageView>
+                                <JFXTextField prefHeight="40.0" promptText="Search" style="-fx-background-color: transparent; -fx-border-color: transparent;" HBox.hgrow="ALWAYS">
+                                    <HBox.margin>
+                                        <Insets left="10.0" />
+                                    </HBox.margin>
+                                </JFXTextField>
+                                <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../Images/bin.png" />
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </HBox>
+
+                        <Region HBox.hgrow="ALWAYS" />
+
+                        <HBox alignment="CENTER_RIGHT" spacing="20">
+                            <children>
+                                <VBox alignment="CENTER_RIGHT">
+                                    <children>
+                                        <Label style="-fx-text-fill: #666;" text="Total: 20 Orders">
+                                            <font>
+                                                <Font size="12.0" />
+                                            </font>
+                                        </Label>
+                                        <JFXButton style="-fx-background-color: transparent; -fx-text-fill: #4A7C59;" text="Report" underline="true">
+                                            <font>
+                                                <Font size="12.0" />
+                                            </font>
+                                        </JFXButton>
+                                    </children>
+                                </VBox>
+                                <Circle fill="#ff4444" radius="6.0" />
+                                <HBox alignment="CENTER" spacing="10">
+                                    <children>
+                                        <Circle fill="#4A7C59" radius="20.0" />
+                                        <VBox>
+                                            <children>
+                                                <Label style="-fx-text-fill: #333;" text="Samantha W">
+                                                    <font>
+                                                        <Font name="System Bold" size="14.0" />
+                                                    </font>
+                                                </Label>
+                                                <Label style="-fx-text-fill: #666;" text="Cashier">
+                                                    <font>
+                                                        <Font size="12.0" />
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+
+                                <JFXButton fx:id="placeOrderBtn" maxWidth="1.7976931348623157E308"  prefHeight="50.0" style="-fx-background-color: #4A7C59; -fx-background-radius: 12;" text="Place Order    $26.4" textFill="WHITE">
+                                    <font>
+                                        <Font name="System Bold" size="16.0" />
+                                    </font>
+                                    <graphic>
+                                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../Images/bin.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </JFXButton>
+                            </children>
+                        </HBox>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+
+    <HBox spacing="0" VBox.vgrow="ALWAYS">
+        <children>
+            <VBox prefWidth="900.0" style="-fx-background-color: #f8f9fa;">
+                <children>
+                    <HBox spacing="0" style="-fx-background-color: white;">
+                        <padding>
+                            <Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />
+                        </padding>
+                        <children>
+                            <JFXButton fx:id="coffeeTab" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #4A7C59; -fx-background-radius: 15; -fx-text-fill: white;" text="Coffee">
+                                <font>
+                                    <Font name="System Bold" size="14.0" />
+                                </font>
+                                <graphic>
+                                    <Label style="-fx-background-color: rgba(255,255,255,0.3); -fx-background-radius: 10; -fx-text-fill: white; -fx-padding: 2 8;" text="50 Items">
+                                        <font>
+                                            <Font size="10.0" />
+                                        </font>
+                                    </Label>
+                                </graphic>
+                            </JFXButton>
+                            <JFXButton prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #e8e8e8; -fx-background-radius: 15; -fx-text-fill: #666;" text="Tea">
+                                <font>
+                                    <Font size="14.0" />
+                                </font>
+                                <HBox.margin>
+                                    <Insets left="10.0" />
+                                </HBox.margin>
+                                <graphic>
+                                    <Label style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 10; -fx-text-fill: #666; -fx-padding: 2 8;" text="30 Items">
+                                        <font>
+                                            <Font size="10.0" />
+                                        </font>
+                                    </Label>
+                                </graphic>
+                            </JFXButton>
+                            <JFXButton prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #ffcccc; -fx-background-radius: 15; -fx-text-fill: #666;" text="Snack">
+                                <font>
+                                    <Font size="14.0" />
+                                </font>
+                                <HBox.margin>
+                                    <Insets left="10.0" />
+                                </HBox.margin>
+                                <graphic>
+                                    <Label style="-fx-background-color: rgba(255,0,0,0.1); -fx-background-radius: 10; -fx-text-fill: #666; -fx-padding: 2 8;" text="Need to restock (1)">
+                                        <font>
+                                            <Font size="10.0" />
+                                        </font>
+                                    </Label>
+                                </graphic>
+                            </JFXButton>
+                        </children>
+                    </HBox>
+
+                    <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent;" VBox.vgrow="ALWAYS">
+                        <content>
+                            <GridPane fx:id="menuGrid" hgap="20.0" vgap="20.0">
+                                <padding>
+                                    <Insets bottom="30.0" left="30.0" right="30.0" top="10.0" />
+                                </padding>
+                                <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                <children>
+                                    <VBox alignment="CENTER" spacing="10" style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0, 0, 2);" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                                        <padding>
+                                            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                        </padding>
+                                        <children>
+                                            <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../Images/bin.png" />
+                                                </image>
+                                            </ImageView>
+                                            <VBox alignment="CENTER" spacing="5">
+                                                <children>
+                                                    <Label style="-fx-text-fill: #333;" text="Espresso">
+                                                        <font>
+                                                            <Font name="System Bold" size="14.0" />
+                                                        </font>
+                                                    </Label>
+                                                    <Label style="-fx-text-fill: #4A7C59;" text="4.2">
+                                                        <font>
+                                                            <Font name="System Bold" size="16.0" />
+                                                        </font>
+                                                    </Label>
+                                                </children>
+                                            </VBox>
+                                            <JFXButton style="-fx-background-color: #4A7C59; -fx-background-radius: 20;" text="+" textFill="WHITE">
+                                                <font>
+                                                    <Font name="System Bold" size="16.0" />
+                                                </font>
+                                            </JFXButton>
+                                        </children>
+                                    </VBox>
+
+                                    <VBox alignment="CENTER" spacing="10" style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0, 0, 2);" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                        <padding>
+                                            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                        </padding>
+                                        <children>
+                                            <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../Images/bin.png" />
+                                                </image>
+                                            </ImageView>
+                                            <VBox alignment="CENTER" spacing="5">
+                                                <children>
+                                                    <Label style="-fx-text-fill: #333;" text="Cappuccino">
+                                                        <font>
+                                                            <Font name="System Bold" size="14.0" />
+                                                        </font>
+                                                    </Label>
+                                                    <Label style="-fx-text-fill: #4A7C59;" text="3.5">
+                                                        <font>
+                                                            <Font name="System Bold" size="16.0" />
+                                                        </font>
+                                                    </Label>
+                                                </children>
+                                            </VBox>
+                                            <JFXButton style="-fx-background-color: #4A7C59; -fx-background-radius: 20;" text="+" textFill="WHITE">
+                                                <font>
+                                                    <Font name="System Bold" size="16.0" />
+                                                </font>
+                                            </JFXButton>
+                                        </children>
+                                    </VBox>
+
+                                    <VBox alignment="CENTER" spacing="10" style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0, 0, 2);" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                                        <padding>
+                                            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                        </padding>
+                                        <children>
+                                            <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                                                <image>
+                                                <Image url="@../Images/bin.png" />
+                                            </ImageView>
+                                            <VBox alignment="CENTER" spacing="5">
+                                                <children>
+                                                    <Label style="-fx-text-fill: #333;" text="Latte">
+                                                        <font>
+                                                            <Font name="System Bold" size="14.0" />
+                                                        </font>
+                                                    </Label>
+                                                    <Label style="-fx-text-fill: #4A7C59;" text="4.0">
+                                                        <font>
+                                                            <Font name="System Bold" size="16.0" />
+                                                        </font>
+                                                    </Label>
+                                                </children>
+                                            </VBox>
+                                            <JFXButton style="-fx-background-color: #4A7C59; -fx-background-radius: 20;" text="+" textFill="WHITE">
+                                                <font>
+                                                    <Font name="System Bold" size="16.0" />
+                                                </font>
+                                            </JFXButton>
+                                        </children>
+                                    </VBox>
+
+                                    <VBox alignment="CENTER" spacing="10" style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0, 0, 2);" GridPane.columnIndex="3" GridPane.rowIndex="0">
+                                        <padding>
+                                            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                        </padding>
+                                        <children>
+                                            <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                                                <image>
+                                                <Image url="@../Images/bin.png" />
+                                            </ImageView>
+                                            <VBox alignment="CENTER" spacing="5">
+                                                <children>
+                                                    <Label style="-fx-text-fill: #333;" text="Americano">
+                                                        <font>
+                                                            <Font name="System Bold" size="14.0" />
+                                                        </font>
+                                                    </Label>
+                                                    <Label style="-fx-text-fill: #4A7C59;" text="4.0">
+                                                        <font>
+                                                            <Font name="System Bold" size="16.0" />
+                                                        </font>
+                                                    </Label>
+                                                </children>
+                                            </VBox>
+                                            <JFXButton style="-fx-background-color: #4A7C59; -fx-background-radius: 20;" text="+" textFill="WHITE">
+                                                <font>
+                                                    <Font name="System Bold" size="16.0" />
+                                                </font>
+                                            </JFXButton>
+                                        </children>
+                                    </VBox>
+                                </children>
+                            </GridPane>
+                        </content>
+                    </ScrollPane>
+                </children>
+            </VBox>
+
+            <VBox prefWidth="500.0" style="-fx-background-color: white; -fx-border-color: #e8e8e8; -fx-border-width: 0 0 0 1;">
+                <children>
+                    <HBox alignment="CENTER" spacing="15" style="-fx-background-color: #4A7C59; -fx-background-radius: 10;">
+                        <padding>
+                            <Insets bottom="15.0" left="20.0" right="20.0" top="15.0" />
+                        </padding>
+                        <VBox.margin>
+                            <Insets bottom="0.0" left="20.0" right="20.0" top="20.0" />
+                        </VBox.margin>
+                        <children>
+                            <Circle fill="WHITE" radius="20.0" />
+                            <VBox alignment="CENTER">
+                                <children>
+                                    <Label style="-fx-text-fill: white;" text="Purchase Receipt">
+                                        <font>
+                                            <Font name="System Bold" size="16.0" />
+                                        </font>
+                                    </Label>
+                                    <Label style="-fx-text-fill: rgba(255,255,255,0.8);" text="#27362">
+                                        <font>
+                                            <Font size="14.0" />
+                                        </font>
+                                    </Label>
+                                </children>
+                            </VBox>
+                            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Images/bin.png" />
+                                </image>
+                            </ImageView>
+                        </children>
+                    </HBox>
+
+                    <HBox spacing="10" style="-fx-background-color: white;">
+                        <padding>
+                            <Insets bottom="15.0" left="20.0" right="20.0" top="15.0" />
+                        </padding>
+                        <children>
+                            <JFXButton prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #4A7C59; -fx-background-radius: 8; -fx-text-fill: white;" text="Dine In">
+                                <font>
+                                    <Font name="System Bold" size="12.0" />
+                                </font>
+                            </JFXButton>
+                            <JFXButton prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #f0f0f0; -fx-background-radius: 8; -fx-text-fill: #666;" text="Take Away">
+                                <font>
+                                    <Font size="12.0" />
+                                </font>
+                            </JFXButton>
+                            <JFXButton prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #f0f0f0; -fx-background-radius: 8; -fx-text-fill: #666;" text="Order Online">
+                                <font>
+                                    <Font size="12.0" />
+                                </font>
+                            </JFXButton>
+                        </children>
+                    </HBox>
+
+                    <HBox spacing="15" style="-fx-background-color: white;">
+                        <padding>
+                            <Insets bottom="15.0" left="20.0" right="20.0" />
+                        </padding>
+                        <children>
+                            <VBox spacing="5">
+                                <children>
+                                    <Label style="-fx-text-fill: #666;" text="Customer name">
+                                        <font>
+                                            <Font size="12.0" />
+                                        </font>
+                                    </Label>
+                                    <JFXTextField promptText="Mustriz" style="-fx-background-color: #f8f8f8; -fx-background-radius: 8;">
+                                        <VBox.margin>
+                                            <Insets />
+                                        </VBox.margin>
+                                    </JFXTextField>
+                                </children>
+                            </VBox>
+                            <VBox spacing="5">
+                                <children>
+                                    <Label style="-fx-text-fill: #666;" text="Table">
+                                        <font>
+                                            <Font size="12.0" />
+                                        </font>
+                                    </Label>
+                                    <JFXComboBox promptText="B12 - Indoor" style="-fx-background-color: #f8f8f8; -fx-background-radius: 8;" />
+                                </children>
+                            </VBox>
+                        </children>
+                    </HBox>
+
+                    <VBox spacing="5" style="-fx-background-color: white;">
+                        <padding>
+                            <Insets left="20.0" right="20.0" />
+                        </padding>
+                        <children>
+                            <Label style="-fx-text-fill: #666;" text="Order list">
+                                <font>
+                                    <Font size="12.0" />
+                                </font>
+                            </Label>
+                        </children>
+                    </VBox>
+
+                    <HBox alignment="CENTER_LEFT" spacing="15" style="-fx-background-color: #f8f8f8; -fx-background-radius: 10;">
+                        <padding>
+                            <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
+                        </padding>
+                        <VBox.margin>
+                            <Insets left="20.0" right="20.0" />
+                        </VBox.margin>
+                        <children>
+                            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Images/bin.png" />
+                                </image>
+                            </ImageView>
+                            <VBox spacing="2" HBox.hgrow="ALWAYS">
+                                <children>
+                                    <Label style="-fx-text-fill: #333;" text="Americano">
+                                        <font>
+                                            <Font name="System Bold" size="14.0" />
+                                        </font>
+                                    </Label>
+                                    <Label style="-fx-text-fill: #666;" text="8.5 x2 • Medium">
+                                        <font>
+                                            <Font size="12.0" />
+                                        </font>
+                                    </Label>
+                                    <Label fx:id="sugarLabel" style="-fx-text-fill: #666;" text="Less Sugar">
+                                        <font>
+                                            <Font size="10.0" />
+                                        </font>
+                                    </Label>
+                                </children>
+                            </VBox>
+                            <HBox alignment="CENTER" spacing="10">
+                                <children>
+                                    <JFXButton style="-fx-background-color: #e0e0e0; -fx-background-radius: 15;" text="-">
+                                        <font>
+                                            <Font name="System Bold" size="12.0" />
+                                        </font>
+                                    </JFXButton>
+                                    <Label style="-fx-text-fill: #333;" text="2">
+                                        <font>
+                                            <Font name="System Bold" size="14.0" />
+                                        </font>
+                                    </Label>
+                                    <JFXButton style="-fx-background-color: #e0e0e0; -fx-background-radius: 15;" text="+">
+                                        <font>
+                                            <Font name="System Bold" size="12.0" />
+                                        </font>
+                                    </JFXButton>
+                                </children>
+                            </HBox>
+                            <Label style="-fx-text-fill: #333;" text="16.8">
+                                <font>
+                                    <Font name="System Bold" size="14.0" />
+                                </font>
+                            </Label>
+                        </children>
+                    </HBox>
+
+                    <Region VBox.vgrow="ALWAYS" />
+
+                    <VBox spacing="15" style="-fx-background-color: white;">
+                        <padding>
+                            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                        </padding>
+                        <children>
+                            <Label style="-fx-text-fill: #666;" text="Payment Details">
+                                <font>
+                                    <Font name="System Bold" size="14.0" />
+                                </font>
+                            </Label>
+                            <HBox alignment="CENTER_LEFT">
+                                <children>
+                                    <Label style="-fx-text-fill: #666;" text="Subtotal">
+                                        <font>
+                                            <Font size="14.0" />
+                                        </font>
+                                    </Label>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <Label style="-fx-text-fill: #333;" text="59">
+                                        <font>
+                                            <Font name="System Bold" size="14.0" />
+                                        </font>
+                                    </Label>
+                                </children>
+                            </HBox>
+                            <HBox alignment="CENTER_LEFT">
+                                <children>
+                                    <Label style="-fx-text-fill: #666;" text="Tax">
+                                        <font>
+                                            <Font size="14.0" />
+                                        </font>
+                                    </Label>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <Label style="-fx-text-fill: #333;" text="5.9">
+                                        <font>
+                                            <Font name="System Bold" size="14.0" />
+                                        </font>
+                                    </Label>
+                                </children>
+                            </HBox>
+                            <HBox alignment="CENTER_LEFT">
+                                <children>
+                                    <Label style="-fx-text-fill: #333;" text="Total">
+                                        <font>
+                                            <Font name="System Bold" size="16.0" />
+                                        </font>
+                                    </Label>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <Label style="-fx-text-fill: #333;" text="6">
+                                        <font>
+                                            <Font name="System Bold" size="16.0" />
+                                        </font>
+                                    </Label>
+                                </children>
+                            </HBox>
+                        </children>
+                    </VBox>
+                </children>
+            </VBox>
+        </children>
+    </HBox>
+</HBox>

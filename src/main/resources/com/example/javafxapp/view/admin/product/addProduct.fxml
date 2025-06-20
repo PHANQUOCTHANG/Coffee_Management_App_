@@ -102,7 +102,7 @@
                                     <Font name="System Bold" size="13.0" />
                                 </font>
                             </Label>
-                            <ComboBox fx:id="categoryComboBox" maxWidth="Infinity" onAction="#categoryAction" prefHeight="35.0" style="-fx-background-radius: 4px; -fx-font-size: 13px;" styleClass="combo-box" value="Lọc" HBox.hgrow="ALWAYS" />
+                            <ComboBox fx:id="categoryComboBox" maxWidth="Infinity" onAction="#categoryAction" prefHeight="35.0" style="-fx-background-radius: 4px; -fx-font-size: 13px;" styleClass="combo-box" value="Chọn danh mục" HBox.hgrow="ALWAYS" />
                         </VBox>
                         <VBox spacing="3" HBox.hgrow="ALWAYS">
                             <Label text="Giá bán" textFill="#6c798f">

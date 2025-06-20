@@ -140,16 +140,15 @@ public class AuthController{
                SaveAccountUtils.role_id = account.getRoleId() ;
                Role role = roleService.findRoleByID(account.getRoleId()) ;
                System.out.println(role.getRole_name());
-//               if (role.getRole_name().equals("Customer")) {
-//                   if (cartSevice.checkAccountHaveCart(account.getId()) == null) {
-//                       Cart cart = new Cart(account.getId()) ;
-//                       cartSevice.add(cart);
-//                   }
-//                   SaveAccountUtils.cart_id = cartSevice.checkAccountHaveCart(account.getId()) ; // id giỏ hàng của tài khoản .
-//                   Pages.pageUser() ;
-//               }
-//               else Pages.pagesMainScreen();
-               Pages.pagesMainScreen();
+               if (role.getRole_name().equals("Customer")) {
+                   if (cartSevice.checkAccountHaveCart(account.getId()) == null) {
+                       Cart cart = new Cart(account.getId()) ;
+                       cartSevice.add(cart);
+                   }
+                   SaveAccountUtils.cart_id = cartSevice.checkAccountHaveCart(account.getId()) ; // id giỏ hàng của tài khoản .
+                   Pages.pageUser() ;
+               }
+               else Pages.pagesMainScreen();
                Stage stage = (Stage) loginNameField.getScene().getWindow() ;
                stage.close();
                AlertInfo.showAlert(Alert.AlertType.INFORMATION , "Thành công" , "Đăng nhập thành công");

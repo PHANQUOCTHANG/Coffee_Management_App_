@@ -14,12 +14,12 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         // quan li san pham 2
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/javafxapp/View/Auth/auth.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/com/example/javafxapp/view/images/icons.jpg")));
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("Coffee Shop Management");
-        primaryStage.show();
+//        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/javafxapp/View/Auth/auth.fxml"));
+//        Scene scene = new Scene(fxmlLoader.load());
+//        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/com/example/javafxapp/view/images/icons.jpg")));
+//        primaryStage.setScene(scene);
+//        primaryStage.setTitle("Coffee Shop Management");
+//        primaryStage.show();
 
 //        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/javafxapp/View/Client/Checkout/vnPay.fxml"));
 //        Scene scene = new Scene(fxmlLoader.load());
@@ -32,6 +32,12 @@ public class Main extends Application {
 //        primaryStage.setScene(scene);
 //        primaryStage.setTitle("Coffee Shop Management");
 //        primaryStage.show();
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/javafxapp/View/Admin/demo.fxml"));
+        Scene scene = new Scene(fxmlLoader.load()) ;
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("Coffee Shop Management");
+        primaryStage.show();
 
 
 

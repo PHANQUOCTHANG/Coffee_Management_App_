@@ -272,7 +272,7 @@ public class RevenueController {
         LocalDate toDate = dateStatisticTo.getValue();
 
         // Kiểm tra người dùng đã chọn đủ thông tin chưa
-        if (statType == null || period == null) {
+        if (statType == null) {
             AlertInfo.showAlert(Alert.AlertType.ERROR, "Lỗi", "Vui lòng chọn đầy đủ thông tin để tạo báo cáo");
             return;
         }
@@ -284,7 +284,7 @@ public class RevenueController {
         }
 
         // Cập nhật tiêu đề cho phần thống kê
-        lblStatisticTitle.setText("Thống kê " + statType.toLowerCase() + " " + period.toLowerCase());
+        lblStatisticTitle.setText("Thống kê " + statType.toLowerCase());
 
         // Lấy dữ liệu thống kê
         ObservableList<Statistic> stats = FXCollections.observableArrayList(

@@ -8,6 +8,7 @@ import com.example.javafxapp.Model.Product;
 import com.example.javafxapp.Model.Role;
 import com.example.javafxapp.Service.AccountService;
 import com.example.javafxapp.Service.RoleService;
+import com.example.javafxapp.Utils.SaveAccountUtils;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import javafx.beans.property.SimpleObjectProperty;
@@ -121,6 +122,10 @@ public class AccountController implements Initializable {
             deleteButton.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-padding : 10px");
             deleteButton.setOnAction(event -> deleteAccount(account));
 
+            if (cellData.getValue().getAccountName().equals(SaveAccountUtils.loginName)) {
+                deleteButton.setVisible(false);
+                deleteButton.setManaged(false);
+            }
             actionBox.getChildren().addAll(editButton, deleteButton);
             return new SimpleObjectProperty<>(actionBox);
         });
@@ -131,7 +136,7 @@ public class AccountController implements Initializable {
         List<String> roleNames = new ArrayList<>();
         roleNames.add("Tất cả");
         for (Role role : roles) {
-            roleNames.add(role.getRole_name());
+            if (!role.getRole_name().equals("Customer")) roleNames.add(role.getRole_name());
         }
         roleComboBox.getItems().setAll(roleNames);
         roleComboBox.setValue("Tất cả");
@@ -140,7 +145,10 @@ public class AccountController implements Initializable {
     public void loadAccounts() {
         try {
             accountList.clear();
-            accountList.addAll(accountService.getAllAccounts());
+            for (Account account : accountService.getAllAccounts()) {
+                Role role = roleService.findRoleByID(account.getRoleId());
+                if (!role.getRole_name().equals("Customer")) accountList.add(account);
+            }
             filteredList.clear();
             filteredList.addAll(accountList) ;
             updateDisplayStatus();

@@ -2,6 +2,7 @@ package com.example.javafxapp.Controller.Admin.Role;
 
 import com.example.javafxapp.Helpper.AlertInfo;
 import com.example.javafxapp.Model.Permission;
+import com.example.javafxapp.Model.Role;
 import com.example.javafxapp.Service.PermissionService;
 import com.example.javafxapp.Service.RolePermissionService;
 import com.example.javafxapp.Service.RoleService;
@@ -11,6 +12,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -18,15 +21,18 @@ import javafx.stage.Stage;
 import org.controlsfx.control.spreadsheet.Grid;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class RolePermissionController implements Initializable {
     @FXML
-    private GridPane checkboxContainer;
+    private GridPane checkboxContainer ;
     @FXML
     private CheckBox checkboxSelectAll;
+    @FXML private Label lblCurrentRole , lblCurrentDate;
     @FXML
     private JFXButton btnSavePermission, btnCancel;
     private RoleService roleService = new RoleService();
@@ -50,7 +56,10 @@ public class RolePermissionController implements Initializable {
     }
     // load dữ liệu khi vào trang phân quyền .
     public void loadDataRolePermission(int roleId) {
-        List<Permission> permissions = permissionService.getAllPermission();
+        lblCurrentDate.setText(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        Role role = roleService.findRoleByID(role_id) ;
+        lblCurrentRole.setText(role.getRole_name()) ;
+        List<Permission> permissions = permissionService.getAllPermission() ;
         List<Integer> role_permission = rolePermissionService.getAllRolePermission(roleId);
         int cnt = 0 , row = 0 , col = 0 ;
         for (Permission permission : permissions) {

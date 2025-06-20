@@ -10,7 +10,7 @@
 <BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxapp.Controller.Admin.SettingController">
     <top>
         <!-- Header Section -->
-        <VBox style="-fx-background-color: linear-gradient(to bottom, #667eea 0%, #764ba2 100%); -fx-padding: 25px;">
+        <VBox style="-fx-background-color: linear-gradient(to bottom, #5C4033, #3C2F2F); -fx-padding: 25px;">
             <Label text="Cài Đặt" textFill="WHITE">
                 <font>
                     <Font name="System Bold" size="28.0" />
@@ -284,11 +284,9 @@
                                 <Font size="12.0" />
                             </font>
                         </Label>
-                        <HBox spacing="10.0" alignment="CENTER_LEFT">
-                            <TextField fx:id="accountNameTextField" promptText="Nhập tên đăng nhập mới" prefWidth="250.0"
-                                       style="-fx-background-radius: 8px; -fx-padding: 10px;" />
-                            <Button fx:id="changeAccountNameButton" text="Thay Đổi" onAction="#handleChangeAccountName"
-                                    style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 8px; -fx-padding: 8px 16px;" />
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                            <TextField fx:id="accountNameTextField" prefWidth="250.0" promptText="Nhập tên đăng nhập mới" style="-fx-background-radius: 8px; -fx-padding: 10px;" />
+                            <Button fx:id="changeAccountNameButton" onAction="#handleChangeAccountName" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 8px; -fx-padding: 8px 16px;" text="Thay Đổi" />
                         </HBox>
                     </VBox>
 
@@ -306,38 +304,34 @@
                         </Label>
 
                         <!-- Current Password -->
-                        <HBox spacing="10.0" alignment="CENTER_LEFT">
-                            <Label text="Mật khẩu hiện tại:" prefWidth="120.0" textFill="#34495e">
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                            <Label prefWidth="120.0" text="Mật khẩu hiện tại:" textFill="#34495e">
                                 <font>
                                     <Font size="12.0" />
                                 </font>
                             </Label>
-                            <PasswordField fx:id="currentPasswordField" promptText="Nhập mật khẩu hiện tại"
-                                           prefWidth="200.0" style="-fx-background-radius: 8px; -fx-padding: 8px;" />
+                            <PasswordField fx:id="currentPasswordField" prefWidth="200.0" promptText="Nhập mật khẩu hiện tại" style="-fx-background-radius: 8px; -fx-padding: 8px;" />
                         </HBox>
 
                         <!-- New Password -->
-                        <HBox spacing="10.0" alignment="CENTER_LEFT">
-                            <Label text="Mật khẩu mới:" prefWidth="120.0" textFill="#34495e">
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                            <Label prefWidth="120.0" text="Mật khẩu mới:" textFill="#34495e">
                                 <font>
                                     <Font size="12.0" />
                                 </font>
                             </Label>
-                            <PasswordField fx:id="newPasswordField" promptText="Nhập mật khẩu mới"
-                                           prefWidth="200.0" style="-fx-background-radius: 8px; -fx-padding: 8px;" />
+                            <PasswordField fx:id="newPasswordField" prefWidth="200.0" promptText="Nhập mật khẩu mới" style="-fx-background-radius: 8px; -fx-padding: 8px;" />
                         </HBox>
 
                         <!-- Confirm New Password -->
-                        <HBox spacing="10.0" alignment="CENTER_LEFT">
-                            <Label text="Xác nhận:" prefWidth="120.0" textFill="#34495e">
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                            <Label prefWidth="120.0" text="Xác nhận:" textFill="#34495e">
                                 <font>
                                     <Font size="12.0" />
                                 </font>
                             </Label>
-                            <PasswordField fx:id="confirmPasswordField" promptText="Xác nhận mật khẩu mới"
-                                           prefWidth="200.0" style="-fx-background-radius: 8px; -fx-padding: 8px;" />
-                            <Button fx:id="changePasswordButton" text="Đổi Mật Khẩu" onAction="#handleChangePassword"
-                                    style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-background-radius: 8px; -fx-padding: 8px 16px;" />
+                            <PasswordField fx:id="confirmPasswordField" prefWidth="200.0" promptText="Xác nhận mật khẩu mới" style="-fx-background-radius: 8px; -fx-padding: 8px;" />
+                            <Button fx:id="changePasswordButton" onAction="#handleChangePassword" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-background-radius: 8px; -fx-padding: 8px 16px;" text="Đổi Mật Khẩu" />
                         </HBox>
                     </VBox>
                 </VBox>

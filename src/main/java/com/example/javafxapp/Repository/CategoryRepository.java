@@ -2,7 +2,6 @@ package com.example.javafxapp.Repository;
 
 import com.example.javafxapp.Config.DatabaseConnection;
 import com.example.javafxapp.Model.Category;
-import com.example.javafxapp.Model.Product;
 
 import java.sql.*;
 import java.util.ArrayList;

@@ -18,7 +18,7 @@
                 <children>
                     <ImageView fitHeight="700.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="false">
                         <image>
-                            <Image url="@../Images/coffee-logo.jpg" />
+                            <Image url="@../Images/coffee-logo-1.jpg" />
                         </image>
                     </ImageView>
                     <JFXButton fx:id="btnSignup" onAction="#showSignUp" prefHeight="62.0" prefWidth="280.0" style="-fx-background-color: rgba(255,255,255,0.95); -fx-background-radius: 30px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 2);" text="SIGN UP" translateY="-80.0">
@@ -124,22 +124,6 @@
 
     <BorderPane fx:id="signUpPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0">
         <left>
-            <VBox alignment="BOTTOM_CENTER" prefHeight="700.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-                <children>
-                    <ImageView fitHeight="700.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="false">
-                        <image>
-                            <Image url="@../Images/coffee-logo.jpg" />
-                        </image>
-                    </ImageView>
-                    <JFXButton fx:id="btnLogin" onAction="#showLogin" prefHeight="62.0" prefWidth="280.0" style="-fx-background-color: rgba(255,255,255,0.95); -fx-background-radius: 30px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 2);" text="SIGN IN" translateY="-80.0">
-                        <font>
-                            <Font name="System Bold" size="20.0" />
-                        </font>
-                    </JFXButton>
-                </children>
-            </VBox>
-        </left>
-        <right>
             <VBox alignment="CENTER" prefHeight="700.0" prefWidth="600.0" style="-fx-background-color: #f8f9fa;" BorderPane.alignment="CENTER">
                 <children>
                     <VBox alignment="CENTER" maxWidth="450.0" prefWidth="450.0" spacing="20.0">
@@ -162,7 +146,7 @@
                                         <children>
                                             <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                                 <image>
-                                                    <Image url="@../Images/usericon.png" />
+                                                    <Image url="@../Images/iconLoginName.jpg" />
                                                 </image>
                                                 <HBox.margin>
                                                     <Insets left="20.0" right="15.0" />
@@ -180,7 +164,7 @@
                                         <children>
                                             <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                                 <image>
-                                                    <Image url="@../Images/passwordicon.png" />
+                                                    <Image url="@../Images/iconPassword2.jpg" />
                                                 </image>
                                                 <HBox.margin>
                                                     <Insets left="20.0" right="15.0" />
@@ -203,7 +187,7 @@
                                         <children>
                                             <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                                 <image>
-                                                    <Image url="@../Images/passwordicon.png" />
+                                                    <Image url="@../Images/iconPassword2.jpg" />
                                                 </image>
                                                 <HBox.margin>
                                                     <Insets left="20.0" right="15.0" />
@@ -260,6 +244,22 @@
                             </JFXButton>
                         </children>
                     </VBox>
+                </children>
+            </VBox>
+        </left>
+        <right>
+            <VBox alignment="BOTTOM_CENTER" prefHeight="700.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                <children>
+                    <ImageView fitHeight="700.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="false">
+                        <image>
+                            <Image url="@../Images/coffee-logo-1.jpg" />
+                        </image>
+                    </ImageView>
+                    <JFXButton fx:id="btnLogin" onAction="#showLogin" prefHeight="62.0" prefWidth="280.0" style="-fx-background-color: rgba(255,255,255,0.95); -fx-background-radius: 30px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 2);" text="SIGN IN" translateY="-80.0">
+                        <font>
+                            <Font name="System Bold" size="20.0" />
+                        </font>
+                    </JFXButton>
                 </children>
             </VBox>
         </right>

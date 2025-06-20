@@ -34,7 +34,7 @@ public class MainScreenController {
 
     @FXML
     private JFXButton btnOverview, btnProducts, btnCategories, btnEmployees, btnOrders, btnRevenue , btnRolePermission ,
-            btnAccounts, btnRole , btnPermission , btnSetting , btnLogOut;
+            btnAccounts, btnRole , btnPermission , btnMember , btnSetting , btnLogOut;
 
     @FXML
     private StackPane centerPane;
@@ -61,7 +61,8 @@ public class MainScreenController {
         menuButtons.add(btnPermission) ;
         menuButtons.add(btnEmployees);
         menuButtons.add(btnSetting) ;
-        menuButtons.add(btnLogOut) ;
+        menuButtons.add(btnMember) ;
+//        menuButtons.add(btnLogOut) ;
 //        menuButtons.add(btnRolePermission) ;
 
         // Mặc định chọn "Tổng Quan"
@@ -195,6 +196,15 @@ public class MainScreenController {
         loadCenterContent("/com/example/javafxapp/view/admin/permission/permission.fxml");
         // Thêm logic chuyển sang trang phân quyền
         setActiveButton(btnPermission);
+    }
+
+    // category .
+    @FXML
+    private void handleMember() {
+        System.out.println("Member button clicked");
+        loadCenterContent("/com/example/javafxapp/view/admin/member/member.fxml");
+        // Thêm logic chuyển sang trang danh mục sản phẩm
+        setActiveButton(btnMember);
     }
 
     @FXML

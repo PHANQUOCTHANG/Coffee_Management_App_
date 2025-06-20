@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" prefHeight="300.0" prefWidth="400.0" spacing="20.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxapp.Controller.Admin.Member.UpdateMemberController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+
+    <Label text="Cập nhật hội viên">
+        <font>
+            <Font name="System Bold" size="20.0" />
+        </font>
+    </Label>
+
+    <VBox spacing="10.0">
+        <Label text="Số điện thoại hội viên:" />
+        <TextField fx:id="phoneField" promptText="Nhập số điện thoại hội viên" />
+        <Label text="Điểm tích lũy: " />
+        <TextField fx:id="pointField"/>
+    </VBox>
+
+    <JFXButton fx:id="btnUpdate" onAction="#updateMember" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="Cập nhật">
+        <font>
+            <Font name="System Bold" size="14.0" />
+        </font>
+    </JFXButton>
+</VBox>

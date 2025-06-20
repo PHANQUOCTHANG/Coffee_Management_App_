@@ -26,7 +26,7 @@
                     </HBox.margin>
                 </Label>
                 <Region HBox.hgrow="ALWAYS" />
-                <Label fx:id="lblCurrentDate" style="-fx-text-fill: #FFFFFF;" text="30/05/2025">
+                <Label fx:id="lblCurrentDate" style="-fx-text-fill: #FFFFFF;">
                     <font>
                         <Font name="Poppins Medium" size="16.0" />
                     </font>
@@ -57,7 +57,7 @@
                                 <Font name="Poppins Medium" size="16.0" />
                             </font>
                         </Label>
-                        <Label fx:id="lblCurrentRole" style="-fx-text-fill: #6B21A8; -fx-background-color: #EDE9FE; -fx-background-radius: 6; -fx-padding: 6 12 6 12;" text="Quản trị viên">
+                        <Label fx:id="lblCurrentRole" style="-fx-text-fill: #6B21A8; -fx-background-color: #EDE9FE; -fx-background-radius: 6; -fx-padding: 6 12 6 12;">
                             <font>
                                 <Font name="Poppins Bold" size="16.0" />
                             </font>
