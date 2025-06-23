@@ -18,6 +18,7 @@ import com.example.javafxapp.Helpper.TextNormalizer;
 import com.example.javafxapp.Model.*;
 import com.example.javafxapp.Service.*;
 import com.example.javafxapp.Utils.SaveAccountUtils;
+import com.example.javafxapp.Validation.ValidationMember;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 
@@ -386,7 +387,16 @@ public class OrderDetailController extends BaseController {
         totalPrice = 0;
         for (OrderDetail od : orderDetailList)
             totalPrice += od.getUnitPrice();
-        priceLabel.setText(totalPrice + " đ");
+        Order order1 = orderService.findOrderById(orderId);
+        if (order1 != null) {
+            priceLabel.setText((totalPrice - order1.getDiscount()) + " đ");
+            discountLabel.setText(order1.getDiscount() + " đ");
+            memberField.setText(order1.getMemberPhone());
+        }
+        else {
+            priceLabel.setText((totalPrice) + " đ");
+            discountLabel.setText(0 + " đ");
+        }
     }
 
     public void addOrderDetail(Product product) {
@@ -540,7 +550,8 @@ public class OrderDetailController extends BaseController {
 
     @FXML private void discountMember() {
         try {
-            String telephoneMember = memberField.getText().trim(); ;
+            String telephoneMember = memberField.getText().trim();
+            if (!ValidationMember.validationPhone(telephoneMember)) return ;
             if (!telephoneMember.equals("")) {
                 member_phone = telephoneMember;
                 Member member = memberService.findMemberByPhone(telephoneMember);
