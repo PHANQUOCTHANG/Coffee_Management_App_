@@ -55,7 +55,7 @@
                 <!-- Status Indicator -->
                 <HBox alignment="CENTER_RIGHT" spacing="8.0">
                     <children>
-                        <Circle styleClass="status-circle" radius="4.0" />
+                        <Circle radius="4.0" styleClass="status-circle" />
                         <Label text="System Online" textFill="#E8F5E8">
                             <font>
                                 <Font name="System" size="11.0" />
@@ -95,7 +95,7 @@
                             <graphic>
                                 <HBox alignment="CENTER_LEFT" spacing="12.0">
                                     <children>
-                                        <StackPane prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #8b4513; -fx-background-radius: 6;">
+                                        <StackPane prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #696969; -fx-background-radius: 6;">
                                             <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, rgba(255,255,255,0.8), 2, 0.5, 0, 0);">
                                                 <image>
                                                     <Image url="@../../Images/dashboard1.png" />
@@ -118,7 +118,7 @@
                             <graphic>
                                 <HBox alignment="CENTER_LEFT" spacing="12.0">
                                     <children>
-                                        <StackPane prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #a0522d; -fx-background-radius: 6;">
+                                        <StackPane prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #696969; -fx-background-radius: 6;">
                                             <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, rgba(255,255,255,0.8), 2, 0.5, 0, 0);">
                                                 <image>
                                                     <Image url="@../../Images/icons8-product-64.png" />
@@ -141,7 +141,7 @@
                             <graphic>
                                 <HBox alignment="CENTER_LEFT" spacing="12.0">
                                     <children>
-                                        <StackPane prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #cd853f; -fx-background-radius: 6;">
+                                        <StackPane prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #696969; -fx-background-radius: 6;">
                                             <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, rgba(255,255,255,0.8), 2, 0.5, 0, 0);">
                                                 <image>
                                                     <Image url="@../../Images/icons8-category-64.png" />
@@ -164,7 +164,7 @@
                             <graphic>
                                 <HBox alignment="CENTER_LEFT" spacing="12.0">
                                     <children>
-                                        <StackPane prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #d2691e; -fx-background-radius: 6;">
+                                        <StackPane prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #696969; -fx-background-radius: 6;">
                                             <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, rgba(255,255,255,0.8), 2, 0.5, 0, 0);">
                                                 <image>
                                                     <Image url="@../../Images/icons8-employees-48.png" />
@@ -183,11 +183,34 @@
                         </JFXButton>
 
                         <!-- Orders Button -->
-                        <JFXButton fx:id="btnOrders" alignment="CENTER_LEFT" onAction="#handleOrders" prefHeight="50.0" prefWidth="280.0" styleClass="sidebar-button" text="Quản lý đơn hàng" textFill="#F5ECE3">
+                        <JFXButton fx:id="btnOrders" alignment="CENTER_LEFT" onAction="#handleOrders" prefHeight="50.0" prefWidth="280.0" styleClass="sidebar-button" text="Lên đơn" textFill="#F5ECE3">
                             <graphic>
                                 <HBox alignment="CENTER_LEFT" spacing="12.0">
                                     <children>
-                                        <StackPane prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #b8860b; -fx-background-radius: 6;">
+                                        <StackPane prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #696969; -fx-background-radius: 6;">
+                                            <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, rgba(255,255,255,0.8), 2, 0.5, 0, 0);">
+                                                <image>
+                                                    <Image url="@../../Images/icons8-order-64.png" />
+                                                </image>
+                                            </ImageView>
+                                        </StackPane>
+                                    </children>
+                                </HBox>
+                            </graphic>
+                            <font>
+                                <Font name="System" size="15.0" />
+                            </font>
+                            <padding>
+                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                            </padding>
+                        </JFXButton>
+
+                        <!-- Orders Button -->
+                        <JFXButton fx:id="btnManagementOrders" alignment="CENTER_LEFT" onAction="#handleManagementOrders" prefHeight="50.0" prefWidth="280.0" styleClass="sidebar-button" text="Quản lí đơn hàng" textFill="#F5ECE3">
+                            <graphic>
+                                <HBox alignment="CENTER_LEFT" spacing="12.0">
+                                    <children>
+                                        <StackPane prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #696969; -fx-background-radius: 6;">
                                             <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, rgba(255,255,255,0.8), 2, 0.5, 0, 0);">
                                                 <image>
                                                     <Image url="@../../Images/icons8-order-64.png" />
@@ -210,7 +233,7 @@
                             <graphic>
                                 <HBox alignment="CENTER_LEFT" spacing="12.0">
                                     <children>
-                                        <StackPane prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #daa520; -fx-background-radius: 6;">
+                                        <StackPane prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #696969; -fx-background-radius: 6;">
                                             <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, rgba(255,255,255,0.8), 2, 0.5, 0, 0);">
                                                 <image>
                                                     <Image url="@../../Images/icon-revenue-1.png" />
@@ -233,7 +256,7 @@
                             <graphic>
                                 <HBox alignment="CENTER_LEFT" spacing="12.0">
                                     <children>
-                                        <StackPane prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #9370db; -fx-background-radius: 6;">
+                                        <StackPane prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #696969; -fx-background-radius: 6;">
                                             <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, rgba(255,255,255,0.8), 2, 0.5, 0, 0);">
                                                 <image>
                                                     <Image url="@../../Images/icon-role.png" />
@@ -324,12 +347,34 @@
                                 </JFXButton>
                             </children>
                         </VBox>
-                        <!-- Categories Button -->
+                        <!-- Member Button -->
                         <JFXButton fx:id="btnMember" alignment="CENTER_LEFT" onAction="#handleMember" prefHeight="50.0" prefWidth="280.0" styleClass="sidebar-button" text="Quản lí hội viên" textFill="#F5ECE3">
                             <graphic>
                                 <HBox alignment="CENTER_LEFT" spacing="12.0">
                                     <children>
-                                        <StackPane prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #cd853f; -fx-background-radius: 6;">
+                                        <StackPane prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #696969; -fx-background-radius: 6;">
+                                            <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, rgba(255,255,255,0.8), 2, 0.5, 0, 0);">
+                                                <image>
+                                                    <Image url="@../../Images/icons8-category-64.png" />
+                                                </image>
+                                            </ImageView>
+                                        </StackPane>
+                                    </children>
+                                </HBox>
+                            </graphic>
+                            <font>
+                                <Font name="System" size="15.0" />
+                            </font>
+                            <padding>
+                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                            </padding>
+                        </JFXButton>
+                        <!-- Member Button -->
+                        <JFXButton fx:id="btnWareHouse" alignment="CENTER_LEFT" onAction="#handleWareHouse" prefHeight="50.0" prefWidth="280.0" styleClass="sidebar-button" textFill="#F5ECE3" text="Quản lí kho">
+                            <graphic>
+                                <HBox alignment="CENTER_LEFT" spacing="12.0">
+                                    <children>
+                                        <StackPane prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #696969; -fx-background-radius: 6;">
                                             <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, rgba(255,255,255,0.8), 2, 0.5, 0, 0);">
                                                 <image>
                                                     <Image url="@../../Images/icons8-category-64.png" />
@@ -383,7 +428,7 @@
                             <graphic>
                                 <HBox alignment="CENTER_LEFT" spacing="12.0">
                                     <children>
-                                        <StackPane prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #E57373; -fx-background-radius: 6;">
+                                        <StackPane prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #696969; -fx-background-radius: 6;">
                                             <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, rgba(255,255,255,0.8), 2, 0.5, 0, 0);">
                                                 <image>
                                                     <Image url="@../../Images/icons8-log-out-48.png" />

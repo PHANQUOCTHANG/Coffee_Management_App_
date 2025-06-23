@@ -1,6 +1,7 @@
 package com.example.javafxapp.Controller.Client;
 
 import com.example.javafxapp.Model.VnPayRequest;
+import com.example.javafxapp.Server.VNPayCallbackServer;
 import com.example.javafxapp.Service.VNPayService;
 import javafx.fxml.FXML;
 
@@ -11,12 +12,16 @@ import java.net.URISyntaxException;
 
 public class VNPayController {
     private VNPayService vnPayService = new VNPayService();
+    private VNPayCallbackServer vnPayCallbackServer = VNPayCallbackServer.getInstance();
 
     @FXML
     public void handlePayment() {
         try {
             VnPayRequest vnPayRequest = new VnPayRequest("210" , 50000, "Thanh Toan") ;
-            vnPayService.startVNPayResultServer();
+            
+            // vnPayService.startVNPayResultServer();
+            vnPayCallbackServer.getInstance().startServer(); // Start the VNPay callback server
+            
             String paymentUrl = vnPayService.createPaymentUrl(vnPayRequest);
             Desktop.getDesktop().browse(new URI(paymentUrl));
         }catch (Exception e) {

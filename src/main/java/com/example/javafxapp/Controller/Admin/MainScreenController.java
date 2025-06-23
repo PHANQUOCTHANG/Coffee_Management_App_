@@ -33,8 +33,8 @@ public class MainScreenController {
     private Label adminPanel ;
 
     @FXML
-    private JFXButton btnOverview, btnProducts, btnCategories, btnEmployees, btnOrders, btnRevenue , btnRolePermission ,
-            btnAccounts, btnRole , btnPermission , btnMember , btnSetting , btnLogOut;
+    private JFXButton btnOverview, btnProducts, btnCategories, btnEmployees, btnOrders , btnManagementOrders, btnRevenue , btnRolePermission ,
+            btnAccounts, btnRole , btnPermission , btnMember , btnWareHouse, btnSetting , btnLogOut ;
 
     @FXML
     private StackPane centerPane;
@@ -62,6 +62,8 @@ public class MainScreenController {
         menuButtons.add(btnEmployees);
         menuButtons.add(btnSetting) ;
         menuButtons.add(btnMember) ;
+        menuButtons.add(btnManagementOrders);
+        menuButtons.add(btnWareHouse);
 //        menuButtons.add(btnLogOut) ;
 //        menuButtons.add(btnRolePermission) ;
 
@@ -150,9 +152,19 @@ public class MainScreenController {
     public void handleOrders() {
         System.out.println("Order Management button clicked");
         //        loadCenterContent("/com/example/javafxapp/view/admin/order/order.fxml");
-        loadCenterContent("/com/example/javafxapp/view/orders/orders.fxml");
-        // Thêm logic chuyển sang trang quản lý đơn hàng
+        // loadCenterContent("/com/example/javafxapp/view/orders/orders.fxml");
+        // // Thêm logic chuyển sang trang quản lý đơn hàng
+        handleAddOrder();
         setActiveButton(btnOrders);
+    }
+
+    // order .
+    @FXML
+    public void handleManagementOrders() {
+        System.out.println("Order Management button clicked") ;
+         loadCenterContent("/com/example/javafxapp/view/orders/orders.fxml");
+        // // Thêm logic chuyển sang trang quản lý đơn hàng .
+        setActiveButton(btnManagementOrders);
     }
 
     // role permission .
@@ -198,13 +210,20 @@ public class MainScreenController {
         setActiveButton(btnPermission);
     }
 
-    // category .
+    // member .
     @FXML
     private void handleMember() {
         System.out.println("Member button clicked");
         loadCenterContent("/com/example/javafxapp/view/admin/member/member.fxml");
-        // Thêm logic chuyển sang trang danh mục sản phẩm
+        // Thêm logic chuyển sang trang thành viên .
         setActiveButton(btnMember);
+    }
+    @FXML
+    private void handleWareHouse() {
+        System.out.println("WareHouse button clicked");
+        loadCenterContent("/com/example/javafxapp/view/admin/WareHouse/warehouse.fxml");
+        // Thêm logic chuyển sang trang quản lí kho .
+        setActiveButton(btnWareHouse);
     }
 
     @FXML

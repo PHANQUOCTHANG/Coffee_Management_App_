@@ -2,6 +2,7 @@ package com.example.javafxapp.Helpper;
 
 import com.example.javafxapp.Model.Category;
 import com.example.javafxapp.Model.Product;
+import com.example.javafxapp.Model.WareHouse;
 import com.example.javafxapp.Service.CategoryService;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -84,5 +85,73 @@ public class ExcelExporter {
         return fileName;
     }
 
+    public String exportWarehousesToExcel(List<WareHouse> warehouses) throws IOException {
+        // Tạo workbook và sheet
+        Workbook workbook = new XSSFWorkbook();
+        Sheet sheet = workbook.createSheet("Warehouses");
+
+        // Tạo hàng tiêu đề
+        Row headerRow = sheet.createRow(0);
+        String[] columns = {"STT", "Tên sản phẩm", "Danh mục", "Số lượng", "Trạng thái", "Đã xóa"};
+
+        // Style tiêu đề
+        CellStyle headerStyle = workbook.createCellStyle();
+        headerStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        Font headerFont = workbook.createFont();
+        headerFont.setBold(true);
+        headerStyle.setFont(headerFont);
+
+        // Tạo các ô tiêu đề
+        for (int i = 0; i < columns.length; i++) {
+            Cell cell = headerRow.createCell(i);
+            cell.setCellValue(columns[i]);
+            cell.setCellStyle(headerStyle);
+            sheet.setColumnWidth(i, 20 * 256);
+        }
+
+        // Ghi dữ liệu từng dòng
+        int rowNum = 1, stt = 1;
+        for (WareHouse wh : warehouses) {
+            Row row = sheet.createRow(rowNum++);
+            row.createCell(0).setCellValue(stt++);
+            row.createCell(1).setCellValue(wh.getProductWareHouse_name());
+
+
+            row.createCell(2).setCellValue(!wh.getCategory_name().equals("") ? wh.getCategory_name() : "Không xác định");
+
+            row.createCell(3).setCellValue(String.valueOf(wh.getQuantity()));
+            row.createCell(4).setCellValue(wh.isStatus() ? "Hết hàng" : "Còn hàng");
+            row.createCell(5).setCellValue(wh.isDeleted() ? "Đã xóa" : "Còn tồn tại");
+        }
+
+        // Tạo thư mục nếu chưa tồn tại
+        String exportDir = "exports";
+        File directory = new File(exportDir);
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+
+        // Tạo tên file có timestamp
+        String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
+        String fileName = exportDir + "/warehouses_" + timestamp + ".xlsx";
+        File file = new File(fileName);
+
+        // Ghi file
+        try (FileOutputStream fileOut = new FileOutputStream(file)) {
+            workbook.write(fileOut);
+        }
+        workbook.close();
+
+        // Mở file sau khi lưu
+        if (Desktop.isDesktopSupported()) {
+            Desktop desktop = Desktop.getDesktop();
+            if (desktop.isSupported(Desktop.Action.OPEN)) {
+                desktop.open(file);
+            }
+        }
+
+        return fileName;
+    }
 
 }

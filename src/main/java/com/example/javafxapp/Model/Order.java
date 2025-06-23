@@ -6,17 +6,47 @@ import java.sql.Timestamp;
 public class Order {
     private int id;
     private int userId;
-    private String staffName;
     private BigDecimal totalAmount;
     private String status;
+    private String paymentMethod;
     private Timestamp orderTime;
-    public Order(int id, int userId, String staffName, BigDecimal totalAmount, String status, Timestamp orderTime) {
+    private double discount;
+    private String memberPhone;
+
+    // dung cho fe
+    private String staffName;
+
+    public Order(int id, int userId, String staffName, BigDecimal totalAmount, String status, String paymentMethod, Timestamp orderTime) {
         this.id = id;
         this.userId = userId;
         this.staffName = staffName;
         this.totalAmount = totalAmount;
         this.status = status;
+        this.paymentMethod = paymentMethod;
         this.orderTime = orderTime;
+        this.discount = 0.0; // Default discount
+        this.memberPhone = ""; // Default member phone
+    }
+
+    public Order(int id, int userId, BigDecimal totalAmount, String status, String paymentMethod, Timestamp orderTime) {
+        this.id = id;
+        this.userId = userId;
+        this.totalAmount = totalAmount;
+        this.status = status;
+        this.paymentMethod = paymentMethod;
+        this.orderTime = orderTime;
+    }
+
+    public Order(int id, int userId, String staffName, BigDecimal totalAmount, String status, String paymentMethod, Timestamp orderTime, double discount, String memberPhone) {
+        this.id = id;
+        this.userId = userId;
+        this.staffName = staffName;
+        this.totalAmount = totalAmount;
+        this.status = status;
+        this.paymentMethod = paymentMethod;
+        this.orderTime = orderTime;
+        this.discount = discount;
+        this.memberPhone = memberPhone;
     }
     public int getId() {
         return id;
@@ -54,13 +84,35 @@ public class Order {
     public void setOrderTime(Timestamp orderTime) {
         this.orderTime = orderTime;
     }
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
     @Override
     public String toString() {
         return "Order [id=" + id + ", userId=" + userId + ", staffName=" + staffName + ", totalAmount=" + totalAmount
                 + ", status=" + status + ", orderTime=" + orderTime + "]";
     }
-    
-    
 
-    
+    public double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(double discount) {
+        this.discount = discount;
+    }
+
+    public String getMemberPhone() {
+        return memberPhone;
+    }
+
+    public void setMemberPhone(String memberPhone) {
+        this.memberPhone = memberPhone;
+    }
+
+
+
+
 }

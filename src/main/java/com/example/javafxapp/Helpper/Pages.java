@@ -23,6 +23,9 @@ import com.example.javafxapp.Controller.Admin.Role.AddRoleController;
 import com.example.javafxapp.Controller.Admin.Role.RoleController;
 import com.example.javafxapp.Controller.Admin.Role.RolePermissionController;
 import com.example.javafxapp.Controller.Admin.Role.UpdateRoleController;
+import com.example.javafxapp.Controller.Admin.WareHouse.AddWareHouseController;
+import com.example.javafxapp.Controller.Admin.WareHouse.UpdateWareHouseController;
+import com.example.javafxapp.Controller.Admin.WareHouse.WareHouseController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -444,7 +447,7 @@ public class Pages {
     }
 
     // Member
-    // chuyển qua trang thêm permission .
+    // chuyển qua trang member .
     public static void pageAddMember(MemberController memberController) {
         try {
             FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/View/Admin/Member/addMember.fxml"));
@@ -467,7 +470,7 @@ public class Pages {
         }
     }
 
-    // chuyển qua trang chi tiết permission .
+    // chuyển qua trang update member.
     public static void pageUpdateMember(int memberId ,MemberController memberController) {
         try {
             UpdateMemberController.member_id = memberId ;
@@ -477,6 +480,52 @@ public class Pages {
 
            UpdateMemberController updateMemberController = loader.getController() ;
            updateMemberController.setMemberController(memberController);
+
+            Stage stage = new Stage();
+            stage.getIcons().add(new Image(Pages.class.getResourceAsStream("/com/example/javafxapp/view/images/icons.jpg")));
+            stage.setScene(scene);
+            stage.setTitle("Coffee Shop Management");
+            stage.setResizable(false);
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            AlertInfo.showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể mở trang.");
+        }
+    }
+
+    //// WareHouse
+    public static void pageAddWareHouse(WareHouseController wareHouseController) {
+        try {
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/View/Admin/WareHouse/addWareHouse.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+
+            AddWareHouseController addWareHouseController = loader.getController() ;
+            addWareHouseController.setWarehouseController(wareHouseController);
+
+            Stage stage = new Stage();
+            stage.getIcons().add(new Image(Pages.class.getResourceAsStream("/com/example/javafxapp/view/images/icons.jpg")));
+            stage.setScene(scene);
+            stage.setTitle("Coffee Shop Management");
+            stage.setResizable(false);
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            AlertInfo.showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể mở trang.");
+        }
+    }
+
+    public static void pageUpdateWareHouse(int wareHouseId ,WareHouseController wareHouseController) {
+        try {
+            UpdateWareHouseController.warehouse_id = wareHouseId ;
+            FXMLLoader loader = new FXMLLoader(Pages.class.getResource("/com/example/javafxapp/View/Admin/WareHouse/updateWareHouse.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+
+            UpdateWareHouseController updateWareHouseController = loader.getController() ;
+            updateWareHouseController.setWareHouseController(wareHouseController);
 
             Stage stage = new Stage();
             stage.getIcons().add(new Image(Pages.class.getResourceAsStream("/com/example/javafxapp/view/images/icons.jpg")));

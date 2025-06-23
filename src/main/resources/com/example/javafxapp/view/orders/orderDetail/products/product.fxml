@@ -5,32 +5,42 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="214.0" minHeight="-Infinity" minWidth="-Infinity" prefWidth="214.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxapp.Controller.Admin.Order.ProductOrderDetailItemController">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="214.0" minHeight="-Infinity" minWidth="-Infinity" prefWidth="214.0" style="-fx-border-width: 1px; -fx-border-radius: 7px; -fx-border-color: black;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxapp.Controller.Admin.Order.ProductOrderDetailItemController">
    <children>
-      <ImageView fx:id="img" fitHeight="214.0" fitWidth="214.0" pickOnBounds="true">
+      <ImageView fx:id="img" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true">
          <image>
-            <Image url="@../../images/milkcoffee.png" />
-         </image></ImageView>
-      <Label fx:id="nameLabel" prefHeight="42.0" prefWidth="234.0" style="-fx-text-fill: #070707;" text="Cà phê sữa cappuchino" wrapText="true">
-         <font>
-            <Font name="System Bold" size="16.0" />
-         </font>
-      </Label>
-      <Label fx:id="priceLabel" layoutX="10.0" layoutY="224.0" prefHeight="42.0" prefWidth="234.0" style="-fx-text-fill: #070707;" text="25.000 VND" wrapText="true">
-         <font>
-            <Font name="Bell MT" size="22.0" />
-         </font>
-      </Label>
-      <JFXButton fx:id="addBtn" maxHeight="50.0" onAction="#addProduct" prefHeight="50.0" prefWidth="214.0" style="-fx-border-width: 2px; -fx-border-radius: 10px; -fx-border-color: black;" text="Thêm vào hoá đơn">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </JFXButton>
+            <Image url="@../../../images/blendice-img.jpg" />
+         </image>
+      </ImageView>
+      <HBox alignment="CENTER_LEFT" maxWidth="200.0" prefHeight="100.0" prefWidth="200.0" style="-fx-border-width: 1px 0 0 0; -fx-border-color: grey;">
+         <children>
+            <VBox prefHeight="100.0" prefWidth="133.0">
+               <children>
+                  <Label fx:id="nameLabel" prefHeight="64.0" prefWidth="121.0" style="-fx-text-fill: #070707;" text="Cà phê sữa cappuchino" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="priceLabel" prefHeight="42.0" prefWidth="234.0" style="-fx-text-fill: #070707;" text="25.000 đ" wrapText="true">
+                     <font>
+                        <Font name="Bell MT" size="22.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <JFXButton fx:id="addBtn" ellipsisString="" maxHeight="73.0" onAction="#addProduct" prefHeight="73.0" prefWidth="80.0" style="-fx-border-width: 2px; -fx-border-radius: 37.5px; -fx-border-color: black; -fx-background-color: #9BC9FF; -fx-background-radius: 37.5px;" text="+">
+               <font>
+                  <Font name="System Bold" size="32.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </HBox>
    </children>
    <padding>
-      <Insets bottom="10.0" />
+      <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
    </padding>
 </VBox>

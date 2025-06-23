@@ -37,3 +37,7 @@ build/
 ### Mac OS ###
 .DS_Store
 /bin/
+
+# Bỏ qua file cấu hình database
+database.properties
+

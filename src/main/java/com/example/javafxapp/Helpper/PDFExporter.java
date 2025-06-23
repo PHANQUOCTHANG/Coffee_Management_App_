@@ -9,7 +9,9 @@ import java.util.List;
 import java.awt.Desktop;
 
 import com.example.javafxapp.Model.OrderDetail;
+import com.example.javafxapp.Model.VnPayRequest;
 import com.example.javafxapp.Service.ProductService;
+import com.example.javafxapp.Service.VNPayService;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
 
@@ -92,30 +94,63 @@ public class PDFExporter {
             document.add(Chunk.NEWLINE);
             document.add(Chunk.NEWLINE);
 
-            // Footer
-            Paragraph thankYou = new Paragraph("Thank you for choosing My Coffee Shop!", regularFont);
-            thankYou.setAlignment(Element.ALIGN_CENTER);
-            document.add(thankYou);
+            // Tạo VNPay QR Code với thông tin người nhận Agribank
+            try {
+                // Tạo VNPay request đơn giản
+                // Tạo unique order ID
+                String uniqueOrderId = "ORDER_" + oi + "_" + System.currentTimeMillis();
+                VnPayRequest vnPayRequest = new VnPayRequest();
+                vnPayRequest.setOrderId(uniqueOrderId); // ✅ Unique mỗi lần
+                vnPayRequest.setAmount(Math.round(total));
+                vnPayRequest.setOrderInfo("Thanh toan don hang " + oi);
 
-            // Mã QR thanh toán qua Momo
-            String momoPhone = "0987654321"; // số điện thoại nhận tiền Momo
-            String momoLink = "https://nhantien.momo.vn/" + momoPhone;
+                // Tạo VNPay payment URL
+                VNPayService vnPayService = new VNPayService();
+                String vnPayUrl = vnPayService.createPaymentUrl(vnPayRequest);
+                System.out.println("VNPay URL: " + vnPayUrl);
 
-            // Bạn cũng có thể thêm nội dung thanh toán vào QR nếu muốn
-            String qrText = momoLink + "\nThanh toán đơn hàng #" + oi + "\nSố tiền: " + String.format("%.0f", total) + " đ";
+                // Tạo mã QR từ VNPay URL
+                BarcodeQRCode qrCode = new BarcodeQRCode(vnPayUrl, 300, 300, null);
+                Image qrImage = qrCode.getImage();
+                qrImage.setAlignment(Element.ALIGN_CENTER);
+                qrImage.scaleAbsolute(200, 200);
 
-            // Tạo mã QR
-            BarcodeQRCode qrCode = new BarcodeQRCode(qrText, 150, 150, null);
-            Image qrImage = qrCode.getImage();
-            qrImage.setAlignment(Element.ALIGN_CENTER); // canh giữa
-            qrImage.scaleAbsolute(120, 120); // kích thước QR
+                // Thêm ghi chú dưới QR
+                Paragraph qrNote = new Paragraph("Quét mã để thanh toán qua VNPay", regularFont);
+                qrNote.setAlignment(Element.ALIGN_CENTER);
+                qrNote.setSpacingAfter(5);
 
-            // Thêm ghi chú dưới QR
-            Paragraph qrNote = new Paragraph("Quét mã để thanh toán qua Momo", regularFont);
-            qrNote.setAlignment(Element.ALIGN_CENTER);
+                // Thông tin thanh toán đơn giản
+                Paragraph paymentInfo = new Paragraph(
+                    "Số tiền: " + String.format("%.0f", total) + " đ\n" +
+                    "Mã đơn hàng: ORDER_" + oi, 
+                    new Font(baseFont, 10, Font.NORMAL, BaseColor.GRAY)
+                );
+                paymentInfo.setAlignment(Element.ALIGN_CENTER);
 
-            document.add(qrImage);
-            document.add(qrNote);
+                document.add(qrImage);
+                document.add(qrNote);
+                document.add(paymentInfo);
+
+            } catch (Exception e) {
+                // Fallback nếu không tạo được VNPay QR
+                System.err.println("Error creating VNPay QR code: " + e.getMessage());
+                
+                // Tạo QR đơn giản với thông tin cơ bản
+                String fallbackQR = "Thanh toan don hang #" + oi + "\n" +
+                                "So tien: " + String.format("%.0f", total) + " VND\n" +
+                                "My Coffee Shop";
+                BarcodeQRCode qrCode = new BarcodeQRCode(fallbackQR, 300, 300, null);
+                Image qrImage = qrCode.getImage();
+                qrImage.setAlignment(Element.ALIGN_CENTER);
+                qrImage.scaleAbsolute(200, 200);
+
+                Paragraph qrNote = new Paragraph("Thông tin thanh toán", regularFont);
+                qrNote.setAlignment(Element.ALIGN_CENTER);
+
+                document.add(qrImage);
+                document.add(qrNote);
+            }
 
             document.close();
             if (Desktop.isDesktopSupported()) {
@@ -131,6 +166,8 @@ public class PDFExporter {
             e.printStackTrace();
         }
     }
+
+    
 
     private static void addCell(PdfPTable table, String text, Font font) {
         PdfPCell cell = new PdfPCell(new Phrase(text, font));

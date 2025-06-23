@@ -4,6 +4,7 @@ import com.example.javafxapp.Helpper.AlertInfo;
 import com.example.javafxapp.Helpper.Pages;
 import com.example.javafxapp.Helpper.UploadImage;
 import com.example.javafxapp.Model.*;
+import com.example.javafxapp.Server.VNPayCallbackServer;
 import com.example.javafxapp.Service.*;
 import com.example.javafxapp.Utils.ListProductOrderUser;
 import com.example.javafxapp.Utils.SaveAccountUtils;
@@ -91,6 +92,7 @@ public class CheckoutController implements Initializable {
     private InformationUserService informationUserService = new InformationUserService();
     private OrderUserService orderUserService = new OrderUserService();
     private OrderUser_ProductService orderUserProductService = new OrderUser_ProductService();
+    private VNPayCallbackServer vnPayCallbackServer = VNPayCallbackServer.getInstance();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -335,7 +337,9 @@ public class CheckoutController implements Initializable {
     @FXML
     public void handlePaymentByVnPay(VnPayRequest vnPayRequest) {
         try {
-            vnPayService.startVNPayResultServer();
+            // vnPayService.startVNPayResultServer();
+            vnPayCallbackServer.startServer(); // Khởi động server nếu chưa chạy
+
             String paymentUrl = vnPayService.createPaymentUrl(vnPayRequest);
             Desktop.getDesktop().browse(new URI(paymentUrl));
         } catch (Exception e) {

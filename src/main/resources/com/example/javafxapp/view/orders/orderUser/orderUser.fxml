@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXCheckBox?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
@@ -92,86 +90,22 @@
                         <Insets top="20.0" />
                     </VBox.margin>
                 </HBox>
-            <HBox alignment="CENTER_LEFT" maxWidth="1247.0" minHeight="55.0" minWidth="1200.0" prefHeight="55.0" prefWidth="1247.0">
+            <HBox alignment="CENTER_LEFT" maxWidth="1247.0" minHeight="55.0" minWidth="1200.0" prefHeight="450.0" prefWidth="1245.0">
                <children>
-                  <HBox alignment="CENTER">
-                     <children>
-                        <JFXCheckBox text="." />
-                        <Label alignment="CENTER" maxWidth="180.0" minWidth="49.0" prefHeight="41.0" prefWidth="152.0" text="Mã đơn hàng">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <Label alignment="CENTER" maxWidth="210.0" minWidth="112.0" prefHeight="45.0" prefWidth="220.0" text="Khách hàng">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </Label>
-                  <Label alignment="CENTER" layoutX="945.0" layoutY="17.0" maxWidth="250.0" minWidth="200.0" prefHeight="45.0" prefWidth="270.0" text="Ngày đặt">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </Label>
-                  <Label alignment="CENTER" layoutX="796.0" layoutY="17.0" maxWidth="175.0" minWidth="175.0" prefHeight="37.0" prefWidth="210.0" text="Giá trị">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </Label>
-                  <HBox alignment="CENTER" maxWidth="200.0" minWidth="200.0" prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <HBox alignment="CENTER" minWidth="150.0" prefHeight="100.0" prefWidth="200.0">
-                           <children>
-                              <Label text="Trạng thái">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </HBox>
-                     </children>
-                     <padding>
-                        <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-                     </padding>
-                  </HBox>
-                  <Label alignment="CENTER" layoutX="920.0" layoutY="17.0" maxWidth="240.0" minWidth="170.0" prefHeight="41.0" prefWidth="225.0" text="Hành động">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </Label>
+                  <TableView prefHeight="449.0" prefWidth="1257.0">
+                    <columns>
+                        <TableColumn prefWidth="60.0" text="C1" />
+                      <TableColumn prefWidth="120.0" sortType="DESCENDING" text="Mã đơn hàng" />
+                      <TableColumn minWidth="0.0" prefWidth="240.0" text="Khách hàng" />
+                        <TableColumn prefWidth="215.0" text="Ngày đặt" />
+                        <TableColumn minWidth="0.0" prefWidth="189.0" text="Tổng giá trị" />
+                        <TableColumn prefWidth="145.0" text="Trạng thái" />
+                        <TableColumn minWidth="2.0" prefWidth="274.0" text="Hành động" />
+                    </columns>
+                  </TableView>
                </children>
             </HBox>
-                <ScrollPane fx:id="scroll" maxHeight="709.0" maxWidth="1245.0" minHeight="320.0" prefHeight="709.0" prefWidth="1035.0">
-                    <content>
-                        <GridPane fx:id="grid" prefHeight="23.0" prefWidth="73.0" styleClass="grid-cell">
-                            <columnConstraints>
-                                <ColumnConstraints minWidth="150" prefWidth="150" /> <!-- Hành động -->
-                            </columnConstraints>
-                        </GridPane>
-                    </content>
-                </ScrollPane>
-                <HBox alignment="CENTER_LEFT" maxHeight="258.0" maxWidth="1245.0" prefHeight="23.0" prefWidth="1245.0" style="-fx-border-color: grey; -fx-border-width: 0 0 2px;">
-                    <padding>
-                        <Insets left="20.0" />
-                    </padding>
-               <children>
-                  <HBox prefHeight="100.0" prefWidth="200.0" />
-               </children>
-                </HBox>
-                <HBox alignment="CENTER" maxHeight="51.0" maxWidth="1245.0" prefHeight="100.0" prefWidth="1245.0" style="-fx-border-color: grey; -fx-border-width: 0 0 2px 0;">
+                <HBox alignment="CENTER" maxHeight="51.0" maxWidth="1245.0" prefHeight="40.0" prefWidth="1245.0" style="-fx-border-color: grey; -fx-border-width: 0 0 2px 0;">
                     <padding>
                         <Insets left="20.0" right="20.0" />
                     </padding>
@@ -181,7 +115,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </JFXButton>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <HBox prefHeight="23.0" prefWidth="200.0">
                      <children>
                         <Label prefHeight="37.0" prefWidth="54.0" text="Page" textFill="#945e43" />
                         <Label fx:id="firstPage" layoutX="10.0" layoutY="10.0" prefHeight="37.0" prefWidth="54.0" text="Page" textFill="#945e43" />

@@ -1,81 +1,135 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox alignment="CENTER_LEFT" maxWidth="1200.0" minHeight="55.0" minWidth="1245.0" prefHeight="41.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxapp.Controller.Admin.Order.OrderItemController">
+<HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefHeight="65.0" style="-fx-background-color: #ffffff; -fx-border-color: #e0e0e0; -fx-border-width: 0 0 1 0; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 2, 0, 0, 1);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxapp.Controller.Admin.Order.OrderItemController">
    <children>
-      <Label fx:id="id" alignment="CENTER" maxWidth="180.0" minWidth="50.0" prefHeight="41.0" prefWidth="50.0" text="ID ">
+      <!-- Checkbox với styling -->
+      <JFXCheckBox fx:id="id" onAction="#handleTick" prefHeight="41.0" prefWidth="60.0" style="-fx-text-fill: #2c3e50;" text="ID">
          <font>
-            <Font size="16.0" />
-         </font></Label>
-      <Label fx:id="staffName" alignment="CENTER" maxWidth="200.0" minWidth="200.0" prefHeight="41.0" prefWidth="150.0" text="Tên nhân viên">
-         <font>
-            <Font size="16.0" />
+            <Font name="System Bold" size="14.0" />
          </font>
-         <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </padding>
-      </Label>
-      <Label fx:id="name" alignment="CENTER" layoutX="945.0" layoutY="17.0" maxWidth="250.0" minWidth="250.0" prefHeight="41.0" prefWidth="250.0" text="Tên sản phẩm">
-         <font>
-            <Font size="16.0" />
-         </font>
-         <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </padding>
-      </Label>
-      <Label fx:id="total" alignment="CENTER" layoutX="796.0" layoutY="17.0" maxWidth="175.0" minWidth="175.0" prefHeight="37.0" prefWidth="210.0" text="Tổng giá">
-         <font>
-            <Font size="16.0" />
-         </font>
-         <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </padding>
-      </Label>
-      <HBox alignment="CENTER" maxWidth="200.0" minWidth="200.0" prefHeight="100.0" prefWidth="200.0">
+         <HBox.margin>
+            <Insets left="10.0" right="5.0" />
+         </HBox.margin>
+      </JFXCheckBox>
+
+      <!-- Tên nhân viên -->
+      <VBox alignment="CENTER_LEFT" maxWidth="200.0" minWidth="200.0" prefWidth="200.0">
          <children>
-            <HBox alignment="CENTER" minWidth="150.0" prefHeight="100.0" prefWidth="200.0">
+            <Label fx:id="staffName" alignment="CENTER_LEFT" style="-fx-text-fill: #2c3e50; -fx-font-weight: bold;" text="Tên nhân viên">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+         </children>
+         <padding>
+            <Insets left="10.0" right="10.0" />
+         </padding>
+      </VBox>
+
+      <!-- Separator -->
+      <Separator orientation="VERTICAL" prefHeight="45.0" style="-fx-background-color: #ecf0f1;" />
+
+      <!-- Thông tin đơn hàng (có thể là mã đơn hoặc mô tả) -->
+      <VBox alignment="CENTER" maxWidth="250.0" minWidth="250.0" prefWidth="250.0">
+         <children>
+            <Label fx:id="paymentMethodLabel" alignment="CENTER_LEFT" style="-fx-text-fill: #34495e;">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+         <padding>
+            <Insets left="15.0" right="10.0" />
+         </padding>
+      </VBox>
+
+      <!-- Separator -->
+      <Separator orientation="VERTICAL" prefHeight="45.0" style="-fx-background-color: #ecf0f1;" />
+
+      <!-- Tổng giá -->
+      <VBox alignment="CENTER" maxWidth="175.0" minWidth="175.0" prefWidth="175.0">
+         <children>
+            <Label fx:id="total" alignment="CENTER" style="-fx-text-fill: #27ae60; -fx-font-weight: bold;" text="Tổng giá">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+         </children>
+         <padding>
+            <Insets left="10.0" right="10.0" />
+         </padding>
+      </VBox>
+
+      <!-- Separator -->
+      <Separator orientation="VERTICAL" prefHeight="45.0" style="-fx-background-color: #ecf0f1;" />
+
+      <!-- Trạng thái -->
+      <VBox alignment="CENTER" maxWidth="200.0" minWidth="200.0" prefWidth="200.0">
+         <children>
+            <HBox alignment="CENTER" style="-fx-background-color: #ecf0f1; -fx-background-radius: 15; -fx-padding: 5 10 5 10;">
                <children>
-                  <Label fx:id="status" text="status">
+                  <Label fx:id="status" style="-fx-text-fill: #7f8c8d; -fx-font-weight: bold;" text="Trạng thái">
                      <font>
-                        <Font size="16.0" />
+                        <Font size="13.0" />
                      </font>
                   </Label>
                </children>
             </HBox>
          </children>
          <padding>
-            <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+            <Insets left="10.0" right="10.0" />
          </padding>
-      </HBox>
-      <Label fx:id="time" alignment="CENTER" layoutX="673.0" layoutY="10.0" maxWidth="200.0" minWidth="200.0" prefHeight="41.0" prefWidth="225.0" text="Thời gian tạo">
-         <font>
-            <Font size="16.0" />
-         </font>
-         <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </padding>
-      </Label>
-      <HBox alignment="CENTER" maxWidth="200.0" prefHeight="100.0" prefWidth="200.0">
+      </VBox>
+
+      <!-- Separator -->
+      <Separator orientation="VERTICAL" prefHeight="45.0" style="-fx-background-color: #ecf0f1;" />
+
+      <!-- Thời gian -->
+      <VBox alignment="CENTER_LEFT" maxWidth="200.0" minWidth="200.0" prefWidth="200.0">
          <children>
-            <JFXButton fx:id="edit" ellipsisString="" maxHeight="45.0" onAction="#edit" prefHeight="45.0" prefWidth="55.0" text="Button">
+            <Label fx:id="time" alignment="CENTER_LEFT" style="-fx-text-fill: #7f8c8d;" text="Thời gian tạo">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+         </children>
+         <padding>
+            <Insets left="15.0" right="10.0" />
+         </padding>
+      </VBox>
+
+      <!-- Separator -->
+      <Separator orientation="VERTICAL" prefHeight="45.0" style="-fx-background-color: #ecf0f1;" />
+
+      <!-- Nút hành động -->
+      <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" minWidth="130.0" prefWidth="130.0" spacing="5.0" HBox.hgrow="ALWAYS">
+         <children>
+            <!-- Nút Edit -->
+            <JFXButton fx:id="edit" onAction="#edit" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: #3498db; -fx-border-radius: 20; -fx-cursor: hand;" text="">
                <graphic>
-                  <ImageView fitHeight="41.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../Images/edit.png" />
                      </image>
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="delete" ellipsisString="" layoutX="67.0" layoutY="15.0" maxHeight="45.0" onAction="#del" prefHeight="45.0" prefWidth="55.0" text="Button">
+
+            <!-- Nút Delete -->
+            <JFXButton fx:id="delete" onAction="#del" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: #e74c3c; -fx-border-radius: 20; -fx-cursor: hand;" text="">
                <graphic>
-                  <ImageView fitHeight="41.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../Images/bin.png" />
                      </image>
@@ -84,8 +138,11 @@
             </JFXButton>
          </children>
          <padding>
-            <Insets bottom="5.0" top="5.0" />
+            <Insets left="10.0" right="15.0" />
          </padding>
       </HBox>
    </children>
+   <padding>
+      <Insets bottom="5.0" top="5.0" />
+   </padding>
 </HBox>

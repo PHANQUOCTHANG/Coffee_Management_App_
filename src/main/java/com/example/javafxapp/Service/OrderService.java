@@ -18,16 +18,16 @@ public class OrderService {
     }
 
     // tra ve orderId
-    public int addOrder(int userId, BigDecimal totalAmount){
-        return or.add(userId, totalAmount);
+    public int addOrder(int userId, BigDecimal totalAmount , double discount , String member_phone){
+        return or.add(userId, totalAmount , discount, member_phone);
     }
 
     public void deleteOrder(int id){
         or.delete(id);
     }
 
-    public void updateOrder(BigDecimal totalAmount, String status, int id){
-        or.update(totalAmount, status, id);
+    public void updateOrder(BigDecimal totalAmount, String status, int id  , double discount , String member_phone){
+        or.update(totalAmount, status, id , discount, member_phone);
     }
 
     public List<Order> getOrderByStatus(String s) {
@@ -43,5 +43,17 @@ public class OrderService {
     }
     public List<Order> getOrdersByDateRange(LocalDate from, LocalDate to) {
         return or.getOrdersByDateRange(from , to) ;
+    }
+
+    public Order findOrderById(int id){
+        return or.findOrderById(id);
+    }
+
+    public List<Order> getOrder(String roleCheckStr, String roleStr, String fromPriceStr, String toPriceStr, String statusCheckStr, List<String> selectedStatuses, LocalDate fromDateStr, LocalDate toDateStr) {
+        return or.getOrder(roleCheckStr, roleStr, fromPriceStr, toPriceStr, statusCheckStr, selectedStatuses, fromDateStr, toDateStr);
+    }
+
+    public boolean updateOrderPayment(int orderId, String paymentMethod) {
+        return or.updateOrderPayment(orderId, paymentMethod);
     }
 }

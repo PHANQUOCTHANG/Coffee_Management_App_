@@ -99,6 +99,10 @@ public class AddProductController {
     public void addProductPost() {
         try {
             String product_name = productNameField.getText().trim();
+            if (productService.findProductByName(product_name) != null) {
+                AlertInfo.showAlert(Alert.AlertType.ERROR, "Lỗi" , "Tên sản phẩm đã tồn tại");
+                return  ;
+            }
             if (!ValidationProduct.validationProductName(product_name)) return;
             double price = ValidationProduct.validationPrice(priceField.getText().trim());
             if (price == -1) return;

@@ -37,7 +37,7 @@ public class ProductOrderDetailItemController {
         img.setFitHeight(214);
         img.setFitWidth(214);
         nameLabel.setText(p.getProduct_name());
-        priceLabel.setText("" + p.getPrice() + "VND");
+        priceLabel.setText("" + p.getPrice() + " đ");
     }
 
     public Product getProduct(){
