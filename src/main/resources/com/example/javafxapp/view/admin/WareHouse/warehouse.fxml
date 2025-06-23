@@ -76,8 +76,8 @@
                                         </HBox>
                                         <HBox spacing="15.0">
                                             <children>
-                                                <ComboBox fx:id="categoryComboBox" onAction="#filterAction" prefHeight="42.0" prefWidth="200.0" promptText="Danh mục" styleClass="filter-combo" />
-                                                <ComboBox fx:id="statusComboBox" onAction="#filterAction" prefHeight="42.0" prefWidth="200.0" promptText="Trạng thái" styleClass="filter-combo" />
+                                                <ComboBox fx:id="categoryComboBox" onAction="#filterAction" prefHeight="42.0" prefWidth="200.0" promptText="Danh mục" styleClass="filter-combo" value="Danh mục" />
+                                                <ComboBox fx:id="statusComboBox" onAction="#filterAction" prefHeight="42.0" prefWidth="200.0" promptText="Trạng thái" styleClass="filter-combo" value="Trạng thái"  />
                                                 <HBox alignment="CENTER_LEFT" prefHeight="42.0" prefWidth="450.0" styleClass="search-box">
                                                     <children>
                                                         <ImageView fitHeight="20.0" fitWidth="20.0" preserveRatio="true">

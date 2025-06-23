@@ -32,6 +32,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.File;
 import java.io.FileInputStream;
 import java.net.URL;
+import java.text.Collator;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -175,9 +176,10 @@ public class WareHouseController implements Initializable {
     }
 
     private void setupComboBoxes() {
-        categoryComboBox.getItems().addAll("Nuyên liệu" , "Vật dụng")  ;
+        categoryComboBox.getItems().addAll("Nguyên liệu" , "Vật dụng")  ;
         statusComboBox.getItems().addAll("Tất cả", "Còn hàng", "Hết hàng");
-        statusComboBox.setValue("Tất cả");
+        categoryComboBox.setValue("Danh mục");
+        statusComboBox.setValue("Trạng thái");
 
         sortComboBox.getItems().addAll("Mặc định", "Tên: A-Z", "Tên: Z-A", "Số lượng tăng dần", "Số lượng giảm dần");
         sortComboBox.setValue("Mặc định");
@@ -195,25 +197,47 @@ public class WareHouseController implements Initializable {
     @FXML
     public void searchWareHouse() {applyFilters();}
 
+    // áp dụng lọc .
     private void applyFilters() {
+        String categoryFilter = categoryComboBox.getValue();
+        String statusFilter = statusComboBox.getValue();
+        String searchText = searchField.getText().trim();
+
+        // Xóa hết dữ liệu cũ
         filteredList.clear();
-        String keyword = searchField.getText().toLowerCase();
-        String status = statusComboBox.getValue();
+        warehouseTable.getItems().clear();
+        warehouseTable.refresh();
 
-        for (WareHouse wh : warehouseList) {
-            boolean matchStatus = status.equals("Tất cả") ||
-                    (status.equals("Còn hàng") && wh.getQuantity() > 0) ||
-                    (status.equals("Hết hàng") && wh.getQuantity() <= 0);
+        // Khởi tạo Collator cho tiếng Việt
+        Collator collator = Collator.getInstance(new Locale("vi", "VN"));
+        collator.setStrength(Collator.PRIMARY); // Bỏ qua phân biệt hoa thường và dấu .
 
-            boolean matchKeyword = wh.getProductWareHouse_name().toLowerCase().contains(keyword);
+        // nếu có dữ liệu tìm kiếm thì lấy danh sách các sản phẩm theo keyworld đó để duyệt các filter khác ,
+        // còn nếu không có dữ liệu tìm kiếm thì lấy theo danh sách tất cả sản phẩm từ cơ sở dữ liệu .
+        List<WareHouse> list = (searchText.isEmpty())?warehouseList:wareHouseService.getAllWareHouses() ;
 
-            if (matchStatus && matchKeyword) {
-                filteredList.add(wh);
+        // Lọc theo tất cả các điều kiện
+        for (WareHouse wareHouse : list) {
+            boolean matchCategory = categoryFilter.equals("Danh mục") ||
+                    (wareHouse.getCategory_name().equals(categoryFilter));
+
+            boolean matchStatus = statusFilter.equals("Trạng thái") ||
+                    (statusFilter.equals("Còn hàng") && wareHouse.getQuantity() > 0) ||
+                    (statusFilter.equals("Hết hàng") && wareHouse.getQuantity() <= 0);
+
+            if (matchCategory && matchStatus) {
+                filteredList.add(wareHouse);
             }
         }
 
+        // Áp dụng sắp xếp nếu có
         sortData();
+
+        // Cập nhật phân trang
         setupPagination();
+
+        // Cập nhật trạng thái hiển thị
+        updateDisplayStatus();
     }
 
     private void sortData() {
@@ -331,7 +355,8 @@ public class WareHouseController implements Initializable {
     @FXML
     private void resetFilters() {
         searchField.clear();
-        statusComboBox.setValue("Tất cả");
+        categoryComboBox.setValue("Danh mục");
+        statusComboBox.setValue("Trạng thái");
         sortComboBox.setValue("Mặc định");
         loadWarehouses();
     }
