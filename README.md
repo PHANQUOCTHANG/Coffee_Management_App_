@@ -1,6 +1,6 @@
                                                                   PHÂN CHIA CÔNG VIỆC : 
                                                                   
-![image](https://github.com/user-attachments/assets/b9b55e5a-7d82-4d0a-b26e-0f6600928944)
+                            ![image](https://github.com/user-attachments/assets/b9b55e5a-7d82-4d0a-b26e-0f6600928944)
 
 
 
